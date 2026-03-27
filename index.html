@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Panel Central Piero</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e8a838">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041888.png">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        h1 {
+            font-size: 1.6em;
+            margin: 40px 0;
+            letter-spacing: -0.5px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .menu-btn {
+            background: white;
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #334155;
+            font-weight: 600;
+            font-size: 1em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, shadow 0.2s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .menu-btn:active {
+            transform: scale(0.95);
+            background-color: #fcfcfc;
+        }
+
+        .icon {
+            font-size: 2.2em;
+        }
+
+        /* Estilo específico para destacar botones */
+        .btn-compras { border-bottom: 4px solid #e8a838; }
+        .btn-plan { border-bottom: 4px solid #52c974; }
+        .btn-tarjetas { border-bottom: 4px solid #3b82f6; }
+
+        .footer-note {
+            margin-top: auto;
+            padding: 30px 0;
+            font-size: 0.8em;
+            color: #94a3b8;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Panel de Control Central</h1>
+
+    <div class="menu-grid">
+        <a href="compras.html" class="menu-btn btn-compras">
+            <span class="icon">🛒</span>
+            <span>Compras</span>
+        </a>
+        
+        <a href="plan.html" class="menu-btn btn-plan">
+            <span class="icon">📋</span>
+            <span>Mis Planes</span>
+        </a>
+        
+        <a href="tarjetas.html" class="menu-btn btn-tarjetas">
+            <span class="icon">💳</span>
+            <span>Finanzas</span>
+        </a>
+
+        <a href="#" class="menu-btn" onclick="alert('Próximamente: Módulo de Topografía')">
+            <span class="icon">🏗️</span>
+            <span>Topografía</span>
+        </a>
+    </div>
+
+    <div class="footer-note">
+        Piero — Gestión Personal 2026<br>
+        <small id="status-offline" style="display:none; color: #e11d48;">Estás trabajando sin conexión (Modo Offline)</small>
+    </div>
+
+    <script>
+        // Registro del Service Worker para funcionamiento Offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registrado con éxito'))
+                    .catch(err => console.log('Error al registrar SW', err));
+            });
+        }
+
+        // Detectar si el usuario está offline
+        window.addEventListener('offline', () => {
+            document.getElementById('status-offline').style.display = 'block';
+        });
+        window.addEventListener('online', () => {
+            document.getElementById('status-offline').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

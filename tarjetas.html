@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Financiero Premium</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 30px;
+        }
+        .actions-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .btn-add {
+            background-color: #111827;
+            color: white;
+            padding: 12px 24px;
+            font-size: 0.95em;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-add:hover { 
+            background-color: #374151; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+        }
+        
+        /* Estilo para cuando la tarjeta está pagada */
+        .card.is-paid {
+            opacity: 0.6;
+            transform: none !important;
+            box-shadow: none !important;
+            border: 1px solid #10b981;
+        }
+        .card.is-paid .card-header {
+            filter: grayscale(40%);
+        }
+
+        .card-header {
+            padding: 20px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.15em;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .chip {
+            width: 35px;
+            height: 24px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%);
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.5);
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .chip::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 1px; background: rgba(255,255,255,0.4);
+        }
+
+        .card-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .card-header span.subtitle {
+            font-size: 0.75em;
+            font-weight: 400;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-top: 4px;
+        }
+        
+        .color-naranja { background: linear-gradient(135deg, #FF7000, #e65c00); color: white;}
+        .color-azul-bcp { background: linear-gradient(135deg, #002A8D, #001f66); color: white;}
+        .color-verde { background: linear-gradient(135deg, #8CC63F, #7ab033); color: white;}
+        .color-negro { background: linear-gradient(135deg, #2c3e50, #1a252f); color: white;}
+        .color-azul-bbva { background: linear-gradient(135deg, #072146, #041226); color: white;}
+        .color-morado { background: linear-gradient(135deg, #6a1b9a, #4a148c); color: white;}
+        .color-gris { background: linear-gradient(135deg, #7f8c8d, #636e72); color: white;}
+
+        .card-body {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .card-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #edf2f7;
+            padding-bottom: 8px;
+            font-size: 0.9em;
+        }
+        .card-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .label { font-weight: 500; color: #718096; }
+        .value { text-align: right; font-weight: 600; color: #2d3748; }
+        .highlight { color: #e53e3e; font-weight: 700; background: #fff5f5; padding: 2px 8px; border-radius: 4px; }
+
+        .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background-color: #f8fafc;
+            border-top: 1px solid #edf2f7;
+        }
+        .btn-edit, .btn-delete { 
+            background-color: white; border: 1px solid #cbd5e0; padding: 6px 12px; font-size: 0.8em; font-weight: 600; color: #4a5568; flex-grow: 1; text-align: center;
+        }
+        .btn-delete { color: #e53e3e; border-color: #fed7d7; background-color: #fff5f5; }
+        .btn-pay {
+            background-color: #10b981; color: white; border: none; padding: 8px 12px; font-size: 0.85em; font-weight: 600; flex-basis: 100%; margin-bottom: 5px;
+        }
+        .btn-pay.revert {
+            background-color: #94a3b8;
+        }
+
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px);
+            justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal {
+            background: white; padding: 30px; border-radius: 16px; width: 90%; max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25); animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .modal h2 { margin-top: 0; color: #1e293b; font-size: 1.4em; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;}
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.8em; font-weight: 600; margin-bottom: 6px; color: #64748b;}
+        .form-group input, .form-group select {
+            width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-family: inherit; font-size: 0.9em;
+        }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px; }
+        .btn-save { background-color: #3b82f6; color: white; padding: 10px 20px; font-weight: 600;}
+        .btn-cancel { background-color: #e2e8f0; color: #475569; padding: 10px 20px; font-weight: 600;}
+
+        .alerta-pago { border: 2px solid #ef4444; }
+        .badge-alerta {
+            background-color: #ef4444; color: white; font-size: 0.6em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 700; animation: pulse 2s infinite;
+        }
+        .badge-ideal {
+            background-color: #3b82f6; color: white; font-size: 0.65em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 700; display: inline-block; margin-top: 10px;
+        }
+        .badge-paid-stamp {
+            background-color: #10b981; color: white; font-size: 0.7em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 700; border: 2px solid white; display: inline-block; margin-top: 10px;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Panel Financiero</h1>
+    <div class="actions-header">
+        <button class="btn-add" onclick="abrirModal()">+ Agregar Tarjeta</button>
+    </div>
+
+    <div class="container" id="tarjetas-container"></div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h2 id="modal-title">Nueva Tarjeta</h2>
+            <input type="hidden" id="card-id">
+            <div class="form-group"><label>Banco y Nombre</label><input type="text" id="card-name" required></div>
+            <div class="form-group"><label>Categoría</label><input type="text" id="card-category"></div>
+            <div class="form-group"><label>Línea de Crédito (S/)</label><input type="number" id="card-line" required></div>
+            <div class="form-group"><label>Día de Cierre (1-31)</label><input type="number" id="card-closing" min="1" max="31" required></div>
+            <div class="form-group"><label>Día de Pago (1-31)</label><input type="number" id="card-payment" min="1" max="31" required></div>
+            <div class="form-group"><label>Desgravamen (S/)</label><input type="number" id="card-desgravamen" required></div>
+            <div class="form-group"><label>Mes Aniversario</label><input type="text" id="card-anniversary"></div>
+            <div class="form-group">
+                <label>Color</label>
+                <select id="card-color">
+                    <option value="color-naranja">Naranja (Amex)</option>
+                    <option value="color-azul-bcp">Azul Vivo (BCP)</option>
+                    <option value="color-verde">Verde (CMR)</option>
+                    <option value="color-negro">Oscuro (Oh!)</option>
+                    <option value="color-azul-bbva">Azul Marino (BBVA)</option>
+                    <option value="color-morado">Morado (Ripley)</option>
+                    <option value="color-gris">Gris (Estándar)</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn-save" onclick="guardarTarjeta()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tarjetasPorDefecto = [
+            { id: 1, name: "BCP Amex", category: "Platinum", line: 15091, closing: 22, payment: 18, desgravamen: 20, anniversary: "Noviembre", color: "color-naranja", paid: false },
+            { id: 2, name: "BCP Visa", category: "Platinum", line: 32339, closing: 25, payment: 21, desgravamen: 20, anniversary: "Noviembre", color: "color-azul-bcp", paid: false },
+            { id: 3, name: "CMR Visa", category: "Signature", line: 9200, closing: 14, payment: 8, desgravamen: 15, anniversary: "Enero", color: "color-verde", paid: false },
+            { id: 4, name: "Tarjeta Oh!", category: "Visa Clásica", line: 6500, closing: 10, payment: 1, desgravamen: 15, anniversary: "Enero", color: "color-negro", paid: false },
+            { id: 5, name: "BBVA Visa", category: "Signature", line: 33200, closing: 20, payment: 14, desgravamen: 15, anniversary: "Octubre", color: "color-azul-bbva", paid: false },
+            { id: 6, name: "Ripley", category: "Mastercard", line: 15000, closing: 17, payment: 12, desgravamen: 15, anniversary: "Octubre", color: "color-morado", paid: false }
+        ];
+
+        let misTarjetas = [];
+
+        function init() {
+            const datosGuardados = localStorage.getItem('tarjetasPremiumV2');
+            if (datosGuardados) {
+                misTarjetas = JSON.parse(datosGuardados);
+                // Asegurar que tarjetas antiguas tengan la propiedad paid
+                misTarjetas = misTarjetas.map(t => ({...t, paid: t.paid || false}));
+            } else {
+                misTarjetas = [...tarjetasPorDefecto];
+                guardarEnLocal();
+            }
+            renderizarTarjetas();
+        }
+
+        function guardarEnLocal() {
+            localStorage.setItem('tarjetasPremiumV2', JSON.stringify(misTarjetas));
+        }
+
+        function togglePago(id) {
+            const index = misTarjetas.findIndex(t => t.id === id);
+            if(index !== -1) {
+                misTarjetas[index].paid = !misTarjetas[index].paid;
+                guardarEnLocal();
+                renderizarTarjetas();
+            }
+        }
+
+        function renderizarTarjetas() {
+            const container = document.getElementById('tarjetas-container');
+            container.innerHTML = '';
+            const hoy = new Date().getDate();
+
+            let mejorTarjetaId = null;
+            let minDias = 31;
+            
+            misTarjetas.forEach(t => {
+                let diasDesdeCierre = hoy - t.closing;
+                if (diasDesdeCierre <= 0) diasDesdeCierre += 30; 
+                if (diasDesdeCierre < minDias) {
+                    minDias = diasDesdeCierre;
+                    mejorTarjetaId = t.id;
+                }
+            });
+
+            misTarjetas.forEach(t => {
+                let diferenciaPago = t.payment - hoy;
+                if (diferenciaPago < 0 && hoy > 25 && t.payment < 10) diferenciaPago += 30; 
+                
+                // Si ya está pagada, anulamos la alerta roja
+                const esAlerta = !t.paid && (diferenciaPago >= 0 && diferenciaPago <= 5);
+                const esIdeal = t.id === mejorTarjetaId;
+                const clasePagado = t.paid ? 'is-paid' : '';
+                const textoBotonPago = t.paid ? 'Deshacer Pago' : '✔️ Marcar como Pagado';
+                const claseBotonPago = t.paid ? 'btn-pay revert' : 'btn-pay';
+                
+                container.innerHTML += `
+                    <div class="card ${esAlerta ? 'alerta-pago' : ''} ${clasePagado}">
+                        <div class="card-header ${t.color}">
+                            <div class="chip"></div>
+                            <div class="card-title-row">
+                                <div>
+                                    ${t.name} <span class="subtitle">${t.category}</span>
+                                    ${t.paid ? '<span class="badge-paid-stamp">✔️ Pagado</span>' : (esIdeal ? '<span class="badge-ideal">✨ Ideal usar hoy</span>' : '')}
+                                </div>
+                                ${esAlerta ? '<span class="badge-alerta">¡Pago cerca!</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-row"><span class="label">Línea:</span> <span class="value">S/ ${t.line.toLocaleString('en-US')}</span></div>
+                            <div class="card-row"><span class="label">Cierre:</span> <span class="value">${t.closing} de cada mes</span></div>
+                            <div class="card-row"><span class="label">Pago:</span> <span class="value highlight">${t.payment.toString().padStart(2, '0')}</span></div>
+                            <div class="card-row"><span class="label">Desgravamen:</span> <span class="value">S/ ${t.desgravamen}</span></div>
+                            <div class="card-row"><span class="label">Aniversario:</span> <span class="value">${t.anniversary}</span></div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="${claseBotonPago}" onclick="togglePago(${t.id})">${textoBotonPago}</button>
+                            <button class="btn-edit" onclick="editarTarjeta(${t.id})">Editar</button>
+                            <button class="btn-delete" onclick="eliminarTarjeta(${t.id})">Eliminar</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function abrirModal() {
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('modal-title').innerText = 'Nueva Tarjeta';
+            document.getElementById('card-id').value = '';
+            ['name', 'category', 'line', 'closing', 'payment', 'desgravamen', 'anniversary'].forEach(id => document.getElementById(`card-${id}`).value = '');
+            document.getElementById('card-color').value = 'color-gris';
+        }
+
+        function cerrarModal() { document.getElementById('modal').style.display = 'none'; }
+
+        function guardarTarjeta() {
+            const id = document.getElementById('card-id').value;
+            const nuevaTarjeta = {
+                id: id ? parseInt(id) : Date.now(),
+                name: document.getElementById('card-name').value,
+                category: document.getElementById('card-category').value,
+                line: parseFloat(document.getElementById('card-line').value) || 0,
+                closing: parseInt(document.getElementById('card-closing').value) || 1,
+                payment: parseInt(document.getElementById('card-payment').value) || 1,
+                desgravamen: parseFloat(document.getElementById('card-desgravamen').value) || 0,
+                anniversary: document.getElementById('card-anniversary').value,
+                color: document.getElementById('card-color').value,
+                paid: false
+            };
+
+            if(!nuevaTarjeta.name) return alert("El banco es obligatorio.");
+
+            if (id) {
+                const index = misTarjetas.findIndex(t => t.id == id);
+                nuevaTarjeta.paid = misTarjetas[index].paid; // Mantener estado de pago al editar
+                misTarjetas[index] = nuevaTarjeta;
+            } else {
+                misTarjetas.push(nuevaTarjeta);
+            }
+
+            guardarEnLocal();
+            renderizarTarjetas();
+            cerrarModal();
+        }
+
+        function editarTarjeta(id) {
+            const t = misTarjetas.find(t => t.id === id);
+            if(!t) return;
+
+            ['id', 'name', 'category', 'line', 'closing', 'payment', 'desgravamen', 'anniversary', 'color'].forEach(k => {
+                document.getElementById(`card-${k}`).value = t[k];
+            });
+
+            document.getElementById('modal-title').innerText = 'Editar Tarjeta';
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function eliminarTarjeta(id) {
+            if(confirm("¿Eliminar esta tarjeta del panel?")) {
+                misTarjetas = misTarjetas.filter(t => t.id !== id);
+                guardarEnLocal();
+                renderizarTarjetas();
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

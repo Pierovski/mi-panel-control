@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis 3 Planes de 12 Semanas</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5f0e8;
+  --paper: #faf7f2;
+  --navy: #0d1b2a;
+  --navy2: #1a2e45;
+  --gold: #c8922a;
+  --gold-light: #f0c060;
+  --rust: #b84c2a;
+  --sage: #4a7c59;
+  --ink: #2a2420;
+  --muted: #8a7e72;
+  --border: #d8cfc4;
+  --week-active: #0d1b2a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+}
+
+/* ─── NOISE TEXTURE ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding: 64px 0 48px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+}
+
+.hero-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 1;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 480px;
+  font-weight: 300;
+}
+
+.hero-badge {
+  background: var(--navy);
+  color: var(--cream);
+  padding: 20px 28px;
+  text-align: center;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+.hero-badge .big {
+  font-family: 'DM Serif Display', serif;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--gold-light);
+  display: block;
+}
+.hero-badge .small {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ─── METODOLOGÍA PILLARS ─── */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 48px 0;
+}
+
+.pillar {
+  background: var(--paper);
+  padding: 24px 20px;
+  transition: background 0.2s;
+}
+.pillar:hover { background: var(--cream); }
+
+.pillar-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.pillar h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 17px;
+  color: var(--navy);
+  margin-bottom: 7px;
+}
+.pillar p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ─── VISION BLOCK ─── */
+.vision-block {
+  background: var(--navy);
+  color: var(--cream);
+  padding: 40px 48px;
+  border-radius: 2px;
+  margin-bottom: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+.vision-section h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+.vision-section p {
+  font-size: 14px;
+  line-height: 1.65;
+  opacity: 0.85;
+  font-weight: 300;
+}
+.vision-section strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ─── SECTION TITLE ─── */
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.section-title h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  color: var(--navy);
+}
+.section-title span {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ─── GOALS ─── */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 56px;
+}
+.goal-card {
+  border: 1px solid var(--border);
+  padding: 24px;
+  border-top: 3px solid var(--navy);
+  background: #fff;
+}
+.goal-card:nth-child(2) { border-top-color: var(--gold); }
+.goal-card:nth-child(3) { border-top-color: var(--sage); }
+
+.goal-card .g-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.goal-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--navy);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.goal-card p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 14px;
+}
+.goal-kpi {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: var(--cream);
+  padding: 6px 10px;
+  color: var(--ink);
+  letter-spacing: 0.5px;
+}
+
+/* ─── WEEK TABS ─── */
+.weeks-nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+
+.week-tab {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 10px 16px;
+  cursor: pointer;
+  color: var(--muted);
+  border: 1px solid transparent;
+  border-bottom: none;
+  background: transparent;
+  transition: all 0.15s;
+  margin-bottom: -1px;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+}
+.week-tab:hover { color: var(--navy); background: var(--cream); }
+.week-tab.active {
+  color: var(--navy);
+  font-weight: 500;
+  background: var(--paper);
+  border-color: var(--border);
+  border-bottom-color: var(--paper);
+}
+.week-tab.done { color: var(--sage); }
+
+.week-tab.current-week {
+  background: var(--gold) !important;
+  color: var(--navy) !important;
+  border-color: var(--gold) !important;
+  font-weight: 700 !important;
+}
+.week-tab.current-week::after {
+  content: ' ●';
+  font-size: 7px;
+  vertical-align: middle;
+}
+.sc-current {
+  border: 2px solid var(--gold) !important;
+}
+.notes-area {
+  width: 100%;
+  min-height: 90px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  padding: 10px 12px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s;
+  margin-top: 4px;
+}
+.notes-area:focus { border-color: var(--gold); }
+.notes-save-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 14px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: all 0.15s;
+}
+.notes-save-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+.week-tab.done::after {
+  content: '✓';
+  margin-left: 4px;
+  font-size: 9px;
+}
+
+/* ─── WEEK PANEL ─── */
+.week-panels {
+  border: 1px solid var(--border);
+  border-top: none;
+  background: var(--paper);
+  margin-bottom: 48px;
+}
+
+.week-panel {
+  display: none;
+  padding: 36px 40px;
+  animation: fadeIn 0.25s ease;
+}
+.week-panel.active { display: grid; grid-template-columns: 1fr 320px; gap: 40px; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.week-main h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.week-main .week-theme {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.week-main .week-theme::before {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.tasks-list { list-style: none; margin-bottom: 24px; }
+.tasks-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.tasks-list li:last-child { border-bottom: none; }
+.tasks-list li:hover { color: var(--navy); }
+.tasks-list li.checked { color: var(--muted); text-decoration: line-through; }
+.task-check {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  font-size: 9px;
+  color: transparent;
+}
+.tasks-list li.checked .task-check {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: #fff;
+}
+
+.week-quote {
+  background: var(--cream);
+  border-left: 3px solid var(--gold);
+  padding: 16px 18px;
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--navy2);
+  margin-top: 16px;
+}
+.week-quote cite {
+  display: block;
+  font-style: normal;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+/* ─── WEEK SIDEBAR ─── */
+.week-side { border-left: 1px solid var(--border); padding-left: 32px; }
+
+.side-block { margin-bottom: 28px; }
+.side-block h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* Time blocks */
+.time-blocks { display: flex; flex-direction: column; gap: 8px; }
+.time-block {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+}
+.time-block .tb-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.tb-strategic .tb-dot { background: var(--navy); }
+.tb-buffer .tb-dot { background: var(--gold); }
+.tb-breakout .tb-dot { background: var(--sage); }
+.time-block .tb-label { font-weight: 500; color: var(--ink); min-width: 80px; font-size: 12px; }
+.time-block .tb-desc { color: var(--muted); font-size: 11px; }
+
+/* Score meter */
+.score-wrap { display: flex; align-items: center; gap: 14px; }
+.score-circle {
+  width: 64px; height: 64px; border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.score-circle .sc-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--navy);
+  line-height: 1;
+}
+.score-circle .sc-unit {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--muted);
+}
+.score-info p { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.score-info strong { color: var(--navy); font-weight: 500; }
+
+/* Metric pill */
+.metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  padding: 7px 12px;
+  font-size: 12px;
+  margin: 3px 3px 3px 0;
+  background: #fff;
+}
+.metric-pill .mp-icon { font-size: 14px; }
+.metric-pill .mp-text { color: var(--ink); font-weight: 500; }
+.metric-pill .mp-sub { color: var(--muted); font-size: 10px; margin-left: 2px; }
+
+/* ─── SCORECARD ─── */
+.scorecard {
+  margin-bottom: 56px;
+}
+.scorecard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 6px;
+  margin-top: 20px;
+}
+.sc-week {
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sc-week:hover { border-color: var(--navy); }
+.sc-week.sc-done { background: var(--navy); border-color: var(--navy); }
+.sc-week .scw-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: block;
+}
+.sc-week.sc-done .scw-num { color: rgba(255,255,255,0.5); }
+.sc-week .scw-pct {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--navy);
+  display: block;
+  line-height: 1;
+}
+.sc-week.sc-done .scw-pct { color: var(--gold-light); }
+.sc-week .scw-bar {
+  width: 100%; height: 3px; background: var(--border); margin-top: 8px;
+}
+.sc-week .scw-fill {
+  height: 100%; background: var(--sage); width: 0%; transition: width 0.4s;
+}
+.sc-week.sc-done .scw-fill { width: 85%; }
+
+/* ─── WAM ─── */
+.wam-box {
+  background: var(--navy);
+  color: var(--cream);
+  padding: 36px 40px;
+  border-radius: 2px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 56px;
+}
+.wam-box h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 6px;
+  grid-column: 1 / -1;
+}
+.wam-box .wam-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  grid-column: 1 / -1;
+  margin-top: -4px;
+  margin-bottom: 20px;
+}
+.wam-col h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--gold-light);
+  margin-bottom: 12px;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+.wam-col ul { list-style: none; }
+.wam-col ul li {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-weight: 300;
+  line-height: 1.5;
+}
+.wam-col ul li::before {
+  content: '→';
+  color: var(--gold-light);
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* ─── PROGRESS BAR GLOBAL ─── */
+.global-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(0,0,0,0.1);
+  z-index: 100;
+}
+.global-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--rust));
+  transition: width 0.4s;
+  width: 0%;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-badge { display: none; }
+  .pillars { grid-template-columns: 1fr 1fr; }
+  .goals-grid { grid-template-columns: 1fr; }
+  .week-panel.active { grid-template-columns: 1fr; }
+  .week-side { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 24px; }
+  .vision-block { grid-template-columns: 1fr; }
+  .wam-box { grid-template-columns: 1fr; }
+  .scorecard-grid { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* ─── SETTINGS PANEL ─── */
+.settings-btn {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 48px; height: 48px;
+  background: var(--navy); color: var(--gold-light);
+  border: none; border-radius: 50%;
+  font-size: 20px; cursor: pointer; z-index: 200;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  transition: transform 0.2s, background 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.settings-btn:hover { transform: scale(1.1); background: var(--navy2); }
+.settings-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(13,27,42,0.7); z-index: 300;
+  backdrop-filter: blur(3px);
+  align-items: center; justify-content: center;
+}
+.settings-overlay.open { display: flex; }
+.settings-modal {
+  background: var(--paper); border: 1px solid var(--border);
+  border-top: 4px solid var(--gold);
+  width: 100%; max-width: 520px; max-height: 90vh;
+  overflow-y: auto; padding: 36px 40px;
+  position: relative; animation: fadeUp 0.25s ease;
+}
+.settings-modal h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px; color: var(--navy); margin-bottom: 4px;
+}
+.settings-modal .s-sub {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--muted); letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 28px; display: block;
+}
+.settings-close {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none; font-size: 22px; cursor: pointer;
+  color: var(--muted); transition: color 0.15s;
+}
+.settings-close:hover { color: var(--rust); }
+.s-group { margin-bottom: 24px; }
+.s-group label {
+  display: block; font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+.s-group input[type="time"], .s-group input[type="date"], .s-group input[type="text"] {
+  font-family: 'DM Mono', monospace; font-size: 13px;
+  background: #fff; border: 1px solid var(--border);
+  color: var(--ink); padding: 10px 14px; width: 100%;
+  outline: none; transition: border-color 0.15s;
+}
+.s-group input:focus { border-color: var(--gold); }
+.s-row { display: flex; gap: 12px; }
+.s-row > * { flex: 1; }
+.s-days { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.s-day {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  padding: 7px 12px; border: 1px solid var(--border);
+  cursor: pointer; background: #fff; color: var(--muted);
+  transition: all 0.15s; user-select: none;
+}
+.s-day.selected { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
+.s-save-btn {
+  width: 100%; margin-top: 8px; background: var(--navy); color: var(--cream);
+  border: none; padding: 14px; font-family: 'DM Mono', monospace;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; transition: background 0.15s;
+}
+.s-save-btn:hover { background: var(--gold); color: var(--navy); }
+.schedule-banner {
+  background: var(--cream); border: 1px solid var(--border);
+  border-left: 3px solid var(--gold); padding: 12px 18px;
+  margin-bottom: 32px; font-size: 13px; color: var(--ink);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.schedule-banner span {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  background: var(--navy); color: var(--gold-light); padding: 3px 10px;
+}
+
+/* ─── PRINT / PDF EXPORT ─── */
+@media print {
+  body { background: #fff !important; }
+  .global-progress, .settings-btn, .week-tab,
+  .week-panels, .weeks-nav, .pillars, .vision-block,
+  .goals-grid, .wam-box, .scorecard, .schedule-banner,
+  button, .notes-save-btn { display: none !important; }
+  .pdf-report { display: block !important; }
+  .wrap { padding: 0 !important; max-width: 100% !important; }
+  @page { margin: 20mm; size: A4; }
+}
+.pdf-report { display: none; }
+.pdf-section { margin-bottom: 32px; page-break-inside: avoid; }
+.pdf-section h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px; color: var(--navy);
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 6px; margin-bottom: 14px;
+}
+.pdf-week-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 0; border-bottom: 1px dashed var(--border);
+  font-size: 13px;
+}
+.pdf-week-row .pw-num {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--muted); width: 28px; flex-shrink: 0;
+}
+.pdf-bar-wrap { flex: 1; height: 6px; background: var(--border); }
+.pdf-bar-fill { height: 100%; }
+.pdf-pct {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  width: 40px; text-align: right; flex-shrink: 0;
+}
+.pdf-note-block {
+  background: #fafafa; border-left: 3px solid var(--gold);
+  padding: 12px 16px; margin-bottom: 10px; page-break-inside: avoid;
+}
+.pdf-note-block .pn-week {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  color: var(--gold); letter-spacing: 2px; margin-bottom: 6px;
+}
+.pdf-note-block .pn-text {
+  font-size: 12px; color: var(--ink); line-height: 1.6;
+  white-space: pre-wrap;
+}
+.pdf-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 32px; padding-bottom: 16px;
+  border-bottom: 3px solid var(--navy);
+}
+.pdf-header h1 {
+  font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--navy);
+}
+.pdf-header .pdf-meta {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--muted); text-align: right; line-height: 1.8;
+}
+.pdf-kpi-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-bottom: 32px;
+}
+.pdf-kpi {
+  border: 1px solid var(--border); border-top: 3px solid var(--navy);
+  padding: 16px; text-align: center;
+}
+.pdf-kpi .pk-val {
+  font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--navy);
+  display: block; line-height: 1;
+}
+.pdf-kpi .pk-lbl {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-top: 4px; display: block;
+}
+
+/* ─── HARD STOP ─── */
+.hardstop-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(184,76,42,0.92); z-index: 700;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(6px);
+}
+.hardstop-overlay.open { display: flex; }
+.hardstop-modal {
+  background: #fff; border-top: 6px solid var(--rust);
+  max-width: 500px; width: 100%; padding: 40px;
+  animation: fadeUp 0.3s ease; position: relative;
+}
+.hardstop-modal h2 {
+  font-family: 'DM Serif Display', serif; font-size: 26px;
+  color: var(--rust); margin-bottom: 8px;
+}
+.hardstop-modal p {
+  font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 20px;
+}
+.hardstop-modal textarea {
+  width: 100%; min-height: 110px; border: 1px solid var(--border);
+  padding: 12px; font-family: 'DM Sans', sans-serif; font-size: 13px;
+  line-height: 1.6; outline: none; resize: vertical; margin-bottom: 12px;
+}
+.hardstop-modal textarea:focus { border-color: var(--rust); }
+.hardstop-btn {
+  width: 100%; background: var(--rust); color: #fff;
+  border: none; padding: 14px;
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  letter-spacing: 2px; cursor: pointer; text-transform: uppercase;
+  transition: background 0.15s;
+}
+.hardstop-btn:hover { background: var(--navy); }
+.week-blocked {
+  pointer-events: none; opacity: 0.4;
+  position: relative;
+}
+.week-blocked::after {
+  content: '🔒 BLOQUEADA — Completa el Hard Stop de la semana anterior';
+  position: absolute; inset: 0; background: rgba(255,255,255,0.85);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--rust); letter-spacing: 1px; text-align: center;
+  padding: 20px; pointer-events: all; cursor: not-allowed;
+}
+
+/* ─── HARD STOP MODAL ─── */
+.hardstop-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(184,76,42,0.92); z-index: 700;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.hardstop-overlay.open { display: flex; }
+.hardstop-modal {
+  background: #fff; border-top: 6px solid var(--rust);
+  max-width: 500px; width: 100%; padding: 40px;
+  animation: fadeUp 0.3s ease;
+}
+.hardstop-modal h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px; color: var(--rust); margin-bottom: 8px;
+}
+.hardstop-modal p { font-size: 14px; color: var(--ink); line-height: 1.65; margin-bottom: 20px; }
+.hardstop-modal textarea {
+  width: 100%; min-height: 110px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  border: 2px solid var(--rust); padding: 12px;
+  resize: vertical; outline: none; color: var(--ink); line-height: 1.6;
+}
+.hardstop-btn {
+  width: 100%; margin-top: 12px; background: var(--rust); color: #fff;
+  border: none; padding: 14px; font-family: 'DM Mono', monospace;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; transition: background 0.15s;
+}
+.hardstop-btn:hover { background: #8b2a10; }
+
+/* ─── BACKUP BAR ─── */
+.backup-bar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: var(--cream); border: 1px solid var(--border);
+  padding: 12px 18px; margin-bottom: 20px;
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
+}
+.backup-bar button {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px;
+  padding: 7px 14px; border: 1px solid var(--border); background: #fff;
+  cursor: pointer; color: var(--ink); transition: all 0.15s; text-transform: uppercase;
+}
+.backup-bar button:hover { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
+.backup-bar input[type="file"] { display: none; }
+
+/* ─── PRINT STYLES ─── */
+@media print {
+  .settings-btn, .global-progress, .weeks-nav, .week-panels,
+  .backup-bar, .schedule-banner, .pillars, .wam-box,
+  button, .hardstop-overlay, .settings-overlay { display: none !important; }
+  .print-report { display: block !important; }
+  body { background: #fff; }
+  .print-page-break { page-break-before: always; }
+}
+.print-report { display: none; }
+
+/* ─── PLAN SELECTOR ─── */
+.plan-selector { display:flex;gap:0;margin:40px 0 0;border:1px solid var(--border);overflow:hidden;border-radius:2px; }
+.plan-btn { flex:1;padding:18px 12px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;background:#fff;border:none;border-right:1px solid var(--border);cursor:pointer;color:var(--muted);transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:6px; }
+.plan-btn:last-child{border-right:none;}
+.plan-btn .pb-icon{font-size:24px;}
+.plan-btn:hover{background:var(--cream);color:var(--navy);}
+.plan-btn.active{background:var(--navy);color:var(--gold-light);}
+.plan-section{display:none;}
+.plan-section.active{display:block;}
+/* ─── HARDSTOP ─── */
+.hardstop-overlay{display:none;position:fixed;inset:0;background:rgba(184,76,42,0.92);z-index:700;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.hardstop-overlay.open{display:flex;}
+.hardstop-modal{background:#fff;border-top:6px solid var(--rust);max-width:500px;width:100%;padding:40px;animation:fadeUp 0.3s ease;}
+.hardstop-modal h2{font-family:'DM Serif Display',serif;font-size:28px;color:var(--rust);margin-bottom:8px;}
+.hardstop-modal p{font-size:14px;color:var(--ink);line-height:1.65;margin-bottom:20px;}
+.hardstop-modal textarea{width:100%;min-height:110px;font-family:'DM Sans',sans-serif;font-size:13px;border:2px solid var(--rust);padding:12px;resize:vertical;outline:none;}
+.hardstop-btn{width:100%;margin-top:12px;background:var(--rust);color:#fff;border:none;padding:14px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+/* ─── BACKUP ─── */
+.backup-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--cream);border:1px solid var(--border);padding:12px 18px;margin-bottom:20px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+.backup-bar button{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;padding:7px 14px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--ink);transition:all 0.15s;text-transform:uppercase;}
+.backup-bar button:hover{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
+/* ─── SETTINGS ─── */
+.settings-btn{position:fixed;bottom:28px;right:28px;width:48px;height:48px;background:var(--navy);color:var(--gold-light);border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,0.25);transition:transform 0.2s;display:flex;align-items:center;justify-content:center;}
+.settings-btn:hover{transform:scale(1.1);}
+.settings-overlay{display:none;position:fixed;inset:0;background:rgba(13,27,42,0.7);z-index:300;backdrop-filter:blur(3px);align-items:center;justify-content:center;}
+.settings-overlay.open{display:flex;}
+.settings-modal{background:var(--paper);border:1px solid var(--border);border-top:4px solid var(--gold);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;padding:36px 40px;position:relative;animation:fadeUp 0.25s ease;}
+.settings-modal h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--navy);margin-bottom:4px;}
+.settings-modal .s-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;display:block;}
+.settings-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);}
+.s-group{margin-bottom:24px;}
+.s-group label{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.s-group input[type="time"],.s-group input[type="date"]{font-family:'DM Mono',monospace;font-size:13px;background:#fff;border:1px solid var(--border);color:var(--ink);padding:10px 14px;width:100%;outline:none;}
+.s-row{display:flex;gap:12px;} .s-row>*{flex:1;}
+.s-days{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+.s-day{font-family:'DM Mono',monospace;font-size:11px;padding:7px 12px;border:1px solid var(--border);cursor:pointer;background:#fff;color:var(--muted);transition:all 0.15s;user-select:none;}
+.s-day.selected{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
+.s-save-btn{width:100%;margin-top:8px;background:var(--navy);color:var(--cream);border:none;padding:14px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+.schedule-banner{background:var(--cream);border:1px solid var(--border);border-left:3px solid var(--gold);padding:12px 18px;margin-bottom:16px;font-size:13px;color:var(--ink);display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer;}
+.schedule-banner span{font-family:'DM Mono',monospace;font-size:11px;background:var(--navy);color:var(--gold-light);padding:3px 10px;}
+.week-tab.current-week{background:var(--gold)!important;color:var(--navy)!important;border-color:var(--gold)!important;font-weight:700!important;}
+.sc-current{border:2px solid var(--gold)!important;}
+.notes-area{width:100%;min-height:90px;font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.6;background:#fff;border:1px solid var(--border);color:var(--ink);padding:10px 12px;resize:vertical;outline:none;margin-top:4px;}
+.notes-area:focus{border-color:var(--gold);}
+.notes-save-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:none;border:1px solid var(--border);color:var(--muted);padding:6px 14px;cursor:pointer;margin-top:6px;transition:all 0.15s;}
+.notes-save-btn:hover{border-color:var(--gold);color:var(--gold);}
+@media print{.settings-btn,.global-progress,.weeks-nav,.week-panels,.backup-bar,.schedule-banner,.plan-selector,button,.hardstop-overlay,.settings-overlay{display:none!important;}body{background:#fff;}}
+
+</style>
+</head>
+<body>
+<div class="global-progress"><div class="global-progress-fill" id="gProgress"></div></div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div>
+      <div class="hero-label">El Año de 12 Semanas — 3 Áreas de Vida</div>
+      <h1>Mis mejores<br><em>12 semanas</em></h1>
+      <p class="hero-sub">Un sistema de ejecución intensiva aplicado a las 3 áreas que más impactan tu vida: tu carrera como topógrafo, tus finanzas y tu cuerpo.</p>
+    </div>
+    <div class="hero-badge">
+      <span class="big">3</span>
+      <span class="small">PLANES / 84 DÍAS</span>
+    </div>
+  </header>
+
+  <!-- PLAN SELECTOR -->
+  <div class="plan-selector">
+    <button class="plan-btn active" data-plan="topo" onclick="switchPlan('topo')">
+      <span class="pb-icon">🗺️</span>
+      <span>Topógrafo</span>
+    </button>
+    <button class="plan-btn" data-plan="fin" onclick="switchPlan('fin')">
+      <span class="pb-icon">💰</span>
+      <span>Finanzas</span>
+    </button>
+    <button class="plan-btn" data-plan="gym" onclick="switchPlan('gym')">
+      <span class="pb-icon">🏋️</span>
+      <span>Gimnasio</span>
+    </button>
+  </div>
+
+  <!-- PLAN SECTIONS -->
+  <div class="plan-section active" data-plan="topo" id="section-topo"></div>
+  <div class="plan-section" data-plan="fin"  id="section-fin"></div>
+  <div class="plan-section" data-plan="gym"  id="section-gym"></div>
+
+  <!-- WAM -->
+  <div class="wam-box">
+    <h2>Reunión semanal de rendición de cuentas</h2>
+    <div class="wam-sub">WAM — Cada domingo 9:00–10:00 AM — Los 3 planes en 30 minutos</div>
+    <div class="wam-col">
+      <h4>📋 Agenda (30 minutos)</h4>
+      <ul>
+        <li>Revisar puntuación de cada plan (10 min)</li>
+        <li>Identificar qué frenó la ejecución y por qué</li>
+        <li>Celebrar los logros concretos aunque sean pequeños</li>
+        <li>Redactar el plan de la semana siguiente con horarios específicos</li>
+      </ul>
+    </div>
+    <div class="wam-col">
+      <h4>⚡ Reglas del método</h4>
+      <ul>
+        <li>Una puntuación de 85%+ predice el resultado</li>
+        <li>Si baja del 65%, rediseña el plan, no el objetivo</li>
+        <li>El domingo es sagrado: revisar primero, descansar después</li>
+        <li>Los 3 planes se alimentan entre sí: energía → trabajo → dinero</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- HARD STOP MODAL -->
+<div class="hardstop-overlay" id="hardstopOverlay">
+  <div class="hardstop-modal">
+    <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--rust);margin-bottom:10px;">⛔ HARD STOP — MÉTODO MORAN</div>
+    <h2>Ejecución por debajo del 65%</h2>
+    <p>Cerraste la <strong id="hs-week-name"></strong> con solo <strong id="hs-pct" style="color:var(--rust);font-size:18px;"></strong> de cumplimiento.<br><br>
+    Para avanzar debes <strong>diagnosticar qué falló y rediseñar tu estrategia</strong>.</p>
+    <label style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);display:block;margin-bottom:8px;">¿QUÉ FALLÓ Y CÓMO LO VAS A REDISEÑAR? (mín. 50 caracteres)</label>
+    <textarea id="hs-text" placeholder="Describe qué pasó y cómo vas a ajustar la estrategia..."></textarea>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px;margin-bottom:0;" id="hs-char-count">0 / 50 caracteres mínimos</p>
+    <button class="hardstop-btn" onclick="submitHardStop()">✅ GUARDAR ANÁLISIS Y CONTINUAR</button>
+  </div>
+</div>
+
+<!-- SETTINGS BUTTON -->
+<button class="settings-btn" onclick="openSettings()" title="Configurar horario">⚙️</button>
+
+<!-- SETTINGS MODAL -->
+<div class="settings-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
+  <div class="settings-modal">
+    <button class="settings-close" onclick="closeSettings()">✕</button>
+    <h2>Mi horario</h2>
+    <span class="s-sub">// Configura los 3 planes</span>
+    <div class="s-group">
+      <label>📅 Fecha de inicio del plan</label>
+      <input type="date" id="cfg-start-date">
+      <p style="font-size:11px;color:var(--muted);margin-top:6px;">Cambia esta fecha para reprogramar las 12 semanas de los 3 planes.</p>
+    </div>
+    <div class="s-group">
+      <label>🏢 Horario laboral (Lun–Vie)</label>
+      <div class="s-row">
+        <div><label style="font-size:9px;">Entrada</label><input type="time" id="cfg-work-start" value="07:30"></div>
+        <div><label style="font-size:9px;">Salida</label><input type="time" id="cfg-work-end" value="17:30"></div>
+      </div>
+    </div>
+    <div class="s-group">
+      <label>🏢 Horario laboral — Sábado</label>
+      <div class="s-row">
+        <div><label style="font-size:9px;">Entrada</label><input type="time" id="cfg-sat-start" value="07:30"></div>
+        <div><label style="font-size:9px;">Salida</label><input type="time" id="cfg-sat-end" value="13:00"></div>
+      </div>
+    </div>
+    <div class="s-group">
+      <label>🏋️ Horario de gimnasio</label>
+      <div class="s-row">
+        <div><label style="font-size:9px;">Inicio</label><input type="time" id="cfg-gym-start" value="19:30"></div>
+        <div><label style="font-size:9px;">Fin</label><input type="time" id="cfg-gym-end" value="21:00"></div>
+      </div>
+    </div>
+    <div class="s-group">
+      <label>🏋️ Días de gimnasio</label>
+      <div class="s-days" id="cfg-gym-days">
+        <div class="s-day selected" data-day="Lun">Lun</div>
+        <div class="s-day" data-day="Mar">Mar</div>
+        <div class="s-day selected" data-day="Mié">Mié</div>
+        <div class="s-day" data-day="Jue">Jue</div>
+        <div class="s-day selected" data-day="Vie">Vie</div>
+        <div class="s-day" data-day="Sáb">Sáb</div>
+        <div class="s-day" data-day="Dom">Dom</div>
+      </div>
+    </div>
+    <button class="s-save-btn" onclick="saveSettings()">💾 Guardar configuración</button>
+  </div>
+</div>
+
+<script>
+const topoWeeks = [
+  {
+    title: "Semana 1: Diagnóstico real y mapa de habilidades",
+    theme: "ARRANQUE — CONOCÉ TU PUNTO DE PARTIDA REAL",
+    dates: "30 Mar – 5 Abr",
+    tasks: [
+      "🎯 PRIORIDAD: Haz un test escrito de 20 preguntas técnicas y calificarte del 1 al 10 en cada área: geodesia, software, campo, normas",
+      "Ver 'Cómo mejorar como topógrafo profesional' en el canal 'Topografía y Territorio' o 'Geomática Aplicada' en YouTube — anotar 3 acciones concretas aplicables esta semana",
+      "Crear tu Mapa de Habilidades: tabla con 3 columnas — Domino / Conozco pero fallo / No sé — con 15 habilidades técnicas reales",
+      "En el trabajo: observar qué hace diferente el topógrafo más senior y anotar 3 cosas concretas que él hace mejor que vos",
+      "Definir el proyecto ancla de las 12 semanas: un levantamiento real disponible para usar como hilo conductor del aprendizaje",
+      "Escribir 3 oraciones específicas de qué vas a poder hacer el 21 de junio que hoy no puedes",
+    ],
+    quote: "Con 3 a 5 años de experiencia ya tienes la base. Lo que te falta no es más experiencia — es estructura y dirección.",
+    cite: "Principio del 1% — Etapa intermedia",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Test + mapa de habilidades",  desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Video + notas accionables",   desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Proyecto ancla + WAM",        desc: "Dom — 9:00–11:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "📊", text: "Test completado", sub: "10 áreas calificadas" },
+      { icon: "🗺️", text: "Mapa de habilidades", sub: "15 ítems clasificados" },
+      { icon: "🎯", text: "Proyecto ancla", sub: "definido y documentado" },
+    ]
+  },
+  {
+    title: "Semana 2: Civil 3D avanzado — Superficies y curvas de nivel",
+    theme: "META SOFTWARE — CIVIL 3D INTERMEDIO–AVANZADO",
+    dates: "6 Abr – 12 Abr",
+    tasks: [
+      "🎯 PRIORIDAD: Importar un archivo de puntos real del trabajo a Civil 3D y generar una superficie TIN profesional desde cero",
+      "Ver 'AutoCAD Civil 3D Superficies Español' en el canal 'Civil 3D Perú' o 'Ingeniería BIM' en YouTube y replicar cada paso con tus datos",
+      "Configurar estilos propios de curvas de nivel: 0.5m / 1m / 5m según terreno, con etiquetas y colores diferenciados",
+      "Practicar edición de superficie: líneas de quiebre (breaklines) en zonas de caminos, canales o bordes de talud",
+      "Generar plano de curvas de nivel con marco, norte, escala gráfica y cuadro de datos completo listo para entregar",
+      "En el trabajo: proponer procesar el próximo levantamiento tú mismo en Civil 3D en lugar del flujo habitual",
+    ],
+    quote: "Ya tocaste Civil 3D. La diferencia entre ahora y el nivel profesional está en la profundidad, no en el conocimiento.",
+    cite: "Principio del 1% — Software",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Civil 3D con datos reales",    desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Videos + replicación",         desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Plano final + WAM",            desc: "Dom — 9:00–11:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "🖥️", text: "1 superficie TIN", sub: "con datos reales" },
+      { icon: "📏", text: "Curvas de nivel", sub: "3 estilos configurados" },
+      { icon: "📄", text: "Plano entregable", sub: "completo" },
+    ]
+  },
+  {
+    title: "Semana 3: Fotogrametría con drone — Tu ventaja diferencial",
+    theme: "DOMINIO NUEVO — FOTOGRAMETRÍA UAV",
+    dates: "13 Abr – 19 Abr",
+    tasks: [
+      "🎯 PRIORIDAD: Ejecutar tu primer vuelo fotogramétrico planificado y procesar las imágenes en Agisoft Metashape (prueba gratuita 30 días)",
+      "Ver 'Agisoft Metashape Tutorial Completo en Español' en el canal 'GeoSIG' o 'Drones y Mapas' en YouTube y seguirlo paso a paso",
+      "Planificar el vuelo correctamente: superposición lateral 70%, frontal 80%, calcular altura según GSD requerido",
+      "Procesar el proyecto completo: alineación → nube de puntos densa → modelo 3D → ortomosaico → DEM",
+      "Exportar ortomosaico y DEM, importarlos en QGIS y verificar precisión comparando con puntos de campo conocidos",
+      "Documentar el flujo de trabajo completo en tu bitácora como protocolo personal de fotogrametría UAV reutilizable",
+    ],
+    quote: "La fotogrametría con drone es la habilidad más demandada y menos dominada en el mercado topográfico regional.",
+    cite: "Principio de Diferenciación — UAV",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Vuelo + procesamiento Metashape", desc: "Sáb — 13:00–18:00 ☀️" },
+      { type: "tb-buffer",    label: "Tutorial + replicación en PC",    desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Protocolo UAV + WAM",             desc: "Dom — 9:00–11:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "🚁", text: "1 vuelo planificado", sub: "y ejecutado" },
+      { icon: "🗺️", text: "Ortomosaico + DEM", sub: "generados" },
+      { icon: "📋", text: "Protocolo UAV", sub: "documentado" },
+    ]
+  },
+  {
+    title: "Semana 4: Mini-proyecto 1 — Levantamiento catastral completo",
+    theme: "PROYECTO INTEGRADOR — CATASTRO",
+    dates: "20 Abr – 26 Abr",
+    tasks: [
+      "🎯 PRIORIDAD: Ejecutar un levantamiento catastral completo de una manzana o lote real de inicio a fin — campo, procesamiento y plano",
+      "Estudiar la normativa catastral de tu país: qué exige un plano de mensura legal, tolerancias y referencias obligatorias",
+      "Ver 'Levantamiento Catastral Estación Total Español' en el canal 'Topografía Perú' o 'Geomática Aplicada' en YouTube con referencia internacional",
+      "Procesar el levantamiento en Civil 3D: puntos, límites, superficies, áreas y cuadro de coordenadas con cierre verificado",
+      "Generar el plano catastral final con todos los elementos normativos: escala, norte, referencias, firma y sello profesional",
+      "Revisar el trabajo con un colega senior y documentar las correcciones recibidas — el feedback externo es oro",
+    ],
+    quote: "El catastro es el lenguaje del suelo. Dominarlo es dominar la base de todo derecho territorial.",
+    cite: "Principio del 1% — Proyectos",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Campo: levantamiento catastral",  desc: "Sáb — 13:00–18:00 ☀️" },
+      { type: "tb-buffer",    label: "Procesamiento + normativa",       desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Plano final + revisión + WAM",    desc: "Dom — 9:00–12:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "📐", text: "Levantamiento", sub: "catastral completo" },
+      { icon: "📄", text: "Plano legal", sub: "con todos los elementos" },
+      { icon: "✅", text: "Revisión externa", sub: "correcciones documentadas" },
+    ]
+  },
+  {
+    title: "Semana 5: QGIS avanzado — Análisis espacial real",
+    theme: "META SOFTWARE — QGIS INTERMEDIO–AVANZADO",
+    dates: "27 Abr – 3 May",
+    tasks: [
+      "🎯 PRIORIDAD: Importar el ortomosaico y DEM de la semana 3 en QGIS y hacer un análisis completo: pendientes, orientación y cuencas",
+      "Ver el canal 'QGIS en Español' o 'Sistemas de Información Geográfica' en YouTube — buscar 'análisis pendientes QGIS' y elegir 3 videos del mapa de habilidades",
+      "Crear un mapa temático de pendientes con 5 categorías, simbología profesional y exportarlo en A3 listo para presentar",
+      "Usar el plugin QuickMapServices para agregar imágenes satelitales de fondo y verificar precisión del levantamiento propio",
+      "Practicar el flujo integrado: exportar desde Civil 3D a shapefile → importar en QGIS → análisis → exportar mapa final",
+      "Documentar en bitácora el flujo Civil 3D ↔ QGIS como protocolo estándar para todos tus proyectos futuros",
+    ],
+    quote: "QGIS y Civil 3D juntos son más poderoeres que cualquiera de los dos por separado. El flujo integrado es tu arma.",
+    cite: "Principio de Integración — Software",
+    timeBlocks: [
+      { type: "tb-strategic", label: "QGIS análisis espacial",       desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Videos + flujo integrado",     desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Mapa temático A3 + WAM",       desc: "Dom — 9:00–11:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "📊", text: "Análisis pendientes", sub: "5 categorías" },
+      { icon: "🗺️", text: "Mapa temático A3", sub: "exportado" },
+      { icon: "🔗", text: "Flujo integrado", sub: "Civil 3D ↔ QGIS" },
+    ]
+  },
+  {
+    title: "Semana 6: Proyectos viales — Civil 3D corridors",
+    theme: "DOMINIO NUEVO — VIALIDAD CON CIVIL 3D",
+    dates: "4 May – 10 May",
+    tasks: [
+      "🎯 PRIORIDAD: Crear un alineamiento horizontal con curvas de transición y generar el perfil longitudinal del terreno real",
+      "Ver 'Diseño Vial Carreteras Civil 3D Español' en el canal 'Vías y Transporte' o 'Ingeniería Civil Perú' en YouTube — replicar con proyecto propio",
+      "Diseñar la rasante: pendientes máximas, curvas verticales cóncavas y convexas con criterios técnicos correctos",
+      "Generar secciones transversales cada 20m y calcular volúmenes de corte y relleno con tabla de movimiento de tierra",
+      "Crear el plano de planta-perfil en formato A1 con escala horizontal 1:2000 y vertical 1:200 — estándar entregable",
+      "En el trabajo: si hay un proyecto vial activo, comparar su metodología con la tuya y documentar diferencias",
+    ],
+    quote: "Un plano de planta-perfil bien hecho dice más que cualquier CV. Es el emblema del topógrafo vial.",
+    cite: "Principio del 1% — Proyectos viales",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Civil 3D: alineamiento + perfil", desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Secciones + volúmenes + plano",   desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Plano planta-perfil + WAM",       desc: "Dom — 9:00–12:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "🛣️", text: "Alineamiento", sub: "con curvas de transición" },
+      { icon: "📦", text: "Volúmenes", sub: "corte y relleno calculados" },
+      { icon: "📄", text: "Plano planta-perfil", sub: "A1 terminado" },
+    ]
+  },
+  {
+    title: "Semana 7: GNSS y redes satelitales — Precisión máxima",
+    theme: "DOMINIO NUEVO — GEODESIA SATELITAL",
+    dates: "11 May – 17 May",
+    tasks: [
+      "🎯 PRIORIDAD: Configurar y operar el GPS del trabajo en modo RTK, documentar el procedimiento y los resultados de precisión obtenidos",
+      "Ver 'GPS RTK Topografía Explicado Español' en el canal 'Geomática y GPS' o 'Topografía Satelital' en YouTube — PDOP, multipath y errores sistemáticos y dilución",
+      "Estudiar el sistema CORS o RAMSAC de tu país: cómo acceder, configurar la corrección diferencial en red desde el equipo",
+      "Hacer ensayo comparativo: medir 5 puntos con GPS RTK y con estación total — analizar diferencias y sus causas reales",
+      "Calcular la precisión real obtenida con el GPS y compararla con las especificaciones del fabricante del equipo",
+      "Redactar tu protocolo personal GNSS: cuándo usar RTK, cuándo post-proceso y cuándo no confiar en el GPS",
+    ],
+    quote: "El GNSS no reemplaza al criterio técnico. El profesional de élite sabe exactamente cuándo confiar en el satélite.",
+    cite: "Principio de Criterio — Geodesia",
+    timeBlocks: [
+      { type: "tb-strategic", label: "GPS RTK en campo (trabajo)",   desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Análisis + protocolo GNSS",    desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Ensayo comparativo + WAM",     desc: "Dom — 9:00–11:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "📡", text: "RTK configurado", sub: "y documentado" },
+      { icon: "📊", text: "Ensayo comparativo", sub: "GPS vs estación total" },
+      { icon: "📋", text: "Protocolo GNSS", sub: "personalizado" },
+    ]
+  },
+  {
+    title: "Semana 8: Mini-proyecto 2 — Fotogrametría con GCPs",
+    theme: "PROYECTO INTEGRADOR — UAV CON CONTROL TERRESTRE",
+    dates: "18 May – 24 May",
+    tasks: [
+      "🎯 PRIORIDAD: Ejecutar un proyecto fotogramétrico completo con puntos de apoyo GCP medidos con RTK — el estándar profesional real",
+      "Plantar y medir mínimo 5 GCPs con el GPS RTK, con coordenadas verificadas en dos métodos independientes",
+      "Procesar en Agisoft Metashape incorporando los GCPs y analizar el reporte de errores de ajuste (RMSE por punto)",
+      "Generar ortomosaico 5 cm/píxel, nube de puntos densa y DEM — comparar precisión contra levantamiento a pie",
+      "Crear en QGIS un informe cartográfico: ortomosaico + curvas de nivel + puntos de control + escala + metadata técnica",
+      "Calcular el costo aproximado de este servicio en el mercado local — documentarlo como referencia para presupuestos",
+    ],
+    quote: "Un vuelo fotogramétrico con GCPs es un producto de alto valor. Pocos topógrafos lo hacen bien. Vos vas a ser uno de ellos.",
+    cite: "Principio de Diferenciación — UAV Profesional",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Campo: GCPs + vuelo drone",     desc: "Sáb — 13:00–18:00 ☀️" },
+      { type: "tb-buffer",    label: "Metashape + QGIS + informe",    desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Informe cartográfico + WAM",    desc: "Dom — 9:00–12:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "📍", text: "5 GCPs medidos", sub: "y verificados" },
+      { icon: "🗺️", text: "Ortomosaico 5cm", sub: "con informe RMSE" },
+      { icon: "💰", text: "Valorización", sub: "del servicio documentada" },
+    ]
+  },
+  {
+    title: "Semana 9: Topografía minera — Cubicación y taludes",
+    theme: "DOMINIO NUEVO — TOPOGRAFÍA MINERA",
+    dates: "25 May – 31 May",
+    tasks: [
+      "🎯 PRIORIDAD: Aplicar el método de secciones transversales para cálculo de volúmenes en tajo abierto en Civil 3D con datos reales o simulados",
+      "Ver 'Topografía Minera y Cubicación en Español' en el canal 'Minería y Geología Perú' o 'Geomecánica Aplicada' en YouTube",
+      "Aprender banco, berma, talud de trabajo y talud final — dimensionarlos y representarlos correctamente en Civil 3D",
+      "Calcular el factor de esponjamiento y densidad aparente de 2 materiales típicos (estéril y mineral) con ejercicio práctico",
+      "Crear un perfil de avance de tajo: estado actual del terreno vs diseño del tajo en plano minero estándar",
+      "Investigar qué normativa rige la topografía minera en tu país y qué habilitaciones necesita un topógrafo para trabajar en minería",
+    ],
+    quote: "La minería paga los sueldos más altos del sector. El conocimiento técnico es el único pasaporte de entrada.",
+    cite: "Principio de Especialización — Minería",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Civil 3D: volúmenes mineros",  desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Videos + normativa + estudio", desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Perfil de avance + WAM",       desc: "Dom — 9:00–11:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "⛏️", text: "Cubicación", sub: "por secciones transversales" },
+      { icon: "📐", text: "Perfil de avance", sub: "tajo abierto en Civil 3D" },
+      { icon: "📋", text: "Normativa minera", sub: "de tu país estudiada" },
+    ]
+  },
+  {
+    title: "Semana 10: Catastro y mensura legal — Marco normativo",
+    theme: "DOMINIO NUEVO — CATASTRO LEGAL",
+    dates: "1 Jun – 7 Jun",
+    tasks: [
+      "🎯 PRIORIDAD: Estudiar el marco legal de la mensura en tu país: ley de catastro, tolerancias legales, tipos de planos y quién los puede firmar",
+      "Buscar en YouTube 'Mensura Catastro Perú SUNARP' — canal oficial de SUNARP o 'Catastro y Propiedad' para normativa actualizada",
+      "Conseguir y analizar 3 planos de mensura reales (en el registro catastral o con colegas) e identificar todos sus componentes obligatorios",
+      "Practicar el cálculo de coordenadas de vértices de una parcela y verificar cierre de límites con tolerancia legal",
+      "Aprender a leer un informe de estado parcelario o deuda de mensura según la normativa local",
+      "Identificar qué habilitación profesional necesitás para firmar planos de mensura y qué paeres concretos te faltan para obtenerla",
+    ],
+    quote: "El topógrafo que conoce la ley domina el campo. El que no la conoce siempre depende del que sí.",
+    cite: "Principio del 1% — Marco Legal",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Análisis de planos reales",     desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Normativa + cálculos legales",  desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Informe legal + WAM",           desc: "Dom — 9:00–11:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "⚖️", text: "3 planos reales", sub: "analizados" },
+      { icon: "📏", text: "Cierre legal", sub: "con tolerancia verificada" },
+      { icon: "🎓", text: "Habilitación", sub: "gap identificado" },
+    ]
+  },
+  {
+    title: "Semana 11: Portafolio técnico profesional",
+    theme: "PROYECTO FINAL — EVIDENCIA DE TODO LO APRENDIDO",
+    dates: "8 Jun – 14 Jun",
+    tasks: [
+      "🎯 PRIORIDAD: Armar tu portafolio técnico digital con los mejores trabajos de las 10 semanas — mínimo 5 proyectos documentados",
+      "Seleccionar y pulir el mejor plano de cada tipo: catastral, vial, fotogramétrico, minero — versión lista para mostrar a un cliente",
+      "Redactar una ficha técnica de 1 página por proyecto: descripción, metodología, equipos usados, software y resultados obtenidos",
+      "Crear un PDF de presentación profesional: portada, índice, proyectos, habilidades y software que dominas",
+      "Pedir retroalimentación a un colega senior o profesional de confianza — su mirada externa vale más que 10 horas de autocorrección",
+      "Actualizar perfil de LinkedIn: nuevas habilidades, proyectos y subir el portafolio como documento destacado",
+    ],
+    quote: "El portafolio no es vanidad — es evidencia. En topografía, el trabajo habla más fuerte que cualquier título.",
+    cite: "Principio de Credibilidad — Élite",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Pulir planos + fichas técnicas", desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "PDF portafolio + LinkedIn",      desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Revisión externa + WAM",         desc: "Dom — 9:00–12:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "📁", text: "5 proyectos", sub: "documentados" },
+      { icon: "📄", text: "PDF portafolio", sub: "listo para presentar" },
+      { icon: "💼", text: "LinkedIn", sub: "actualizado" },
+    ]
+  },
+  {
+    title: "Semana 12: Medición, cierre y nueva temporada",
+    theme: "CIERRE — REFLEXIÓN Y PRÓXIMA TEMPORADA",
+    dates: "15 Jun – 21 Jun",
+    tasks: [
+      "🎯 PRIORIDAD: Repetir el test de la semana 1 y comparar resultados — medir exactamente cuánto creció cada habilidad en 84 días",
+      "Revisar el Mapa de Habilidades inicial: ¿cuántos ítems de No sé nada pasaron a Conozco o Domino? Calcular el porcentaje de mejora",
+      "Calcular la puntuación final acumulada de las 12 semanas y escribir un análisis honesto de 1 página sin suavizar nada",
+      "Exportar la bitácora técnica completa en PDF — es tu primer documento de evidencia profesional real",
+      "Celebrar con algo concreto y significativo — estas 12 semanas merecen reconocimiento real sin importar el número",
+      "Diseñar la visión y las 3 metas de tu próxima temporada: ¿minería, certificación internacional, independencia profesional?",
+    ],
+    quote: "No medís lo que lograste — medís en quién te convertiste. Ese es el verdadero resultado.",
+    cite: "Brian Moran — El Año de 12 Semanas",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Test final + mapa comparativo", desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Bitácora PDF + análisis final", desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Celebración + nueva visión ☀️", desc: "Dom — 9:00–12:00 AM" },
+    ],
+    metrics: [
+      { icon: "📈", text: "Test S1 vs S12", sub: "crecimiento medido" },
+      { icon: "🏆", text: "Puntuación final", sub: "12 semanas" },
+      { icon: "🔭", text: "Nueva visión", sub: "próxima temporada" },
+    ]
+  },
+];
+
+
+const finWeeks = [
+  { title:"Semana 1: Radiografía financiera completa", theme:"ARRANQUE — CONOCE EXACTAMENTE DÓNDE ESTÁS", dates:"30 Mar – 5 Abr",
+    tasks:["🎯 PRIORIDAD: Listar TODOS tus gastos del último mes categorizados: alimentación, transporte, ocio, deudas, servicios","📚 LIBRO DE LA SEMANA: 'El Hombre Más Rico de Babilonia' de George Clason — el libro de finanzas más sencillo y poderoso, ideal para arrancar","Ver en YouTube 'Cómo hacer un presupuesto personal' de Hazte Rico y aplicarlo a tus S/3,000","Calcular tu tasa de ahorro actual vs el objetivo: S/600/mes = 20% del sueldo — ¿cuánto necesitas ajustar?","Listar tus deudas actuales: monto total, tasa de interés y cuota mensual de cada una","Crear tu presupuesto 50/30/20: S/1,500 necesidades · S/900 deseos · S/600 ahorro — ajustar a tu realidad","Abrir una cuenta de ahorro separada exclusiva para el fondo de emergencia — no tocar bajo ningún concepto"],
+    quote:"No puedes optimizar lo que no conoces. La radiografía financiera es el paso cero de todo plan real.", cite:"Principio de Claridad — Finanzas Personales",
+    timeBlocks:[{type:"tb-strategic",label:"Presupuesto + categorías",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Video + aplicación práctica",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Cuenta ahorro + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📊",text:"Presupuesto 50/30/20",sub:"aplicado a S/3,000"},{icon:"💳",text:"Deudas mapeadas",sub:"monto + tasa + cuota"},{icon:"🏦",text:"Cuenta ahorro",sub:"separada activada"}]},
+  { title:"Semana 2: Sistema automático de ahorro", theme:"META FINANCIERA — S/600 MENSUALES GARANTIZADOS", dates:"6 Abr – 12 Abr",
+    tasks:["🎯 PRIORIDAD: Configurar transferencia automática de S/600 el día de pago directo a la cuenta de ahorro — pagarte a ti primero","📚 LIBRO DE LA SEMANA: 'El Millonario Automático' de David Bach cap. 1–3 — el sistema de ahorro sin esfuerzo que lo cambia todo","Ver 'El método de los sobres digitales' en YouTube y adaptarlo a tu estructura de gastos","Identificar los 3 gastos más fáciles de reducir sin afectar tu calidad de vida — calcular cuánto liberan al mes","Revisar tu tarjeta de crédito: ¿pagas el mínimo o el total? Calcular cuánto pagas en intereses al año solo pagando el mínimo","Establecer tu regla personal para la tarjeta: solo usarla para gastos ya presupuestados y pagar el total cada mes","Documentar en bitácora tu punto de partida: cuánto tienes ahorrado hoy vs meta al 21 de junio (S/1,800)"],
+    quote:"El ahorro automático elimina la fuerza de voluntad de la ecuación. Lo que no ves, no lo gastas.", cite:"David Bach — El Millonario Automático",
+    timeBlocks:[{type:"tb-strategic",label:"Transferencia automática",desc:"Día de pago — configurar primero"},{type:"tb-buffer",label:"Auditoría de gastos",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-breakout",label:"Reglas tarjeta + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"⚡",text:"Ahorro automático",sub:"S/600 configurado"},{icon:"📉",text:"3 gastos reducidos",sub:"identificados"},{icon:"💳",text:"Regla tarjeta",sub:"documentada"}]},
+  { title:"Semana 3: Estrategia para eliminar deudas pequeñas", theme:"META FINANCIERA — DEUDAS BAJO CONTROL", dates:"13 Abr – 19 Abr",
+    tasks:["🎯 PRIORIDAD: Aplicar el método bola de nieve — ordenar deudas de menor a mayor monto y atacar la más pequeña primero con pagos extra","📚 LIBRO DE LA SEMANA: 'Transformación Total de Su Dinero' de Dave Ramsey — el plan de 7 pasos para eliminar deudas","Ver 'Cómo salir de deudas rápido' en YouTube — canales como Finanzas para Todos o Rodrigo Salinas Perú","Calcular cuánto puedes destinar extra a deudas este mes sin afectar el ahorro de S/600","Llamar al banco y preguntar por reprogramación o reducción de tasa — muchos no saben que esto existe","Revisar si tu tarjeta tiene beneficios que no estás usando: cashback, descuentos en establecimientos","Establecer fecha meta de liquidación para cada deuda pequeña — con fecha concreta el cerebro trabaja diferente"],
+    quote:"Las deudas pequeñas no son el problema. El problema es no tener un sistema para eliminarlas.", cite:"Dave Ramsey — Transformación Total del Dinero",
+    timeBlocks:[{type:"tb-strategic",label:"Plan bola de nieve",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Llamada banco + fechas meta",desc:"Sáb — 13:00–14:00 ☀️"},{type:"tb-breakout",label:"Fechas meta deuda + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🎯",text:"Bola de nieve",sub:"aplicada"},{icon:"📞",text:"Banco contactado",sub:"renegociación intentada"},{icon:"📅",text:"Fecha meta",sub:"por cada deuda"}]},
+  { title:"Semana 4: Tarjetas de crédito — Domínalas o te dominan", theme:"EDUCACIÓN FINANCIERA — SISTEMA DE TARJETAS", dates:"20 Abr – 26 Abr",
+    tasks:["🎯 PRIORIDAD: Leer los términos completos de tu tarjeta: fecha de corte, fecha de pago, tasa efectiva anual (TEA) real","📚 LIBRO DE LA SEMANA: 'Los Secretos de la Mente Millonaria' de T. Harv Eker — entiende por qué piensas en el dinero como piensas","Ver 'Cómo usar la tarjeta de crédito inteligentemente' de Finanzas para Todos en YouTube","Aprender la diferencia entre fecha de corte y fecha de pago — y cómo tener hasta 50 días sin intereses","Investigar si tu tarjeta tiene programa de puntos o cashback — calcular si te conviene según tu perfil de gasto","Comparar tarjetas con cashback en Perú: BCP, Interbank, Scotiabank — ¿cuál se adapta mejor a tus gastos?","Crear un sistema de control: registrar cada uso de tarjeta en una app el mismo día"],
+    quote:"La tarjeta de crédito bien usada es una herramienta de construcción de patrimonio. Mal usada, es una trampa.", cite:"Principio de Educación Financiera",
+    timeBlocks:[{type:"tb-strategic",label:"Lectura términos tarjeta",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Comparación + sistema control",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Sistema de registro + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"💳",text:"TEA real",sub:"de tu tarjeta conocida"},{icon:"🗓️",text:"Sistema corte/pago",sub:"dominado"},{icon:"📋",text:"Control de gastos",sub:"sistema activo"}]},
+  { title:"Semana 5: Fondo de emergencia — El escudo financiero", theme:"META FINANCIERA — CONSTRUIR EL COLCHÓN", dates:"27 Abr – 3 May",
+    tasks:["🎯 PRIORIDAD: Calcular tu meta de fondo de emergencia: mínimo 3 meses de gastos esenciales — ¿cuánto es eso en soles?","Ver 'Para qué sirve el fondo de emergencia' de Finanzas para Todos en YouTube","Revisar el progreso de ahorro de las 4 semanas: ¿llegaste a S/600 en el primer mes? Documentar sin juicios","Investigar cuentas con mejor rendimiento en Perú: fondos mutuos de bajo riesgo, cuentas remuneradas BCP, Interbank","Considerar mover el fondo a un instrumento de mayor rendimiento pero con liquidez inmediata","Establecer reglas claras: ¿qué es una emergencia real? Escribirlo antes de necesitarlo"],
+    quote:"El fondo de emergencia no es ahorro — es libertad. Te permite tomar mejores decisiones porque no estás desesperado.", cite:"Principio de Seguridad Financiera",
+    timeBlocks:[{type:"tb-strategic",label:"Cálculo fondo + opciones",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Investigación instrumentos",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Reglas del fondo + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🛡️",text:"Meta fondo",sub:"calculada en S/."},{icon:"📈",text:"Instrumento elegido",sub:"para el fondo"},{icon:"📋",text:"Reglas de uso",sub:"documentadas"}]},
+  { title:"Semana 6: Ingresos extra — El topógrafo freelance", theme:"META FINANCIERA — MÁS ALLÁ DEL SUELDO", dates:"4 May – 10 May",
+    tasks:["🎯 PRIORIDAD: Identificar 3 servicios topográficos que puedes ofrecer de forma independiente fuera del horario laboral","📚 LIBRO DE LA SEMANA: 'Padre Rico, Padre Pobre' de Robert Kiyosaki — por qué necesitas ingresos activos Y pasivos","Ver 'Cómo conseguir clientes como freelance en Perú' en YouTube — adaptar la estrategia al sector topográfico","Calcular tu tarifa mínima por hora como topógrafo independiente: costos, transporte, tiempo, herramientas","Crear un perfil profesional en LinkedIn y en al menos una plataforma local: Workana, OLX o grupos de Facebook del sector","Hablar con 2 personas de tu red que puedan necesitar o referirte servicios — el primer cliente viene del entorno cercano","Investigar convocatorias CAS o consultoría donde topógrafos freelance puedan participar en tu región"],
+    quote:"Tu sueldo es el techo de tus ingresos si no construyes una fuente paralela. El topógrafo con cartera de clientes no depende de un solo empleador.", cite:"Principio de Independencia Financiera",
+    timeBlocks:[{type:"tb-strategic",label:"Servicios + tarifa",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"LinkedIn + perfil freelance",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Red de contactos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"💼",text:"3 servicios",sub:"identificados"},{icon:"💵",text:"Tarifa propia",sub:"calculada"},{icon:"🤝",text:"2 contactos",sub:"activados"}]},
+  { title:"Semana 7: Introducción a la inversión en Perú", theme:"EDUCACIÓN FINANCIERA — HACER TRABAJAR EL DINERO", dates:"11 May – 17 May",
+    tasks:["🎯 PRIORIDAD: Estudiar los 3 instrumentos más accesibles en Perú: fondos mutuos, depósitos a plazo y acciones en la BVL","Ver 'Cómo invertir en Perú desde cero' de Finanzas para Todos o Aprender a Invertir en YouTube","Entender la diferencia entre rentabilidad y riesgo — crear tu perfil de inversor: conservador, moderado o agresivo","Investigar AFP: SPP vs SNP — ¿cuál te conviene? Calcular proyección a 30 años según tu situación","Abrir cuenta en plataforma de fondos mutuos en Perú: SURA, Credicorp Capital o Scotiabank Fondos","Hacer tu primera micro-inversión simbólica: aunque sean S/50 — el objetivo es aprender el proceso"],
+    quote:"Invertir no es para ricos — es para personas que entienden que el tiempo es el activo más valioso.", cite:"Principio de Inversión Temprana",
+    timeBlocks:[{type:"tb-strategic",label:"Estudio instrumentos Perú",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Video + perfil inversor",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Primera inversión + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📈",text:"3 instrumentos",sub:"estudiados"},{icon:"🧠",text:"Perfil inversor",sub:"definido"},{icon:"💰",text:"Primera inversión",sub:"ejecutada"}]},
+  { title:"Semana 8: Revisión de mitad de camino", theme:"REVISIÓN — ¿ESTÁS EN RUTA HACIA S/1,800?", dates:"18 May – 24 May",
+    tasks:["🎯 PRIORIDAD: Calcular cuánto has ahorrado en 7 semanas — ¿estás en ritmo para llegar a S/1,800 al 21 de junio?","📚 LIBRO DE LA SEMANA: Releer los capítulos más impactantes de los libros anteriores — ¿qué concepto aún no has aplicado?","Revisar el estado de tus deudas: ¿cuánto has pagado extra? ¿Qué deuda pequeña puedes liquidar este mes?","Auditar tus gastos de las últimas 7 semanas: ¿hay una categoría que siempre se sale del presupuesto?","Revisar el rendimiento de tu primera inversión — aunque sea mínimo, el hábito de monitorear es clave","Evaluar si conseguiste algún ingreso extra — si no, ¿qué obstáculo concreto encontraste?","Ajustar el plan para las semanas 9–12 según la realidad — rediseña el plan, no el objetivo"],
+    quote:"La revisión de mitad de camino no es para juzgarte — es para corregir el rumbo antes de que sea tarde.", cite:"Brian Moran — El Año de 12 Semanas",
+    timeBlocks:[{type:"tb-strategic",label:"Auditoría financiera 7 sem.",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Ajuste de plan",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Revisión inversión + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"💰",text:"Ahorro acumulado",sub:"vs meta S/1,800"},{icon:"📉",text:"Deuda reducida",sub:"monto pagado extra"},{icon:"📊",text:"Plan ajustado",sub:"semanas 9–12"}]},
+  { title:"Semana 9: Trabaja todo el año — Estrategia de estabilidad", theme:"META FINANCIERA — INGRESOS CONSISTENTES", dates:"25 May – 31 May",
+    tasks:["🎯 PRIORIDAD: Crear tu mapa de oportunidades laborales: proyectos estacionales, municipalidades, consultoras, mineras — ¿cuándo contratan más topógrafos en tu región?","📚 LIBRO DE LA SEMANA: 'El Cuadrante del Flujo de Dinero' de Robert Kiyosaki — diseña tu vida para no depender de un solo empleador","Ver testimonios de topógrafos peruanos en YouTube que trabajen de forma independiente","Actualizar tu CV con todos los proyectos y habilidades nuevas — siempre lista para enviar","Unirte a 3 grupos de Facebook o WhatsApp del sector topográfico peruano donde se publican proyectos","Contactar a 2 consultoras de tu región para presentarte como profesional disponible para proyectos","Guardar S/100 adicionales en un fondo de meses flojos — amortiguación para cuando no hay proyecto"],
+    quote:"El topógrafo que trabaja todo el año no espera que lleguen los proyectos — sale a buscarlos con antelación.", cite:"Principio de Proactividad Laboral",
+    timeBlocks:[{type:"tb-strategic",label:"Mapa de oportunidades",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"CV + grupos + contactos",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Red laboral + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🗺️",text:"Mapa de oportunidades",sub:"documentado"},{icon:"📄",text:"CV actualizado",sub:"listo para enviar"},{icon:"🤝",text:"2 consultoras",sub:"contactadas"}]},
+  { title:"Semana 10: Maximiza tus beneficios laborales", theme:"EDUCACIÓN FINANCIERA — APROVECHAR LO QUE YA TIENES", dates:"1 Jun – 7 Jun",
+    tasks:["🎯 PRIORIDAD: Revisar todos tus beneficios laborales: CTS, gratificaciones, vacaciones, seguros — ¿los estás aprovechando al máximo?","📚 LIBRO DE LA SEMANA: 'La Semana Laboral de 4 Horas' de Tim Ferriss cap. 1–4 — aprende a diseñar un negocio que trabaje por ti","Ver 'CTS en Perú: cómo funciona y cómo usarla bien' en YouTube","Calcular cuánto recibirás de gratificación en julio y planificar ya: deudas, fondo, inversión","Revisar si estás en el régimen tributario correcto como trabajador independiente — RUS, RER o régimen general","Investigar si puedes deducir gastos de tu trabajo independiente ante SUNAT para pagar menos impuestos legalmente","Proyectar cuánto tendrás ahorrado al 21 de junio con el ritmo actual"],
+    quote:"Optimizar lo que ya tienes es tan importante como buscar nuevas fuentes de ingreso.", cite:"Principio de Eficiencia Financiera",
+    timeBlocks:[{type:"tb-strategic",label:"CTS + gratificación",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Tributario + proyección",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Plan gratificación + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"💼",text:"Beneficios laborales",sub:"auditados"},{icon:"📊",text:"Gratificación",sub:"distribuida en plan"},{icon:"🧾",text:"Situación tributaria",sub:"revisada"}]},
+  { title:"Semana 11: Portafolio financiero — Todo en orden", theme:"CONSOLIDACIÓN — SISTEMA FINANCIERO COMPLETO", dates:"8 Jun – 14 Jun",
+    tasks:["🎯 PRIORIDAD: Crear tu estado financiero personal: activos, pasivos, ingresos, gastos y patrimonio neto — en una sola hoja clara","📚 LIBRO DE LA SEMANA: Terminar 'Psicología del Dinero' — los capítulos sobre independencia financiera son los más importantes","📚 LIBRO DE LA SEMANA: Terminar 'Psicología del Dinero' — los últimos capítulos sobre independencia financiera son los más importantes","Revisar el estado de todas tus metas: ahorro S/1,800, deudas reducidas, inversión activa, ingresos extra","Documentar tu sistema completo: presupuesto, reglas de tarjeta, transferencias automáticas, inversiones","Ver 'Cómo hacer tu estado financiero personal' en YouTube y comparar con el tuyo","Escribir tus 5 reglas de dinero personales que mantendrás siempre — tu constitución financiera","Preparar la proyección de tus finanzas para los próximos 12 meses con todo lo aprendido"],
+    quote:"El orden financiero no es una meta — es un sistema que se mantiene solo cuando está bien diseñado.", cite:"Principio de Sistema — Finanzas",
+    timeBlocks:[{type:"tb-strategic",label:"Estado financiero personal",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Reglas + proyección anual",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Constitución financiera + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📋",text:"Estado financiero",sub:"personal completo"},{icon:"📜",text:"5 reglas de dinero",sub:"documentadas"},{icon:"📈",text:"Proyección 12 meses",sub:"hecha"}]},
+  { title:"Semana 12: Cierre financiero y nueva temporada", theme:"CIERRE — MEDIR, CELEBRAR Y PROYECTAR", dates:"15 Jun – 21 Jun",
+    tasks:["🎯 PRIORIDAD: Calcular exactamente cuánto ahorraste en 12 semanas — comparar con la meta de S/1,800","📚 PRÓXIMA TEMPORADA: Elegir entre 'Piense y Hágase Rico' de Napoleon Hill o 'Un Mundo Sin Efectivo' para profundizar en inversiones","📚 LIBRO DE LA PRÓXIMA TEMPORADA: Elegir entre 'Piense y Hágase Rico' de Napoleon Hill o 'Un Mundo Sin Efectivo' para profundizar en inversiones","Calcular cuánto pagaste de deuda extra y cuánto reduciste el total","Revisar el rendimiento de tus inversiones y decidir si aumentas el monto o cambias de instrumento","Escribir tu análisis financiero de 1 página: qué funcionó, qué fallaste y qué cambiarías","Celebrar el logro de forma razonable — sin destruir el ahorro, pero con un reconocimiento real al esfuerzo","Definir las 3 metas financieras de tu próxima temporada: ¿más ahorro, liquidar deuda, primera inversión grande?"],
+    quote:"El dinero no te da libertad — el sistema que construiste te la da. Esa es la diferencia entre el que tiene sueldo y el que tiene patrimonio.", cite:"Principio de Libertad Financiera",
+    timeBlocks:[{type:"tb-strategic",label:"Cierre + métricas finales",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Análisis + próxima temporada",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Celebración + nueva visión ☀️",desc:"Dom — 9:00–10:00 AM"}],
+    metrics:[{icon:"💰",text:"Ahorro total",sub:"vs meta S/1,800"},{icon:"📉",text:"Deuda reducida",sub:"monto total"},{icon:"🔭",text:"Próxima temporada",sub:"3 metas definidas"}]},
+];
+
+const gymWeeks = [
+  { title:"Semana 1: Diagnóstico físico y nueva fase", theme:"ARRANQUE — MIDE TU PUNTO DE PARTIDA REAL", dates:"30 Mar – 5 Abr",
+    tasks:["🎯 PRIORIDAD: Medir y registrar tus métricas de hoy: peso corporal, circunferencia de brazo, pecho, cintura y pierna","Fotografías de progreso desde frente, lado y espalda — guardarlas para comparar el 21 de junio","Registrar tus cargas actuales: sentadilla Smith 50kg, press piernas 110kg — son tu base de progresión","Ver 'Cómo ganar masa muscular de forma efectiva' de Sergio Peinado o Alberto Núñez en YouTube","Revisar tu rutina actual: ¿tiene suficiente volumen por grupo muscular? ¿Aplicas sobrecarga progresiva real?","Diseñar el nuevo programa de 12 semanas: 3 bloques de 4 semanas con aumento progresivo de intensidad"],
+    quote:"Las 12 semanas que vienen no son un reinicio — son la evolución de la base que ya construiste.", cite:"Principio de Progresión — Hipertrofia",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición + diseño rutina",desc:"Mar — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Fotos + métricas + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📏",text:"Medidas corporales",sub:"registradas"},{icon:"📸",text:"Fotos de progreso",sub:"3 ángulos"},{icon:"🏋️",text:"Cargas base",sub:"50kg / 110kg"}]},
+  { title:"Semana 2: Bloque 1 — Sobrecarga progresiva desde el día 1", theme:"HIPERTROFIA — SEMANAS 2–4: CARGA PROGRESIVA", dates:"6 Abr – 12 Abr",
+    tasks:["🎯 PRIORIDAD: Aplicar 4 series de 8–12 reps por ejercicio principal — llegar al fallo técnico en la rep 10-11","Sentadilla Smith: comenzar en 52.5kg — aumentar 2.5kg cada semana si completas todas las reps con buena técnica","Press de piernas: comenzar en 115kg — misma lógica, sobrecarga progresiva de 5kg por semana","Ver 'Cómo aplicar la sobrecarga progresiva correctamente' de Sergio Peinado en YouTube","Registrar TODOS los ejercicios: peso, series, repeticiones — sin registro no hay progresión real","Añadir movilidad de cadera antes de sentadilla y 2 min de estiramiento de cuádriceps al terminar"],
+    quote:"Sin registro no hay progresión. Sin progresión no hay hipertrofia. Es matemática, no motivación.", cite:"Principio de Sobrecarga Progresiva",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Registro + revisión técnica",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión semana + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"⬆️",text:"Sentadilla Smith",sub:"52.5kg objetivo"},{icon:"⬆️",text:"Press piernas",sub:"115kg objetivo"},{icon:"📓",text:"Registro completo",sub:"los 3 días"}]},
+  { title:"Semana 3: Nutrición para ganar masa muscular", theme:"HIPERTROFIA — ALIMENTACIÓN COMO HERRAMIENTA", dates:"13 Abr – 19 Abr",
+    tasks:["🎯 PRIORIDAD: Calcular tus calorías de mantenimiento y crear un superávit limpio de 200–300 kcal para ganar masa sin exceso de grasa","Ver 'Dieta para ganar masa muscular en Perú' de Fit Peruano o Nutrición Fit en YouTube","Calcular tu proteína diaria: 1.6–2g por kg de peso corporal — distribuida en 4–5 comidas al día","Identificar fuentes de proteína económicas en Perú: pollo, huevo, atún, menestras, quinua, leche","Crear un plan de alimentación semanal de 5 días con las comidas pre y post entrenamiento definidas","Pesar la comida al menos 3 días para calibrar el ojo — no necesitas hacerlo siempre, solo al inicio"],
+    quote:"El entrenamiento rompe el músculo. La alimentación lo construye. Sin superávit calórico, solo mantienes.", cite:"Principio de Nutrición para Hipertrofia",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Plan nutricional + cálculos",desc:"Mar / Jue — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Plan de comidas + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🍗",text:"Proteína diaria",sub:"calculada en gramos"},{icon:"🔥",text:"Superávit calórico",sub:"+250 kcal configurado"},{icon:"🥗",text:"Plan semanal",sub:"5 días estructurado"}]},
+  { title:"Semana 4: Test de progreso — Fin del bloque 1", theme:"MEDICIÓN — ¿CUÁNTO CRECISTE EN 4 SEMANAS?", dates:"20 Abr – 26 Abr",
+    tasks:["🎯 PRIORIDAD: Repetir mediciones corporales y comparar con semana 1 — peso, circunferencias y fotos de 3 ángulos","Re-testear pesos: sentadilla Smith y press de piernas — ¿lograste la progresión planificada?","Ver 'Cómo evaluar tu progreso en el gimnasio sin obsesionarte' de Alberto Núñez en YouTube","Revisar el registro de 4 semanas: ¿hubo semanas donde fallaste la progresión? Identificar por qué","Ajustar el bloque 2 según el progreso: si fue bien, aumentar intensidad; si no, revisar descanso y nutrición","Revisar la calidad de tu sueño: el músculo crece durante el descanso, no durante el entrenamiento"],
+    quote:"Cuatro semanas de datos te dicen exactamente qué cambiar. La medición es el superpoder del que progresa.", cite:"Principio de Medición — Entrenamiento",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición + comparativa",desc:"Mar — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Fotos + ajuste bloque 2 + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📏",text:"Medidas",sub:"S1 vs S4 comparadas"},{icon:"📸",text:"Fotos progreso",sub:"semana 4"},{icon:"🏋️",text:"Cargas actuales",sub:"registradas"}]},
+  { title:"Semana 5: Bloque 2 — Mayor intensidad y técnicas avanzadas", theme:"HIPERTROFIA — INTENSIDAD Y TÉCNICAS", dates:"27 Abr – 3 May",
+    tasks:["🎯 PRIORIDAD: Incorporar drop sets en el último ejercicio de cada grupo muscular — una vez por semana para romper la adaptación","Sentadilla Smith: objetivo semana 5 — 57.5kg (progresión acumulada de 4 semanas a 2.5kg/sem)","Press de piernas: objetivo semana 5 — 135kg (progresión acumulada a 5kg/sem)","Ver 'Técnicas de intensidad para ganar músculo' de Sergio Peinado en YouTube — elegir 2 para aplicar","Añadir trabajo de core: plancha, dead bug — 10 minutos al final de cada sesión","Grabar tu sentadilla de perfil para revisar la técnica — la técnica es el límite del peso"],
+    quote:"La técnica perfecta con más peso vale más que el peso máximo con técnica deficiente. El músculo no sabe cuánto pesa la barra.", cite:"Principio de Técnica — Hipertrofia",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Video técnica + core",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión técnica + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"⬆️",text:"Sentadilla Smith",sub:"57.5kg objetivo"},{icon:"⬆️",text:"Press piernas",sub:"135kg objetivo"},{icon:"🎯",text:"Drop sets",sub:"incorporados"}]},
+  { title:"Semana 6: Descanso activo y recuperación (deload)", theme:"RECUPERACIÓN — EL SECRETO QUE NADIE APLICA", dates:"4 May – 10 May",
+    tasks:["🎯 PRIORIDAD: Reducir el volumen un 20% esta semana (deload) — mismo peso, menos series — para recuperación profunda","Ver 'Para qué sirve la semana de descarga en el gimnasio' de Alberto Núñez en YouTube","Hacer 2 sesiones de movilidad de 20 minutos: cadera, columna y pectorales — los grupos más tensos","Revisar calidad del sueño de las últimas semanas: ¿duermes 7–8 horas? El músculo crece en el sueño","Evaluar si tienes dolor articular en rodillas o cadera — señal de que el volumen o técnica necesita ajuste","Planificar el bloque 3 (semanas 7–12): aumentar series por grupo de 12 a 16 sets semanales"],
+    quote:"El entrenamiento es el estímulo. La recuperación es donde ocurre el crecimiento. Sin descanso, solo te desgastas.", cite:"Principio de Recuperación — Ciencia del Entrenamiento",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento ligero (deload)",desc:"Lun/Mié/Vie 19:30–20:30 🏋️"},{type:"tb-buffer",label:"Movilidad + estiramientos",desc:"Mar / Jue — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Planificación bloque 3 + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"😴",text:"7–8h sueño",sub:"todas las noches"},{icon:"🧘",text:"2 sesiones movilidad",sub:"20 min c/u"},{icon:"📋",text:"Bloque 3",sub:"planificado"}]},
+  { title:"Semana 7: Bloque 3 — Máximo volumen de acumulación", theme:"HIPERTROFIA — FASE DE ALTA ACUMULACIÓN", dates:"11 May – 17 May",
+    tasks:["🎯 PRIORIDAD: Aumentar el volumen total: de 12 a 16 sets por grupo muscular por semana — distribuidos en los 3 días","Sentadilla Smith: objetivo semana 7 — 62.5kg con técnica impecable en todas las repeticiones","Press de piernas: objetivo semana 7 — 150kg — si la progresión lineal se frenó, cambiar a doble progresión","Incorporar extensión de piernas 4x15 al final de la sesión de pierna como aislamiento de cuádriceps","Ver 'Cómo distribuir el volumen de entrenamiento en la semana' de Sergio Peinado en YouTube","Registrar RPE (esfuerzo percibido del 1 al 10) por serie — aprender a entrenar por sensación además de por número"],
+    quote:"El volumen es el principal driver de la hipertrofia. Más trabajo de calidad = más músculo. Hay que ganarlo.", cite:"Dr. Mike Israetel — Renaissance Periodization",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Registro RPE + ajuste",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión volumen + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"⬆️",text:"Sentadilla Smith",sub:"62.5kg objetivo"},{icon:"⬆️",text:"Press piernas",sub:"150kg objetivo"},{icon:"📊",text:"16 sets/grupo",sub:"por semana"}]},
+  { title:"Semana 8: Nutrición avanzada — Optimizar resultados", theme:"HIPERTROFIA — AFINAR LA ALIMENTACIÓN", dates:"18 May – 24 May",
+    tasks:["🎯 PRIORIDAD: Revisar si realmente estás en superávit — si no subes 0.2–0.5kg/semana, agregar 100–200 kcal más","Ver 'Timing de nutrientes para ganar músculo' de Fit Peruano en YouTube","Optimizar la comida pre-entrenamiento: carbohidratos complejos 2h antes del entreno de las 19:30","Optimizar la comida post-entrenamiento: proteína + carbos simples en los 30 min después de la sesión","Evaluar la creatina monohidratada (5g/día) — único suplemento con evidencia sólida de nivel 1 para hipertrofia","Calcular el costo mensual de tu plan nutricional — ¿es sostenible dentro de tu presupuesto de S/3,000?"],
+    quote:"La suplementación no construye músculo. La alimentación bien planificada y el entrenamiento duro sí.", cite:"Principio de Nutrición Basada en Evidencia",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Revisión nutricional",desc:"Mar / Jue — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Ajuste calorías + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"⚖️",text:"Peso semanal",sub:"+0.2–0.5kg/sem"},{icon:"🍽️",text:"Pre/post entreno",sub:"optimizados"},{icon:"💊",text:"Creatina",sub:"evaluada e iniciada"}]},
+  { title:"Semana 9: Atacar los puntos débiles", theme:"HIPERTROFIA — ESPECIALIZACIÓN TEMPORAL", dates:"25 May – 31 May",
+    tasks:["🎯 PRIORIDAD: Identificar tu grupo muscular más rezagado visualmente y agregar 2 series extra de aislamiento para ese grupo","Ver 'Cómo mejorar tus puntos débiles musculares' de Alberto Núñez en YouTube","Sentadilla Smith: objetivo semana 9 — 65kg — si alcanzaste este peso, evaluar si cambiar a sentadilla libre","Press de piernas: objetivo semana 9 — 160kg — incorporar también prensa a una pierna para simetría","Añadir hip thrust con barra o kickbacks con polea: 3x15 al final de cada sesión de pierna","Revisar simetría entre lado derecho e izquierdo en ejercicios unilaterales — corregir desequilibrios ahora"],
+    quote:"El músculo más débil es el que limita todo tu físico. Atacarlo es la decisión más inteligente que puedes tomar.", cite:"Principio de Especialización Temporal",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Análisis visual + punto débil",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Plan punto débil + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"⬆️",text:"Sentadilla Smith",sub:"65kg objetivo"},{icon:"⬆️",text:"Press piernas",sub:"160kg objetivo"},{icon:"🎯",text:"Punto débil",sub:"atacado"}]},
+  { title:"Semana 10: Consistencia como estilo de vida", theme:"MENTALIDAD — EL GIMNASIO A LARGO PLAZO", dates:"1 Jun – 7 Jun",
+    tasks:["🎯 PRIORIDAD: Reflexionar sobre los 3 hábitos fuera del gimnasio que más contribuyeron al progreso de estas 10 semanas","Ver 'Cómo mantener la motivación en el gimnasio a largo plazo' de Sergio Peinado en YouTube","Evaluar qué situaciones hacen que pierdas un entrenamiento — crear un plan de contingencia para cada obstáculo","Revisar tu hidratación diaria: mínimo 2.5–3 litros de agua, especialmente en días de entrenamiento","Conectar el hábito del gimnasio con los otros planes: ¿cómo la energía física mejora tu rendimiento en el trabajo?","Planificar cómo mantener el entrenamiento en semanas de mucho trabajo en campo — mínimo 2 sesiones aunque sean más cortas"],
+    quote:"La persona que entrena 3 veces por semana durante 2 años siempre supera al que entrena 6 veces durante 3 meses.", cite:"Principio de Consistencia — Entrenamiento",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Reflexión + hábitos",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Plan de contingencia + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"💧",text:"Hidratación",sub:"2.5L/día hábito"},{icon:"🧠",text:"3 hábitos clave",sub:"identificados"},{icon:"📋",text:"Plan contingencia",sub:"documentado"}]},
+  { title:"Semana 11: Intensificación final — Al límite", theme:"HIPERTROFIA — SEMANA DE MÁXIMO ESFUERZO", dates:"8 Jun – 14 Jun",
+    tasks:["🎯 PRIORIDAD: Semana de máxima intensidad — llegar al fallo muscular controlado en al menos 1 serie de cada ejercicio principal","Sentadilla Smith: intentar tu nuevo máximo — objetivo final de las 12 semanas: 70kg (desde 50kg)","Press de piernas: intentar tu nuevo máximo — objetivo final: 170kg (desde 110kg)","Ver 'Cómo llegar al fallo muscular sin lesionarte' de Alberto Núñez en YouTube","Registrar absolutamente todo: es la semana de mayor volumen e intensidad del ciclo","Fotos de progreso semana 11 — comparar con semana 1 y semana 4"],
+    quote:"El fallo muscular controlado en la recta final es la firma del atleta que conoce sus límites reales.", cite:"Principio de Intensificación — Bloque Final",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento máximo Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Registro + fotos progreso",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Comparativa fotos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🏆",text:"Sentadilla Smith",sub:"70kg objetivo final"},{icon:"🏆",text:"Press piernas",sub:"170kg objetivo final"},{icon:"📸",text:"Fotos semana 11",sub:"comparativa"}]},
+  { title:"Semana 12: Cierre, medición y nueva temporada", theme:"CIERRE — MEDIR EL CUERPO QUE CONSTRUISTE", dates:"15 Jun – 21 Jun",
+    tasks:["🎯 PRIORIDAD: Medición completa final — peso, circunferencias y fotos — comparar punto a punto con la semana 1","Re-testear cargas máximas: sentadilla Smith y press de piernas — documentar el progreso real en 84 días","Calcular tu consistencia: ¿cuántos de los 36 entrenamientos programados completaste?","Escribir tu análisis de 1 página: qué funcionó, qué falló, cómo se sintió el cuerpo semana a semana","Celebrar el progreso con algo concreto — 12 semanas de entrenamiento merecen reconocimiento real","Diseñar el objetivo de tu próxima temporada: ¿continuar masa, fase de definición, o nueva especialidad?"],
+    quote:"No mides el músculo que ganaste — mides la disciplina que construiste. Eso nadie te lo puede quitar.", cite:"Principio de Cierre — Progreso Real",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición final + análisis",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Celebración + nueva visión ☀️",desc:"Dom — 9:00–10:00 AM"}],
+    metrics:[{icon:"📏",text:"Medidas S1 vs S12",sub:"comparación completa"},{icon:"🏋️",text:"Cargas finales",sub:"registradas"},{icon:"🔭",text:"Próxima temporada",sub:"objetivo definido"}]},
+];
+
+
+// ══════════════════════════════════════════════════════
+//  STORAGE KEYS
+// ══════════════════════════════════════════════════════
+const KEYS = {
+  topo:  { tasks:'topo_tasks_v1',  notes:'topo_notes_v1',  hardstop:'topo_hs_v1',  vision:'topo_vision_v1'  },
+  fin:   { tasks:'fin_tasks_v1',   notes:'fin_notes_v1',   hardstop:'fin_hs_v1',   vision:'fin_vision_v1'   },
+  gym:   { tasks:'gym_tasks_v1',   notes:'gym_notes_v1',   hardstop:'gym_hs_v1',   vision:'gym_vision_v1'   },
+  settings:  'topo_settings_v1',
+  startDate: 'topo_start_date_v1',
+};
+
+function ls_get(key, fallback=null){ try{ const v=localStorage.getItem(key); return v!==null?JSON.parse(v):fallback; }catch(e){ return fallback; } }
+function ls_set(key,value){ try{ localStorage.setItem(key,JSON.stringify(value)); }catch(e){} }
+
+// ══════════════════════════════════════════════════════
+//  PLAN REGISTRY
+// ══════════════════════════════════════════════════════
+const PLANS = {
+  topo: { id:'topo', label:'Topógrafo', icon:'🗺️', weeks: topoWeeks,
+    vision:'Soy un topógrafo que domina fotogrametría UAV, minería, catastro y geodesia satelital. Tengo portafolio real y cobro como el profesional que soy.',
+    meta:'Al <span id="vd-topo">21 de junio</span> dominé 5 especialidades nuevas, tengo un portafolio de 5 proyectos reales.',
+    compromiso:'Aprendo viendo y haciendo. Cada semana un video específico para replicar y una práctica real.' },
+  fin:  { id:'fin',  label:'Finanzas',  icon:'💰', weeks: finWeeks,
+    vision:'Tengo un sistema financiero claro: S/600/mes de ahorro automático, deudas eliminadas, fondo de emergencia construido y mi primera inversión activa.',
+    meta:'Al <span id="vd-fin">21 de junio</span> ahorré S/1,800, reduje mis deudas y aprendí a usar las tarjetas de crédito a mi favor.',
+    compromiso:'El domingo reviso mis números. El día de pago transfiero primero. El dinero trabaja con sistema, no con fuerza de voluntad.' },
+  gym:  { id:'gym',  label:'Gimnasio',  icon:'🏋️', weeks: gymWeeks,
+    vision:'Construí 12 semanas de base y ahora evoluciono. Al terminar este período tengo métricas reales de progreso y una rutina que seguiré el resto del año.',
+    meta:'Al <span id="vd-gym">21 de junio</span> pasé de sentadilla Smith 50kg → 70kg y press piernas 110kg → 170kg con técnica impecable.',
+    compromiso:'Entreno Lun/Mié/Vie a las 19:30 sin excusas. Registro todo. Como para ganar. Duermo para crecer.' },
+};
+
+let currentPlan = 'topo';
+const taskStates = {
+  topo: ls_get(KEYS.topo.tasks, {}),
+  fin:  ls_get(KEYS.fin.tasks,  {}),
+  gym:  ls_get(KEYS.gym.tasks,  {}),
+};
+
+// ══════════════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════════════
+function showToast(msg){
+  let t=document.getElementById('toast');
+  if(!t){ t=document.createElement('div'); t.id='toast';
+    t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:var(--cream);padding:10px 22px;font-family:"DM Mono",monospace;font-size:12px;letter-spacing:1px;border-radius:2px;opacity:0;transition:all 0.3s;z-index:9999;pointer-events:none;white-space:nowrap;';
+    document.body.appendChild(t); }
+  t.textContent=msg; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
+  clearTimeout(t._timer); t._timer=setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; },2200);
+}
+
+// ══════════════════════════════════════════════════════
+//  PLAN SWITCHER
+// ══════════════════════════════════════════════════════
+function switchPlan(planId) {
+  currentPlan = planId;
+  document.querySelectorAll('.plan-btn').forEach(b => b.classList.toggle('active', b.dataset.plan === planId));
+  document.querySelectorAll('.plan-section').forEach(s => s.classList.toggle('active', s.dataset.plan === planId));
+}
+
+// ══════════════════════════════════════════════════════
+//  BUILD PLAN UI
+// ══════════════════════════════════════════════════════
+function buildPlanUI(planId) {
+  const plan  = PLANS[planId];
+  const weeks = plan.weeks;
+  const ts    = taskStates[planId];
+  const keys  = KEYS[planId];
+  const notes = ls_get(keys.notes, {});
+
+  const section = document.getElementById('section-' + planId);
+  section.innerHTML = '';
+
+  // Vision block
+  const vb = document.createElement('div');
+  vb.className = 'vision-block';
+  vb.innerHTML = `
+    <div class="vision-section"><h4>🎯 Visión a 3 años</h4><p>${plan.vision}</p></div>
+    <div class="vision-section"><h4>🗓️ Meta de 12 semanas</h4><p>${plan.meta}</p></div>
+    <div class="vision-section"><h4>⚡ Compromiso personal</h4><p>${plan.compromiso}</p></div>`;
+  section.appendChild(vb);
+
+  // Week tabs
+  const nav = document.createElement('nav');
+  nav.className = 'weeks-nav'; nav.id = 'nav-' + planId;
+  const panelsDiv = document.createElement('div');
+  panelsDiv.className = 'week-panels'; panelsDiv.id = 'panels-' + planId;
+
+  weeks.forEach((w, i) => {
+    // Tab
+    const tab = document.createElement('button');
+    tab.className = 'week-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = 'S' + (i + 1);
+    tab.onclick = () => switchWeek(planId, i);
+    nav.appendChild(tab);
+
+    const savedNote = notes[i] || '';
+    const tbHTML = w.timeBlocks.map(tb =>
+      `<div class="time-block ${tb.type}"><div class="tb-dot"></div><span class="tb-label">${tb.label}</span><span class="tb-desc">${tb.desc}</span></div>`).join('');
+    const metricsHTML = w.metrics.map(m =>
+      `<div class="metric-pill"><span class="mp-icon">${m.icon}</span><span class="mp-text">${m.text}</span><span class="mp-sub">${m.sub}</span></div>`).join('');
+    const tasksHTML = w.tasks.map((t, ti) =>
+      `<li id="task-${planId}-${i}-${ti}" onclick="toggleTask('${planId}',${i},${ti})" class="${ts[i+'-'+ti]?'checked':''}">
+        <div class="task-check">✓</div><span>${t}</span></li>`).join('');
+
+    const panel = document.createElement('div');
+    panel.className = 'week-panel' + (i === 0 ? ' active' : '');
+    panel.id = `panel-${planId}-${i}`;
+    panel.innerHTML = `
+      <div class="week-main">
+        <div class="week-theme">${w.theme}</div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
+          <h3>${w.title}</h3>
+          <span id="date-badge-${planId}-${i}" style="font-family:'DM Mono',monospace;font-size:10px;background:var(--navy);color:var(--gold-light);padding:4px 12px;">📅 ${w.dates}</span>
+        </div>
+        <ul class="tasks-list">${tasksHTML}</ul>
+        <div class="week-quote">${w.quote}<cite>— ${w.cite}</cite></div>
+        <div style="margin-top:24px;">
+          <h4 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">📝 Notas WAM — Semana ${i+1}</h4>
+          <textarea class="notes-area" id="note-${planId}-${i}" placeholder="Reflexiones de la semana, qué funcionó, qué ajustar...">${savedNote}</textarea>
+          <button class="notes-save-btn" onclick="saveNote('${planId}',${i})">💾 Guardar nota</button>
+        </div>
+      </div>
+      <div class="week-side">
+        <div class="side-block"><h4>⏱ Bloques de tiempo</h4><div class="time-blocks" id="tb-${planId}-${i}">${tbHTML}</div></div>
+        <div class="side-block"><h4>📊 Métricas clave</h4>${metricsHTML}</div>
+        <div class="side-block">
+          <h4>📋 Puntuación</h4>
+          <div class="score-wrap">
+            <div class="score-circle" id="sc-circle-${planId}-${i}">
+              <span class="sc-val" id="sc-val-${planId}-${i}">0</span>
+              <span class="sc-unit">/ ${w.tasks.length}</span>
+            </div>
+            <div class="score-info">
+              <p><strong id="sc-pct-${planId}-${i}">0%</strong> de ejecución<br>Meta: <strong>≥85%</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    panelsDiv.appendChild(panel);
+  });
+
+  section.appendChild(nav);
+  section.appendChild(panelsDiv);
+
+  // Scorecard
+  const scTitle = document.createElement('div');
+  scTitle.className = 'scorecard';
+  scTitle.innerHTML = `<div class="section-title"><h2>Tablero de puntuación</h2><span>// META ≥ 85% SEMANAL</span></div>`;
+  const scGrid = document.createElement('div');
+  scGrid.className = 'scorecard-grid'; scGrid.id = 'sc-grid-' + planId;
+  weeks.forEach((w, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'sc-week'; cell.id = `sc-cell-${planId}-${i}`;
+    cell.onclick = () => switchWeek(planId, i);
+    cell.innerHTML = `<span class="scw-num">S${i+1}</span>
+      <span id="scw-date-${planId}-${i}" style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);display:block;margin-bottom:4px;">${w.dates}</span>
+      <span class="scw-pct" id="scw-pct-${planId}-${i}">—</span>
+      <div class="scw-bar"><div class="scw-fill" id="scw-fill-${planId}-${i}"></div></div>`;
+    scGrid.appendChild(cell);
+  });
+  scTitle.appendChild(scGrid);
+  section.appendChild(scTitle);
+
+  // Buttons
+  const btns = document.createElement('div');
+  btns.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0;';
+  const measBtn = planId === 'gym'
+    ? `<button onclick="buildMeasurementsPanel()" style="background:var(--sage);color:#fff;border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">📏 Mis mediciones</button>`
+    : '';
+  btns.innerHTML = measBtn + `
+    <button onclick="showSummary('${planId}')" style="background:var(--navy);color:var(--gold-light);border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">📊 Ver resumen final</button>
+    <button onclick="exportToPDF('${planId}')" style="background:var(--gold);color:var(--navy);border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">🖨️ Exportar PDF</button>
+    <button onclick="resetPlan('${planId}')" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px 20px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">🔄 Reiniciar plan</button>`;
+  section.appendChild(btns);
+
+  // Refresh all scores
+  weeks.forEach((_, i) => refreshScore(planId, i));
+}
+
+// ══════════════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════════════
+function switchWeek(planId, idx) {
+  if (idx > 0) checkHardStop(planId, idx - 1);
+  document.querySelectorAll(`#panels-${planId} .week-panel`).forEach((p,i) => p.classList.toggle('active', i===idx));
+  document.querySelectorAll(`#nav-${planId} .week-tab`).forEach((t,i) => t.classList.toggle('active', i===idx));
+}
+
+// ══════════════════════════════════════════════════════
+//  TASKS
+// ══════════════════════════════════════════════════════
+function toggleTask(planId, wi, ti) {
+  const key = wi + '-' + ti;
+  const ts  = taskStates[planId];
+  ts[key]   = !ts[key];
+  ls_set(KEYS[planId].tasks, ts);
+  const el = document.getElementById(`task-${planId}-${wi}-${ti}`);
+  if (el) el.classList.toggle('checked', !!ts[key]);
+  refreshScore(planId, wi);
+  showToast(ts[key] ? '✓ Tarea completada' : '↩ Desmarcada');
+}
+
+// ══════════════════════════════════════════════════════
+//  SCORE
+// ══════════════════════════════════════════════════════
+function refreshScore(planId, wi) {
+  const weeks = PLANS[planId].weeks;
+  const ts    = taskStates[planId];
+  const total = weeks[wi].tasks.length;
+  let done = 0;
+  for(let i=0;i<total;i++) { if(ts[wi+'-'+i]) done++; }
+  const pct = Math.round((done/total)*100);
+  const color = pct>=85?'var(--sage)':pct>=65?'var(--gold)':'var(--rust)';
+
+  const setEl = (id, fn) => { const el=document.getElementById(id); if(el) fn(el); };
+  setEl(`sc-val-${planId}-${wi}`,   el => el.textContent = done);
+  setEl(`sc-pct-${planId}-${wi}`,   el => el.textContent = pct+'%');
+  setEl(`scw-pct-${planId}-${wi}`,  el => el.textContent = pct+'%');
+  setEl(`scw-fill-${planId}-${wi}`, el => el.style.width = pct+'%');
+  setEl(`sc-circle-${planId}-${wi}`,el => el.style.borderColor = color);
+  setEl(`sc-cell-${planId}-${wi}`,  el => el.classList.toggle('sc-done', pct>=85));
+  refreshGlobalProgress(planId);
+}
+
+function refreshGlobalProgress(planId) {
+  const weeks = PLANS[planId].weeks;
+  const ts    = taskStates[planId];
+  let done=0, total=0;
+  weeks.forEach((w,wi)=>{ total+=w.tasks.length; for(let i=0;i<w.tasks.length;i++) if(ts[wi+'-'+i]) done++; });
+  const el = document.getElementById('gProgress');
+  if(el) el.style.width = ((done/total)*100)+'%';
+}
+
+// ══════════════════════════════════════════════════════
+//  NOTES
+// ══════════════════════════════════════════════════════
+function saveNote(planId, wi) {
+  const el = document.getElementById(`note-${planId}-${wi}`);
+  if(!el) return;
+  const notes = ls_get(KEYS[planId].notes, {});
+  notes[wi] = el.value;
+  ls_set(KEYS[planId].notes, notes);
+  showToast('📝 Nota guardada');
+}
+
+// ══════════════════════════════════════════════════════
+//  HARD STOP
+// ══════════════════════════════════════════════════════
+let hsData = { planId:null, wi:null };
+
+function checkHardStop(planId, wi) {
+  const weeks = PLANS[planId].weeks;
+  const ts    = taskStates[planId];
+  const total = weeks[wi].tasks.length;
+  let done=0;
+  for(let i=0;i<total;i++) if(ts[wi+'-'+i]) done++;
+  if(done===0) return;
+  const pct = Math.round((done/total)*100);
+  if(pct>=65) return;
+  const ack = ls_get(KEYS[planId].hardstop, {});
+  if(ack[wi]) return;
+
+  hsData = { planId, wi };
+  document.getElementById('hs-week-name').textContent = 'Semana '+(wi+1)+' — '+weeks[wi].dates;
+  document.getElementById('hs-pct').textContent = pct+'%';
+  document.getElementById('hs-text').value = '';
+  document.getElementById('hs-char-count').textContent = '0 / 50 caracteres mínimos';
+  document.getElementById('hardstopOverlay').classList.add('open');
+}
+
+document.getElementById('hs-text').addEventListener('input', function(){
+  const len=this.value.trim().length;
+  const c=document.getElementById('hs-char-count');
+  c.textContent=len+' / 50 caracteres mínimos';
+  c.style.color=len>=50?'var(--sage)':'var(--muted)';
+});
+
+function submitHardStop() {
+  const txt=document.getElementById('hs-text').value.trim();
+  if(txt.length<50){ showToast('⚠️ Escribe al menos 50 caracteres'); return; }
+  const {planId,wi}=hsData;
+  const weeks=PLANS[planId].weeks, ts=taskStates[planId];
+  const total=weeks[wi].tasks.length; let done=0;
+  for(let i=0;i<total;i++) if(ts[wi+'-'+i]) done++;
+  const pct=Math.round((done/total)*100);
+  const ack=ls_get(KEYS[planId].hardstop,{});
+  ack[wi]={pct,analysis:txt,date:new Date().toISOString()};
+  ls_set(KEYS[planId].hardstop,ack);
+  const nts=ls_get(KEYS[planId].notes,{});
+  const prefix='⛔ HARD STOP ('+pct+'%)\n'+txt;
+  nts[wi]=nts[wi]?nts[wi]+'\n\n'+prefix:prefix;
+  ls_set(KEYS[planId].notes,nts);
+  const noteEl=document.getElementById(`note-${planId}-${wi}`);
+  if(noteEl) noteEl.value=nts[wi];
+  document.getElementById('hardstopOverlay').classList.remove('open');
+  showToast('✅ Análisis guardado. ¡Adelante!');
+  hsData={planId:null,wi:null};
+}
+
+// ══════════════════════════════════════════════════════
+//  DATE MANAGEMENT
+// ══════════════════════════════════════════════════════
+function recalcDates(startStr) {
+  const start=new Date(startStr+'T00:00:00');
+  const fmt=d=>d.toLocaleDateString('es-PE',{day:'numeric',month:'short'});
+  Object.values(PLANS).forEach(plan=>{
+    plan.weeks.forEach((w,i)=>{
+      const s=new Date(start); s.setDate(start.getDate()+i*7);
+      const e=new Date(s); e.setDate(s.getDate()+6);
+      w.dates=fmt(s)+' – '+fmt(e);
+      Object.keys(PLANS).forEach(pid=>{
+        const badge=document.getElementById(`date-badge-${pid}-${i}`);
+        if(badge) badge.textContent='📅 '+w.dates;
+        const scDate=document.getElementById(`scw-date-${pid}-${i}`);
+        if(scDate) scDate.textContent=w.dates;
+      });
+    });
+  });
+  // Update vision end dates
+  const lastStart=new Date(start); lastStart.setDate(start.getDate()+77);
+  const lastDay=new Date(lastStart); lastDay.setDate(lastStart.getDate()+6);
+  const endLabel=lastDay.toLocaleDateString('es-PE',{day:'numeric',month:'long'});
+  ['topo','fin','gym'].forEach(pid=>{
+    const el=document.getElementById('vd-'+pid);
+    if(el) el.textContent=endLabel;
+  });
+}
+
+function detectCurrentWeek() {
+  const startStr=ls_get(KEYS.startDate,'2025-03-30');
+  const start=new Date(startStr+'T00:00:00');
+  const today=new Date(); today.setHours(0,0,0,0);
+  const diff=Math.floor((today-start)/86400000);
+  return diff<0?0:Math.min(Math.floor(diff/7),11);
+}
+
+function markCurrentWeek() {
+  const idx=detectCurrentWeek();
+  Object.keys(PLANS).forEach(planId=>{
+    document.querySelectorAll(`#nav-${planId} .week-tab`).forEach((t,i)=>t.classList.toggle('current-week',i===idx));
+    const cell=document.getElementById(`sc-cell-${planId}-${idx}`);
+    if(cell) cell.classList.add('sc-current');
+    if(planId===currentPlan) switchWeek(planId, idx);
+  });
+}
+
+function showStartDateModal() {
+  const today=new Date();
+  const daysToMon=(8-today.getDay())%7||7;
+  const nextMon=new Date(today); nextMon.setDate(today.getDate()+daysToMon);
+  const def=nextMon.toISOString().split('T')[0];
+  const overlay=document.createElement('div');
+  overlay.id='startOverlay';
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(13,27,42,0.88);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
+  overlay.innerHTML=`
+    <div style="background:var(--paper);border:1px solid var(--border);border-top:4px solid var(--gold);max-width:440px;width:100%;padding:40px;animation:fadeUp 0.25s ease;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);margin-bottom:12px;">// PRIMERA VEZ</div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--navy);margin-bottom:8px;">¿Cuándo arranca<br>tu temporada?</h2>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:24px;">Elige el lunes de inicio. Todas las fechas de los 3 planes se calculan automáticamente.</p>
+      <label style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:8px;">Fecha de inicio (lunes)</label>
+      <input type="date" id="startDateInput" value="${def}" style="font-family:'DM Mono',monospace;font-size:14px;background:#fff;border:1px solid var(--border);color:var(--ink);padding:12px 16px;width:100%;outline:none;margin-bottom:20px;">
+      <button onclick="confirmStartDate()" style="width:100%;background:var(--navy);color:var(--gold-light);border:none;padding:14px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;cursor:pointer;">🚀 COMENZAR MIS 3 PLANES</button>
+      <button onclick="useDefaultDate()" style="width:100%;background:none;border:1px solid var(--border);color:var(--muted);padding:10px;font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;margin-top:8px;">Usar fecha original (30 Mar 2025)</button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function confirmStartDate(){
+  const val=document.getElementById('startDateInput').value;
+  if(!val) return;
+  ls_set(KEYS.startDate,val); recalcDates(val);
+  document.getElementById('startOverlay').remove(); markCurrentWeek();
+  showToast('📅 Fecha guardada para los 3 planes');
+}
+function useDefaultDate(){
+  ls_set(KEYS.startDate,'2025-03-30'); recalcDates('2025-03-30');
+  document.getElementById('startOverlay').remove(); markCurrentWeek();
+}
+
+// ══════════════════════════════════════════════════════
+//  SETTINGS
+// ══════════════════════════════════════════════════════
+function openSettings(){
+  const cfg=ls_get(KEYS.settings,{});
+  const sd=ls_get(KEYS.startDate,'2025-03-30');
+  document.getElementById('cfg-start-date').value=sd;
+  document.getElementById('cfg-work-start').value=cfg.workStart||'07:30';
+  document.getElementById('cfg-work-end').value=cfg.workEnd||'17:30';
+  document.getElementById('cfg-sat-start').value=cfg.satStart||'07:30';
+  document.getElementById('cfg-sat-end').value=cfg.satEnd||'13:00';
+  document.getElementById('cfg-gym-start').value=cfg.gymStart||'19:30';
+  document.getElementById('cfg-gym-end').value=cfg.gymEnd||'21:00';
+  const gymDays=cfg.gymDays||['Lun','Mié','Vie'];
+  document.querySelectorAll('#cfg-gym-days .s-day').forEach(d=>d.classList.toggle('selected',gymDays.includes(d.dataset.day)));
+  document.getElementById('settingsOverlay').classList.add('open');
+}
+function closeSettings(){ document.getElementById('settingsOverlay').classList.remove('open'); }
+function saveSettings(){
+  const gymDays=[...document.querySelectorAll('#cfg-gym-days .s-day.selected')].map(d=>d.dataset.day);
+  const cfg={workStart:document.getElementById('cfg-work-start').value,workEnd:document.getElementById('cfg-work-end').value,satStart:document.getElementById('cfg-sat-start').value,satEnd:document.getElementById('cfg-sat-end').value,gymStart:document.getElementById('cfg-gym-start').value,gymEnd:document.getElementById('cfg-gym-end').value,gymDays};
+  ls_set(KEYS.settings,cfg);
+  const newStart=document.getElementById('cfg-start-date').value;
+  if(newStart){ ls_set(KEYS.startDate,newStart); recalcDates(newStart); }
+  closeSettings(); showToast('✅ Configuración guardada');
+}
+document.querySelectorAll('#cfg-gym-days .s-day').forEach(d=>d.addEventListener('click',()=>d.classList.toggle('selected')));
+
+// ══════════════════════════════════════════════════════
+//  BACKUP / RESTORE
+// ══════════════════════════════════════════════════════
+function exportBackup(){
+  const data={version:3,exported:new Date().toISOString()};
+  Object.keys(PLANS).forEach(pid=>{
+    data[pid]={tasks:ls_get(KEYS[pid].tasks,{}),notes:ls_get(KEYS[pid].notes,{}),hardstop:ls_get(KEYS[pid].hardstop,{}),vision:ls_get(KEYS[pid].vision,'')};
+  });
+  data.settings=ls_get(KEYS.settings,{});
+  data.startDate=ls_get(KEYS.startDate,'2025-03-30');
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='plan-12-semanas-'+new Date().toISOString().split('T')[0]+'.json'; a.click();
+  URL.revokeObjectURL(url); showToast('💾 Backup exportado');
+}
+function importBackup(file){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      if(!d.version) throw new Error('Archivo inválido');
+      Object.keys(PLANS).forEach(pid=>{
+        if(d[pid]){
+          if(d[pid].tasks) ls_set(KEYS[pid].tasks,d[pid].tasks);
+          if(d[pid].notes) ls_set(KEYS[pid].notes,d[pid].notes);
+          if(d[pid].hardstop) ls_set(KEYS[pid].hardstop,d[pid].hardstop);
+          if(d[pid].vision) ls_set(KEYS[pid].vision,d[pid].vision);
+        }
+      });
+      if(d.settings) ls_set(KEYS.settings,d.settings);
+      if(d.startDate) ls_set(KEYS.startDate,d.startDate);
+      showToast('✅ Backup restaurado — recargando...');
+      setTimeout(()=>location.reload(),1200);
+    }catch(err){ showToast('❌ Archivo inválido: '+err.message); }
+  };
+  reader.readAsText(file);
+}
+
+// ══════════════════════════════════════════════════════
+//  SUMMARY + PDF
+// ══════════════════════════════════════════════════════
+function showSummary(planId){
+  const existing=document.getElementById('summaryScreen');
+  if(existing) existing.remove();
+  const plan=PLANS[planId], weeks=plan.weeks, ts=taskStates[planId];
+  const notes=ls_get(KEYS[planId].notes,{});
+  let totalDone=0, totalTasks=0;
+  const weekScores=weeks.map((w,wi)=>{
+    let done=0; w.tasks.forEach((_,ti)=>{ if(ts[wi+'-'+ti]) done++; });
+    totalDone+=done; totalTasks+=w.tasks.length;
+    return{n:wi+1,done,total:w.tasks.length,pct:Math.round((done/w.tasks.length)*100),dates:w.dates,note:notes[wi]||''};
+  });
+  const globalPct=Math.round((totalDone/totalTasks)*100);
+  const completedWeeks=weekScores.filter(w=>w.pct>=85).length;
+  const savedVision=ls_get(KEYS[planId].vision,'');
+  const barsHTML=weekScores.map(ws=>{
+    const c=ws.pct>=85?'var(--sage)':ws.pct>=65?'var(--gold)':'var(--rust)';
+    return `<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;"><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);width:24px;">${ws.n}</span><div style="flex:1;height:8px;background:var(--border);"><div style="height:100%;width:${ws.pct}%;background:${c};"></div></div><span style="font-family:'DM Mono',monospace;font-size:11px;color:${c};width:36px;text-align:right;">${ws.pct}%</span></div>`;
+  }).join('');
+  const notesHTML=weekScores.map(ws=>ws.note?`<div style="margin-bottom:16px;padding:14px 16px;background:#fff;border:1px solid var(--border);border-left:3px solid var(--gold);"><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;margin-bottom:6px;">S${ws.n} — ${ws.dates}</div><p style="font-size:13px;color:var(--ink);line-height:1.6;white-space:pre-wrap;margin:0;">${ws.note}</p></div>`:'').join('')||'<p style="color:var(--muted);font-size:13px;">Aún no hay notas guardadas.</p>';
+  const el=document.createElement('div');
+  el.id='summaryScreen';
+  el.style.cssText='position:fixed;inset:0;background:var(--paper);z-index:500;overflow-y:auto;';
+  el.innerHTML=`<div style="max-width:800px;margin:0 auto;padding:60px 24px 80px;">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;">
+      <button onclick="document.getElementById('summaryScreen').remove()" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;background:none;border:1px solid var(--border);padding:8px 16px;cursor:pointer;color:var(--muted);">← VOLVER</button>
+      <button onclick="exportToPDF('${planId}')" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;background:var(--navy);color:var(--gold-light);border:none;padding:8px 20px;cursor:pointer;">🖨️ EXPORTAR BITÁCORA PDF</button>
+    </div>
+    <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--gold);margin-bottom:12px;">// RESUMEN — ${plan.icon} ${plan.label.toUpperCase()}</div>
+    <h1 style="font-family:'DM Serif Display',serif;font-size:clamp(36px,6vw,64px);line-height:1;color:var(--navy);margin-bottom:48px;">Mi período de <em style="color:var(--gold);">12 semanas</em></h1>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px;">
+      <div style="background:var(--navy);color:var(--cream);padding:28px;text-align:center;"><div style="font-family:'DM Serif Display',serif;font-size:52px;line-height:1;color:var(--gold-light);">${globalPct}%</div><div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;opacity:0.6;margin-top:6px;">EJECUCIÓN GLOBAL</div></div>
+      <div style="background:var(--cream);border:1px solid var(--border);padding:28px;text-align:center;"><div style="font-family:'DM Serif Display',serif;font-size:52px;line-height:1;color:var(--sage);">${completedWeeks}</div><div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);margin-top:6px;">SEMANAS ≥85%</div></div>
+      <div style="background:var(--cream);border:1px solid var(--border);padding:28px;text-align:center;"><div style="font-family:'DM Serif Display',serif;font-size:52px;line-height:1;color:var(--navy);">${totalDone}</div><div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);margin-top:6px;">TAREAS COMPLETADAS</div></div>
+    </div>
+    <div style="margin-bottom:48px;"><div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:16px;">Puntuación por semana</div>${barsHTML}</div>
+    <div style="margin-bottom:48px;"><div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:16px;">Notas WAM</div>${notesHTML}</div>
+    <div style="background:var(--navy);padding:36px;color:var(--cream);">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold-light);opacity:0.7;margin-bottom:12px;">VISIÓN — PRÓXIMA TEMPORADA</div>
+      <textarea id="vision-input" placeholder="Escribe tu visión y las 3 metas del próximo período..." style="width:100%;min-height:120px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;padding:14px;resize:vertical;outline:none;line-height:1.6;">${savedVision}</textarea>
+      <button onclick="saveVision('${planId}')" style="margin-top:12px;background:var(--gold);color:var(--navy);border:none;padding:12px 24px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;cursor:pointer;">💾 GUARDAR VISIÓN</button>
+    </div>
+  </div>`;
+  document.body.appendChild(el);
+}
+
+function saveVision(planId){
+  const val=document.getElementById('vision-input').value;
+  ls_set(KEYS[planId].vision,val); showToast('✅ Visión guardada');
+}
+
+function exportToPDF(planId){
+  const existing=document.getElementById('printReport'); if(existing) existing.remove();
+  const plan=PLANS[planId], weeks=plan.weeks, ts=taskStates[planId];
+  const notes=ls_get(KEYS[planId].notes,{});
+  let totalDone=0, totalTasks=0;
+  const weekScores=weeks.map((w,wi)=>{ let done=0; w.tasks.forEach((_,ti)=>{ if(ts[wi+'-'+ti]) done++; }); totalDone+=done; totalTasks+=w.tasks.length; return{n:wi+1,done,total:w.tasks.length,pct:Math.round((done/w.tasks.length)*100),dates:w.dates,note:notes[wi]||'—'}; });
+  const globalPct=Math.round((totalDone/totalTasks)*100);
+  const completedWeeks=weekScores.filter(w=>w.pct>=85).length;
+  const exportDate=new Date().toLocaleDateString('es-PE',{day:'numeric',month:'long',year:'numeric'});
+  const vision=ls_get(KEYS[planId].vision,'—');
+  const tableRows=weekScores.map(ws=>{ const c=ws.pct>=85?'#4a7c59':ws.pct>=65?'#c8922a':'#b84c2a'; return `<tr style="border-bottom:1px solid #eee;"><td style="padding:8px 4px;font-weight:700;font-size:12px;">S${ws.n}</td><td style="padding:8px 4px;font-size:11px;color:#666;">${ws.dates}</td><td style="padding:8px 4px;">${ws.done}/${ws.total}<div style="height:6px;background:#eee;width:100%;margin-top:3px;"><div style="height:100%;width:${ws.pct}%;background:${c};"></div></div></td><td style="padding:8px 4px;font-weight:700;color:${c};">${ws.pct}%</td><td style="padding:8px 4px;font-size:11px;color:#555;max-width:180px;">${ws.note.substring(0,100)}${ws.note.length>100?'…':''}</td></tr>`; }).join('');
+  const fullNotes=weekScores.filter(ws=>ws.note&&ws.note!=='—').map(ws=>`<div style="margin-bottom:20px;padding:16px;border-left:3px solid #c8922a;background:#faf7f2;"><div style="font-family:monospace;font-size:10px;color:#c8922a;letter-spacing:2px;margin-bottom:8px;">SEMANA ${ws.n} — ${ws.dates}</div><p style="font-size:13px;line-height:1.7;color:#2a2420;white-space:pre-wrap;margin:0;">${ws.note}</p></div>`).join('');
+  const div=document.createElement('div'); div.id='printReport';
+  div.style.cssText='position:fixed;inset:0;background:#fff;z-index:800;overflow:auto;padding:48px;font-family:Georgia,serif;';
+  div.innerHTML=`<div style="max-width:720px;margin:0 auto;">
+    <div style="position:fixed;top:16px;right:16px;display:flex;gap:8px;">
+      <button onclick="window.print()" style="background:#0d1b2a;color:#f0c060;border:none;padding:10px 20px;font-family:monospace;font-size:11px;letter-spacing:1px;cursor:pointer;">🖨️ IMPRIMIR / PDF</button>
+      <button onclick="document.getElementById('printReport').remove()" style="background:#eee;color:#333;border:none;padding:10px 20px;font-family:monospace;font-size:11px;cursor:pointer;">✕ CERRAR</button>
+    </div>
+    <div style="border-bottom:3px solid #0d1b2a;padding-bottom:20px;margin-bottom:32px;display:flex;justify-content:space-between;align-items:flex-end;">
+      <div><div style="font-family:monospace;font-size:10px;letter-spacing:3px;color:#c8922a;margin-bottom:8px;">BITÁCORA TÉCNICA — ${plan.icon} ${plan.label.toUpperCase()}</div><h1 style="font-size:32px;color:#0d1b2a;margin:0;line-height:1.1;">Plan 12 Semanas<br><em style="color:#c8922a;">${plan.label}</em></h1></div>
+      <div style="text-align:right;font-family:monospace;font-size:11px;color:#666;"><div>Exportado: ${exportDate}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;">
+      <div style="background:#0d1b2a;color:#fff;padding:20px;text-align:center;"><div style="font-size:40px;font-weight:700;color:#f0c060;">${globalPct}%</div><div style="font-size:10px;letter-spacing:2px;opacity:0.6;margin-top:4px;">EJECUCIÓN GLOBAL</div></div>
+      <div style="border:1px solid #ddd;padding:20px;text-align:center;"><div style="font-size:40px;font-weight:700;color:#4a7c59;">${completedWeeks}/12</div><div style="font-size:10px;letter-spacing:2px;color:#999;margin-top:4px;">SEMANAS ≥85%</div></div>
+      <div style="border:1px solid #ddd;padding:20px;text-align:center;"><div style="font-size:40px;font-weight:700;color:#0d1b2a;">${totalDone}</div><div style="font-size:10px;letter-spacing:2px;color:#999;margin-top:4px;">TAREAS COMPLETADAS</div></div>
+    </div>
+    <h2 style="font-size:16px;color:#0d1b2a;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:16px;">Registro semanal</h2>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:32px;"><thead><tr style="background:#f5f0e8;font-size:10px;letter-spacing:1px;text-transform:uppercase;"><th style="padding:10px 4px;text-align:left;">Sem.</th><th style="padding:10px 4px;text-align:left;">Fechas</th><th style="padding:10px 4px;text-align:left;">Progreso</th><th style="padding:10px 4px;text-align:left;">%</th><th style="padding:10px 4px;text-align:left;">Nota WAM</th></tr></thead><tbody>${tableRows}</tbody></table>
+    <div style="page-break-before:always;"><h2 style="font-size:16px;color:#0d1b2a;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:20px;">Notas WAM completas</h2>${fullNotes||'<p style="color:#999;font-size:13px;">Sin notas registradas.</p>'}</div>
+    <div style="margin-top:32px;background:#0d1b2a;padding:28px;color:#fff;"><div style="font-family:monospace;font-size:9px;letter-spacing:3px;color:#f0c060;opacity:0.7;margin-bottom:10px;">VISIÓN — PRÓXIMA TEMPORADA</div><p style="font-size:13px;line-height:1.7;opacity:0.85;white-space:pre-wrap;">${vision}</p></div>
+    <div style="margin-top:40px;text-align:center;font-family:monospace;font-size:10px;color:#ccc;letter-spacing:2px;">BITÁCORA — PLAN 12 SEMANAS</div>
+  </div>`;
+  document.body.appendChild(div);
+}
+
+// ══════════════════════════════════════════════════════
+//  RESET
+// ══════════════════════════════════════════════════════
+function resetPlan(planId){
+  if(!confirm('¿Borrar todo el progreso del plan '+PLANS[planId].label+'? Esta acción no se puede deshacer.')) return;
+  [KEYS[planId].tasks,KEYS[planId].notes,KEYS[planId].hardstop,KEYS[planId].vision].forEach(k=>{ try{localStorage.removeItem(k);}catch(e){} });
+  location.reload();
+}
+
+
+// ══════════════════════════════════════════════════════
+//  BASELINE MEASUREMENTS (Semana 1 — 30 Mar 2025)
+// ══════════════════════════════════════════════════════
+const BASELINE = {
+  fecha:    '30 Mar 2025',
+  peso:     75.0,
+  altura:   172,
+  medidas: [
+    { zona: 'Hombros',            valor: 110.0, unidad: 'cm' },
+    { zona: 'Brazo izquierdo',    valor: 33.0,  unidad: 'cm' },
+    { zona: 'Brazo derecho',      valor: 33.0,  unidad: 'cm' },
+    { zona: 'Pecho',              valor: 94.5,  unidad: 'cm' },
+    { zona: 'Barriga',            valor: 91.0,  unidad: 'cm' },
+    { zona: 'Pierna izquierda',   valor: 53.0,  unidad: 'cm' },
+    { zona: 'Pierna derecha',     valor: 55.0,  unidad: 'cm' },
+    { zona: 'Pantorrilla izq.',   valor: 34.0,  unidad: 'cm' },
+    { zona: 'Pantorrilla der.',   valor: 35.0,  unidad: 'cm' },
+  ],
+  cargas: [
+    { ejercicio: 'Sentadilla Smith', valor: 50,  unidad: 'kg' },
+    { ejercicio: 'Press de piernas', valor: 110, unidad: 'kg' },
+  ]
+};
+
+const MEDS_KEY = 'gym_measurements_v1';
+
+function saveMeasurement(weekLabel, data) {
+  const all = ls_get(MEDS_KEY, {});
+  all[weekLabel] = { ...data, savedAt: new Date().toISOString() };
+  ls_set(MEDS_KEY, all);
+}
+
+function getMeasurements() {
+  return ls_get(MEDS_KEY, {});
+}
+
+function buildMeasurementsPanel() {
+  const existing = document.getElementById('measPanel');
+  if (existing) existing.remove();
+
+  const saved = getMeasurements();
+  const weeks = ['Semana 1 (Inicio)', 'Semana 4', 'Semana 8', 'Semana 12 (Cierre)'];
+
+  // Build comparison table
+  const zonas = BASELINE.medidas.map(m => m.zona);
+
+  let headerCols = `<th style="padding:10px 8px;text-align:left;font-size:10px;letter-spacing:1px;background:#f5f0e8;">Medida</th>
+    <th style="padding:10px 8px;text-align:center;font-size:10px;letter-spacing:1px;background:#0d1b2a;color:#f0c060;">Inicio<br><span style="font-size:9px;opacity:0.7;">30 Mar</span></th>`;
+
+  weeks.slice(1).forEach(w => {
+    const hasData = saved[w];
+    headerCols += `<th style="padding:10px 8px;text-align:center;font-size:10px;letter-spacing:1px;background:#f5f0e8;">${w.replace(' (Cierre)','').replace(' (Inicio)','')}</th>`;
+  });
+  headerCols += `<th style="padding:10px 8px;text-align:center;font-size:10px;letter-spacing:1px;background:#f5f0e8;">Cambio</th>`;
+
+  let bodyRows = '';
+
+  // Peso row
+  const pesoRows = [{ zona: 'Peso (kg)', key: 'peso', base: BASELINE.peso }];
+  [...pesoRows, ...BASELINE.medidas.map(m => ({ zona: m.zona, key: m.zona, base: m.valor }))].forEach(item => {
+    let cols = `<td style="padding:8px;font-size:12px;font-weight:500;color:#2a2420;white-space:nowrap;">${item.zona}</td>`;
+    cols += `<td style="padding:8px;text-align:center;font-size:13px;font-weight:700;color:#0d1b2a;">${item.base}</td>`;
+    let lastVal = item.base;
+    weeks.slice(1).forEach(w => {
+      const d = saved[w];
+      const val = d ? (item.key === 'peso' ? d.peso : (d.medidas || []).find(m => m.zona === item.zona)?.valor) : null;
+      if (val !== null && val !== undefined) lastVal = val;
+      cols += `<td style="padding:8px;text-align:center;font-size:13px;color:${val ? '#2a2420' : '#ccc'};">${val !== null && val !== undefined ? val : '—'}</td>`;
+    });
+    const diff = lastVal - item.base;
+    const diffColor = item.zona === 'Barriga' || item.zona === 'Peso (kg)'
+      ? (diff < 0 ? '#4a7c59' : diff > 0 ? '#b84c2a' : '#8a7e72')
+      : (diff > 0 ? '#4a7c59' : diff < 0 ? '#b84c2a' : '#8a7e72');
+    const diffStr = diff === 0 ? '—' : (diff > 0 ? '+' : '') + diff.toFixed(1) + ' cm';
+    cols += `<td style="padding:8px;text-align:center;font-size:13px;font-weight:700;color:${diffColor};">${lastVal === item.base ? '—' : diffStr}</td>`;
+    bodyRows += `<tr style="border-bottom:1px solid #f0ece4;">${cols}</tr>`;
+  });
+
+  // Cargas rows
+  bodyRows += `<tr style="background:#f5f0e8;"><td colspan="6" style="padding:8px 10px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:#8a7e72;">CARGAS</td></tr>`;
+  BASELINE.cargas.forEach(c => {
+    let cols = `<td style="padding:8px;font-size:12px;font-weight:500;color:#2a2420;">${c.ejercicio}</td>`;
+    cols += `<td style="padding:8px;text-align:center;font-size:13px;font-weight:700;color:#0d1b2a;">${c.valor} kg</td>`;
+    weeks.slice(1).forEach(w => {
+      const d = saved[w];
+      const carga = d ? (d.cargas || []).find(x => x.ejercicio === c.ejercicio)?.valor : null;
+      cols += `<td style="padding:8px;text-align:center;font-size:13px;color:${carga ? '#2a2420' : '#ccc'};">${carga ? carga + ' kg' : '—'}</td>`;
+    });
+    const lastCarga = (() => {
+      for (const w of weeks.slice(1).reverse()) {
+        const d = saved[w];
+        const v = d ? (d.cargas || []).find(x => x.ejercicio === c.ejercicio)?.valor : null;
+        if (v) return v;
+      }
+      return c.valor;
+    })();
+    const diff = lastCarga - c.valor;
+    cols += `<td style="padding:8px;text-align:center;font-size:13px;font-weight:700;color:${diff > 0 ? '#4a7c59' : '#8a7e72'};">${diff > 0 ? '+'+diff+' kg' : '—'}</td>`;
+    bodyRows += `<tr style="border-bottom:1px solid #f0ece4;">${cols}</tr>`;
+  });
+
+  // Input form for new measurement
+  const weekOptions = weeks.slice(1).map(w => `<option value="${w}">${w}</option>`).join('');
+  const medInputs = BASELINE.medidas.map(m =>
+    `<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
+      <label style="font-size:12px;color:#5a6380;min-width:160px;">${m.zona}</label>
+      <input type="number" step="0.1" id="med-${m.zona}" placeholder="${m.valor}" style="font-family:'DM Mono',monospace;font-size:13px;padding:6px 10px;border:1px solid #d8cfc4;width:90px;outline:none;">
+      <span style="font-size:11px;color:#8a7e72;">cm</span>
+    </div>`).join('');
+
+  const cargaInputs = BASELINE.cargas.map(c =>
+    `<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
+      <label style="font-size:12px;color:#5a6380;min-width:160px;">${c.ejercicio}</label>
+      <input type="number" step="2.5" id="carga-${c.ejercicio}" placeholder="${c.valor}" style="font-family:'DM Mono',monospace;font-size:13px;padding:6px 10px;border:1px solid #d8cfc4;width:90px;outline:none;">
+      <span style="font-size:11px;color:#8a7e72;">kg</span>
+    </div>`).join('');
+
+  const overlay = document.createElement('div');
+  overlay.id = 'measPanel';
+  overlay.style.cssText = 'position:fixed;inset:0;background:var(--paper);z-index:500;overflow-y:auto;';
+  overlay.innerHTML = `
+    <div style="max-width:900px;margin:0 auto;padding:60px 24px 80px;">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;">
+        <button onclick="document.getElementById('measPanel').remove()" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;background:none;border:1px solid var(--border);padding:8px 16px;cursor:pointer;color:var(--muted);">← VOLVER</button>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--gold);margin-bottom:12px;">// MEDICIONES 🏋️ GIMNASIO</div>
+      <h1 style="font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,56px);line-height:1;color:var(--navy);margin-bottom:8px;">Progreso físico<br><em style="color:var(--gold);">semana a semana</em></h1>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:40px;">Altura: 1.72 m · Peso inicial: 75 kg · Inicio: 30 Mar 2025</p>
+
+      <!-- TABLA COMPARATIVA -->
+      <div style="overflow-x:auto;margin-bottom:48px;">
+        <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;">
+          <thead><tr>${headerCols}</tr></thead>
+          <tbody>${bodyRows}</tbody>
+        </table>
+      </div>
+
+      <!-- FORMULARIO DE REGISTRO -->
+      <div style="background:var(--cream);border:1px solid var(--border);border-top:4px solid var(--gold);padding:32px;margin-bottom:32px;">
+        <h3 style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);margin-bottom:20px;">Registrar nuevas mediciones</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;flex-wrap:wrap;">
+          <div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">SEMANA A REGISTRAR</div>
+            <select id="meas-week" style="font-family:'DM Mono',monospace;font-size:12px;padding:8px 12px;border:1px solid var(--border);background:#fff;width:100%;margin-bottom:16px;outline:none;">
+              ${weekOptions}
+            </select>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">PESO</div>
+            <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;">
+              <input type="number" step="0.1" id="med-peso" placeholder="75.0" style="font-family:'DM Mono',monospace;font-size:13px;padding:6px 10px;border:1px solid #d8cfc4;width:90px;outline:none;">
+              <span style="font-size:11px;color:#8a7e72;">kg</span>
+            </div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">CARGAS</div>
+            ${cargaInputs}
+          </div>
+          <div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">CIRCUNFERENCIAS</div>
+            ${medInputs}
+          </div>
+        </div>
+        <button onclick="recordMeasurement()" style="margin-top:20px;background:var(--navy);color:var(--gold-light);border:none;padding:14px 32px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;width:100%;">💾 GUARDAR MEDICIONES</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function recordMeasurement() {
+  const weekLabel = document.getElementById('meas-week').value;
+  const peso = parseFloat(document.getElementById('med-peso').value) || null;
+  const medidas = BASELINE.medidas.map(m => {
+    const val = parseFloat(document.getElementById('med-' + m.zona).value);
+    return { zona: m.zona, valor: isNaN(val) ? null : val, unidad: 'cm' };
+  }).filter(m => m.valor !== null);
+  const cargas = BASELINE.cargas.map(c => {
+    const val = parseFloat(document.getElementById('carga-' + c.ejercicio).value);
+    return { ejercicio: c.ejercicio, valor: isNaN(val) ? null : val, unidad: 'kg' };
+  }).filter(c => c.valor !== null);
+
+  if (!peso && medidas.length === 0 && cargas.length === 0) {
+    showToast('⚠️ Ingresa al menos un valor');
+    return;
+  }
+  saveMeasurement(weekLabel, { peso, medidas, cargas });
+  showToast('✅ Mediciones de ' + weekLabel + ' guardadas');
+  setTimeout(() => buildMeasurementsPanel(), 400);
+}
+
+// ══════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════
+// Build all 3 plan UIs
+Object.keys(PLANS).forEach(planId => buildPlanUI(planId));
+
+// Backup bar
+const backupBar=document.createElement('div');
+backupBar.className='backup-bar';
+backupBar.innerHTML=`<span>💾 Respaldo de datos (los 3 planes)</span><button onclick="exportBackup()">⬇️ Exportar .json</button><button onclick="document.getElementById('importFile').click()">⬆️ Importar backup</button><input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(this.files[0])"><span style="margin-left:auto;opacity:0.5;font-size:10px;">Si borras el caché del navegador pierdes los datos</span>`;
+document.querySelector('.wrap').insertBefore(backupBar, document.querySelector('.wrap').children[2]);
+
+// Start date
+const savedStart=ls_get(KEYS.startDate,null);
+if(!savedStart){ showStartDateModal(); } else { recalcDates(savedStart); markCurrentWeek(); }
+
+// Switch to topo by default
+switchPlan('topo');
+
+</script>
+</body>
+</html>
