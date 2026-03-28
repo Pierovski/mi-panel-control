@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mis 3 Planes de 12 Semanas</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
   --cream: #f5f0e8;
@@ -48,33 +48,11 @@ body::before {
   padding: 0 24px 80px;
 }
 
-/* ─── HERO ─── */
+/* ─── HERO MINIMALISTA ─── */
 .hero {
-  padding: 64px 0 48px;
+  padding: 64px 0 24px;
   border-bottom: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 40px;
-  align-items: end;
-}
-
-.hero-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.hero-label::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--gold);
+  text-align: center;
 }
 
 .hero h1 {
@@ -82,45 +60,12 @@ body::before {
   font-size: clamp(44px, 6vw, 80px);
   line-height: 1;
   color: var(--navy);
-  margin-bottom: 12px;
+  margin: 0;
 }
 
 .hero h1 em {
   font-style: italic;
   color: var(--gold);
-}
-
-.hero-sub {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.65;
-  max-width: 480px;
-  font-weight: 300;
-}
-
-.hero-badge {
-  background: var(--navy);
-  color: var(--cream);
-  padding: 20px 28px;
-  text-align: center;
-  flex-shrink: 0;
-  border-radius: 2px;
-}
-.hero-badge .big {
-  font-family: 'DM Serif Display', serif;
-  font-size: 52px;
-  line-height: 1;
-  color: var(--gold-light);
-  display: block;
-}
-.hero-badge .small {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 0.6;
-  margin-top: 4px;
-  display: block;
 }
 
 /* ─── METODOLOGÍA PILLARS ─── */
@@ -209,52 +154,6 @@ body::before {
   color: var(--muted);
   letter-spacing: 2px;
   text-transform: uppercase;
-}
-
-/* ─── GOALS ─── */
-.goals-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 56px;
-}
-.goal-card {
-  border: 1px solid var(--border);
-  padding: 24px;
-  border-top: 3px solid var(--navy);
-  background: #fff;
-}
-.goal-card:nth-child(2) { border-top-color: var(--gold); }
-.goal-card:nth-child(3) { border-top-color: var(--sage); }
-
-.goal-card .g-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-.goal-card h3 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 20px;
-  color: var(--navy);
-  margin-bottom: 10px;
-  line-height: 1.2;
-}
-.goal-card p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.6;
-  font-weight: 300;
-  margin-bottom: 14px;
-}
-.goal-kpi {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  background: var(--cream);
-  padding: 6px 10px;
-  color: var(--ink);
-  letter-spacing: 0.5px;
 }
 
 /* ─── WEEK TABS ─── */
@@ -521,36 +420,32 @@ body::before {
 .sc-week {
   background: #fff;
   border: 1px solid var(--border);
-  padding: 12px 8px;
+  padding: 14px 8px;
   text-align: center;
   cursor: pointer;
   transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 .sc-week:hover { border-color: var(--navy); }
-.sc-week.sc-done { background: var(--navy); border-color: var(--navy); }
+.sc-week.sc-done { background: var(--sage); border-color: var(--sage); }
 .sc-week .scw-num {
   font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--muted);
-  margin-bottom: 8px;
-  display: block;
-}
-.sc-week.sc-done .scw-num { color: rgba(255,255,255,0.5); }
-.sc-week .scw-pct {
-  font-family: 'DM Serif Display', serif;
-  font-size: 20px;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--navy);
-  display: block;
-  line-height: 1;
 }
-.sc-week.sc-done .scw-pct { color: var(--gold-light); }
-.sc-week .scw-bar {
-  width: 100%; height: 3px; background: var(--border); margin-top: 8px;
+.sc-week .scw-pct {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
 }
-.sc-week .scw-fill {
-  height: 100%; background: var(--sage); width: 0%; transition: width 0.4s;
-}
-.sc-week.sc-done .scw-fill { width: 85%; }
+.sc-week.sc-done .scw-num,
+.sc-week.sc-done .scw-pct { color: #fff; }
 
 /* ─── WAM ─── */
 .wam-box {
@@ -625,10 +520,8 @@ body::before {
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero-badge { display: none; }
+  .hero { padding: 40px 0 20px; }
   .pillars { grid-template-columns: 1fr 1fr; }
-  .goals-grid { grid-template-columns: 1fr; }
   .week-panel.active { grid-template-columns: 1fr; }
   .week-side { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 24px; }
   .vision-block { grid-template-columns: 1fr; }
@@ -707,197 +600,17 @@ body::before {
   cursor: pointer; transition: background 0.15s;
 }
 .s-save-btn:hover { background: var(--gold); color: var(--navy); }
-.schedule-banner {
-  background: var(--cream); border: 1px solid var(--border);
-  border-left: 3px solid var(--gold); padding: 12px 18px;
-  margin-bottom: 32px; font-size: 13px; color: var(--ink);
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-}
-.schedule-banner span {
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  background: var(--navy); color: var(--gold-light); padding: 3px 10px;
-}
 
 /* ─── PRINT / PDF EXPORT ─── */
 @media print {
   body { background: #fff !important; }
   .global-progress, .settings-btn, .week-tab,
   .week-panels, .weeks-nav, .pillars, .vision-block,
-  .goals-grid, .wam-box, .scorecard, .schedule-banner,
-  button, .notes-save-btn { display: none !important; }
+  .wam-box, .scorecard, button, .notes-save-btn { display: none !important; }
   .pdf-report { display: block !important; }
   .wrap { padding: 0 !important; max-width: 100% !important; }
   @page { margin: 20mm; size: A4; }
 }
-.pdf-report { display: none; }
-.pdf-section { margin-bottom: 32px; page-break-inside: avoid; }
-.pdf-section h3 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 18px; color: var(--navy);
-  border-bottom: 2px solid var(--gold);
-  padding-bottom: 6px; margin-bottom: 14px;
-}
-.pdf-week-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 8px 0; border-bottom: 1px dashed var(--border);
-  font-size: 13px;
-}
-.pdf-week-row .pw-num {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  color: var(--muted); width: 28px; flex-shrink: 0;
-}
-.pdf-bar-wrap { flex: 1; height: 6px; background: var(--border); }
-.pdf-bar-fill { height: 100%; }
-.pdf-pct {
-  font-family: 'DM Mono', monospace; font-size: 12px;
-  width: 40px; text-align: right; flex-shrink: 0;
-}
-.pdf-note-block {
-  background: #fafafa; border-left: 3px solid var(--gold);
-  padding: 12px 16px; margin-bottom: 10px; page-break-inside: avoid;
-}
-.pdf-note-block .pn-week {
-  font-family: 'DM Mono', monospace; font-size: 9px;
-  color: var(--gold); letter-spacing: 2px; margin-bottom: 6px;
-}
-.pdf-note-block .pn-text {
-  font-size: 12px; color: var(--ink); line-height: 1.6;
-  white-space: pre-wrap;
-}
-.pdf-header {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 32px; padding-bottom: 16px;
-  border-bottom: 3px solid var(--navy);
-}
-.pdf-header h1 {
-  font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--navy);
-}
-.pdf-header .pdf-meta {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  color: var(--muted); text-align: right; line-height: 1.8;
-}
-.pdf-kpi-row {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-  margin-bottom: 32px;
-}
-.pdf-kpi {
-  border: 1px solid var(--border); border-top: 3px solid var(--navy);
-  padding: 16px; text-align: center;
-}
-.pdf-kpi .pk-val {
-  font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--navy);
-  display: block; line-height: 1;
-}
-.pdf-kpi .pk-lbl {
-  font-family: 'DM Mono', monospace; font-size: 9px;
-  color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase;
-  margin-top: 4px; display: block;
-}
-
-/* ─── HARD STOP ─── */
-.hardstop-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(184,76,42,0.92); z-index: 700;
-  align-items: center; justify-content: center;
-  backdrop-filter: blur(6px);
-}
-.hardstop-overlay.open { display: flex; }
-.hardstop-modal {
-  background: #fff; border-top: 6px solid var(--rust);
-  max-width: 500px; width: 100%; padding: 40px;
-  animation: fadeUp 0.3s ease; position: relative;
-}
-.hardstop-modal h2 {
-  font-family: 'DM Serif Display', serif; font-size: 26px;
-  color: var(--rust); margin-bottom: 8px;
-}
-.hardstop-modal p {
-  font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 20px;
-}
-.hardstop-modal textarea {
-  width: 100%; min-height: 110px; border: 1px solid var(--border);
-  padding: 12px; font-family: 'DM Sans', sans-serif; font-size: 13px;
-  line-height: 1.6; outline: none; resize: vertical; margin-bottom: 12px;
-}
-.hardstop-modal textarea:focus { border-color: var(--rust); }
-.hardstop-btn {
-  width: 100%; background: var(--rust); color: #fff;
-  border: none; padding: 14px;
-  font-family: 'DM Mono', monospace; font-size: 12px;
-  letter-spacing: 2px; cursor: pointer; text-transform: uppercase;
-  transition: background 0.15s;
-}
-.hardstop-btn:hover { background: var(--navy); }
-.week-blocked {
-  pointer-events: none; opacity: 0.4;
-  position: relative;
-}
-.week-blocked::after {
-  content: '🔒 BLOQUEADA — Completa el Hard Stop de la semana anterior';
-  position: absolute; inset: 0; background: rgba(255,255,255,0.85);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  color: var(--rust); letter-spacing: 1px; text-align: center;
-  padding: 20px; pointer-events: all; cursor: not-allowed;
-}
-
-/* ─── HARD STOP MODAL ─── */
-.hardstop-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(184,76,42,0.92); z-index: 700;
-  align-items: center; justify-content: center;
-  backdrop-filter: blur(4px);
-}
-.hardstop-overlay.open { display: flex; }
-.hardstop-modal {
-  background: #fff; border-top: 6px solid var(--rust);
-  max-width: 500px; width: 100%; padding: 40px;
-  animation: fadeUp 0.3s ease;
-}
-.hardstop-modal h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 28px; color: var(--rust); margin-bottom: 8px;
-}
-.hardstop-modal p { font-size: 14px; color: var(--ink); line-height: 1.65; margin-bottom: 20px; }
-.hardstop-modal textarea {
-  width: 100%; min-height: 110px;
-  font-family: 'DM Sans', sans-serif; font-size: 13px;
-  border: 2px solid var(--rust); padding: 12px;
-  resize: vertical; outline: none; color: var(--ink); line-height: 1.6;
-}
-.hardstop-btn {
-  width: 100%; margin-top: 12px; background: var(--rust); color: #fff;
-  border: none; padding: 14px; font-family: 'DM Mono', monospace;
-  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
-  cursor: pointer; transition: background 0.15s;
-}
-.hardstop-btn:hover { background: #8b2a10; }
-
-/* ─── BACKUP BAR ─── */
-.backup-bar {
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  background: var(--cream); border: 1px solid var(--border);
-  padding: 12px 18px; margin-bottom: 20px;
-  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
-}
-.backup-bar button {
-  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px;
-  padding: 7px 14px; border: 1px solid var(--border); background: #fff;
-  cursor: pointer; color: var(--ink); transition: all 0.15s; text-transform: uppercase;
-}
-.backup-bar button:hover { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
-.backup-bar input[type="file"] { display: none; }
-
-/* ─── PRINT STYLES ─── */
-@media print {
-  .settings-btn, .global-progress, .weeks-nav, .week-panels,
-  .backup-bar, .schedule-banner, .pillars, .wam-box,
-  button, .hardstop-overlay, .settings-overlay { display: none !important; }
-  .print-report { display: block !important; }
-  body { background: #fff; }
-  .print-page-break { page-break-before: always; }
-}
-.print-report { display: none; }
 
 /* ─── PLAN SELECTOR ─── */
 .plan-selector { display:flex;gap:0;margin:40px 0 0;border:1px solid var(--border);overflow:hidden;border-radius:2px; }
@@ -908,6 +621,7 @@ body::before {
 .plan-btn.active{background:var(--navy);color:var(--gold-light);}
 .plan-section{display:none;}
 .plan-section.active{display:block;}
+
 /* ─── HARDSTOP ─── */
 .hardstop-overlay{display:none;position:fixed;inset:0;background:rgba(184,76,42,0.92);z-index:700;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
 .hardstop-overlay.open{display:flex;}
@@ -916,37 +630,12 @@ body::before {
 .hardstop-modal p{font-size:14px;color:var(--ink);line-height:1.65;margin-bottom:20px;}
 .hardstop-modal textarea{width:100%;min-height:110px;font-family:'DM Sans',sans-serif;font-size:13px;border:2px solid var(--rust);padding:12px;resize:vertical;outline:none;}
 .hardstop-btn{width:100%;margin-top:12px;background:var(--rust);color:#fff;border:none;padding:14px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
-/* ─── BACKUP ─── */
-.backup-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--cream);border:1px solid var(--border);padding:12px 18px;margin-bottom:20px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
-.backup-bar button{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;padding:7px 14px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--ink);transition:all 0.15s;text-transform:uppercase;}
-.backup-bar button:hover{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
-/* ─── SETTINGS ─── */
-.settings-btn{position:fixed;bottom:28px;right:28px;width:48px;height:48px;background:var(--navy);color:var(--gold-light);border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,0.25);transition:transform 0.2s;display:flex;align-items:center;justify-content:center;}
-.settings-btn:hover{transform:scale(1.1);}
-.settings-overlay{display:none;position:fixed;inset:0;background:rgba(13,27,42,0.7);z-index:300;backdrop-filter:blur(3px);align-items:center;justify-content:center;}
-.settings-overlay.open{display:flex;}
-.settings-modal{background:var(--paper);border:1px solid var(--border);border-top:4px solid var(--gold);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;padding:36px 40px;position:relative;animation:fadeUp 0.25s ease;}
-.settings-modal h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--navy);margin-bottom:4px;}
-.settings-modal .s-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;display:block;}
-.settings-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);}
-.s-group{margin-bottom:24px;}
-.s-group label{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.s-group input[type="time"],.s-group input[type="date"]{font-family:'DM Mono',monospace;font-size:13px;background:#fff;border:1px solid var(--border);color:var(--ink);padding:10px 14px;width:100%;outline:none;}
-.s-row{display:flex;gap:12px;} .s-row>*{flex:1;}
-.s-days{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
-.s-day{font-family:'DM Mono',monospace;font-size:11px;padding:7px 12px;border:1px solid var(--border);cursor:pointer;background:#fff;color:var(--muted);transition:all 0.15s;user-select:none;}
-.s-day.selected{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
-.s-save-btn{width:100%;margin-top:8px;background:var(--navy);color:var(--cream);border:none;padding:14px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
-.schedule-banner{background:var(--cream);border:1px solid var(--border);border-left:3px solid var(--gold);padding:12px 18px;margin-bottom:16px;font-size:13px;color:var(--ink);display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer;}
-.schedule-banner span{font-family:'DM Mono',monospace;font-size:11px;background:var(--navy);color:var(--gold-light);padding:3px 10px;}
-.week-tab.current-week{background:var(--gold)!important;color:var(--navy)!important;border-color:var(--gold)!important;font-weight:700!important;}
-.sc-current{border:2px solid var(--gold)!important;}
-.notes-area{width:100%;min-height:90px;font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.6;background:#fff;border:1px solid var(--border);color:var(--ink);padding:10px 12px;resize:vertical;outline:none;margin-top:4px;}
-.notes-area:focus{border-color:var(--gold);}
-.notes-save-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:none;border:1px solid var(--border);color:var(--muted);padding:6px 14px;cursor:pointer;margin-top:6px;transition:all 0.15s;}
-.notes-save-btn:hover{border-color:var(--gold);color:var(--gold);}
-@media print{.settings-btn,.global-progress,.weeks-nav,.week-panels,.backup-bar,.schedule-banner,.plan-selector,button,.hardstop-overlay,.settings-overlay{display:none!important;}body{background:#fff;}}
 
+/* ─── BACKUP ─── */
+.backup-bar{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;background:transparent;border-top:1px dashed var(--border);padding:24px 18px;margin-top:40px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+.backup-bar button{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;padding:7px 14px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--ink);transition:all 0.15s;text-transform:uppercase;border-radius:4px;}
+.backup-bar button:hover{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
+.backup-bar input[type="file"] { display: none; }
 </style>
 </head>
 <body>
@@ -956,17 +645,10 @@ body::before {
 
   <header class="hero">
     <div>
-      <div class="hero-label">El Año de 12 Semanas — 3 Áreas de Vida</div>
       <h1>Mis mejores<br><em>12 semanas</em></h1>
-      <p class="hero-sub">Un sistema de ejecución intensiva aplicado a las 3 áreas que más impactan tu vida: tu carrera como topógrafo, tus finanzas y tu cuerpo.</p>
-    </div>
-    <div class="hero-badge">
-      <span class="big">3</span>
-      <span class="small">PLANES / 84 DÍAS</span>
     </div>
   </header>
 
-  <!-- PLAN SELECTOR -->
   <div class="plan-selector">
     <button class="plan-btn active" data-plan="topo" onclick="switchPlan('topo')">
       <span class="pb-icon">🗺️</span>
@@ -982,12 +664,10 @@ body::before {
     </button>
   </div>
 
-  <!-- PLAN SECTIONS -->
   <div class="plan-section active" data-plan="topo" id="section-topo"></div>
   <div class="plan-section" data-plan="fin"  id="section-fin"></div>
   <div class="plan-section" data-plan="gym"  id="section-gym"></div>
 
-  <!-- WAM -->
   <div class="wam-box">
     <h2>Reunión semanal de rendición de cuentas</h2>
     <div class="wam-sub">WAM — Cada domingo 9:00–10:00 AM — Los 3 planes en 30 minutos</div>
@@ -1011,10 +691,7 @@ body::before {
     </div>
   </div>
 
-</div><!-- /wrap -->
-
-<!-- HARD STOP MODAL -->
-<div class="hardstop-overlay" id="hardstopOverlay">
+</div><div class="hardstop-overlay" id="hardstopOverlay">
   <div class="hardstop-modal">
     <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--rust);margin-bottom:10px;">⛔ HARD STOP — MÉTODO MORAN</div>
     <h2>Ejecución por debajo del 65%</h2>
@@ -1027,10 +704,8 @@ body::before {
   </div>
 </div>
 
-<!-- SETTINGS BUTTON -->
 <button class="settings-btn" onclick="openSettings()" title="Configurar horario">⚙️</button>
 
-<!-- SETTINGS MODAL -->
 <div class="settings-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
   <div class="settings-modal">
     <button class="settings-close" onclick="closeSettings()">✕</button>
@@ -1082,15 +757,15 @@ body::before {
 const topoWeeks = [
   {
     title: "Semana 1: Diagnóstico real y mapa de habilidades",
-    theme: "ARRANQUE — CONOCÉ TU PUNTO DE PARTIDA REAL",
+    theme: "ARRANQUE — CONOCE TU PUNTO DE PARTIDA REAL",
     dates: "30 Mar – 5 Abr",
     tasks: [
-      "🎯 PRIORIDAD: Haz un test escrito de 20 preguntas técnicas y calificarte del 1 al 10 en cada área: geodesia, software, campo, normas",
-      "Ver 'Cómo mejorar como topógrafo profesional' en el canal 'Topografía y Territorio' o 'Geomática Aplicada' en YouTube — anotar 3 acciones concretas aplicables esta semana",
-      "Crear tu Mapa de Habilidades: tabla con 3 columnas — Domino / Conozco pero fallo / No sé — con 15 habilidades técnicas reales",
-      "En el trabajo: observar qué hace diferente el topógrafo más senior y anotar 3 cosas concretas que él hace mejor que vos",
-      "Definir el proyecto ancla de las 12 semanas: un levantamiento real disponible para usar como hilo conductor del aprendizaje",
-      "Escribir 3 oraciones específicas de qué vas a poder hacer el 21 de junio que hoy no puedes",
+      "🎯 PRIORIDAD: Haz un test escrito de 20 preguntas técnicas y califícate del 1 al 10 en cada área: geodesia, software, campo, normas",
+      "Ver 'Cómo mejorar como topógrafo profesional' en YouTube — anotar 3 acciones concretas aplicables esta semana",
+      "Crear tu Mapa de Habilidades: tabla con 3 columnas — Domino / Conozco pero fallo / No sé — con 15 habilidades técnicas",
+      "En el trabajo (Cachicadán): observar qué hace diferente el topógrafo más senior y anotar 3 cosas concretas que él hace mejor que tú",
+      "Definir el proyecto ancla de las 12 semanas: El levantamiento del colegio en Cachicadán para usarlo como hilo conductor",
+      "Escribir 3 oraciones específicas de qué vas a poder hacer el 21 de junio que hoy no puedes hacer",
     ],
     quote: "Con 3 a 5 años de experiencia ya tienes la base. Lo que te falta no es más experiencia — es estructura y dirección.",
     cite: "Principio del 1% — Etapa intermedia",
@@ -1102,30 +777,30 @@ const topoWeeks = [
     metrics: [
       { icon: "📊", text: "Test completado", sub: "10 áreas calificadas" },
       { icon: "🗺️", text: "Mapa de habilidades", sub: "15 ítems clasificados" },
-      { icon: "🎯", text: "Proyecto ancla", sub: "definido y documentado" },
+      { icon: "🎯", text: "Proyecto ancla", sub: "Colegio Cachicadán" },
     ]
   },
   {
-    title: "Semana 2: Civil 3D avanzado — Superficies y curvas de nivel",
-    theme: "META SOFTWARE — CIVIL 3D INTERMEDIO–AVANZADO",
+    title: "Semana 2: Civil 3D básico — Superficies y curvas de nivel",
+    theme: "META SOFTWARE — CIVIL 3D INICIAL-INTERMEDIO",
     dates: "6 Abr – 12 Abr",
     tasks: [
-      "🎯 PRIORIDAD: Importar un archivo de puntos real del trabajo a Civil 3D y generar una superficie TIN profesional desde cero",
-      "Ver 'AutoCAD Civil 3D Superficies Español' en el canal 'Civil 3D Perú' o 'Ingeniería BIM' en YouTube y replicar cada paso con tus datos",
+      "🎯 PRIORIDAD: Importar los puntos reales del colegio en Cachicadán a Civil 3D y generar una superficie TIN desde cero",
+      "Ver 'Crear Superficies en AutoCAD Civil 3D' en el canal 'Ingeniería BIM' o 'Sencico' en YouTube y replicar cada paso",
       "Configurar estilos propios de curvas de nivel: 0.5m / 1m / 5m según terreno, con etiquetas y colores diferenciados",
-      "Practicar edición de superficie: líneas de quiebre (breaklines) en zonas de caminos, canales o bordes de talud",
+      "Practicar edición de superficie: líneas de quiebre (breaklines) en zonas de caminos o bordes de los pabellones",
       "Generar plano de curvas de nivel con marco, norte, escala gráfica y cuadro de datos completo listo para entregar",
-      "En el trabajo: proponer procesar el próximo levantamiento tú mismo en Civil 3D en lugar del flujo habitual",
+      "En el colegio: Proponer procesar tú mismo un tramo del levantamiento en Civil 3D para ganar práctica real",
     ],
-    quote: "Ya tocaste Civil 3D. La diferencia entre ahora y el nivel profesional está en la profundidad, no en el conocimiento.",
+    quote: "Ya tocaste Civil 3D. La diferencia entre ahora y el nivel profesional está en la profundidad, no en la teoría.",
     cite: "Principio del 1% — Software",
     timeBlocks: [
-      { type: "tb-strategic", label: "Civil 3D con datos reales",    desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-strategic", label: "Civil 3D con puntos colegio",  desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
       { type: "tb-buffer",    label: "Videos + replicación",         desc: "Mar / Jue — 17:30–20:30 🌙" },
       { type: "tb-breakout",  label: "Plano final + WAM",            desc: "Dom — 9:00–11:00 AM ☀️" },
     ],
     metrics: [
-      { icon: "🖥️", text: "1 superficie TIN", sub: "con datos reales" },
+      { icon: "🖥️", text: "1 superficie TIN", sub: "Terreno del colegio" },
       { icon: "📏", text: "Curvas de nivel", sub: "3 estilos configurados" },
       { icon: "📄", text: "Plano entregable", sub: "completo" },
     ]
@@ -1135,11 +810,11 @@ const topoWeeks = [
     theme: "DOMINIO NUEVO — FOTOGRAMETRÍA UAV",
     dates: "13 Abr – 19 Abr",
     tasks: [
-      "🎯 PRIORIDAD: Ejecutar tu primer vuelo fotogramétrico planificado y procesar las imágenes en Agisoft Metashape (prueba gratuita 30 días)",
-      "Ver 'Agisoft Metashape Tutorial Completo en Español' en el canal 'GeoSIG' o 'Drones y Mapas' en YouTube y seguirlo paso a paso",
+      "🎯 PRIORIDAD: Ejecutar tu primer vuelo fotogramétrico planificado y procesar las imágenes en Agisoft Metashape",
+      "Ver 'Tutorial Agisoft Metashape desde cero Español' en el canal 'Geomatica Libre' en YouTube y seguirlo paso a paso",
       "Planificar el vuelo correctamente: superposición lateral 70%, frontal 80%, calcular altura según GSD requerido",
       "Procesar el proyecto completo: alineación → nube de puntos densa → modelo 3D → ortomosaico → DEM",
-      "Exportar ortomosaico y DEM, importarlos en QGIS y verificar precisión comparando con puntos de campo conocidos",
+      "Exportar ortomosaico y DEM, y verificar precisión comparando visualmente con puntos medidos en campo",
       "Documentar el flujo de trabajo completo en tu bitácora como protocolo personal de fotogrametría UAV reutilizable",
     ],
     quote: "La fotogrametría con drone es la habilidad más demandada y menos dominada en el mercado topográfico regional.",
@@ -1156,178 +831,178 @@ const topoWeeks = [
     ]
   },
   {
-    title: "Semana 4: Mini-proyecto 1 — Levantamiento catastral completo",
-    theme: "PROYECTO INTEGRADOR — CATASTRO",
+    title: "Semana 4: Mini-proyecto 1 — Perimétrico del Colegio",
+    theme: "PROYECTO INTEGRADOR — LEVANTAMIENTO REAL",
     dates: "20 Abr – 26 Abr",
     tasks: [
-      "🎯 PRIORIDAD: Ejecutar un levantamiento catastral completo de una manzana o lote real de inicio a fin — campo, procesamiento y plano",
-      "Estudiar la normativa catastral de tu país: qué exige un plano de mensura legal, tolerancias y referencias obligatorias",
-      "Ver 'Levantamiento Catastral Estación Total Español' en el canal 'Topografía Perú' o 'Geomática Aplicada' en YouTube con referencia internacional",
-      "Procesar el levantamiento en Civil 3D: puntos, límites, superficies, áreas y cuadro de coordenadas con cierre verificado",
-      "Generar el plano catastral final con todos los elementos normativos: escala, norte, referencias, firma y sello profesional",
-      "Revisar el trabajo con un colega senior y documentar las correcciones recibidas — el feedback externo es oro",
+      "🎯 PRIORIDAD: Ejecutar un levantamiento perimétrico completo del colegio de inicio a fin — campo, procesamiento y plano",
+      "Estudiar la normativa vigente: qué exige un plano perimétrico, tolerancias y referencias obligatorias en Perú",
+      "Ver 'Plano Perimétrico y de Ubicación en Civil 3D' en el canal 'Geomática Aplicada' en YouTube",
+      "Procesar el levantamiento en Civil 3D: puntos, límites, cuadro de datos técnicos (coordenadas, distancias, ángulos)",
+      "Generar el plano final con todos los elementos: membrete, norte magnético, grilla y sello profesional simulado",
+      "Revisar el trabajo con el ingeniero residente del colegio y anotar las correcciones — el feedback externo es oro",
     ],
-    quote: "El catastro es el lenguaje del suelo. Dominarlo es dominar la base de todo derecho territorial.",
+    quote: "Un perimétrico bien ejecutado es el lenguaje básico del suelo. Dominarlo es dominar tu oficio.",
     cite: "Principio del 1% — Proyectos",
     timeBlocks: [
-      { type: "tb-strategic", label: "Campo: levantamiento catastral",  desc: "Sáb — 13:00–18:00 ☀️" },
+      { type: "tb-strategic", label: "Campo: levantamiento perimétrico",desc: "Sáb — 13:00–18:00 ☀️" },
       { type: "tb-buffer",    label: "Procesamiento + normativa",       desc: "Mar / Jue — 17:30–20:30 🌙" },
       { type: "tb-breakout",  label: "Plano final + revisión + WAM",    desc: "Dom — 9:00–12:00 AM ☀️" },
     ],
     metrics: [
-      { icon: "📐", text: "Levantamiento", sub: "catastral completo" },
-      { icon: "📄", text: "Plano legal", sub: "con todos los elementos" },
+      { icon: "📐", text: "Levantamiento", sub: "Perimétrico colegio" },
+      { icon: "📄", text: "Plano perimétrico", sub: "Cuadro de coordenadas" },
       { icon: "✅", text: "Revisión externa", sub: "correcciones documentadas" },
     ]
   },
   {
-    title: "Semana 5: QGIS avanzado — Análisis espacial real",
-    theme: "META SOFTWARE — QGIS INTERMEDIO–AVANZADO",
+    title: "Semana 5: Introducción a QGIS — Planos de ubicación",
+    theme: "META SOFTWARE — QGIS BÁSICO PARA TOPOGRAFÍA",
     dates: "27 Abr – 3 May",
     tasks: [
-      "🎯 PRIORIDAD: Importar el ortomosaico y DEM de la semana 3 en QGIS y hacer un análisis completo: pendientes, orientación y cuencas",
-      "Ver el canal 'QGIS en Español' o 'Sistemas de Información Geográfica' en YouTube — buscar 'análisis pendientes QGIS' y elegir 3 videos del mapa de habilidades",
-      "Crear un mapa temático de pendientes con 5 categorías, simbología profesional y exportarlo en A3 listo para presentar",
-      "Usar el plugin QuickMapServices para agregar imágenes satelitales de fondo y verificar precisión del levantamiento propio",
-      "Practicar el flujo integrado: exportar desde Civil 3D a shapefile → importar en QGIS → análisis → exportar mapa final",
-      "Documentar en bitácora el flujo Civil 3D ↔ QGIS como protocolo estándar para todos tus proyectos futuros",
+      "🎯 PRIORIDAD: Descargar QGIS, importar los puntos del colegio desde un archivo CSV y visualizar el terreno",
+      "Ver 'Curso Básico de QGIS desde cero' en YouTube (Canal: El Blog de Franz) y seguir los primeros pasos de interfaz",
+      "Instalar el complemento 'QuickMapServices' para agregar imágenes satelitales (Google Satellite) de fondo",
+      "Crear una capa de polígono nueva (Shapefile) y dibujar el perímetro del colegio usando los puntos importados",
+      "Ir al 'Compositor de impresión' en QGIS y armar un plano de ubicación simple con grilla, norte y leyenda",
+      "Documentar en tu bitácora los pasos desde el archivo CSV de la Estación Total hasta el plano en QGIS",
     ],
-    quote: "QGIS y Civil 3D juntos son más poderoeres que cualquiera de los dos por separado. El flujo integrado es tu arma.",
-    cite: "Principio de Integración — Software",
+    quote: "No necesitas saber todo de QGIS. Solo necesitas dominar el flujo que te permita entregar mejores mapas más rápido.",
+    cite: "Principio de Integración Básica",
     timeBlocks: [
-      { type: "tb-strategic", label: "QGIS análisis espacial",       desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
-      { type: "tb-buffer",    label: "Videos + flujo integrado",     desc: "Mar / Jue — 17:30–20:30 🌙" },
-      { type: "tb-breakout",  label: "Mapa temático A3 + WAM",       desc: "Dom — 9:00–11:00 AM ☀️" },
+      { type: "tb-strategic", label: "QGIS: Instalación e importar CSV",desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Videos (Franz) + Mapa base",      desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Plano de ubicación A4 + WAM",     desc: "Dom — 9:00–11:00 AM ☀️" },
     ],
     metrics: [
-      { icon: "📊", text: "Análisis pendientes", sub: "5 categorías" },
-      { icon: "🗺️", text: "Mapa temático A3", sub: "exportado" },
-      { icon: "🔗", text: "Flujo integrado", sub: "Civil 3D ↔ QGIS" },
+      { icon: "📊", text: "Puntos CSV", sub: "Importados a QGIS" },
+      { icon: "🗺️", text: "Plano ubicación", sub: "Exportado en PDF" },
+      { icon: "🔗", text: "Flujo básico", sub: "CSV ↔ QGIS" },
     ]
   },
   {
-    title: "Semana 6: Proyectos viales — Civil 3D corridors",
-    theme: "DOMINIO NUEVO — VIALIDAD CON CIVIL 3D",
+    title: "Semana 6: Proyectos viales básicos — Civil 3D",
+    theme: "DOMINIO NUEVO — VIALIDAD Y ACCESOS",
     dates: "4 May – 10 May",
     tasks: [
-      "🎯 PRIORIDAD: Crear un alineamiento horizontal con curvas de transición y generar el perfil longitudinal del terreno real",
-      "Ver 'Diseño Vial Carreteras Civil 3D Español' en el canal 'Vías y Transporte' o 'Ingeniería Civil Perú' en YouTube — replicar con proyecto propio",
-      "Diseñar la rasante: pendientes máximas, curvas verticales cóncavas y convexas con criterios técnicos correctos",
-      "Generar secciones transversales cada 20m y calcular volúmenes de corte y relleno con tabla de movimiento de tierra",
-      "Crear el plano de planta-perfil en formato A1 con escala horizontal 1:2000 y vertical 1:200 — estándar entregable",
-      "En el trabajo: si hay un proyecto vial activo, comparar su metodología con la tuya y documentar diferencias",
+      "🎯 PRIORIDAD: Crear un alineamiento horizontal y generar el perfil longitudinal de una vía de acceso al colegio",
+      "Ver 'Alineamiento y Perfil Longitudinal Civil 3D' en el canal 'Sencico' o 'Ingeniería Civil Perú' en YouTube",
+      "Diseñar una rasante básica: pendientes máximas y curvas verticales con criterios técnicos correctos",
+      "Generar secciones transversales cada 20m para entender el corte transversal de la vía de acceso",
+      "Crear el plano de planta-perfil en formato A1 o A2 con su respectiva guitarra de elevaciones",
+      "Si hay vías en el proyecto actual de Cachicadán, comparar tu metodología con los planos de obra y anotar diferencias",
     ],
-    quote: "Un plano de planta-perfil bien hecho dice más que cualquier CV. Es el emblema del topógrafo vial.",
+    quote: "Un plano de planta-perfil bien hecho dice más que cualquier CV. Es el emblema del topógrafo en infraestructura.",
     cite: "Principio del 1% — Proyectos viales",
     timeBlocks: [
       { type: "tb-strategic", label: "Civil 3D: alineamiento + perfil", desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
-      { type: "tb-buffer",    label: "Secciones + volúmenes + plano",   desc: "Mar / Jue — 17:30–20:30 🌙" },
-      { type: "tb-breakout",  label: "Plano planta-perfil + WAM",       desc: "Dom — 9:00–12:00 AM ☀️" },
+      { type: "tb-buffer",    label: "Secciones + plano planta-perfil", desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Revisión planos obra + WAM",      desc: "Dom — 9:00–12:00 AM ☀️" },
     ],
     metrics: [
-      { icon: "🛣️", text: "Alineamiento", sub: "con curvas de transición" },
-      { icon: "📦", text: "Volúmenes", sub: "corte y relleno calculados" },
-      { icon: "📄", text: "Plano planta-perfil", sub: "A1 terminado" },
+      { icon: "🛣️", text: "Alineamiento", sub: "Perfil longitudinal" },
+      { icon: "📦", text: "Secciones", sub: "Transversales generadas" },
+      { icon: "📄", text: "Planta-perfil", sub: "Plano final terminado" },
     ]
   },
   {
-    title: "Semana 7: GNSS y redes satelitales — Precisión máxima",
+    title: "Semana 7: GNSS y redes satelitales — Precisión",
     theme: "DOMINIO NUEVO — GEODESIA SATELITAL",
     dates: "11 May – 17 May",
     tasks: [
-      "🎯 PRIORIDAD: Configurar y operar el GPS del trabajo en modo RTK, documentar el procedimiento y los resultados de precisión obtenidos",
-      "Ver 'GPS RTK Topografía Explicado Español' en el canal 'Geomática y GPS' o 'Topografía Satelital' en YouTube — PDOP, multipath y errores sistemáticos y dilución",
-      "Estudiar el sistema CORS o RAMSAC de tu país: cómo acceder, configurar la corrección diferencial en red desde el equipo",
-      "Hacer ensayo comparativo: medir 5 puntos con GPS RTK y con estación total — analizar diferencias y sus causas reales",
-      "Calcular la precisión real obtenida con el GPS y compararla con las especificaciones del fabricante del equipo",
-      "Redactar tu protocolo personal GNSS: cuándo usar RTK, cuándo post-proceso y cuándo no confiar en el GPS",
+      "🎯 PRIORIDAD: Configurar y operar el GPS diferencial (si hay disponible) en modo RTK, documentar el procedimiento",
+      "Ver 'GPS RTK Topografía Explicado' en el canal 'Topografía y Geomatica' en YouTube — entender PDOP y errores",
+      "Estudiar la Red Geodésica Nacional (IGN Perú): cómo acceder a las fichas de los Puntos Geodésicos de Orden 0, C, B",
+      "Hacer ensayo comparativo (si es posible): medir 5 puntos con RTK y con estación total — analizar diferencias",
+      "Calcular la precisión real obtenida y compararla con las especificaciones técnicas del equipo",
+      "Redactar tu protocolo personal GNSS: cuándo usar RTK, cuándo post-proceso estático y cuándo usar Estación Total",
     ],
-    quote: "El GNSS no reemplaza al criterio técnico. El profesional de élite sabe exactamente cuándo confiar en el satélite.",
+    quote: "El satélite no reemplaza tu criterio técnico. El profesional de élite sabe exactamente cuándo confiar en la señal.",
     cite: "Principio de Criterio — Geodesia",
     timeBlocks: [
-      { type: "tb-strategic", label: "GPS RTK en campo (trabajo)",   desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-strategic", label: "GPS RTK / Fichas IGN Perú",    desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
       { type: "tb-buffer",    label: "Análisis + protocolo GNSS",    desc: "Mar / Jue — 17:30–20:30 🌙" },
       { type: "tb-breakout",  label: "Ensayo comparativo + WAM",     desc: "Dom — 9:00–11:00 AM ☀️" },
     ],
     metrics: [
-      { icon: "📡", text: "RTK configurado", sub: "y documentado" },
-      { icon: "📊", text: "Ensayo comparativo", sub: "GPS vs estación total" },
-      { icon: "📋", text: "Protocolo GNSS", sub: "personalizado" },
+      { icon: "📡", text: "Red IGN Perú", sub: "Fichas revisadas" },
+      { icon: "📊", text: "Ensayo comparativo", sub: "GPS vs ET (o teórico)" },
+      { icon: "📋", text: "Protocolo GNSS", sub: "Personalizado" },
     ]
   },
   {
-    title: "Semana 8: Mini-proyecto 2 — Fotogrametría con GCPs",
-    theme: "PROYECTO INTEGRADOR — UAV CON CONTROL TERRESTRE",
+    title: "Semana 8: Mini-proyecto 2 — Ortofoto con Drone",
+    theme: "PROYECTO INTEGRADOR — UAV Y CONTROL",
     dates: "18 May – 24 May",
     tasks: [
-      "🎯 PRIORIDAD: Ejecutar un proyecto fotogramétrico completo con puntos de apoyo GCP medidos con RTK — el estándar profesional real",
-      "Plantar y medir mínimo 5 GCPs con el GPS RTK, con coordenadas verificadas en dos métodos independientes",
-      "Procesar en Agisoft Metashape incorporando los GCPs y analizar el reporte de errores de ajuste (RMSE por punto)",
-      "Generar ortomosaico 5 cm/píxel, nube de puntos densa y DEM — comparar precisión contra levantamiento a pie",
-      "Crear en QGIS un informe cartográfico: ortomosaico + curvas de nivel + puntos de control + escala + metadata técnica",
-      "Calcular el costo aproximado de este servicio en el mercado local — documentarlo como referencia para presupuestos",
+      "🎯 PRIORIDAD: Ejecutar un vuelo corto sobre el área de trabajo y procesar una ortofoto de alta resolución",
+      "Si tienes acceso a puntos de control (GCPs) medidos en obra, úsalos en Agisoft Metashape para ajustar el modelo",
+      "Procesar en Agisoft: incorporar los puntos de apoyo y analizar el reporte de errores (RMSE)",
+      "Generar ortomosaico final y exportarlo en formato GeoTIFF",
+      "Crear en QGIS un informe visual: ortomosaico de fondo + perímetro del colegio encima para validar que calcen perfecto",
+      "Calcular el costo aproximado de este servicio de drone en el mercado peruano para tenerlo como referencia futura",
     ],
-    quote: "Un vuelo fotogramétrico con GCPs es un producto de alto valor. Pocos topógrafos lo hacen bien. Vos vas a ser uno de ellos.",
-    cite: "Principio de Diferenciación — UAV Profesional",
+    quote: "Entregar un plano CAD sobre un ortomosaico actualizado es un producto de alto valor. Tú serás el que lo haga.",
+    cite: "Principio de Diferenciación — UAV",
     timeBlocks: [
-      { type: "tb-strategic", label: "Campo: GCPs + vuelo drone",     desc: "Sáb — 13:00–18:00 ☀️" },
-      { type: "tb-buffer",    label: "Metashape + QGIS + informe",    desc: "Mar / Jue — 17:30–20:30 🌙" },
-      { type: "tb-breakout",  label: "Informe cartográfico + WAM",    desc: "Dom — 9:00–12:00 AM ☀️" },
+      { type: "tb-strategic", label: "Campo: Vuelo drone + Puntos",   desc: "Sáb — 13:00–18:00 ☀️" },
+      { type: "tb-buffer",    label: "Metashape + Ortofoto TIFF",     desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Montaje en QGIS + WAM",         desc: "Dom — 9:00–12:00 AM ☀️" },
     ],
     metrics: [
-      { icon: "📍", text: "5 GCPs medidos", sub: "y verificados" },
-      { icon: "🗺️", text: "Ortomosaico 5cm", sub: "con informe RMSE" },
-      { icon: "💰", text: "Valorización", sub: "del servicio documentada" },
+      { icon: "📍", text: "Vuelo de detalle", sub: "Ejecutado" },
+      { icon: "🗺️", text: "Ortofoto GeoTIFF", sub: "Exportada" },
+      { icon: "💰", text: "Valorización", sub: "Costo de mercado anotado" },
     ]
   },
   {
-    title: "Semana 9: Topografía minera — Cubicación y taludes",
-    theme: "DOMINIO NUEVO — TOPOGRAFÍA MINERA",
+    title: "Semana 9: Movimiento de Tierras (Plataformas)",
+    theme: "DOMINIO NUEVO — CÁLCULO DE VOLÚMENES",
     dates: "25 May – 31 May",
     tasks: [
-      "🎯 PRIORIDAD: Aplicar el método de secciones transversales para cálculo de volúmenes en tajo abierto en Civil 3D con datos reales o simulados",
-      "Ver 'Topografía Minera y Cubicación en Español' en el canal 'Minería y Geología Perú' o 'Geomecánica Aplicada' en YouTube",
-      "Aprender banco, berma, talud de trabajo y talud final — dimensionarlos y representarlos correctamente en Civil 3D",
-      "Calcular el factor de esponjamiento y densidad aparente de 2 materiales típicos (estéril y mineral) con ejercicio práctico",
-      "Crear un perfil de avance de tajo: estado actual del terreno vs diseño del tajo en plano minero estándar",
-      "Investigar qué normativa rige la topografía minera en tu país y qué habilitaciones necesita un topógrafo para trabajar en minería",
+      "🎯 PRIORIDAD: Calcular el volumen de corte y relleno para la plataforma de un nuevo pabellón o losa deportiva en el colegio",
+      "Ver 'Cálculo de Volúmenes por Comparación de Superficies' en el canal 'Ingeniería BIM' en YouTube",
+      "Tener tu superficie base (Terreno Natural) y crear una superficie de diseño (Rasante o Plataforma proyectada)",
+      "Usar el 'Volume Dashboard' en Civil 3D para obtener el reporte exacto de corte y relleno en metros cúbicos",
+      "Calcular el factor de esponjamiento típico para el tipo de suelo de Cachicadán para saber el volumen real a transportar",
+      "Generar un reporte técnico en PDF con la tabla de volúmenes para entregarlo a la residencia de obra",
     ],
-    quote: "La minería paga los sueldos más altos del sector. El conocimiento técnico es el único pasaporte de entrada.",
-    cite: "Principio de Especialización — Minería",
+    quote: "En obra civil, un error de volumen cuesta miles de soles. El topógrafo preciso es el mejor amigo del residente.",
+    cite: "Principio de Precisión en Obra",
     timeBlocks: [
-      { type: "tb-strategic", label: "Civil 3D: volúmenes mineros",  desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
-      { type: "tb-buffer",    label: "Videos + normativa + estudio", desc: "Mar / Jue — 17:30–20:30 🌙" },
-      { type: "tb-breakout",  label: "Perfil de avance + WAM",       desc: "Dom — 9:00–11:00 AM ☀️" },
+      { type: "tb-strategic", label: "Civil 3D: Superficies TN vs Diseño",desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Volume Dashboard + Esponjamiento",desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Reporte de volumen + WAM",        desc: "Dom — 9:00–11:00 AM ☀️" },
     ],
     metrics: [
-      { icon: "⛏️", text: "Cubicación", sub: "por secciones transversales" },
-      { icon: "📐", text: "Perfil de avance", sub: "tajo abierto en Civil 3D" },
-      { icon: "📋", text: "Normativa minera", sub: "de tu país estudiada" },
+      { icon: "⛏️", text: "Plataforma", sub: "Diseñada en Civil 3D" },
+      { icon: "📐", text: "Corte y Relleno", sub: "Volumen calculado" },
+      { icon: "📋", text: "Reporte Técnico", sub: "PDF para obra" },
     ]
   },
   {
-    title: "Semana 10: Catastro y mensura legal — Marco normativo",
-    theme: "DOMINIO NUEVO — CATASTRO LEGAL",
+    title: "Semana 10: Replanteo y control de obra",
+    theme: "DOMINIO PRÁCTICO — PRECISIÓN EN TERRENO",
     dates: "1 Jun – 7 Jun",
     tasks: [
-      "🎯 PRIORIDAD: Estudiar el marco legal de la mensura en tu país: ley de catastro, tolerancias legales, tipos de planos y quién los puede firmar",
-      "Buscar en YouTube 'Mensura Catastro Perú SUNARP' — canal oficial de SUNARP o 'Catastro y Propiedad' para normativa actualizada",
-      "Conseguir y analizar 3 planos de mensura reales (en el registro catastral o con colegas) e identificar todos sus componentes obligatorios",
-      "Practicar el cálculo de coordenadas de vértices de una parcela y verificar cierre de límites con tolerancia legal",
-      "Aprender a leer un informe de estado parcelario o deuda de mensura según la normativa local",
-      "Identificar qué habilitación profesional necesitás para firmar planos de mensura y qué paeres concretos te faltan para obtenerla",
+      "🎯 PRIORIDAD: Organizar la data para replanteo: extraer coordenadas X,Y,Z de zapatas o ejes desde AutoCAD hacia el archivo CSV de la Estación",
+      "Ver 'Cómo exportar puntos de AutoCAD a Estación Total' en YouTube (Canal 'Topografía Perú' o similar)",
+      "Verificar las tolerancias permitidas en edificación para estructuras de concreto (colegios)",
+      "Practicar la importación fluida de puntos desde la computadora al instrumento topográfico mediante USB o cable",
+      "Realizar un control de verticalidad en alguna columna construida y reportar los desplomes encontrados",
+      "Identificar qué pasos concretos te faltan para dominar el control geométrico estructural al 100%",
     ],
-    quote: "El topógrafo que conoce la ley domina el campo. El que no la conoce siempre depende del que sí.",
-    cite: "Principio del 1% — Marco Legal",
+    quote: "El topógrafo en gabinete dibuja; el topógrafo en campo construye. Dominar la transferencia de data es tu puente.",
+    cite: "Principio de Ejecución",
     timeBlocks: [
-      { type: "tb-strategic", label: "Análisis de planos reales",     desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
-      { type: "tb-buffer",    label: "Normativa + cálculos legales",  desc: "Mar / Jue — 17:30–20:30 🌙" },
-      { type: "tb-breakout",  label: "Informe legal + WAM",           desc: "Dom — 9:00–11:00 AM ☀️" },
+      { type: "tb-strategic", label: "Extracción data CAD a CSV",     desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
+      { type: "tb-buffer",    label: "Carga a Estación + Tolerancias",desc: "Mar / Jue — 17:30–20:30 🌙" },
+      { type: "tb-breakout",  label: "Reporte verticalidad + WAM",    desc: "Dom — 9:00–11:00 AM ☀️" },
     ],
     metrics: [
-      { icon: "⚖️", text: "3 planos reales", sub: "analizados" },
-      { icon: "📏", text: "Cierre legal", sub: "con tolerancia verificada" },
-      { icon: "🎓", text: "Habilitación", sub: "gap identificado" },
+      { icon: "💻", text: "Extracción CAD", sub: "Coordenadas a CSV" },
+      { icon: "📏", text: "Verticalidad", sub: "Control estructural" },
+      { icon: "🎓", text: "Brecha técnica", sub: "Habilidades a mejorar" },
     ]
   },
   {
@@ -1335,24 +1010,24 @@ const topoWeeks = [
     theme: "PROYECTO FINAL — EVIDENCIA DE TODO LO APRENDIDO",
     dates: "8 Jun – 14 Jun",
     tasks: [
-      "🎯 PRIORIDAD: Armar tu portafolio técnico digital con los mejores trabajos de las 10 semanas — mínimo 5 proyectos documentados",
-      "Seleccionar y pulir el mejor plano de cada tipo: catastral, vial, fotogramétrico, minero — versión lista para mostrar a un cliente",
-      "Redactar una ficha técnica de 1 página por proyecto: descripción, metodología, equipos usados, software y resultados obtenidos",
-      "Crear un PDF de presentación profesional: portada, índice, proyectos, habilidades y software que dominas",
-      "Pedir retroalimentación a un colega senior o profesional de confianza — su mirada externa vale más que 10 horas de autocorrección",
-      "Actualizar perfil de LinkedIn: nuevas habilidades, proyectos y subir el portafolio como documento destacado",
+      "🎯 PRIORIDAD: Armar tu portafolio técnico digital con los mejores trabajos de estas semanas en Cachicadán",
+      "Seleccionar y pulir el mejor plano de cada tipo: perimétrico, curvas de nivel, volumetría, ortofoto",
+      "Redactar una ficha técnica breve por plano: equipos usados, software, metodología y precisión obtenida",
+      "Crear un PDF de presentación profesional: portada, índice, tus planos estrella y software que dominas",
+      "Pedir retroalimentación al ingeniero de obra o un colega de confianza — su mirada vale más que horas de autocorrección",
+      "Actualizar tu perfil de LinkedIn: incluir tu cargo como Gerente de COTA100, nuevas habilidades y subir el portafolio PDF",
     ],
-    quote: "El portafolio no es vanidad — es evidencia. En topografía, el trabajo habla más fuerte que cualquier título.",
-    cite: "Principio de Credibilidad — Élite",
+    quote: "El portafolio no es vanidad — es evidencia. En la ingeniería peruana, el trabajo demostrado habla más fuerte que cualquier título.",
+    cite: "Principio de Credibilidad — COTA100",
     timeBlocks: [
       { type: "tb-strategic", label: "Pulir planos + fichas técnicas", desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
       { type: "tb-buffer",    label: "PDF portafolio + LinkedIn",      desc: "Mar / Jue — 17:30–20:30 🌙" },
       { type: "tb-breakout",  label: "Revisión externa + WAM",         desc: "Dom — 9:00–12:00 AM ☀️" },
     ],
     metrics: [
-      { icon: "📁", text: "5 proyectos", sub: "documentados" },
-      { icon: "📄", text: "PDF portafolio", sub: "listo para presentar" },
-      { icon: "💼", text: "LinkedIn", sub: "actualizado" },
+      { icon: "📁", text: "Proyectos COTA100", sub: "Documentados" },
+      { icon: "📄", text: "PDF Portafolio", sub: "Listo para clientes" },
+      { icon: "💼", text: "LinkedIn", sub: "Actualizado" },
     ]
   },
   {
@@ -1360,14 +1035,14 @@ const topoWeeks = [
     theme: "CIERRE — REFLEXIÓN Y PRÓXIMA TEMPORADA",
     dates: "15 Jun – 21 Jun",
     tasks: [
-      "🎯 PRIORIDAD: Repetir el test de la semana 1 y comparar resultados — medir exactamente cuánto creció cada habilidad en 84 días",
-      "Revisar el Mapa de Habilidades inicial: ¿cuántos ítems de No sé nada pasaron a Conozco o Domino? Calcular el porcentaje de mejora",
-      "Calcular la puntuación final acumulada de las 12 semanas y escribir un análisis honesto de 1 página sin suavizar nada",
-      "Exportar la bitácora técnica completa en PDF — es tu primer documento de evidencia profesional real",
-      "Celebrar con algo concreto y significativo — estas 12 semanas merecen reconocimiento real sin importar el número",
-      "Diseñar la visión y las 3 metas de tu próxima temporada: ¿minería, certificación internacional, independencia profesional?",
+      "🎯 PRIORIDAD: Repetir el test de la semana 1 y comparar resultados — medir exactamente cuánto creció tu técnica en 84 días",
+      "Revisar el Mapa de Habilidades inicial: ¿cuántos ítems pasaron a 'Domino'? Calcula el porcentaje de mejora real",
+      "Calcular la puntuación final de las 12 semanas y escribir un análisis honesto en la bitácora sin suavizar nada",
+      "Exportar el resumen de tu plan en PDF como tu primer documento de evidencia de constancia",
+      "Celebrar con algo concreto — estas semanas de trabajo duro en obra y en gabinete merecen reconocimiento",
+      "Diseñar la visión de tu próxima temporada: ¿Nuevos contratos para COTA100, aprender a programar drones, certificar PMP?",
     ],
-    quote: "No medís lo que lograste — medís en quién te convertiste. Ese es el verdadero resultado.",
+    quote: "No mides solo los planos que lograste hacer — mides el profesional en quien te convertiste. Tú pones el límite.",
     cite: "Brian Moran — El Año de 12 Semanas",
     timeBlocks: [
       { type: "tb-strategic", label: "Test final + mapa comparativo", desc: "Lun / Mié / Vie — 17:30–19:00 💪" },
@@ -1375,138 +1050,137 @@ const topoWeeks = [
       { type: "tb-breakout",  label: "Celebración + nueva visión ☀️", desc: "Dom — 9:00–12:00 AM" },
     ],
     metrics: [
-      { icon: "📈", text: "Test S1 vs S12", sub: "crecimiento medido" },
+      { icon: "📈", text: "Test S1 vs S12", sub: "Crecimiento medido" },
       { icon: "🏆", text: "Puntuación final", sub: "12 semanas" },
-      { icon: "🔭", text: "Nueva visión", sub: "próxima temporada" },
+      { icon: "🔭", text: "Visión COTA100", sub: "Próxima temporada" },
     ]
   },
 ];
 
-
 const finWeeks = [
   { title:"Semana 1: Radiografía financiera completa", theme:"ARRANQUE — CONOCE EXACTAMENTE DÓNDE ESTÁS", dates:"30 Mar – 5 Abr",
-    tasks:["🎯 PRIORIDAD: Listar TODOS tus gastos del último mes categorizados: alimentación, transporte, ocio, deudas, servicios","📚 LIBRO DE LA SEMANA: 'El Hombre Más Rico de Babilonia' de George Clason — el libro de finanzas más sencillo y poderoso, ideal para arrancar","Ver en YouTube 'Cómo hacer un presupuesto personal' de Hazte Rico y aplicarlo a tus S/3,000","Calcular tu tasa de ahorro actual vs el objetivo: S/600/mes = 20% del sueldo — ¿cuánto necesitas ajustar?","Listar tus deudas actuales: monto total, tasa de interés y cuota mensual de cada una","Crear tu presupuesto 50/30/20: S/1,500 necesidades · S/900 deseos · S/600 ahorro — ajustar a tu realidad","Abrir una cuenta de ahorro separada exclusiva para el fondo de emergencia — no tocar bajo ningún concepto"],
-    quote:"No puedes optimizar lo que no conoces. La radiografía financiera es el paso cero de todo plan real.", cite:"Principio de Claridad — Finanzas Personales",
-    timeBlocks:[{type:"tb-strategic",label:"Presupuesto + categorías",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Video + aplicación práctica",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Cuenta ahorro + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"📊",text:"Presupuesto 50/30/20",sub:"aplicado a S/3,000"},{icon:"💳",text:"Deudas mapeadas",sub:"monto + tasa + cuota"},{icon:"🏦",text:"Cuenta ahorro",sub:"separada activada"}]},
-  { title:"Semana 2: Sistema automático de ahorro", theme:"META FINANCIERA — S/600 MENSUALES GARANTIZADOS", dates:"6 Abr – 12 Abr",
-    tasks:["🎯 PRIORIDAD: Configurar transferencia automática de S/600 el día de pago directo a la cuenta de ahorro — pagarte a ti primero","📚 LIBRO DE LA SEMANA: 'El Millonario Automático' de David Bach cap. 1–3 — el sistema de ahorro sin esfuerzo que lo cambia todo","Ver 'El método de los sobres digitales' en YouTube y adaptarlo a tu estructura de gastos","Identificar los 3 gastos más fáciles de reducir sin afectar tu calidad de vida — calcular cuánto liberan al mes","Revisar tu tarjeta de crédito: ¿pagas el mínimo o el total? Calcular cuánto pagas en intereses al año solo pagando el mínimo","Establecer tu regla personal para la tarjeta: solo usarla para gastos ya presupuestados y pagar el total cada mes","Documentar en bitácora tu punto de partida: cuánto tienes ahorrado hoy vs meta al 21 de junio (S/1,800)"],
-    quote:"El ahorro automático elimina la fuerza de voluntad de la ecuación. Lo que no ves, no lo gastas.", cite:"David Bach — El Millonario Automático",
-    timeBlocks:[{type:"tb-strategic",label:"Transferencia automática",desc:"Día de pago — configurar primero"},{type:"tb-buffer",label:"Auditoría de gastos",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-breakout",label:"Reglas tarjeta + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"⚡",text:"Ahorro automático",sub:"S/600 configurado"},{icon:"📉",text:"3 gastos reducidos",sub:"identificados"},{icon:"💳",text:"Regla tarjeta",sub:"documentada"}]},
+    tasks:["🎯 PRIORIDAD: Listar TODOS tus gastos del último mes categorizados: alimentación, transporte, ocio, deudas, servicios","📚 LIBRO DE LA SEMANA: 'El Hombre Más Rico de Babilonia' de George Clason — ideal para arrancar","Ver en YouTube 'Cómo hacer un presupuesto personal' de Hazte Rico y aplicarlo a tu realidad","Calcular tu tasa de ahorro actual vs el objetivo: ¿cuánto necesitas ajustar para ahorrar el 20%?","Listar tus deudas actuales: monto total, tasa de interés y cuota mensual de cada una","Crear tu presupuesto 50/30/20 adaptado a tus ingresos de Gerente de COTA100","Abrir una cuenta de ahorro separada exclusiva para el fondo de emergencia — no tocar bajo ningún concepto"],
+    quote:"No puedes optimizar lo que no conoces. La radiografía financiera es el paso cero de todo plan real.", cite:"Principio de Claridad",
+    timeBlocks:[{type:"tb-strategic",label:"Presupuesto + categorías",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Video + aplicación",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Cuenta ahorro + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📊",text:"Presupuesto 50/30/20",sub:"Aplicado"},{icon:"💳",text:"Deudas mapeadas",sub:"monto + tasa"},{icon:"🏦",text:"Cuenta ahorro",sub:"Activada"}]},
+  { title:"Semana 2: Sistema automático de ahorro", theme:"META FINANCIERA — AHORRO GARANTIZADO", dates:"6 Abr – 12 Abr",
+    tasks:["🎯 PRIORIDAD: Configurar transferencia automática de ahorro el día de pago directo a la nueva cuenta — págate a ti primero","📚 LIBRO DE LA SEMANA: 'El Millonario Automático' de David Bach cap. 1–3","Ver 'El método de los sobres digitales' en YouTube y adaptarlo a tu estructura","Identificar los 3 gastos más fáciles de reducir en Trujillo sin afectar tu calidad de vida","Revisar tus tarjetas de crédito: ¿pagas el mínimo o el total? Revisa el Panel Financiero de la App","Establecer tu regla personal para la tarjeta: solo usarla para gastos presupuestados y pagar total cada mes","Documentar tu meta de ahorro exacta para el 21 de junio"],
+    quote:"El ahorro automático elimina la fuerza de voluntad. Lo que no ves en tu cuenta principal, no lo gastas.", cite:"David Bach",
+    timeBlocks:[{type:"tb-strategic",label:"Transferencia automática",desc:"Día de pago"},{type:"tb-buffer",label:"Auditoría de gastos",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-breakout",label:"Reglas tarjeta + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"⚡",text:"Ahorro automático",sub:"Configurado"},{icon:"📉",text:"3 gastos reducidos",sub:"Identificados"},{icon:"💳",text:"Regla tarjeta",sub:"Documentada"}]},
   { title:"Semana 3: Estrategia para eliminar deudas pequeñas", theme:"META FINANCIERA — DEUDAS BAJO CONTROL", dates:"13 Abr – 19 Abr",
-    tasks:["🎯 PRIORIDAD: Aplicar el método bola de nieve — ordenar deudas de menor a mayor monto y atacar la más pequeña primero con pagos extra","📚 LIBRO DE LA SEMANA: 'Transformación Total de Su Dinero' de Dave Ramsey — el plan de 7 pasos para eliminar deudas","Ver 'Cómo salir de deudas rápido' en YouTube — canales como Finanzas para Todos o Rodrigo Salinas Perú","Calcular cuánto puedes destinar extra a deudas este mes sin afectar el ahorro de S/600","Llamar al banco y preguntar por reprogramación o reducción de tasa — muchos no saben que esto existe","Revisar si tu tarjeta tiene beneficios que no estás usando: cashback, descuentos en establecimientos","Establecer fecha meta de liquidación para cada deuda pequeña — con fecha concreta el cerebro trabaja diferente"],
-    quote:"Las deudas pequeñas no son el problema. El problema es no tener un sistema para eliminarlas.", cite:"Dave Ramsey — Transformación Total del Dinero",
-    timeBlocks:[{type:"tb-strategic",label:"Plan bola de nieve",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Llamada banco + fechas meta",desc:"Sáb — 13:00–14:00 ☀️"},{type:"tb-breakout",label:"Fechas meta deuda + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🎯",text:"Bola de nieve",sub:"aplicada"},{icon:"📞",text:"Banco contactado",sub:"renegociación intentada"},{icon:"📅",text:"Fecha meta",sub:"por cada deuda"}]},
-  { title:"Semana 4: Tarjetas de crédito — Domínalas o te dominan", theme:"EDUCACIÓN FINANCIERA — SISTEMA DE TARJETAS", dates:"20 Abr – 26 Abr",
-    tasks:["🎯 PRIORIDAD: Leer los términos completos de tu tarjeta: fecha de corte, fecha de pago, tasa efectiva anual (TEA) real","📚 LIBRO DE LA SEMANA: 'Los Secretos de la Mente Millonaria' de T. Harv Eker — entiende por qué piensas en el dinero como piensas","Ver 'Cómo usar la tarjeta de crédito inteligentemente' de Finanzas para Todos en YouTube","Aprender la diferencia entre fecha de corte y fecha de pago — y cómo tener hasta 50 días sin intereses","Investigar si tu tarjeta tiene programa de puntos o cashback — calcular si te conviene según tu perfil de gasto","Comparar tarjetas con cashback en Perú: BCP, Interbank, Scotiabank — ¿cuál se adapta mejor a tus gastos?","Crear un sistema de control: registrar cada uso de tarjeta en una app el mismo día"],
-    quote:"La tarjeta de crédito bien usada es una herramienta de construcción de patrimonio. Mal usada, es una trampa.", cite:"Principio de Educación Financiera",
-    timeBlocks:[{type:"tb-strategic",label:"Lectura términos tarjeta",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Comparación + sistema control",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Sistema de registro + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"💳",text:"TEA real",sub:"de tu tarjeta conocida"},{icon:"🗓️",text:"Sistema corte/pago",sub:"dominado"},{icon:"📋",text:"Control de gastos",sub:"sistema activo"}]},
-  { title:"Semana 5: Fondo de emergencia — El escudo financiero", theme:"META FINANCIERA — CONSTRUIR EL COLCHÓN", dates:"27 Abr – 3 May",
-    tasks:["🎯 PRIORIDAD: Calcular tu meta de fondo de emergencia: mínimo 3 meses de gastos esenciales — ¿cuánto es eso en soles?","Ver 'Para qué sirve el fondo de emergencia' de Finanzas para Todos en YouTube","Revisar el progreso de ahorro de las 4 semanas: ¿llegaste a S/600 en el primer mes? Documentar sin juicios","Investigar cuentas con mejor rendimiento en Perú: fondos mutuos de bajo riesgo, cuentas remuneradas BCP, Interbank","Considerar mover el fondo a un instrumento de mayor rendimiento pero con liquidez inmediata","Establecer reglas claras: ¿qué es una emergencia real? Escribirlo antes de necesitarlo"],
-    quote:"El fondo de emergencia no es ahorro — es libertad. Te permite tomar mejores decisiones porque no estás desesperado.", cite:"Principio de Seguridad Financiera",
-    timeBlocks:[{type:"tb-strategic",label:"Cálculo fondo + opciones",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Investigación instrumentos",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Reglas del fondo + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🛡️",text:"Meta fondo",sub:"calculada en S/."},{icon:"📈",text:"Instrumento elegido",sub:"para el fondo"},{icon:"📋",text:"Reglas de uso",sub:"documentadas"}]},
-  { title:"Semana 6: Ingresos extra — El topógrafo freelance", theme:"META FINANCIERA — MÁS ALLÁ DEL SUELDO", dates:"4 May – 10 May",
-    tasks:["🎯 PRIORIDAD: Identificar 3 servicios topográficos que puedes ofrecer de forma independiente fuera del horario laboral","📚 LIBRO DE LA SEMANA: 'Padre Rico, Padre Pobre' de Robert Kiyosaki — por qué necesitas ingresos activos Y pasivos","Ver 'Cómo conseguir clientes como freelance en Perú' en YouTube — adaptar la estrategia al sector topográfico","Calcular tu tarifa mínima por hora como topógrafo independiente: costos, transporte, tiempo, herramientas","Crear un perfil profesional en LinkedIn y en al menos una plataforma local: Workana, OLX o grupos de Facebook del sector","Hablar con 2 personas de tu red que puedan necesitar o referirte servicios — el primer cliente viene del entorno cercano","Investigar convocatorias CAS o consultoría donde topógrafos freelance puedan participar en tu región"],
-    quote:"Tu sueldo es el techo de tus ingresos si no construyes una fuente paralela. El topógrafo con cartera de clientes no depende de un solo empleador.", cite:"Principio de Independencia Financiera",
-    timeBlocks:[{type:"tb-strategic",label:"Servicios + tarifa",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"LinkedIn + perfil freelance",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Red de contactos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"💼",text:"3 servicios",sub:"identificados"},{icon:"💵",text:"Tarifa propia",sub:"calculada"},{icon:"🤝",text:"2 contactos",sub:"activados"}]},
+    tasks:["🎯 PRIORIDAD: Aplicar el método bola de nieve — ordenar deudas de menor a mayor monto y atacar la más pequeña primero","📚 LIBRO DE LA SEMANA: 'Transformación Total de Su Dinero' de Dave Ramsey","Ver 'Cómo salir de deudas rápido' en YouTube (Canal Invertir Joven Perú)","Calcular cuánto puedes destinar extra a deudas este mes sin afectar el ahorro programado","Llamar a tu banco en Perú (BCP, BBVA, Interbank) y preguntar por reprogramación o compra de deuda","Revisar los beneficios de tus tarjetas: Puntos, millas o cashback que no estás usando","Establecer fecha meta de liquidación para la tarjeta más pequeña en tu Panel de Tarjetas"],
+    quote:"Las deudas pequeñas no son el problema. El problema es no tener un sistema agresivo para eliminarlas.", cite:"Principio Bola de Nieve",
+    timeBlocks:[{type:"tb-strategic",label:"Plan bola de nieve",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Llamada banco + fechas",desc:"Sáb — 13:00–14:00 ☀️"},{type:"tb-breakout",label:"Fechas deuda + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🎯",text:"Bola de nieve",sub:"Aplicada"},{icon:"📞",text:"Banco contactado",sub:"Negociación"},{icon:"📅",text:"Fecha liquidación",sub:"Definida"}]},
+  { title:"Semana 4: Tarjetas de crédito — Domínalas", theme:"EDUCACIÓN FINANCIERA — SISTEMA DE TARJETAS", dates:"20 Abr – 26 Abr",
+    tasks:["🎯 PRIORIDAD: Leer y registrar en tu app las fechas de corte, pago y la TCEA de todas tus tarjetas","📚 LIBRO DE LA SEMANA: 'Los Secretos de la Mente Millonaria' de T. Harv Eker","Ver 'Cómo usar la tarjeta de crédito inteligentemente' de Cristian Arens en YouTube","Aprender cómo tener hasta 50 días sin intereses jugando con la fecha de corte","Calcular si te conviene usar más la de Puntos (BCP/Interbank) o la de Supermercados (CMR/Oh!) según tus compras habituales","Crear el hábito de marcar 'Pagado' en tu Panel Financiero en cuanto realices la transferencia"],
+    quote:"La tarjeta de crédito bien usada es una herramienta. Mal usada, es un ancla que te roba el sueldo mensual.", cite:"Educación Financiera",
+    timeBlocks:[{type:"tb-strategic",label:"Revisión fechas App",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Estrategia Puntos/Millas",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Registro pagos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"💳",text:"TCEA y Fechas",sub:"Dominadas en App"},{icon:"🗓️",text:"50 días sin interés",sub:"Estrategia clara"},{icon:"📋",text:"Panel actualizado",sub:"Con pagos al día"}]},
+  { title:"Semana 5: Fondo de emergencia — El escudo", theme:"META FINANCIERA — CONSTRUIR EL COLCHÓN", dates:"27 Abr – 3 May",
+    tasks:["🎯 PRIORIDAD: Calcular tu meta de fondo de emergencia: mínimo 3 meses de gastos fijos en Trujillo","Ver 'Para qué sirve el fondo de emergencia y dónde guardarlo' en YouTube","Revisar el progreso de ahorro de las 4 semanas: documentar sin juzgar si se cumplió o no","Investigar opciones en Perú con liquidez y buen rendimiento: Cuentas Alto Rendimiento (BanBif, Pichincha, Financieras)","Establecer reglas claras de uso: una emergencia no es un viaje a Máncora, es un imprevisto de salud o pérdida de ingresos"],
+    quote:"El fondo de emergencia no es ahorro — es paz mental. Te permite tomar riesgos profesionales sin estar desesperado.", cite:"Seguridad Financiera",
+    timeBlocks:[{type:"tb-strategic",label:"Cálculo fondo + bancos",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Investigación tasas",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Reglas del fondo + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🛡️",text:"Meta fondo",sub:"Calculada en Soles"},{icon:"📈",text:"Banco elegido",sub:"Alta rentabilidad"},{icon:"📋",text:"Reglas estrictas",sub:"Documentadas"}]},
+  { title:"Semana 6: Ingresos COTA100 y Freelance", theme:"META FINANCIERA — MÁS ALLÁ DEL SUELDO", dates:"4 May – 10 May",
+    tasks:["🎯 PRIORIDAD: Identificar 3 servicios topográficos adicionales que COTA100 puede ofrecer a terceros o clientes nuevos","📚 LIBRO DE LA SEMANA: 'Padre Rico, Padre Pobre' de Robert Kiyosaki","Ver 'Cómo conseguir clientes como empresa de servicios en Perú' en YouTube","Calcular la tarifa por hora/día de los equipos de COTA100: considerar depreciación de Estación y Drone","Revisar convocatorias, municipalidades o contactos de Trujillo que necesiten levantamientos o elaboración de expedientes","Contactar a 2 ingenieros residentes o arquitectos de tu red para recordarles los servicios de tu empresa"],
+    quote:"El techo de tus ingresos lo pones tú. Si dependes de un solo cliente, tienes un jefe, no una empresa.", cite:"Independencia Financiera",
+    timeBlocks:[{type:"tb-strategic",label:"Nuevos servicios + tarifas",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Búsqueda de clientes",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Red de contactos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"💼",text:"3 servicios COTA100",sub:"Nuevos definidos"},{icon:"💵",text:"Tarifario equipos",sub:"Calculado"},{icon:"🤝",text:"2 contactos clave",sub:"Contactados"}]},
   { title:"Semana 7: Introducción a la inversión en Perú", theme:"EDUCACIÓN FINANCIERA — HACER TRABAJAR EL DINERO", dates:"11 May – 17 May",
-    tasks:["🎯 PRIORIDAD: Estudiar los 3 instrumentos más accesibles en Perú: fondos mutuos, depósitos a plazo y acciones en la BVL","Ver 'Cómo invertir en Perú desde cero' de Finanzas para Todos o Aprender a Invertir en YouTube","Entender la diferencia entre rentabilidad y riesgo — crear tu perfil de inversor: conservador, moderado o agresivo","Investigar AFP: SPP vs SNP — ¿cuál te conviene? Calcular proyección a 30 años según tu situación","Abrir cuenta en plataforma de fondos mutuos en Perú: SURA, Credicorp Capital o Scotiabank Fondos","Hacer tu primera micro-inversión simbólica: aunque sean S/50 — el objetivo es aprender el proceso"],
-    quote:"Invertir no es para ricos — es para personas que entienden que el tiempo es el activo más valioso.", cite:"Principio de Inversión Temprana",
-    timeBlocks:[{type:"tb-strategic",label:"Estudio instrumentos Perú",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Video + perfil inversor",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Primera inversión + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"📈",text:"3 instrumentos",sub:"estudiados"},{icon:"🧠",text:"Perfil inversor",sub:"definido"},{icon:"💰",text:"Primera inversión",sub:"ejecutada"}]},
-  { title:"Semana 8: Revisión de mitad de camino", theme:"REVISIÓN — ¿ESTÁS EN RUTA HACIA S/1,800?", dates:"18 May – 24 May",
-    tasks:["🎯 PRIORIDAD: Calcular cuánto has ahorrado en 7 semanas — ¿estás en ritmo para llegar a S/1,800 al 21 de junio?","📚 LIBRO DE LA SEMANA: Releer los capítulos más impactantes de los libros anteriores — ¿qué concepto aún no has aplicado?","Revisar el estado de tus deudas: ¿cuánto has pagado extra? ¿Qué deuda pequeña puedes liquidar este mes?","Auditar tus gastos de las últimas 7 semanas: ¿hay una categoría que siempre se sale del presupuesto?","Revisar el rendimiento de tu primera inversión — aunque sea mínimo, el hábito de monitorear es clave","Evaluar si conseguiste algún ingreso extra — si no, ¿qué obstáculo concreto encontraste?","Ajustar el plan para las semanas 9–12 según la realidad — rediseña el plan, no el objetivo"],
-    quote:"La revisión de mitad de camino no es para juzgarte — es para corregir el rumbo antes de que sea tarde.", cite:"Brian Moran — El Año de 12 Semanas",
-    timeBlocks:[{type:"tb-strategic",label:"Auditoría financiera 7 sem.",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Ajuste de plan",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Revisión inversión + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"💰",text:"Ahorro acumulado",sub:"vs meta S/1,800"},{icon:"📉",text:"Deuda reducida",sub:"monto pagado extra"},{icon:"📊",text:"Plan ajustado",sub:"semanas 9–12"}]},
-  { title:"Semana 9: Trabaja todo el año — Estrategia de estabilidad", theme:"META FINANCIERA — INGRESOS CONSISTENTES", dates:"25 May – 31 May",
-    tasks:["🎯 PRIORIDAD: Crear tu mapa de oportunidades laborales: proyectos estacionales, municipalidades, consultoras, mineras — ¿cuándo contratan más topógrafos en tu región?","📚 LIBRO DE LA SEMANA: 'El Cuadrante del Flujo de Dinero' de Robert Kiyosaki — diseña tu vida para no depender de un solo empleador","Ver testimonios de topógrafos peruanos en YouTube que trabajen de forma independiente","Actualizar tu CV con todos los proyectos y habilidades nuevas — siempre lista para enviar","Unirte a 3 grupos de Facebook o WhatsApp del sector topográfico peruano donde se publican proyectos","Contactar a 2 consultoras de tu región para presentarte como profesional disponible para proyectos","Guardar S/100 adicionales en un fondo de meses flojos — amortiguación para cuando no hay proyecto"],
-    quote:"El topógrafo que trabaja todo el año no espera que lleguen los proyectos — sale a buscarlos con antelación.", cite:"Principio de Proactividad Laboral",
-    timeBlocks:[{type:"tb-strategic",label:"Mapa de oportunidades",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"CV + grupos + contactos",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Red laboral + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🗺️",text:"Mapa de oportunidades",sub:"documentado"},{icon:"📄",text:"CV actualizado",sub:"listo para enviar"},{icon:"🤝",text:"2 consultoras",sub:"contactadas"}]},
-  { title:"Semana 10: Maximiza tus beneficios laborales", theme:"EDUCACIÓN FINANCIERA — APROVECHAR LO QUE YA TIENES", dates:"1 Jun – 7 Jun",
-    tasks:["🎯 PRIORIDAD: Revisar todos tus beneficios laborales: CTS, gratificaciones, vacaciones, seguros — ¿los estás aprovechando al máximo?","📚 LIBRO DE LA SEMANA: 'La Semana Laboral de 4 Horas' de Tim Ferriss cap. 1–4 — aprende a diseñar un negocio que trabaje por ti","Ver 'CTS en Perú: cómo funciona y cómo usarla bien' en YouTube","Calcular cuánto recibirás de gratificación en julio y planificar ya: deudas, fondo, inversión","Revisar si estás en el régimen tributario correcto como trabajador independiente — RUS, RER o régimen general","Investigar si puedes deducir gastos de tu trabajo independiente ante SUNAT para pagar menos impuestos legalmente","Proyectar cuánto tendrás ahorrado al 21 de junio con el ritmo actual"],
-    quote:"Optimizar lo que ya tienes es tan importante como buscar nuevas fuentes de ingreso.", cite:"Principio de Eficiencia Financiera",
-    timeBlocks:[{type:"tb-strategic",label:"CTS + gratificación",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Tributario + proyección",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Plan gratificación + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"💼",text:"Beneficios laborales",sub:"auditados"},{icon:"📊",text:"Gratificación",sub:"distribuida en plan"},{icon:"🧾",text:"Situación tributaria",sub:"revisada"}]},
-  { title:"Semana 11: Portafolio financiero — Todo en orden", theme:"CONSOLIDACIÓN — SISTEMA FINANCIERO COMPLETO", dates:"8 Jun – 14 Jun",
-    tasks:["🎯 PRIORIDAD: Crear tu estado financiero personal: activos, pasivos, ingresos, gastos y patrimonio neto — en una sola hoja clara","📚 LIBRO DE LA SEMANA: Terminar 'Psicología del Dinero' — los capítulos sobre independencia financiera son los más importantes","📚 LIBRO DE LA SEMANA: Terminar 'Psicología del Dinero' — los últimos capítulos sobre independencia financiera son los más importantes","Revisar el estado de todas tus metas: ahorro S/1,800, deudas reducidas, inversión activa, ingresos extra","Documentar tu sistema completo: presupuesto, reglas de tarjeta, transferencias automáticas, inversiones","Ver 'Cómo hacer tu estado financiero personal' en YouTube y comparar con el tuyo","Escribir tus 5 reglas de dinero personales que mantendrás siempre — tu constitución financiera","Preparar la proyección de tus finanzas para los próximos 12 meses con todo lo aprendido"],
-    quote:"El orden financiero no es una meta — es un sistema que se mantiene solo cuando está bien diseñado.", cite:"Principio de Sistema — Finanzas",
-    timeBlocks:[{type:"tb-strategic",label:"Estado financiero personal",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Reglas + proyección anual",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Constitución financiera + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"📋",text:"Estado financiero",sub:"personal completo"},{icon:"📜",text:"5 reglas de dinero",sub:"documentadas"},{icon:"📈",text:"Proyección 12 meses",sub:"hecha"}]},
-  { title:"Semana 12: Cierre financiero y nueva temporada", theme:"CIERRE — MEDIR, CELEBRAR Y PROYECTAR", dates:"15 Jun – 21 Jun",
-    tasks:["🎯 PRIORIDAD: Calcular exactamente cuánto ahorraste en 12 semanas — comparar con la meta de S/1,800","📚 PRÓXIMA TEMPORADA: Elegir entre 'Piense y Hágase Rico' de Napoleon Hill o 'Un Mundo Sin Efectivo' para profundizar en inversiones","📚 LIBRO DE LA PRÓXIMA TEMPORADA: Elegir entre 'Piense y Hágase Rico' de Napoleon Hill o 'Un Mundo Sin Efectivo' para profundizar en inversiones","Calcular cuánto pagaste de deuda extra y cuánto reduciste el total","Revisar el rendimiento de tus inversiones y decidir si aumentas el monto o cambias de instrumento","Escribir tu análisis financiero de 1 página: qué funcionó, qué fallaste y qué cambiarías","Celebrar el logro de forma razonable — sin destruir el ahorro, pero con un reconocimiento real al esfuerzo","Definir las 3 metas financieras de tu próxima temporada: ¿más ahorro, liquidar deuda, primera inversión grande?"],
-    quote:"El dinero no te da libertad — el sistema que construiste te la da. Esa es la diferencia entre el que tiene sueldo y el que tiene patrimonio.", cite:"Principio de Libertad Financiera",
-    timeBlocks:[{type:"tb-strategic",label:"Cierre + métricas finales",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Análisis + próxima temporada",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Celebración + nueva visión ☀️",desc:"Dom — 9:00–10:00 AM"}],
-    metrics:[{icon:"💰",text:"Ahorro total",sub:"vs meta S/1,800"},{icon:"📉",text:"Deuda reducida",sub:"monto total"},{icon:"🔭",text:"Próxima temporada",sub:"3 metas definidas"}]},
+    tasks:["🎯 PRIORIDAD: Estudiar depósitos a plazo, fondos mutuos y factoring (facturas) como opciones de inversión peruana","Ver videos del canal 'Aprender a Invertir' o 'Invertir Joven' sobre el mercado peruano","Entender tu perfil de riesgo: conservador, moderado o agresivo","Investigar tu AFP actual: evaluar el tipo de fondo (1, 2 o 3) según tu edad y proyecciones","Simular un depósito a plazo fijo en una Caja Municipal (Caja Arequipa, Huancayo, etc.) vs Bancos grandes","Invertir de manera simbólica tus primeros S/50 o S/100 en un fondo mutuo conservador para entender la app del banco"],
+    quote:"Invertir no es para ricos — es para personas que entienden que la inflación se come sus ahorros si están bajo el colchón.", cite:"Inversión Temprana",
+    timeBlocks:[{type:"tb-strategic",label:"Estudio inversiones Perú",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Revisión AFP + Cajas",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Inversión piloto + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📈",text:"3 instrumentos",sub:"Estudiados"},{icon:"🧠",text:"Revisión AFP",sub:"Fondo verificado"},{icon:"💰",text:"Inversión piloto",sub:"Ejecutada (opcional)"}]},
+  { title:"Semana 8: Revisión de mitad de camino", theme:"REVISIÓN — AUDITORÍA DEL PLAN", dates:"18 May – 24 May",
+    tasks:["🎯 PRIORIDAD: Auditar el panel 'Compras 2026' y 'Mis Tarjetas' de tu App — ¿cuántas metas diarias están en verde?","Releer los conceptos clave de los libros financieros leídos hasta ahora","Auditar tus gastos de Trujillo y Cachicadán: ¿el dinero se está yendo en viáticos no presupuestados?","Revisar el progreso real de tu fondo de emergencia y el pago de deuda pequeña","Evaluar los obstáculos para conseguir nuevos clientes para COTA100 y planificar una nueva estrategia","Ajustar el presupuesto para las semanas 9–12 sin cambiar la meta final de ahorro"],
+    quote:"La revisión no es para castigarte por gastar — es para alinear tu dinero con lo que realmente valoras hoy.", cite:"Auditoría de Progreso",
+    timeBlocks:[{type:"tb-strategic",label:"Revisión App Panel Central",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Auditoría viáticos",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Ajuste de plan + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📱",text:"Panel actualizado",sub:"Compras y Tarjetas"},{icon:"📉",text:"Auditoría viáticos",sub:"Realizada"},{icon:"📊",text:"Plan ajustado",sub:"Semanas 9–12"}]},
+  { title:"Semana 9: Formalidad y Tributación (SUNAT)", theme:"META FINANCIERA — JUGAR CON LAS REGLAS CLARAS", dates:"25 May – 31 May",
+    tasks:["🎯 PRIORIDAD: Revisar el estado de COTA100 ante la SUNAT y tu situación personal de impuestos","📚 LIBRO DE LA SEMANA: 'El Cuadrante del Flujo de Dinero' de Robert Kiyosaki","Ver tutoriales sobre régimen tributario (MYPE, Especial o General) y deducciones para profesionales independientes","Confirmar si estás emitiendo Recibos por Honorarios o Facturas y si estás guardando los impuestos correspondientes","Si aplicas, investigar qué gastos personales (restaurantes, hoteles, servicios profesionales) puedes deducir para pagar menos IR","Agendar una reunión de 30 min con un contador de confianza para despejar dudas puntuales"],
+    quote:"El que ignora los impuestos paga doble. La formalidad inteligente es la base para contratar con el Estado o empresas grandes.", cite:"Reglas de Juego",
+    timeBlocks:[{type:"tb-strategic",label:"Revisión SUNAT",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Deducciones posibles",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Charla contador + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🏛️",text:"Estado SUNAT",sub:"Verificado"},{icon:"🧾",text:"Deducciones",sub:"Investigadas"},{icon:"👨‍💼",text:"Consulta contador",sub:"Agendada"}]},
+  { title:"Semana 10: Optimizar compras y tecnología", theme:"EDUCACIÓN FINANCIERA — INVERTIR EN HERRAMIENTAS", dates:"1 Jun – 7 Jun",
+    tasks:["🎯 PRIORIDAD: Revisar la pestaña de 'Posibles Compras' en tu app — analizar si la herramienta tecnológica (ej. SSD, drone, laptop) tiene un retorno de inversión real","📚 LIBRO DE LA SEMANA: 'La Semana Laboral de 4 Horas' de Tim Ferriss","Si vas a comprar equipos, buscar la opción de Leasing o préstamo para empresa vs usar tu capital de trabajo directo","Vender o desechar equipos de topografía viejos que ya no uses usando el botón 'Vendido' de tu App","Cotizar seguros de equipos: un drone o estación total robada o accidentada en campo te quiebra si no hay seguro","Planificar el cierre de mes y revisar cuánto lograste ahorrar en esta fase"],
+    quote:"Gastar en un capricho es un lujo. Invertir en una herramienta que te ahorra horas de trabajo es una obligación empresarial.", cite:"Inversión vs Gasto",
+    timeBlocks:[{type:"tb-strategic",label:"Análisis ROE herramientas",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Cotización seguros",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Inventario de equipos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"💻",text:"Posibles Compras",sub:"Auditadas en App"},{icon:"🛡️",text:"Seguro equipos",sub:"Cotizado"},{icon:"📦",text:"Inventario",sub:"Actualizado"}]},
+  { title:"Semana 11: Estado financiero final", theme:"CONSOLIDACIÓN — TU PATRIMONIO HOY", dates:"8 Jun – 14 Jun",
+    tasks:["🎯 PRIORIDAD: Crear tu Estado Financiero Personal actualizado: sumar Activos (ahorros, equipos COTA100) y restar Pasivos (deudas tarjetas, préstamos)","📚 LIBRO DE LA SEMANA: 'Psicología del Dinero' de Morgan Housel","Exportar tu historial de la sección 'Compras 2026' en CSV para tener tu backup mensual seguro","Redactar tus 5 Reglas de Oro Financieras que mantendrás siempre (ej. 'Nunca endeudarme para consumo', 'Pagar siempre el total de la CMR')","Tener claro el Patrimonio Neto de COTA100 y tu Patrimonio Personal separados (no mezclar bolsillo de empresa y personal)"],
+    quote:"La paz financiera empieza cuando sabes exactamente cuánto tienes y a quién le debes. La claridad mata a la ansiedad.", cite:"Patrimonio Neto",
+    timeBlocks:[{type:"tb-strategic",label:"Estado Financiero Personal",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Backup de App (CSV/JSON)",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Reglas de Oro + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📋",text:"Patrimonio Neto",sub:"Calculado exacto"},{icon:"💾",text:"Backup App",sub:"Exportado con éxito"},{icon:"📜",text:"5 Reglas Financieras",sub:"Definidas"}]},
+  { title:"Semana 12: Cierre y visión a futuro", theme:"CIERRE — CELEBRAR Y PROYECTAR", dates:"15 Jun – 21 Jun",
+    tasks:["🎯 PRIORIDAD: Comparar tu fondo ahorrado real versus la meta que te pusiste en la Semana 1","Celebrar el logro: invitar a cenar, comprar un detalle, pero reconociendo el avance y el control financiero logrado","Revisar cuánto bajó el nivel de endeudamiento en el Panel de Tarjetas de tu celular","Escribir un análisis de 1 página: ¿qué te frenó a ahorrar más? ¿fueron salidas, mala planificación o falta de clientes?","Diseñar tus 3 metas financieras para la próxima temporada: ¿Invertir en Bolsa, comprar un RTK nuevo, o liquidar el crédito vehicular?"],
+    quote:"El dinero no te da libertad por sí solo — el sistema y la mentalidad que acabas de construir te la darán por el resto de tu vida.", cite:"Cierre de Período",
+    timeBlocks:[{type:"tb-strategic",label:"Comparativa Meta vs Real",desc:"Mar / Jue — 17:30–19:00 🌙"},{type:"tb-buffer",label:"Análisis de aprendizaje",desc:"Sáb — 13:00–15:00 ☀️"},{type:"tb-breakout",label:"Visión Financiera Próxima + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"💰",text:"Ahorro final",sub:"Comparado con meta"},{icon:"📉",text:"Deuda eliminada",sub:"Total calculado"},{icon:"🔭",text:"Nuevas metas",sub:"Escritas para próxima temporada"}]},
 ];
 
 const gymWeeks = [
   { title:"Semana 1: Diagnóstico físico y nueva fase", theme:"ARRANQUE — MIDE TU PUNTO DE PARTIDA REAL", dates:"30 Mar – 5 Abr",
-    tasks:["🎯 PRIORIDAD: Medir y registrar tus métricas de hoy: peso corporal, circunferencia de brazo, pecho, cintura y pierna","Fotografías de progreso desde frente, lado y espalda — guardarlas para comparar el 21 de junio","Registrar tus cargas actuales: sentadilla Smith 50kg, press piernas 110kg — son tu base de progresión","Ver 'Cómo ganar masa muscular de forma efectiva' de Sergio Peinado o Alberto Núñez en YouTube","Revisar tu rutina actual: ¿tiene suficiente volumen por grupo muscular? ¿Aplicas sobrecarga progresiva real?","Diseñar el nuevo programa de 12 semanas: 3 bloques de 4 semanas con aumento progresivo de intensidad"],
-    quote:"Las 12 semanas que vienen no son un reinicio — son la evolución de la base que ya construiste.", cite:"Principio de Progresión — Hipertrofia",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición + diseño rutina",desc:"Mar — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Fotos + métricas + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"📏",text:"Medidas corporales",sub:"registradas"},{icon:"📸",text:"Fotos de progreso",sub:"3 ángulos"},{icon:"🏋️",text:"Cargas base",sub:"50kg / 110kg"}]},
-  { title:"Semana 2: Bloque 1 — Sobrecarga progresiva desde el día 1", theme:"HIPERTROFIA — SEMANAS 2–4: CARGA PROGRESIVA", dates:"6 Abr – 12 Abr",
-    tasks:["🎯 PRIORIDAD: Aplicar 4 series de 8–12 reps por ejercicio principal — llegar al fallo técnico en la rep 10-11","Sentadilla Smith: comenzar en 52.5kg — aumentar 2.5kg cada semana si completas todas las reps con buena técnica","Press de piernas: comenzar en 115kg — misma lógica, sobrecarga progresiva de 5kg por semana","Ver 'Cómo aplicar la sobrecarga progresiva correctamente' de Sergio Peinado en YouTube","Registrar TODOS los ejercicios: peso, series, repeticiones — sin registro no hay progresión real","Añadir movilidad de cadera antes de sentadilla y 2 min de estiramiento de cuádriceps al terminar"],
-    quote:"Sin registro no hay progresión. Sin progresión no hay hipertrofia. Es matemática, no motivación.", cite:"Principio de Sobrecarga Progresiva",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Registro + revisión técnica",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión semana + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"⬆️",text:"Sentadilla Smith",sub:"52.5kg objetivo"},{icon:"⬆️",text:"Press piernas",sub:"115kg objetivo"},{icon:"📓",text:"Registro completo",sub:"los 3 días"}]},
+    tasks:["🎯 PRIORIDAD: Medir y registrar tus métricas de hoy: peso corporal, circunferencia de brazo, pecho, cintura y pierna","Fotografías de progreso desde frente, lado y espalda — guardarlas para comparar el 21 de junio","Registrar tus cargas actuales base — son tu ancla de progresión","Ver 'Cómo ganar masa muscular de forma efectiva' de canales top en YouTube","Revisar tu rutina actual: ¿tiene suficiente volumen por grupo muscular? ¿Aplicas sobrecarga progresiva real?","Diseñar el nuevo programa de 12 semanas: 3 bloques de 4 semanas con aumento de intensidad"],
+    quote:"Las 12 semanas que vienen no son un reinicio — son la evolución de la base que ya tienes.", cite:"Principio de Progresión",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición + rutina",desc:"Mar — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Fotos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📏",text:"Medidas corporales",sub:"Registradas"},{icon:"📸",text:"Fotos de progreso",sub:"3 ángulos"},{icon:"🏋️",text:"Cargas base",sub:"Anotadas"}]},
+  { title:"Semana 2: Bloque 1 — Sobrecarga progresiva", theme:"HIPERTROFIA — CARGA PROGRESIVA", dates:"6 Abr – 12 Abr",
+    tasks:["🎯 PRIORIDAD: Aplicar series exigentes llegando cerca al fallo técnico en repeticiones de hipertrofia (8-12)","Aumentar el peso o las repeticiones respecto a la semana pasada en los ejercicios clave","Ver tutoriales de técnica de los 3 ejercicios principales que realizas para optimizar postura","Registrar TODOS los pesos en la libreta o celular — sin registro la mente engaña sobre el progreso","Incluir trabajo de movilidad antes de empezar la sesión (5 min de calentamiento dinámico)"],
+    quote:"Sin registro constante no hay sobrecarga progresiva. La memoria falla, el cuaderno no.", cite:"Regla de Oro en Hipertrofia",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Video técnica",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión semana + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"⬆️",text:"Sobrecarga",sub:"Pesos subidos o reps extra"},{icon:"📓",text:"Registro",sub:"Diario de entrenamiento lleno"},{icon:"🧘",text:"Movilidad",sub:"Aplicada pre-entreno"}]},
   { title:"Semana 3: Nutrición para ganar masa muscular", theme:"HIPERTROFIA — ALIMENTACIÓN COMO HERRAMIENTA", dates:"13 Abr – 19 Abr",
-    tasks:["🎯 PRIORIDAD: Calcular tus calorías de mantenimiento y crear un superávit limpio de 200–300 kcal para ganar masa sin exceso de grasa","Ver 'Dieta para ganar masa muscular en Perú' de Fit Peruano o Nutrición Fit en YouTube","Calcular tu proteína diaria: 1.6–2g por kg de peso corporal — distribuida en 4–5 comidas al día","Identificar fuentes de proteína económicas en Perú: pollo, huevo, atún, menestras, quinua, leche","Crear un plan de alimentación semanal de 5 días con las comidas pre y post entrenamiento definidas","Pesar la comida al menos 3 días para calibrar el ojo — no necesitas hacerlo siempre, solo al inicio"],
-    quote:"El entrenamiento rompe el músculo. La alimentación lo construye. Sin superávit calórico, solo mantienes.", cite:"Principio de Nutrición para Hipertrofia",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Plan nutricional + cálculos",desc:"Mar / Jue — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Plan de comidas + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🍗",text:"Proteína diaria",sub:"calculada en gramos"},{icon:"🔥",text:"Superávit calórico",sub:"+250 kcal configurado"},{icon:"🥗",text:"Plan semanal",sub:"5 días estructurado"}]},
-  { title:"Semana 4: Test de progreso — Fin del bloque 1", theme:"MEDICIÓN — ¿CUÁNTO CRECISTE EN 4 SEMANAS?", dates:"20 Abr – 26 Abr",
-    tasks:["🎯 PRIORIDAD: Repetir mediciones corporales y comparar con semana 1 — peso, circunferencias y fotos de 3 ángulos","Re-testear pesos: sentadilla Smith y press de piernas — ¿lograste la progresión planificada?","Ver 'Cómo evaluar tu progreso en el gimnasio sin obsesionarte' de Alberto Núñez en YouTube","Revisar el registro de 4 semanas: ¿hubo semanas donde fallaste la progresión? Identificar por qué","Ajustar el bloque 2 según el progreso: si fue bien, aumentar intensidad; si no, revisar descanso y nutrición","Revisar la calidad de tu sueño: el músculo crece durante el descanso, no durante el entrenamiento"],
-    quote:"Cuatro semanas de datos te dicen exactamente qué cambiar. La medición es el superpoder del que progresa.", cite:"Principio de Medición — Entrenamiento",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición + comparativa",desc:"Mar — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Fotos + ajuste bloque 2 + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"📏",text:"Medidas",sub:"S1 vs S4 comparadas"},{icon:"📸",text:"Fotos progreso",sub:"semana 4"},{icon:"🏋️",text:"Cargas actuales",sub:"registradas"}]},
-  { title:"Semana 5: Bloque 2 — Mayor intensidad y técnicas avanzadas", theme:"HIPERTROFIA — INTENSIDAD Y TÉCNICAS", dates:"27 Abr – 3 May",
-    tasks:["🎯 PRIORIDAD: Incorporar drop sets en el último ejercicio de cada grupo muscular — una vez por semana para romper la adaptación","Sentadilla Smith: objetivo semana 5 — 57.5kg (progresión acumulada de 4 semanas a 2.5kg/sem)","Press de piernas: objetivo semana 5 — 135kg (progresión acumulada a 5kg/sem)","Ver 'Técnicas de intensidad para ganar músculo' de Sergio Peinado en YouTube — elegir 2 para aplicar","Añadir trabajo de core: plancha, dead bug — 10 minutos al final de cada sesión","Grabar tu sentadilla de perfil para revisar la técnica — la técnica es el límite del peso"],
-    quote:"La técnica perfecta con más peso vale más que el peso máximo con técnica deficiente. El músculo no sabe cuánto pesa la barra.", cite:"Principio de Técnica — Hipertrofia",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Video técnica + core",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión técnica + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"⬆️",text:"Sentadilla Smith",sub:"57.5kg objetivo"},{icon:"⬆️",text:"Press piernas",sub:"135kg objetivo"},{icon:"🎯",text:"Drop sets",sub:"incorporados"}]},
-  { title:"Semana 6: Descanso activo y recuperación (deload)", theme:"RECUPERACIÓN — EL SECRETO QUE NADIE APLICA", dates:"4 May – 10 May",
-    tasks:["🎯 PRIORIDAD: Reducir el volumen un 20% esta semana (deload) — mismo peso, menos series — para recuperación profunda","Ver 'Para qué sirve la semana de descarga en el gimnasio' de Alberto Núñez en YouTube","Hacer 2 sesiones de movilidad de 20 minutos: cadera, columna y pectorales — los grupos más tensos","Revisar calidad del sueño de las últimas semanas: ¿duermes 7–8 horas? El músculo crece en el sueño","Evaluar si tienes dolor articular en rodillas o cadera — señal de que el volumen o técnica necesita ajuste","Planificar el bloque 3 (semanas 7–12): aumentar series por grupo de 12 a 16 sets semanales"],
-    quote:"El entrenamiento es el estímulo. La recuperación es donde ocurre el crecimiento. Sin descanso, solo te desgastas.", cite:"Principio de Recuperación — Ciencia del Entrenamiento",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento ligero (deload)",desc:"Lun/Mié/Vie 19:30–20:30 🏋️"},{type:"tb-buffer",label:"Movilidad + estiramientos",desc:"Mar / Jue — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Planificación bloque 3 + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"😴",text:"7–8h sueño",sub:"todas las noches"},{icon:"🧘",text:"2 sesiones movilidad",sub:"20 min c/u"},{icon:"📋",text:"Bloque 3",sub:"planificado"}]},
-  { title:"Semana 7: Bloque 3 — Máximo volumen de acumulación", theme:"HIPERTROFIA — FASE DE ALTA ACUMULACIÓN", dates:"11 May – 17 May",
-    tasks:["🎯 PRIORIDAD: Aumentar el volumen total: de 12 a 16 sets por grupo muscular por semana — distribuidos en los 3 días","Sentadilla Smith: objetivo semana 7 — 62.5kg con técnica impecable en todas las repeticiones","Press de piernas: objetivo semana 7 — 150kg — si la progresión lineal se frenó, cambiar a doble progresión","Incorporar extensión de piernas 4x15 al final de la sesión de pierna como aislamiento de cuádriceps","Ver 'Cómo distribuir el volumen de entrenamiento en la semana' de Sergio Peinado en YouTube","Registrar RPE (esfuerzo percibido del 1 al 10) por serie — aprender a entrenar por sensación además de por número"],
-    quote:"El volumen es el principal driver de la hipertrofia. Más trabajo de calidad = más músculo. Hay que ganarlo.", cite:"Dr. Mike Israetel — Renaissance Periodization",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Registro RPE + ajuste",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión volumen + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"⬆️",text:"Sentadilla Smith",sub:"62.5kg objetivo"},{icon:"⬆️",text:"Press piernas",sub:"150kg objetivo"},{icon:"📊",text:"16 sets/grupo",sub:"por semana"}]},
-  { title:"Semana 8: Nutrición avanzada — Optimizar resultados", theme:"HIPERTROFIA — AFINAR LA ALIMENTACIÓN", dates:"18 May – 24 May",
-    tasks:["🎯 PRIORIDAD: Revisar si realmente estás en superávit — si no subes 0.2–0.5kg/semana, agregar 100–200 kcal más","Ver 'Timing de nutrientes para ganar músculo' de Fit Peruano en YouTube","Optimizar la comida pre-entrenamiento: carbohidratos complejos 2h antes del entreno de las 19:30","Optimizar la comida post-entrenamiento: proteína + carbos simples en los 30 min después de la sesión","Evaluar la creatina monohidratada (5g/día) — único suplemento con evidencia sólida de nivel 1 para hipertrofia","Calcular el costo mensual de tu plan nutricional — ¿es sostenible dentro de tu presupuesto de S/3,000?"],
-    quote:"La suplementación no construye músculo. La alimentación bien planificada y el entrenamiento duro sí.", cite:"Principio de Nutrición Basada en Evidencia",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Revisión nutricional",desc:"Mar / Jue — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Ajuste calorías + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"⚖️",text:"Peso semanal",sub:"+0.2–0.5kg/sem"},{icon:"🍽️",text:"Pre/post entreno",sub:"optimizados"},{icon:"💊",text:"Creatina",sub:"evaluada e iniciada"}]},
-  { title:"Semana 9: Atacar los puntos débiles", theme:"HIPERTROFIA — ESPECIALIZACIÓN TEMPORAL", dates:"25 May – 31 May",
-    tasks:["🎯 PRIORIDAD: Identificar tu grupo muscular más rezagado visualmente y agregar 2 series extra de aislamiento para ese grupo","Ver 'Cómo mejorar tus puntos débiles musculares' de Alberto Núñez en YouTube","Sentadilla Smith: objetivo semana 9 — 65kg — si alcanzaste este peso, evaluar si cambiar a sentadilla libre","Press de piernas: objetivo semana 9 — 160kg — incorporar también prensa a una pierna para simetría","Añadir hip thrust con barra o kickbacks con polea: 3x15 al final de cada sesión de pierna","Revisar simetría entre lado derecho e izquierdo en ejercicios unilaterales — corregir desequilibrios ahora"],
-    quote:"El músculo más débil es el que limita todo tu físico. Atacarlo es la decisión más inteligente que puedes tomar.", cite:"Principio de Especialización Temporal",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Análisis visual + punto débil",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Plan punto débil + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"⬆️",text:"Sentadilla Smith",sub:"65kg objetivo"},{icon:"⬆️",text:"Press piernas",sub:"160kg objetivo"},{icon:"🎯",text:"Punto débil",sub:"atacado"}]},
-  { title:"Semana 10: Consistencia como estilo de vida", theme:"MENTALIDAD — EL GIMNASIO A LARGO PLAZO", dates:"1 Jun – 7 Jun",
-    tasks:["🎯 PRIORIDAD: Reflexionar sobre los 3 hábitos fuera del gimnasio que más contribuyeron al progreso de estas 10 semanas","Ver 'Cómo mantener la motivación en el gimnasio a largo plazo' de Sergio Peinado en YouTube","Evaluar qué situaciones hacen que pierdas un entrenamiento — crear un plan de contingencia para cada obstáculo","Revisar tu hidratación diaria: mínimo 2.5–3 litros de agua, especialmente en días de entrenamiento","Conectar el hábito del gimnasio con los otros planes: ¿cómo la energía física mejora tu rendimiento en el trabajo?","Planificar cómo mantener el entrenamiento en semanas de mucho trabajo en campo — mínimo 2 sesiones aunque sean más cortas"],
-    quote:"La persona que entrena 3 veces por semana durante 2 años siempre supera al que entrena 6 veces durante 3 meses.", cite:"Principio de Consistencia — Entrenamiento",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Reflexión + hábitos",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Plan de contingencia + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"💧",text:"Hidratación",sub:"2.5L/día hábito"},{icon:"🧠",text:"3 hábitos clave",sub:"identificados"},{icon:"📋",text:"Plan contingencia",sub:"documentado"}]},
-  { title:"Semana 11: Intensificación final — Al límite", theme:"HIPERTROFIA — SEMANA DE MÁXIMO ESFUERZO", dates:"8 Jun – 14 Jun",
-    tasks:["🎯 PRIORIDAD: Semana de máxima intensidad — llegar al fallo muscular controlado en al menos 1 serie de cada ejercicio principal","Sentadilla Smith: intentar tu nuevo máximo — objetivo final de las 12 semanas: 70kg (desde 50kg)","Press de piernas: intentar tu nuevo máximo — objetivo final: 170kg (desde 110kg)","Ver 'Cómo llegar al fallo muscular sin lesionarte' de Alberto Núñez en YouTube","Registrar absolutamente todo: es la semana de mayor volumen e intensidad del ciclo","Fotos de progreso semana 11 — comparar con semana 1 y semana 4"],
-    quote:"El fallo muscular controlado en la recta final es la firma del atleta que conoce sus límites reales.", cite:"Principio de Intensificación — Bloque Final",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento máximo Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Registro + fotos progreso",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Comparativa fotos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🏆",text:"Sentadilla Smith",sub:"70kg objetivo final"},{icon:"🏆",text:"Press piernas",sub:"170kg objetivo final"},{icon:"📸",text:"Fotos semana 11",sub:"comparativa"}]},
-  { title:"Semana 12: Cierre, medición y nueva temporada", theme:"CIERRE — MEDIR EL CUERPO QUE CONSTRUISTE", dates:"15 Jun – 21 Jun",
-    tasks:["🎯 PRIORIDAD: Medición completa final — peso, circunferencias y fotos — comparar punto a punto con la semana 1","Re-testear cargas máximas: sentadilla Smith y press de piernas — documentar el progreso real en 84 días","Calcular tu consistencia: ¿cuántos de los 36 entrenamientos programados completaste?","Escribir tu análisis de 1 página: qué funcionó, qué falló, cómo se sintió el cuerpo semana a semana","Celebrar el progreso con algo concreto — 12 semanas de entrenamiento merecen reconocimiento real","Diseñar el objetivo de tu próxima temporada: ¿continuar masa, fase de definición, o nueva especialidad?"],
-    quote:"No mides el músculo que ganaste — mides la disciplina que construiste. Eso nadie te lo puede quitar.", cite:"Principio de Cierre — Progreso Real",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición final + análisis",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Celebración + nueva visión ☀️",desc:"Dom — 9:00–10:00 AM"}],
-    metrics:[{icon:"📏",text:"Medidas S1 vs S12",sub:"comparación completa"},{icon:"🏋️",text:"Cargas finales",sub:"registradas"},{icon:"🔭",text:"Próxima temporada",sub:"objetivo definido"}]},
+    tasks:["🎯 PRIORIDAD: Asegurar un consumo de proteína adecuado (1.6g a 2g por kilo de peso corporal)","Evaluar las calorías: ¿estás comiendo suficiente para el desgaste del trabajo en campo y gimnasio?","Identificar fuentes de proteína reales y accesibles (huevos, pollo, atún, lentejas)","Asegurar hidratación, especialmente los días que haces topografía en el sol en Cachicadán (mínimo 3 litros)","Preparar comidas clave por adelantado (Meal Prep) para evitar comer mal por cansancio post-obra"],
+    quote:"El entrenamiento da la señal; la comida construye el tejido. Sin materia prima no hay edificio.", cite:"Nutrición Deportiva",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Cálculo proteína",desc:"Mar / Jue — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Meal Prep + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🍗",text:"Proteína diaria",sub:"Objetivo cumplido"},{icon:"💧",text:"Agua",sub:"3 Litros diarios en obra"},{icon:"🍱",text:"Meal prep",sub:"Comidas listas"}]},
+  { title:"Semana 4: Test de progreso — Fin del bloque 1", theme:"MEDICIÓN — ¿CUÁNTO CRECISTE?", dates:"20 Abr – 26 Abr",
+    tasks:["🎯 PRIORIDAD: Repetir mediciones corporales y comparar con la Semana 1 — peso y circunferencias","Revisar los pesos máximos levantados: ¿lograste avanzar al menos 5% en la fuerza de ejercicios base?","Evaluar tu nivel de energía: ¿el gimnasio te está agotando para trabajar o te da más vigor?","Si hay estancamiento, revisar horas de sueño. El músculo crece durmiendo, no levantando pesas.","Ajustar la rutina para el Bloque 2: cambiar ejercicios que causen molestia articular y mantener los que dan buen estímulo"],
+    quote:"Los datos a las cuatro semanas te dicen la verdad que el espejo a veces oculta. Mide y ajusta.", cite:"Principio de Evaluación",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición + Análisis",desc:"Mar — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Ajuste Bloque 2 + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📏",text:"Medidas",sub:"S1 vs S4 comparadas"},{icon:"😴",text:"Sueño",sub:"Revisión horas descanso"},{icon:"🔄",text:"Rutina",sub:"Ajustada para Bloque 2"}]},
+  { title:"Semana 5: Bloque 2 — Mayor intensidad", theme:"HIPERTROFIA — NUEVOS ESTÍMULOS", dates:"27 Abr – 3 May",
+    tasks:["🎯 PRIORIDAD: Introducir control de la fase excéntrica (bajar el peso lento en 3 segundos) para mayor tensión mecánica","Añadir trabajo de core (abdomen) 2 veces por semana para estabilidad vital al cargar la Estación Total","Grabar al menos un set de tu ejercicio más pesado para revisar la técnica objetivamente","Llegar más cerca del fallo en la última serie de cada ejercicio, sin sacrificar la postura","Revisar que el consumo de proteína se mantenga constante aunque haya viajes de trabajo"],
+    quote:"Bajar el peso lento rompe más fibras que subirlo rápido. El ego levanta kilos, el músculo levanta tensión.", cite:"Tiempo Bajo Tensión",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Revisión de video",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Control core + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"⏱️",text:"Fase excéntrica",sub:"3 segundos controlados"},{icon:"🎥",text:"Video técnica",sub:"Analizado"},{icon:"🛡️",text:"Core",sub:"Añadido a rutina"}]},
+  { title:"Semana 6: Recuperación activa", theme:"RECUPERACIÓN — PARA SEGUIR AVANZANDO", dates:"4 May – 10 May",
+    tasks:["🎯 PRIORIDAD: Bajar el peso un 10-15% o hacer una serie menos por ejercicio para dar descanso articular a las rodillas y espalda","Estiramientos profundos enfocados en la cadena posterior (espalda baja e isquiotibiales) muy cargada por topografía","Dormir estricto 8 horas diarias esta semana para reparación central","Planificar mentalmente el bloque final de alta exigencia (Semanas 7 a 11)","Revisar métricas del panel de salud de la App para ver si el peso sigue en el rango esperado"],
+    quote:"No ganas músculo en el gimnasio. Lo ganas en la cama mientras duermes y descansas.", cite:"Recuperación",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Descarga",desc:"Lun/Mié/Vie 19:30–20:30 🏋️"},{type:"tb-buffer",label:"Estiramiento 20 min",desc:"Mar / Jue — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Plan Bloque 3 + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"📉",text:"Descarga (Deload)",sub:"Peso reducido 15%"},{icon:"🧘",text:"Flexibilidad",sub:"Espalda liberada"},{icon:"💤",text:"Sueño profundo",sub:"8 horas"}]},
+  { title:"Semana 7: Bloque 3 — El ataque final", theme:"HIPERTROFIA — ALTA EXIGENCIA", dates:"11 May – 17 May",
+    tasks:["🎯 PRIORIDAD: Retomar los pesos máximos y buscar superarlos en 1 repetición o en peso total","Aumentar el esfuerzo percibido (RPE 9) en los últimos sets. Tiene que costar de verdad.","Asegurar que el aporte de carbohidratos sea óptimo antes de entrenar para tener energía explosiva","Si estás en Cachicadán y no hay buen gym, adaptar con calistenia intensa (flexiones, fondos) al fallo","Evaluar suplementación base si es necesario (ej. Creatina o Proteína en polvo) solo para complementar"],
+    quote:"Cuando la mente dice 'no puedo más', el cuerpo todavía tiene un 30% de reserva. Descúbrelo.", cite:"Intensidad Real",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Fuerte",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Ajuste dieta energía",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión marcas + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🔥",text:"Intensidad RPE 9",sub:"Alcanzada"},{icon:"🍚",text:"Carbos Pre-entreno",sub:"Optimizados"},{icon:"🏆",text:"Superar marcas",sub:"Intentado"}]},
+  { title:"Semana 8: Atacar puntos débiles", theme:"HIPERTROFIA — ESPECIALIZACIÓN TEMPORAL", dates:"18 May – 24 May",
+    tasks:["🎯 PRIORIDAD: Identificar qué parte del cuerpo está rezagada y agregar volumen extra ahí","¿Es la espalda? Añadir jalones. ¿Son los hombros? Añadir elevaciones laterales extra.","No descuidar las piernas, la base de tu fuerza para caminar terrenos escarpados","Revisar postura al trabajar en la computadora para no arruinar los gains de la espalda","Registrar todo el volumen extra en la app"],
+    quote:"Una cadena es tan fuerte como su eslabón más débil. Fortalece lo que menos te gusta entrenar.", cite:"Balance Muscular",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento + Punto débil",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Postura PC",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Ajuste de volumen + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🎯",text:"Punto débil",sub:"Identificado y atacado"},{icon:"🪑",text:"Higiene Postural",sub:"Mejorada en PC"},{icon:"📈",text:"Volumen extra",sub:"Registrado"}]},
+  { title:"Semana 9: Resistencia y consistencia", theme:"MENTALIDAD — DISCIPLINA SOBRE MOTIVACIÓN", dates:"25 May – 31 May",
+    tasks:["🎯 PRIORIDAD: Mantener la frecuencia de 3 días pase lo que pase, aunque estés cansado del trabajo","La motivación inicial ya no está, ahora entra la disciplina. Ir al gimnasio debe ser automático.","Celebrar internamente que ya llevas más de 2 meses entrenando sólido. Muy pocos llegan aquí.","Hacer un escaneo rápido: ¿hay dolores raros? Diferenciar entre dolor muscular bueno y dolor de lesión mala","Mejorar el ambiente de descanso: cero pantallas 30 mins antes de dormir para maximizar recuperación"],
+    quote:"La motivación te hace empezar. La disciplina te mantiene. El hábito te transforma.", cite:"Mentalidad de Hierro",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Disciplina",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Higiene del sueño",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Evaluación dolores + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🛡️",text:"Cero faltas",sub:"A pesar del cansancio"},{icon:"📱",text:"Pantallas Off",sub:"Antes de dormir"},{icon:"✅",text:"Chequeo lesiones",sub:"Limpio"}]},
+  { title:"Semana 10: El tramo final a máxima máquina", theme:"HIPERTROFIA — EXPRIME LOS ÚLTIMOS KILOS", dates:"1 Jun – 7 Jun",
+    tasks:["🎯 PRIORIDAD: Concentración absoluta en cada repetición. Conexión mente-músculo al 100%.","Aumentar el peso en tu ejercicio favorito de forma segura para buscar un récord personal","Comer excelente. El gasto energético será muy alto esta semana.","Si estás levantando más pesado, pedir ayuda a un spotter (cuidador) en el gimnasio","Visualizar el objetivo del 21 de junio: ya estás muy cerca de cerrar tu ciclo con éxito total"],
+    quote:"Los últimos kilómetros de la carrera son los que más cuestan, pero son los que te definen.", cite:"Sprint Final",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Fuerte",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Visualización",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Plan de Récords + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🧠",text:"Conexión muscular",sub:"Máxima en cada rep"},{icon:"🤝",text:"Seguridad (Spotter)",sub:"Utilizada"},{icon:"🏆",text:"Búsqueda de récord",sub:"Iniciada"}]},
+  { title:"Semana 11: La semana pico (Récords Personales)", theme:"MEDICIÓN DE FUERZA — SEMANA PICO", dates:"8 Jun – 14 Jun",
+    tasks:["🎯 PRIORIDAD: Testear y registrar tus nuevos Pesos Máximos para 1 a 5 repeticiones seguras","Calentar excelentemente bien las articulaciones antes de levantar pesado","Registrar el tonelaje total levantado (Peso x Repeticiones x Series) y aplaudir la bestialidad del número","Tomar las últimas fotos pre-cierre para ir viendo los cambios de composición","No intentar récords si hay fatiga acumulada extrema; la seguridad es primero"],
+    quote:"Conocer tu nueva fuerza te da la métrica exacta de lo que has ganado con tu disciplina.", cite:"Prueba de Fuego",
+    timeBlocks:[{type:"tb-strategic",label:"Test de Pesos Máximos",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Cálculo de Tonelaje",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión fotos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
+    metrics:[{icon:"🏋️‍♂️",text:"PRs (Récords)",sub:"Medidos y anotados"},{icon:"📸",text:"Fotos pre-cierre",sub:"Tomadas"},{icon:"⚠️",text:"Seguridad articular",sub:"Cuidada al 100%"}]},
+  { title:"Semana 12: Medición final y próxima fase", theme:"CIERRE — COMPARA TU EVOLUCIÓN", dates:"15 Jun – 21 Jun",
+    tasks:["🎯 PRIORIDAD: Medición completa final: peso, todas las cintas (brazo, pecho, pierna) y fotos finales","Hacer la comparativa cruda: Día 1 vs Día 84. Los números no mienten.","Redactar tu bitácora de sensaciones: ¿te sientes más ágil en la obra? ¿la ropa queda diferente?","Disfrutar el entrenamiento de esta semana con mucha menor presión, como una celebración de la constancia","Diseñar la Fase 2: ¿Seguir subiendo limpio? ¿Mantener? Tú decides el nuevo objetivo."],
+    quote:"Terminar 12 semanas entrenando es ganar. La transformación física es el trofeo que te llevas puesto.", cite:"Misión Cumplida",
+    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Festivo",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición Final",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Diseño Fase 2 + WAM ☀️",desc:"Dom — 9:00–10:00 AM"}],
+    metrics:[{icon:"📏",text:"Medidas Finales",sub:"S1 vs S12 completado"},{icon:"📝",text:"Análisis físico",sub:"Redactado"},{icon:"🚀",text:"Nueva Temporada",sub:"Decidida y planificada"}]},
 ];
 
 
@@ -1525,21 +1199,21 @@ function ls_get(key, fallback=null){ try{ const v=localStorage.getItem(key); ret
 function ls_set(key,value){ try{ localStorage.setItem(key,JSON.stringify(value)); }catch(e){} }
 
 // ══════════════════════════════════════════════════════
-//  PLAN REGISTRY
+//  PLAN REGISTRY CON DATOS NUMÉRICOS
 // ══════════════════════════════════════════════════════
 const PLANS = {
   topo: { id:'topo', label:'Topógrafo', icon:'🗺️', weeks: topoWeeks,
-    vision:'Soy un topógrafo que domina fotogrametría UAV, minería, catastro y geodesia satelital. Tengo portafolio real y cobro como el profesional que soy.',
-    meta:'Al <span id="vd-topo">21 de junio</span> dominé 5 especialidades nuevas, tengo un portafolio de 5 proyectos reales.',
-    compromiso:'Aprendo viendo y haciendo. Cada semana un video específico para replicar y una práctica real.' },
+    vision:'Soy el topógrafo principal en obra, reduciendo errores de replanteo al 0%, procesando ortofotos en menos de 24 horas y asegurando 3 nuevos contratos mensuales para COTA100.',
+    meta:'Al <span id="vd-topo">21 de junio</span> habré procesado el 100% de los puntos del colegio, generado 1 ortofoto de precisión sub-centimétrica y entregado 3 planos aprobados sin observaciones.',
+    compromiso:'Aprendo viendo y haciendo. Aplico lo de YouTube directo en los proyectos de Cachicadán para ganar destreza real.' },
   fin:  { id:'fin',  label:'Finanzas',  icon:'💰', weeks: finWeeks,
-    vision:'Tengo un sistema financiero claro: S/600/mes de ahorro automático, deudas eliminadas, fondo de emergencia construido y mi primera inversión activa.',
-    meta:'Al <span id="vd-fin">21 de junio</span> ahorré S/1,800, reduje mis deudas y aprendí a usar las tarjetas de crédito a mi favor.',
-    compromiso:'El domingo reviso mis números. El día de pago transfiero primero. El dinero trabaja con sistema, no con fuerza de voluntad.' },
+    vision:'Mantengo 6 meses de gastos fijos en mi fondo de liquidez, mantengo 0 deudas de consumo y genero un 15% de rentabilidad anual con mis inversiones.',
+    meta:'Al <span id="vd-fin">21 de junio</span> habré ahorrado el 20% de mis ingresos exactos, liquidado 1 tarjeta de crédito al 100% y depositado S/ 3,000 en mi fondo de emergencia.',
+    compromiso:'Todo gasto fuera de Trujillo/Cachicadán se audita. Transfiero al ahorro automático el mismo día que cobro mi sueldo.' },
   gym:  { id:'gym',  label:'Gimnasio',  icon:'🏋️', weeks: gymWeeks,
-    vision:'Construí 12 semanas de base y ahora evoluciono. Al terminar este período tengo métricas reales de progreso y una rutina que seguiré el resto del año.',
-    meta:'Al <span id="vd-gym">21 de junio</span> pasé de sentadilla Smith 50kg → 70kg y press piernas 110kg → 170kg con técnica impecable.',
-    compromiso:'Entreno Lun/Mié/Vie a las 19:30 sin excusas. Registro todo. Como para ganar. Duermo para crecer.' },
+    vision:'Mantengo un 12% de grasa corporal durante todo el año, levanto 1.5x mi peso en sentadilla y duermo 8 horas diarias para máxima recuperación.',
+    meta:'Al <span id="vd-gym">21 de junio</span> habré sumado 2.5 kg de masa muscular limpia, aumentado 10 kg en mis levantamientos base y completado 36 sesiones de entrenamiento.',
+    compromiso:'Entreno constante 3 días por semana sin excusas de cansancio laboral. La disciplina manda, registro los pesos sin falta.' },
 };
 
 let currentPlan = 'topo';
@@ -1587,7 +1261,7 @@ function buildPlanUI(planId) {
   const vb = document.createElement('div');
   vb.className = 'vision-block';
   vb.innerHTML = `
-    <div class="vision-section"><h4>🎯 Visión a 3 años</h4><p>${plan.vision}</p></div>
+    <div class="vision-section"><h4>🎯 Visión a largo plazo</h4><p>${plan.vision}</p></div>
     <div class="vision-section"><h4>🗓️ Meta de 12 semanas</h4><p>${plan.meta}</p></div>
     <div class="vision-section"><h4>⚡ Compromiso personal</h4><p>${plan.compromiso}</p></div>`;
   section.appendChild(vb);
@@ -1655,7 +1329,7 @@ function buildPlanUI(planId) {
   section.appendChild(nav);
   section.appendChild(panelsDiv);
 
-  // Scorecard
+  // Scorecard (Con número y porcentaje)
   const scTitle = document.createElement('div');
   scTitle.className = 'scorecard';
   scTitle.innerHTML = `<div class="section-title"><h2>Tablero de puntuación</h2><span>// META ≥ 85% SEMANAL</span></div>`;
@@ -1665,10 +1339,10 @@ function buildPlanUI(planId) {
     const cell = document.createElement('div');
     cell.className = 'sc-week'; cell.id = `sc-cell-${planId}-${i}`;
     cell.onclick = () => switchWeek(planId, i);
-    cell.innerHTML = `<span class="scw-num">S${i+1}</span>
-      <span id="scw-date-${planId}-${i}" style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);display:block;margin-bottom:4px;">${w.dates}</span>
-      <span class="scw-pct" id="scw-pct-${planId}-${i}">—</span>
-      <div class="scw-bar"><div class="scw-fill" id="scw-fill-${planId}-${i}"></div></div>`;
+    cell.innerHTML = `
+        <span class="scw-num">Semana ${i+1}</span>
+        <span class="scw-pct" id="sc-grid-pct-${planId}-${i}">0%</span>
+    `;
     scGrid.appendChild(cell);
   });
   scTitle.appendChild(scGrid);
@@ -1728,10 +1402,19 @@ function refreshScore(planId, wi) {
   const setEl = (id, fn) => { const el=document.getElementById(id); if(el) fn(el); };
   setEl(`sc-val-${planId}-${wi}`,   el => el.textContent = done);
   setEl(`sc-pct-${planId}-${wi}`,   el => el.textContent = pct+'%');
-  setEl(`scw-pct-${planId}-${wi}`,  el => el.textContent = pct+'%');
-  setEl(`scw-fill-${planId}-${wi}`, el => el.style.width = pct+'%');
+  setEl(`sc-grid-pct-${planId}-${wi}`, el => el.textContent = pct+'%'); // Actualiza el porcentaje en el recuadro
   setEl(`sc-circle-${planId}-${wi}`,el => el.style.borderColor = color);
-  setEl(`sc-cell-${planId}-${wi}`,  el => el.classList.toggle('sc-done', pct>=85));
+  
+  // Actualización visual para la celda del Tablero de Puntuación
+  const cell = document.getElementById(`sc-cell-${planId}-${wi}`);
+  if (cell) {
+      if (pct >= 85) {
+          cell.classList.add('sc-done');
+      } else {
+          cell.classList.remove('sc-done');
+      }
+  }
+  
   refreshGlobalProgress(planId);
 }
 
@@ -1824,8 +1507,6 @@ function recalcDates(startStr) {
       Object.keys(PLANS).forEach(pid=>{
         const badge=document.getElementById(`date-badge-${pid}-${i}`);
         if(badge) badge.textContent='📅 '+w.dates;
-        const scDate=document.getElementById(`scw-date-${pid}-${i}`);
-        if(scDate) scDate.textContent=w.dates;
       });
     });
   });
@@ -2186,7 +1867,6 @@ function buildMeasurementsPanel() {
       <h1 style="font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,56px);line-height:1;color:var(--navy);margin-bottom:8px;">Progreso físico<br><em style="color:var(--gold);">semana a semana</em></h1>
       <p style="font-size:13px;color:var(--muted);margin-bottom:40px;">Altura: 1.72 m · Peso inicial: 75 kg · Inicio: 30 Mar 2025</p>
 
-      <!-- TABLA COMPARATIVA -->
       <div style="overflow-x:auto;margin-bottom:48px;">
         <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;">
           <thead><tr>${headerCols}</tr></thead>
@@ -2194,7 +1874,6 @@ function buildMeasurementsPanel() {
         </table>
       </div>
 
-      <!-- FORMULARIO DE REGISTRO -->
       <div style="background:var(--cream);border:1px solid var(--border);border-top:4px solid var(--gold);padding:32px;margin-bottom:32px;">
         <h3 style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);margin-bottom:20px;">Registrar nuevas mediciones</h3>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;flex-wrap:wrap;">
@@ -2249,11 +1928,11 @@ function recordMeasurement() {
 // Build all 3 plan UIs
 Object.keys(PLANS).forEach(planId => buildPlanUI(planId));
 
-// Backup bar
+// Backup bar movida al final de la página (fuera del flujo principal)
 const backupBar=document.createElement('div');
 backupBar.className='backup-bar';
 backupBar.innerHTML=`<span>💾 Respaldo de datos (los 3 planes)</span><button onclick="exportBackup()">⬇️ Exportar .json</button><button onclick="document.getElementById('importFile').click()">⬆️ Importar backup</button><input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(this.files[0])"><span style="margin-left:auto;opacity:0.5;font-size:10px;">Si borras el caché del navegador pierdes los datos</span>`;
-document.querySelector('.wrap').insertBefore(backupBar, document.querySelector('.wrap').children[2]);
+document.querySelector('.wrap').appendChild(backupBar);
 
 // Start date
 const savedStart=ls_get(KEYS.startDate,null);

@@ -2,88 +2,171 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Financiero Premium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tarjetas | Pierovski Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        :root {
+            --bg: #f5f7fa;
+            --surface: #ffffff;
+            --surface2: #f8f9fa;
+            --border: #e2e4e8;
+            --amber: #d97706;
+            --green: #10b981;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --r: 12px;
+        }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            background-color: #f5f7fa;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 20px;
-            color: #2c3e50;
+            background-color: var(--bg);
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 80px;
         }
-        h1 {
-            text-align: center;
+
+        /* ─── HEADER ─── */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 30px;
-        }
-        .actions-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        button {
-            cursor: pointer;
-            font-family: inherit;
-            border: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            color: var(--blue);
+            margin: 0;
         }
         .btn-add {
-            background-color: #111827;
+            background: var(--blue);
             color: white;
-            padding: 12px 24px;
-            font-size: 0.95em;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
             font-weight: 600;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
+            transition: transform 0.1s;
         }
-        .btn-add:hover { 
-            background-color: #374151; 
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.03);
-            position: relative;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.08);
-        }
-        
-        /* Estilo para cuando la tarjeta está pagada */
-        .card.is-paid {
-            opacity: 0.6;
-            transform: none !important;
-            box-shadow: none !important;
-            border: 1px solid #10b981;
-        }
-        .card.is-paid .card-header {
-            filter: grayscale(40%);
-        }
+        .btn-add:active { transform: scale(0.95); }
 
-        .card-header {
-            padding: 20px;
-            color: white;
-            font-weight: 600;
-            font-size: 1.15em;
+        /* ─── MAIN CONTAINER ─── */
+        main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 24px 16px;
             display: flex;
             flex-direction: column;
+            gap: 12px;
+        }
+
+        /* ─── ITEM ACORDEÓN (EXTERIOR) ─── */
+        .t-item {
+            background: var(--surface);
+            border-radius: var(--r);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            overflow: hidden;
+            transition: opacity 0.3s;
+        }
+        .t-item.is-paid {
+            opacity: 0.55;
+            border-color: var(--green);
+        }
+
+        /* Cabecera compacta visible */
+        .t-header {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .th-main { display: flex; align-items: center; gap: 14px; flex: 1; }
+        
+        .th-dot {
+            width: 14px; height: 14px; border-radius: 50%;
+            flex-shrink: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .th-texts h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .th-texts p {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Badges */
+        .badge {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .b-alert { background: rgba(239, 68, 68, 0.15); color: var(--red); animation: pulse 1.5s infinite; }
+        .b-ideal { background: rgba(59, 130, 246, 0.15); color: var(--blue); }
+        .b-paid { background: var(--green); color: white; }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .th-chevron {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            transition: transform 0.3s;
+        }
+
+        /* ─── DETALLES (RÉPLICA DE TARJETA FÍSICA) ─── */
+        .t-body {
+            display: none;
+            border-top: 1px solid var(--border);
+            background: var(--surface2);
+            padding: 16px;
+            animation: slideDown 0.2s ease-out;
+        }
+        @keyframes slideDown { from { opacity:0; transform:translateY(-10px) } to { opacity:1; transform:translateY(0) } }
+
+        /* Degradados Originales */
+        .color-naranja { background: linear-gradient(135deg, #FF7000, #e65c00); color: white; }
+        .color-azul-bcp { background: linear-gradient(135deg, #002A8D, #001f66); color: white; }
+        .color-verde { background: linear-gradient(135deg, #8CC63F, #7ab033); color: white; }
+        .color-negro { background: linear-gradient(135deg, #2c3e50, #1a252f); color: white; }
+        .color-azul-bbva { background: linear-gradient(135deg, #072146, #041226); color: white; }
+        .color-morado { background: linear-gradient(135deg, #6a1b9a, #4a148c); color: white; }
+        .color-gris { background: linear-gradient(135deg, #7f8c8d, #636e72); color: white; }
+
+        .credit-card {
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            margin-bottom: 16px;
             position: relative;
         }
         
@@ -93,7 +176,7 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%);
             border-radius: 6px;
             border: 1px solid rgba(255,255,255,0.5);
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             position: relative;
             overflow: hidden;
         }
@@ -104,135 +187,116 @@
             height: 1px; background: rgba(255,255,255,0.4);
         }
 
-        .card-title-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+        .cc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 0.85rem;
         }
-        .card-header span.subtitle {
-            font-size: 0.75em;
-            font-weight: 400;
-            opacity: 0.8;
+        .cc-item { display: flex; flex-direction: column; gap: 2px; }
+        .cc-item span {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            display: block;
-            margin-top: 4px;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
         }
-        
-        .color-naranja { background: linear-gradient(135deg, #FF7000, #e65c00); color: white;}
-        .color-azul-bcp { background: linear-gradient(135deg, #002A8D, #001f66); color: white;}
-        .color-verde { background: linear-gradient(135deg, #8CC63F, #7ab033); color: white;}
-        .color-negro { background: linear-gradient(135deg, #2c3e50, #1a252f); color: white;}
-        .color-azul-bbva { background: linear-gradient(135deg, #072146, #041226); color: white;}
-        .color-morado { background: linear-gradient(135deg, #6a1b9a, #4a148c); color: white;}
-        .color-gris { background: linear-gradient(135deg, #7f8c8d, #636e72); color: white;}
+        .cc-item strong {
+            font-family: 'Fraunces', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
 
-        .card-body {
-            padding: 20px;
-            background-color: #ffffff;
-        }
-        .card-row {
+        /* Botones de acción */
+        .t-actions {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            border-bottom: 1px dashed #edf2f7;
-            padding-bottom: 8px;
-            font-size: 0.9em;
-        }
-        .card-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .label { font-weight: 500; color: #718096; }
-        .value { text-align: right; font-weight: 600; color: #2d3748; }
-        .highlight { color: #e53e3e; font-weight: 700; background: #fff5f5; padding: 2px 8px; border-radius: 4px; }
-
-        .card-actions {
-            display: flex;
-            flex-wrap: wrap;
             gap: 8px;
-            justify-content: space-between;
-            padding: 15px 20px;
-            background-color: #f8fafc;
-            border-top: 1px solid #edf2f7;
+            flex-wrap: wrap;
         }
-        .btn-edit, .btn-delete { 
-            background-color: white; border: 1px solid #cbd5e0; padding: 6px 12px; font-size: 0.8em; font-weight: 600; color: #4a5568; flex-grow: 1; text-align: center;
+        .btn-act {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.1s;
         }
-        .btn-delete { color: #e53e3e; border-color: #fed7d7; background-color: #fff5f5; }
-        .btn-pay {
-            background-color: #10b981; color: white; border: none; padding: 8px 12px; font-size: 0.85em; font-weight: 600; flex-basis: 100%; margin-bottom: 5px;
-        }
-        .btn-pay.revert {
-            background-color: #94a3b8;
-        }
+        .btn-act:active { transform: scale(0.96); }
+        .btn-pay { background: var(--green); color: white; flex-basis: 100%; font-size: 0.85rem; }
+        .btn-pay.revert { background: var(--text-muted); }
+        .btn-edit { background: white; border: 1px solid var(--border); color: var(--text); }
+        .btn-delete { background: rgba(239, 68, 68, 0.1); color: var(--red); }
 
+        /* ─── MODAL NUEVO/EDITAR ─── */
         .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px);
+            display: none; position: fixed; inset: 0;
+            background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(3px);
             justify-content: center; align-items: center; z-index: 1000;
         }
         .modal {
-            background: white; padding: 30px; border-radius: 16px; width: 90%; max-width: 420px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25); animation: slideUp 0.3s ease-out;
+            background: var(--surface); padding: 24px; border-radius: var(--r);
+            width: 90%; max-width: 400px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            max-height: 90vh; overflow-y: auto;
         }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .modal h2 { margin-top: 0; color: #1e293b; font-size: 1.4em; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;}
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.8em; font-weight: 600; margin-bottom: 6px; color: #64748b;}
+        .modal h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; margin-bottom: 16px; color: var(--navy); }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; }
         .form-group input, .form-group select {
-            width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-family: inherit; font-size: 0.9em;
+            width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.95rem; background: var(--surface2); outline: none;
         }
-        .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px; }
-        .btn-save { background-color: #3b82f6; color: white; padding: 10px 20px; font-weight: 600;}
-        .btn-cancel { background-color: #e2e8f0; color: #475569; padding: 10px 20px; font-weight: 600;}
+        .form-group input:focus, .form-group select:focus { border-color: var(--blue); }
+        
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        .btn-save { background: var(--blue); color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;}
+        .btn-cancel { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;}
 
-        .alerta-pago { border: 2px solid #ef4444; }
-        .badge-alerta {
-            background-color: #ef4444; color: white; font-size: 0.6em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 700; animation: pulse 2s infinite;
-        }
-        .badge-ideal {
-            background-color: #3b82f6; color: white; font-size: 0.65em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 700; display: inline-block; margin-top: 10px;
-        }
-        .badge-paid-stamp {
-            background-color: #10b981; color: white; font-size: 0.7em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 700; border: 2px solid white; display: inline-block; margin-top: 10px;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
     </style>
 </head>
 <body>
 
-    <h1>Panel Financiero</h1>
-    <div class="actions-header">
-        <button class="btn-add" onclick="abrirModal()">+ Agregar Tarjeta</button>
-    </div>
+    <header>
+        <div class="logo">
+            <h1>MIS TARJETAS</h1>
+        </div>
+        <button class="btn-add" onclick="abrirModal()">+ Agregar</button>
+    </header>
 
-    <div class="container" id="tarjetas-container"></div>
+    <main id="tarjetas-container">
+        </main>
 
     <div class="modal-overlay" id="modal">
         <div class="modal">
             <h2 id="modal-title">Nueva Tarjeta</h2>
             <input type="hidden" id="card-id">
-            <div class="form-group"><label>Banco y Nombre</label><input type="text" id="card-name" required></div>
-            <div class="form-group"><label>Categoría</label><input type="text" id="card-category"></div>
-            <div class="form-group"><label>Línea de Crédito (S/)</label><input type="number" id="card-line" required></div>
-            <div class="form-group"><label>Día de Cierre (1-31)</label><input type="number" id="card-closing" min="1" max="31" required></div>
-            <div class="form-group"><label>Día de Pago (1-31)</label><input type="number" id="card-payment" min="1" max="31" required></div>
-            <div class="form-group"><label>Desgravamen (S/)</label><input type="number" id="card-desgravamen" required></div>
-            <div class="form-group"><label>Mes Aniversario</label><input type="text" id="card-anniversary"></div>
-            <div class="form-group">
-                <label>Color</label>
-                <select id="card-color">
-                    <option value="color-naranja">Naranja (Amex)</option>
-                    <option value="color-azul-bcp">Azul Vivo (BCP)</option>
-                    <option value="color-verde">Verde (CMR)</option>
-                    <option value="color-negro">Oscuro (Oh!)</option>
-                    <option value="color-azul-bbva">Azul Marino (BBVA)</option>
-                    <option value="color-morado">Morado (Ripley)</option>
-                    <option value="color-gris">Gris (Estándar)</option>
-                </select>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group" style="grid-column: 1 / -1;"><label>Banco / Nombre</label><input type="text" id="card-name" placeholder="Ej: BCP Visa" autocomplete="off"></div>
+                <div class="form-group" style="grid-column: 1 / -1;"><label>Línea de Crédito (S/)</label><input type="number" id="card-line" placeholder="5000"></div>
+                <div class="form-group"><label>Día Cierre</label><input type="number" id="card-closing" placeholder="15" min="1" max="31"></div>
+                <div class="form-group"><label>Día Pago</label><input type="number" id="card-payment" placeholder="5" min="1" max="31"></div>
+                <div class="form-group"><label>Desgravamen (S/)</label><input type="number" id="card-desgravamen" placeholder="15.00"></div>
+                <div class="form-group"><label>Aniversario</label><input type="text" id="card-anniversary" placeholder="Enero"></div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>Color de Tarjeta</label>
+                    <select id="card-color">
+                        <option value="color-naranja">Naranja (Amex)</option>
+                        <option value="color-azul-bcp">Azul Vivo (BCP)</option>
+                        <option value="color-verde">Verde (CMR)</option>
+                        <option value="color-negro">Oscuro (Oh!)</option>
+                        <option value="color-azul-bbva">Azul Marino (BBVA)</option>
+                        <option value="color-morado">Morado (Ripley)</option>
+                        <option value="color-gris">Gris (Estándar)</option>
+                    </select>
+                </div>
             </div>
+
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
                 <button class="btn-save" onclick="guardarTarjeta()">Guardar</button>
@@ -242,21 +306,20 @@
 
     <script>
         const tarjetasPorDefecto = [
-            { id: 1, name: "BCP Amex", category: "Platinum", line: 15091, closing: 22, payment: 18, desgravamen: 20, anniversary: "Noviembre", color: "color-naranja", paid: false },
-            { id: 2, name: "BCP Visa", category: "Platinum", line: 32339, closing: 25, payment: 21, desgravamen: 20, anniversary: "Noviembre", color: "color-azul-bcp", paid: false },
-            { id: 3, name: "CMR Visa", category: "Signature", line: 9200, closing: 14, payment: 8, desgravamen: 15, anniversary: "Enero", color: "color-verde", paid: false },
-            { id: 4, name: "Tarjeta Oh!", category: "Visa Clásica", line: 6500, closing: 10, payment: 1, desgravamen: 15, anniversary: "Enero", color: "color-negro", paid: false },
-            { id: 5, name: "BBVA Visa", category: "Signature", line: 33200, closing: 20, payment: 14, desgravamen: 15, anniversary: "Octubre", color: "color-azul-bbva", paid: false },
-            { id: 6, name: "Ripley", category: "Mastercard", line: 15000, closing: 17, payment: 12, desgravamen: 15, anniversary: "Octubre", color: "color-morado", paid: false }
+            { id: 1, name: "BCP Amex", line: 15091, closing: 22, payment: 18, desgravamen: 20, anniversary: "Noviembre", color: "color-naranja", paid: false },
+            { id: 2, name: "BCP Visa", line: 32339, closing: 25, payment: 21, desgravamen: 20, anniversary: "Noviembre", color: "color-azul-bcp", paid: false },
+            { id: 3, name: "CMR Visa", line: 9200, closing: 14, payment: 8, desgravamen: 15, anniversary: "Enero", color: "color-verde", paid: false },
+            { id: 4, name: "Tarjeta Oh!", line: 6500, closing: 10, payment: 1, desgravamen: 15, anniversary: "Enero", color: "color-negro", paid: false },
+            { id: 5, name: "BBVA Visa", line: 33200, closing: 20, payment: 14, desgravamen: 15, anniversary: "Octubre", color: "color-azul-bbva", paid: false },
+            { id: 6, name: "Ripley", line: 15000, closing: 17, payment: 12, desgravamen: 15, anniversary: "Octubre", color: "color-morado", paid: false }
         ];
 
         let misTarjetas = [];
 
         function init() {
-            const datosGuardados = localStorage.getItem('tarjetasPremiumV2');
+            const datosGuardados = localStorage.getItem('tarjetasPremiumV3');
             if (datosGuardados) {
                 misTarjetas = JSON.parse(datosGuardados);
-                // Asegurar que tarjetas antiguas tengan la propiedad paid
                 misTarjetas = misTarjetas.map(t => ({...t, paid: t.paid || false}));
             } else {
                 misTarjetas = [...tarjetasPorDefecto];
@@ -266,10 +329,23 @@
         }
 
         function guardarEnLocal() {
-            localStorage.setItem('tarjetasPremiumV2', JSON.stringify(misTarjetas));
+            localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
         }
 
-        function togglePago(id) {
+        function toggleDetails(id) {
+            const details = document.getElementById('det-' + id);
+            const chevron = document.getElementById('chev-' + id);
+            if (details.style.display === 'block') {
+                details.style.display = 'none';
+                chevron.style.transform = 'rotate(0deg)';
+            } else {
+                details.style.display = 'block';
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function togglePago(id, event) {
+            if(event) event.stopPropagation();
             const index = misTarjetas.findIndex(t => t.id === id);
             if(index !== -1) {
                 misTarjetas[index].paid = !misTarjetas[index].paid;
@@ -281,54 +357,92 @@
         function renderizarTarjetas() {
             const container = document.getElementById('tarjetas-container');
             container.innerHTML = '';
+            
             const hoy = new Date().getDate();
 
+            // 1. Identificar la tarjeta "Mejor usar hoy" (La que acaba de cerrar)
             let mejorTarjetaId = null;
-            let minDias = 31;
+            let minDiasDesdeCierre = 31;
             
             misTarjetas.forEach(t => {
                 let diasDesdeCierre = hoy - t.closing;
-                if (diasDesdeCierre <= 0) diasDesdeCierre += 30; 
-                if (diasDesdeCierre < minDias) {
-                    minDias = diasDesdeCierre;
+                if (diasDesdeCierre < 0) diasDesdeCierre += 30;
+                
+                if (diasDesdeCierre > 0 && diasDesdeCierre < minDiasDesdeCierre) {
+                    minDiasDesdeCierre = diasDesdeCierre;
                     mejorTarjetaId = t.id;
                 }
             });
 
+            // 2. Ordenamiento inteligente
+            misTarjetas.sort((a, b) => {
+                // A) Pagadas van al final
+                if (a.paid !== b.paid) return a.paid ? 1 : -1;
+                
+                let diasPagoA = a.payment - hoy; if (diasPagoA < 0) diasPagoA += 30;
+                let diasPagoB = b.payment - hoy; if (diasPagoB < 0) diasPagoB += 30;
+                
+                const isUrgentA = diasPagoA <= 7;
+                const isUrgentB = diasPagoB <= 7;
+
+                // B) Urgencia de pago manda primero
+                if (isUrgentA && !isUrgentB) return -1;
+                if (!isUrgentA && isUrgentB) return 1;
+
+                if (isUrgentA && isUrgentB) return diasPagoA - diasPagoB;
+
+                // C) Luego, priorizar la "Mejor usar hoy"
+                if (a.id === mejorTarjetaId) return -1;
+                if (b.id === mejorTarjetaId) return 1;
+
+                // D) El resto se ordena por fecha de pago
+                return diasPagoA - diasPagoB;
+            });
+
+            // 3. Render HTML
             misTarjetas.forEach(t => {
                 let diferenciaPago = t.payment - hoy;
                 if (diferenciaPago < 0 && hoy > 25 && t.payment < 10) diferenciaPago += 30; 
                 
-                // Si ya está pagada, anulamos la alerta roja
                 const esAlerta = !t.paid && (diferenciaPago >= 0 && diferenciaPago <= 5);
-                const esIdeal = t.id === mejorTarjetaId;
-                const clasePagado = t.paid ? 'is-paid' : '';
-                const textoBotonPago = t.paid ? 'Deshacer Pago' : '✔️ Marcar como Pagado';
-                const claseBotonPago = t.paid ? 'btn-pay revert' : 'btn-pay';
+                const esIdeal = (!t.paid && t.id === mejorTarjetaId);
                 
+                let badgeHTML = '';
+                if (t.paid) badgeHTML = '<span class="badge b-paid">✓ PAGADO</span>';
+                else if (esAlerta) badgeHTML = '<span class="badge b-alert">⚠️ PAGO CERCA</span>';
+                else if (esIdeal) badgeHTML = '<span class="badge b-ideal">✨ MEJOR USAR HOY</span>';
+
                 container.innerHTML += `
-                    <div class="card ${esAlerta ? 'alerta-pago' : ''} ${clasePagado}">
-                        <div class="card-header ${t.color}">
-                            <div class="chip"></div>
-                            <div class="card-title-row">
-                                <div>
-                                    ${t.name} <span class="subtitle">${t.category}</span>
-                                    ${t.paid ? '<span class="badge-paid-stamp">✔️ Pagado</span>' : (esIdeal ? '<span class="badge-ideal">✨ Ideal usar hoy</span>' : '')}
+                    <div class="t-item ${t.paid ? 'is-paid' : ''}">
+                        <div class="t-header" onclick="toggleDetails(${t.id})">
+                            <div class="th-main">
+                                <div class="th-dot ${t.color}"></div>
+                                <div class="th-texts">
+                                    <h3>${t.name} ${badgeHTML}</h3>
+                                    <p>Día de Pago: <strong>${t.payment}</strong></p>
                                 </div>
-                                ${esAlerta ? '<span class="badge-alerta">¡Pago cerca!</span>' : ''}
                             </div>
+                            <div class="th-chevron" id="chev-${t.id}">▼</div>
                         </div>
-                        <div class="card-body">
-                            <div class="card-row"><span class="label">Línea:</span> <span class="value">S/ ${t.line.toLocaleString('en-US')}</span></div>
-                            <div class="card-row"><span class="label">Cierre:</span> <span class="value">${t.closing} de cada mes</span></div>
-                            <div class="card-row"><span class="label">Pago:</span> <span class="value highlight">${t.payment.toString().padStart(2, '0')}</span></div>
-                            <div class="card-row"><span class="label">Desgravamen:</span> <span class="value">S/ ${t.desgravamen}</span></div>
-                            <div class="card-row"><span class="label">Aniversario:</span> <span class="value">${t.anniversary}</span></div>
-                        </div>
-                        <div class="card-actions">
-                            <button class="${claseBotonPago}" onclick="togglePago(${t.id})">${textoBotonPago}</button>
-                            <button class="btn-edit" onclick="editarTarjeta(${t.id})">Editar</button>
-                            <button class="btn-delete" onclick="eliminarTarjeta(${t.id})">Eliminar</button>
+
+                        <div class="t-body" id="det-${t.id}">
+                            <div class="credit-card ${t.color}">
+                                <div class="chip"></div>
+                                <div class="cc-grid">
+                                    <div class="cc-item"><span>Línea de Crédito</span><strong>S/ ${t.line.toLocaleString('en-US')}</strong></div>
+                                    <div class="cc-item"><span>Día de Cierre</span><strong>${t.closing}</strong></div>
+                                    <div class="cc-item"><span>Día de Pago</span><strong>${t.payment}</strong></div>
+                                    <div class="cc-item"><span>Desgravamen</span><strong>S/ ${t.desgravamen}</strong></div>
+                                    <div class="cc-item" style="grid-column: 1 / -1;"><span>Mes de Aniversario</span><strong>${t.anniversary || '—'}</strong></div>
+                                </div>
+                            </div>
+                            <div class="t-actions">
+                                <button class="btn-act btn-pay ${t.paid ? 'revert' : ''}" onclick="togglePago(${t.id}, event)">
+                                    ${t.paid ? '↩ Deshacer Pago' : '✓ Marcar como Pagado'}
+                                </button>
+                                <button class="btn-act btn-edit" onclick="editarTarjeta(${t.id})">Editar</button>
+                                <button class="btn-act btn-delete" onclick="eliminarTarjeta(${t.id})">Eliminar</button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -339,7 +453,7 @@
             document.getElementById('modal').style.display = 'flex';
             document.getElementById('modal-title').innerText = 'Nueva Tarjeta';
             document.getElementById('card-id').value = '';
-            ['name', 'category', 'line', 'closing', 'payment', 'desgravamen', 'anniversary'].forEach(id => document.getElementById(`card-${id}`).value = '');
+            ['name', 'line', 'closing', 'payment', 'desgravamen', 'anniversary'].forEach(id => document.getElementById(`card-${id}`).value = '');
             document.getElementById('card-color').value = 'color-gris';
         }
 
@@ -347,10 +461,12 @@
 
         function guardarTarjeta() {
             const id = document.getElementById('card-id').value;
+            const name = document.getElementById('card-name').value.trim();
+            if(!name) return alert("Ingresa el nombre de la tarjeta.");
+
             const nuevaTarjeta = {
                 id: id ? parseInt(id) : Date.now(),
-                name: document.getElementById('card-name').value,
-                category: document.getElementById('card-category').value,
+                name: name,
                 line: parseFloat(document.getElementById('card-line').value) || 0,
                 closing: parseInt(document.getElementById('card-closing').value) || 1,
                 payment: parseInt(document.getElementById('card-payment').value) || 1,
@@ -360,11 +476,9 @@
                 paid: false
             };
 
-            if(!nuevaTarjeta.name) return alert("El banco es obligatorio.");
-
             if (id) {
                 const index = misTarjetas.findIndex(t => t.id == id);
-                nuevaTarjeta.paid = misTarjetas[index].paid; // Mantener estado de pago al editar
+                nuevaTarjeta.paid = misTarjetas[index].paid;
                 misTarjetas[index] = nuevaTarjeta;
             } else {
                 misTarjetas.push(nuevaTarjeta);
@@ -379,8 +493,8 @@
             const t = misTarjetas.find(t => t.id === id);
             if(!t) return;
 
-            ['id', 'name', 'category', 'line', 'closing', 'payment', 'desgravamen', 'anniversary', 'color'].forEach(k => {
-                document.getElementById(`card-${k}`).value = t[k];
+            ['id', 'name', 'line', 'closing', 'payment', 'desgravamen', 'anniversary', 'color'].forEach(k => {
+                document.getElementById(`card-${k}`).value = t[k] || '';
             });
 
             document.getElementById('modal-title').innerText = 'Editar Tarjeta';
@@ -388,12 +502,18 @@
         }
 
         function eliminarTarjeta(id) {
-            if(confirm("¿Eliminar esta tarjeta del panel?")) {
+            if(confirm("¿Seguro que quieres eliminar esta tarjeta?")) {
                 misTarjetas = misTarjetas.filter(t => t.id !== id);
                 guardarEnLocal();
                 renderizarTarjetas();
             }
         }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.t-body')) {
+                e.stopPropagation();
+            }
+        });
 
         init();
     </script>

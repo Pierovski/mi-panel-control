@@ -1,7 +1,7 @@
 {
-  "name": "Panel Central Piero",
-  "short_name": "MiPanel",
-  "description": "Sistema de gestión personal para Topografía, Finanzas y Entrenamiento",
+  "name": "PIEROVSKI",
+  "short_name": "PIEROVSKI",
+  "description": "Sistema central de gestión",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#f5f7fa",
