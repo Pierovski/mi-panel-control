@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Compras 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
 <style>
 /* LIGHT MODE */
 :root {
@@ -48,7 +52,20 @@ header {
   position: sticky; top: 0; z-index: 100; padding: 0 36px;
 }
 .header-inner { display: flex; align-items: center; gap: 20px; padding: 20px 0 0; }
-.logo h1 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.4rem; color: var(--amber); letter-spacing: -0.02em; line-height: 1; }
+.logo h1 { 
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.4rem; color: var(--amber); 
+    letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center;
+}
+/* Indicador de Nube */
+.cloud-status {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #cbd5e1; display: inline-block; margin-left: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.cloud-syncing { background: var(--amber); animation: pulse-cloud 1s infinite; }
+@keyframes pulse-cloud { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
 .hstats { margin-left: auto; display: flex; gap: 22px; align-items: center; }
 .hstat { text-align: right; }
 .hstat .v { font-family: 'DM Mono', monospace; font-size: 0.95rem; font-weight: 500; }
@@ -249,7 +266,7 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
 <header>
   <div class="header-inner">
     <div class="logo">
-      <h1>COMPRAS 2026</h1>
+      <h1>COMPRAS 2026 <div id="cloud-indicator" class="cloud-status" title="Estado de la Nube"></div></h1>
     </div>
     <div class="hstats">
       <div class="hstat g"><div class="v" id="hGreen">0</div><div class="l">Rentables</div></div>
@@ -466,6 +483,97 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
   </div>
 
 <script>
+/* ═══════════════════ FIREBASE CONFIG ═══════════════════ */
+const firebaseConfig = {
+    apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
+    authDomain: "pierovski-center.firebaseapp.com",
+    databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com",
+    projectId: "pierovski-center",
+    storageBucket: "pierovski-center.firebasestorage.app",
+    messagingSenderId: "917980127507",
+    appId: "1:917980127507:web:117620486d77987f493ae6"
+};
+
+if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+const db = firebase.database();
+
+/* ═══════════════════ STORAGE HYBRIDO ═══════════════════ */
+const SK = 'cpu_prods_data';
+const SH = 'cpu_hist_data';
+const SW = 'cpu_wish_data';
+
+// Función para subir a la nube silenciosamente
+function syncToCloud(path, data) {
+    if (navigator.onLine) {
+        const indicator = document.getElementById('cloud-indicator');
+        if(indicator) { indicator.classList.remove('cloud-online'); indicator.classList.add('cloud-syncing'); }
+        
+        db.ref('pierovski/' + path).set(data)
+          .then(() => {
+              if(indicator) { indicator.classList.remove('cloud-syncing'); indicator.classList.add('cloud-online'); }
+          })
+          .catch(e => {
+              console.error("Fallo al sincronizar " + path, e);
+              if(indicator) { indicator.classList.remove('cloud-syncing'); }
+          });
+    }
+}
+
+function loadProds() {
+  try { return (JSON.parse(localStorage.getItem(SK)) || []).map(p => ({ categoria: 'Otro', metaDiaria: 1, vidaUtil: null, ...p })); } catch { return []; }
+}
+function saveProds(a) { 
+    localStorage.setItem(SK, JSON.stringify(a)); 
+    syncToCloud('compras', a);
+}
+
+function loadHist()  {
+  try { return JSON.parse(localStorage.getItem(SH)) || []; } catch { return []; }
+}
+function saveHist(a) { 
+    localStorage.setItem(SH, JSON.stringify(a)); 
+    syncToCloud('historial', a);
+}
+
+function loadWish()  {
+  try { return JSON.parse(localStorage.getItem(SW)) || []; } catch { return []; }
+}
+function saveWish_(a) { 
+    localStorage.setItem(SW, JSON.stringify(a)); 
+    syncToCloud('wishlist', a);
+}
+
+// Cargar desde Firebase al abrir la App
+function initCloud() {
+    if (navigator.onLine) {
+        const indicator = document.getElementById('cloud-indicator');
+        if(indicator) indicator.classList.add('cloud-syncing');
+
+        Promise.all([
+            db.ref('pierovski/compras').once('value'),
+            db.ref('pierovski/historial').once('value'),
+            db.ref('pierovski/wishlist').once('value')
+        ]).then((snapshots) => {
+            const snapCompras = snapshots[0];
+            const snapHist = snapshots[1];
+            const snapWish = snapshots[2];
+
+            if (snapCompras.exists()) localStorage.setItem(SK, JSON.stringify(snapCompras.val().filter(x => x != null)));
+            if (snapHist.exists()) localStorage.setItem(SH, JSON.stringify(snapHist.val().filter(x => x != null)));
+            if (snapWish.exists()) localStorage.setItem(SW, JSON.stringify(snapWish.val().filter(x => x != null)));
+
+            if(indicator) { indicator.classList.remove('cloud-syncing'); indicator.classList.add('cloud-online'); }
+            
+            render();
+            if (document.getElementById('tab-historial').classList.contains('active')) renderHistory();
+            renderWish();
+        }).catch(e => {
+            console.error("Error al descargar de Firebase", e);
+            if(indicator) indicator.classList.remove('cloud-syncing');
+        });
+    }
+}
+
 // ═══════════════════ TOGGLES DE UI ═══════════════════
 function toggleAddForm() {
   const container = document.getElementById('addFormContainer');
@@ -490,18 +598,6 @@ function toggleGreenZone() {
     btn.textContent = 'Mostrar';
   }
 }
-
-// ═══════════════════ STORAGE ═══════════════════
-const SK = 'cpu_prods_data';
-const SH = 'cpu_hist_data';
-const SW = 'cpu_wish_data';
-
-function loadProds() { try { return (JSON.parse(localStorage.getItem(SK)) || []).map(p => ({ categoria: 'Otro', metaDiaria: 1, vidaUtil: null, ...p })); } catch { return []; } }
-function saveProds(a) { localStorage.setItem(SK, JSON.stringify(a)); }
-function loadHist()  { try { return JSON.parse(localStorage.getItem(SH)) || []; } catch { return []; } }
-function saveHist(a) { localStorage.setItem(SH, JSON.stringify(a)); }
-function loadWish()  { try { return JSON.parse(localStorage.getItem(SW)) || []; } catch { return []; } }
-function saveWish_(a) { localStorage.setItem(SW, JSON.stringify(a)); }
 
 // ═══════════════════ MATH & FORMAT ═══════════════════
 function calcDays(dateStr) { const s = new Date(dateStr + 'T00:00:00'); const t = new Date(); t.setHours(0,0,0,0); return Math.max(Math.floor((t - s) / 86400000) + 1, 1); }
@@ -582,7 +678,6 @@ function render() {
   document.getElementById('hPending').textContent = allE.filter(p => p.ch > p.meta).length;
   document.getElementById('hTotal').textContent = 'S/ ' + fmtN(all.reduce((s,p) => s+p.costo, 0));
   
-  // MÉTRICAS RESTAURADAS
   document.getElementById('mcDiario').textContent = 'S/ ' + fmtN(allE.reduce((s,p) => s+p.ch, 0));
   
   const byChAsc = [...allE].sort((a,b) => a.ch - b.ch);
@@ -634,12 +729,12 @@ function buildTable(wid, items, type) {
   const wrap = document.getElementById(wid);
   if (!items.length) { wrap.innerHTML = `<div class="empty">Sin productos.</div>`; return; }
   
-  // ORDENAMIENTO DE COLUMNAS RESTAURADO
   const sc = (col, label) => {
     const cls = _sortCol === col ? (_sortDir === 1 ? ' sort-asc' : ' sort-desc') : '';
     return `<th class="sortable${cls}" onclick="setSort('${col}')">${label}</th>`;
   };
 
+  // AQUÍ ELIMINAMOS LA COLUMNA DE PROGRESO COMO HABÍAMOS ACORDADO
   wrap.innerHTML = `<div class="table-wrap"><table>
     <thead><tr>
         ${sc('nombre','Producto')}
@@ -816,9 +911,18 @@ function importJSON(event) {
   reader.readAsText(file);
 }
 
+// ═══════════════════ INIT Y SYNC EVENTS ═══════════════════
 document.getElementById('aFecha').value = todayStr();
-render();
-renderWish();
+
+// 1. Cargar desde la nube al abrir la app (sobrescribe lo local si hay datos en Firebase)
+initCloud();
+
+// 2. Si se pierde y vuelve la conexión mientras usas la app, forzamos un resguardo extra a la nube
+window.addEventListener('online', () => {
+    syncToCloud('compras', loadProds());
+    syncToCloud('historial', loadHist());
+    syncToCloud('wishlist', loadWish());
+});
 </script>
 </body>
 </html>

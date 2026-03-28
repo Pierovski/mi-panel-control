@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mis 3 Planes de 12 Semanas</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
 <style>
 :root {
   --cream: #f5f0e8;
@@ -48,11 +52,12 @@ body::before {
   padding: 0 24px 80px;
 }
 
-/* ─── HERO MINIMALISTA ─── */
+/* ─── HERO MINIMALISTA & NUBE ─── */
 .hero {
   padding: 64px 0 24px;
   border-bottom: 1px solid var(--border);
   text-align: center;
+  position: relative;
 }
 
 .hero h1 {
@@ -61,12 +66,27 @@ body::before {
   line-height: 1;
   color: var(--navy);
   margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
 }
 
 .hero h1 em {
   font-style: italic;
   color: var(--gold);
 }
+
+.cloud-status {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #cbd5e1; display: inline-block;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+}
+.cloud-online { background: var(--sage); box-shadow: 0 0 8px var(--sage); }
+.cloud-syncing { background: var(--gold); animation: pulse-cloud 1s infinite; }
+@keyframes pulse-cloud { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
 
 /* ─── METODOLOGÍA PILLARS ─── */
 .pillars {
@@ -111,7 +131,7 @@ body::before {
   color: var(--cream);
   padding: 40px 48px;
   border-radius: 2px;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 32px;
@@ -135,6 +155,57 @@ body::before {
   font-weight: 600;
   color: #fff;
 }
+
+/* ─── ROUTINE TOGGLE BOX (GIMNASIO) ─── */
+.routine-box {
+  background: var(--navy2);
+  color: var(--cream);
+  padding: 32px 40px;
+  border-radius: 2px;
+  margin-bottom: 48px;
+  border-left: 4px solid var(--gold);
+}
+.routine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.routine-header h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: var(--gold-light);
+  margin: 0;
+}
+.btn-toggle-routine {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.1s, background 0.2s;
+}
+.btn-toggle-routine:hover { background: #f0c060; }
+.btn-toggle-routine:active { transform: scale(0.96); }
+.routine-content {
+  font-size: 13.5px;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+.routine-content b { color: #fff; font-weight: 600; }
+.routine-content ul { list-style: none; margin: 10px 0 20px 0; padding-left: 0; }
+.routine-content li { margin-bottom: 6px; display: flex; gap: 8px; }
+.routine-content li::before { content: '→'; color: var(--gold); }
 
 /* ─── SECTION TITLE ─── */
 .section-title {
@@ -527,6 +598,7 @@ body::before {
   .vision-block { grid-template-columns: 1fr; }
   .wam-box { grid-template-columns: 1fr; }
   .scorecard-grid { grid-template-columns: repeat(6, 1fr); }
+  .routine-box { padding: 24px; }
 }
 
 /* ─── SETTINGS PANEL ─── */
@@ -606,7 +678,7 @@ body::before {
   body { background: #fff !important; }
   .global-progress, .settings-btn, .week-tab,
   .week-panels, .weeks-nav, .pillars, .vision-block,
-  .wam-box, .scorecard, button, .notes-save-btn { display: none !important; }
+  .wam-box, .scorecard, button, .notes-save-btn, .routine-header button { display: none !important; }
   .pdf-report { display: block !important; }
   .wrap { padding: 0 !important; max-width: 100% !important; }
   @page { margin: 20mm; size: A4; }
@@ -645,7 +717,7 @@ body::before {
 
   <header class="hero">
     <div>
-      <h1>Mis mejores<br><em>12 semanas</em></h1>
+      <h1>Mis mejores<br><em>12 semanas</em> <div id="cloud-indicator" class="cloud-status" title="Estado de la Nube"></div></h1>
     </div>
   </header>
 
@@ -754,6 +826,26 @@ body::before {
 </div>
 
 <script>
+/* ══════════════════════════════════════════════════════
+   FIREBASE CONFIG (IGUAL QUE TUS OTRAS APPS)
+══════════════════════════════════════════════════════ */
+const firebaseConfig = {
+    apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
+    authDomain: "pierovski-center.firebaseapp.com",
+    databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com",
+    projectId: "pierovski-center",
+    storageBucket: "pierovski-center.firebasestorage.app",
+    messagingSenderId: "917980127507",
+    appId: "1:917980127507:web:117620486d77987f493ae6"
+};
+
+if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+const db = firebase.database();
+
+
+/* ══════════════════════════════════════════════════════
+   DATOS BASE (TOPO Y FINANZAS)
+══════════════════════════════════════════════════════ */
 const topoWeeks = [
   {
     title: "Semana 1: Diagnóstico real y mapa de habilidades",
@@ -1120,68 +1212,50 @@ const finWeeks = [
     metrics:[{icon:"💰",text:"Ahorro final",sub:"Comparado con meta"},{icon:"📉",text:"Deuda eliminada",sub:"Total calculado"},{icon:"🔭",text:"Nuevas metas",sub:"Escritas para próxima temporada"}]},
 ];
 
-const gymWeeks = [
-  { title:"Semana 1: Diagnóstico físico y nueva fase", theme:"ARRANQUE — MIDE TU PUNTO DE PARTIDA REAL", dates:"30 Mar – 5 Abr",
-    tasks:["🎯 PRIORIDAD: Medir y registrar tus métricas de hoy: peso corporal, circunferencia de brazo, pecho, cintura y pierna","Fotografías de progreso desde frente, lado y espalda — guardarlas para comparar el 21 de junio","Registrar tus cargas actuales base — son tu ancla de progresión","Ver 'Cómo ganar masa muscular de forma efectiva' de canales top en YouTube","Revisar tu rutina actual: ¿tiene suficiente volumen por grupo muscular? ¿Aplicas sobrecarga progresiva real?","Diseñar el nuevo programa de 12 semanas: 3 bloques de 4 semanas con aumento de intensidad"],
-    quote:"Las 12 semanas que vienen no son un reinicio — son la evolución de la base que ya tienes.", cite:"Principio de Progresión",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición + rutina",desc:"Mar — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Fotos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"📏",text:"Medidas corporales",sub:"Registradas"},{icon:"📸",text:"Fotos de progreso",sub:"3 ángulos"},{icon:"🏋️",text:"Cargas base",sub:"Anotadas"}]},
-  { title:"Semana 2: Bloque 1 — Sobrecarga progresiva", theme:"HIPERTROFIA — CARGA PROGRESIVA", dates:"6 Abr – 12 Abr",
-    tasks:["🎯 PRIORIDAD: Aplicar series exigentes llegando cerca al fallo técnico en repeticiones de hipertrofia (8-12)","Aumentar el peso o las repeticiones respecto a la semana pasada en los ejercicios clave","Ver tutoriales de técnica de los 3 ejercicios principales que realizas para optimizar postura","Registrar TODOS los pesos en la libreta o celular — sin registro la mente engaña sobre el progreso","Incluir trabajo de movilidad antes de empezar la sesión (5 min de calentamiento dinámico)"],
-    quote:"Sin registro constante no hay sobrecarga progresiva. La memoria falla, el cuaderno no.", cite:"Regla de Oro en Hipertrofia",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Video técnica",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión semana + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"⬆️",text:"Sobrecarga",sub:"Pesos subidos o reps extra"},{icon:"📓",text:"Registro",sub:"Diario de entrenamiento lleno"},{icon:"🧘",text:"Movilidad",sub:"Aplicada pre-entreno"}]},
-  { title:"Semana 3: Nutrición para ganar masa muscular", theme:"HIPERTROFIA — ALIMENTACIÓN COMO HERRAMIENTA", dates:"13 Abr – 19 Abr",
-    tasks:["🎯 PRIORIDAD: Asegurar un consumo de proteína adecuado (1.6g a 2g por kilo de peso corporal)","Evaluar las calorías: ¿estás comiendo suficiente para el desgaste del trabajo en campo y gimnasio?","Identificar fuentes de proteína reales y accesibles (huevos, pollo, atún, lentejas)","Asegurar hidratación, especialmente los días que haces topografía en el sol en Cachicadán (mínimo 3 litros)","Preparar comidas clave por adelantado (Meal Prep) para evitar comer mal por cansancio post-obra"],
-    quote:"El entrenamiento da la señal; la comida construye el tejido. Sin materia prima no hay edificio.", cite:"Nutrición Deportiva",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Cálculo proteína",desc:"Mar / Jue — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Meal Prep + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🍗",text:"Proteína diaria",sub:"Objetivo cumplido"},{icon:"💧",text:"Agua",sub:"3 Litros diarios en obra"},{icon:"🍱",text:"Meal prep",sub:"Comidas listas"}]},
-  { title:"Semana 4: Test de progreso — Fin del bloque 1", theme:"MEDICIÓN — ¿CUÁNTO CRECISTE?", dates:"20 Abr – 26 Abr",
-    tasks:["🎯 PRIORIDAD: Repetir mediciones corporales y comparar con la Semana 1 — peso y circunferencias","Revisar los pesos máximos levantados: ¿lograste avanzar al menos 5% en la fuerza de ejercicios base?","Evaluar tu nivel de energía: ¿el gimnasio te está agotando para trabajar o te da más vigor?","Si hay estancamiento, revisar horas de sueño. El músculo crece durmiendo, no levantando pesas.","Ajustar la rutina para el Bloque 2: cambiar ejercicios que causen molestia articular y mantener los que dan buen estímulo"],
-    quote:"Los datos a las cuatro semanas te dicen la verdad que el espejo a veces oculta. Mide y ajusta.", cite:"Principio de Evaluación",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición + Análisis",desc:"Mar — 17:30–18:30 🌙"},{type:"tb-breakout",label:"Ajuste Bloque 2 + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"📏",text:"Medidas",sub:"S1 vs S4 comparadas"},{icon:"😴",text:"Sueño",sub:"Revisión horas descanso"},{icon:"🔄",text:"Rutina",sub:"Ajustada para Bloque 2"}]},
-  { title:"Semana 5: Bloque 2 — Mayor intensidad", theme:"HIPERTROFIA — NUEVOS ESTÍMULOS", dates:"27 Abr – 3 May",
-    tasks:["🎯 PRIORIDAD: Introducir control de la fase excéntrica (bajar el peso lento en 3 segundos) para mayor tensión mecánica","Añadir trabajo de core (abdomen) 2 veces por semana para estabilidad vital al cargar la Estación Total","Grabar al menos un set de tu ejercicio más pesado para revisar la técnica objetivamente","Llegar más cerca del fallo en la última serie de cada ejercicio, sin sacrificar la postura","Revisar que el consumo de proteína se mantenga constante aunque haya viajes de trabajo"],
-    quote:"Bajar el peso lento rompe más fibras que subirlo rápido. El ego levanta kilos, el músculo levanta tensión.", cite:"Tiempo Bajo Tensión",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Lun/Mié/Vie",desc:"19:30–21:00 🏋️"},{type:"tb-buffer",label:"Revisión de video",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Control core + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"⏱️",text:"Fase excéntrica",sub:"3 segundos controlados"},{icon:"🎥",text:"Video técnica",sub:"Analizado"},{icon:"🛡️",text:"Core",sub:"Añadido a rutina"}]},
-  { title:"Semana 6: Recuperación activa", theme:"RECUPERACIÓN — PARA SEGUIR AVANZANDO", dates:"4 May – 10 May",
-    tasks:["🎯 PRIORIDAD: Bajar el peso un 10-15% o hacer una serie menos por ejercicio para dar descanso articular a las rodillas y espalda","Estiramientos profundos enfocados en la cadena posterior (espalda baja e isquiotibiales) muy cargada por topografía","Dormir estricto 8 horas diarias esta semana para reparación central","Planificar mentalmente el bloque final de alta exigencia (Semanas 7 a 11)","Revisar métricas del panel de salud de la App para ver si el peso sigue en el rango esperado"],
-    quote:"No ganas músculo en el gimnasio. Lo ganas en la cama mientras duermes y descansas.", cite:"Recuperación",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Descarga",desc:"Lun/Mié/Vie 19:30–20:30 🏋️"},{type:"tb-buffer",label:"Estiramiento 20 min",desc:"Mar / Jue — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Plan Bloque 3 + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"📉",text:"Descarga (Deload)",sub:"Peso reducido 15%"},{icon:"🧘",text:"Flexibilidad",sub:"Espalda liberada"},{icon:"💤",text:"Sueño profundo",sub:"8 horas"}]},
-  { title:"Semana 7: Bloque 3 — El ataque final", theme:"HIPERTROFIA — ALTA EXIGENCIA", dates:"11 May – 17 May",
-    tasks:["🎯 PRIORIDAD: Retomar los pesos máximos y buscar superarlos en 1 repetición o en peso total","Aumentar el esfuerzo percibido (RPE 9) en los últimos sets. Tiene que costar de verdad.","Asegurar que el aporte de carbohidratos sea óptimo antes de entrenar para tener energía explosiva","Si estás en Cachicadán y no hay buen gym, adaptar con calistenia intensa (flexiones, fondos) al fallo","Evaluar suplementación base si es necesario (ej. Creatina o Proteína en polvo) solo para complementar"],
-    quote:"Cuando la mente dice 'no puedo más', el cuerpo todavía tiene un 30% de reserva. Descúbrelo.", cite:"Intensidad Real",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Fuerte",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Ajuste dieta energía",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión marcas + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🔥",text:"Intensidad RPE 9",sub:"Alcanzada"},{icon:"🍚",text:"Carbos Pre-entreno",sub:"Optimizados"},{icon:"🏆",text:"Superar marcas",sub:"Intentado"}]},
-  { title:"Semana 8: Atacar puntos débiles", theme:"HIPERTROFIA — ESPECIALIZACIÓN TEMPORAL", dates:"18 May – 24 May",
-    tasks:["🎯 PRIORIDAD: Identificar qué parte del cuerpo está rezagada y agregar volumen extra ahí","¿Es la espalda? Añadir jalones. ¿Son los hombros? Añadir elevaciones laterales extra.","No descuidar las piernas, la base de tu fuerza para caminar terrenos escarpados","Revisar postura al trabajar en la computadora para no arruinar los gains de la espalda","Registrar todo el volumen extra en la app"],
-    quote:"Una cadena es tan fuerte como su eslabón más débil. Fortalece lo que menos te gusta entrenar.", cite:"Balance Muscular",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento + Punto débil",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Postura PC",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Ajuste de volumen + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🎯",text:"Punto débil",sub:"Identificado y atacado"},{icon:"🪑",text:"Higiene Postural",sub:"Mejorada en PC"},{icon:"📈",text:"Volumen extra",sub:"Registrado"}]},
-  { title:"Semana 9: Resistencia y consistencia", theme:"MENTALIDAD — DISCIPLINA SOBRE MOTIVACIÓN", dates:"25 May – 31 May",
-    tasks:["🎯 PRIORIDAD: Mantener la frecuencia de 3 días pase lo que pase, aunque estés cansado del trabajo","La motivación inicial ya no está, ahora entra la disciplina. Ir al gimnasio debe ser automático.","Celebrar internamente que ya llevas más de 2 meses entrenando sólido. Muy pocos llegan aquí.","Hacer un escaneo rápido: ¿hay dolores raros? Diferenciar entre dolor muscular bueno y dolor de lesión mala","Mejorar el ambiente de descanso: cero pantallas 30 mins antes de dormir para maximizar recuperación"],
-    quote:"La motivación te hace empezar. La disciplina te mantiene. El hábito te transforma.", cite:"Mentalidad de Hierro",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Disciplina",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Higiene del sueño",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Evaluación dolores + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🛡️",text:"Cero faltas",sub:"A pesar del cansancio"},{icon:"📱",text:"Pantallas Off",sub:"Antes de dormir"},{icon:"✅",text:"Chequeo lesiones",sub:"Limpio"}]},
-  { title:"Semana 10: El tramo final a máxima máquina", theme:"HIPERTROFIA — EXPRIME LOS ÚLTIMOS KILOS", dates:"1 Jun – 7 Jun",
-    tasks:["🎯 PRIORIDAD: Concentración absoluta en cada repetición. Conexión mente-músculo al 100%.","Aumentar el peso en tu ejercicio favorito de forma segura para buscar un récord personal","Comer excelente. El gasto energético será muy alto esta semana.","Si estás levantando más pesado, pedir ayuda a un spotter (cuidador) en el gimnasio","Visualizar el objetivo del 21 de junio: ya estás muy cerca de cerrar tu ciclo con éxito total"],
-    quote:"Los últimos kilómetros de la carrera son los que más cuestan, pero son los que te definen.", cite:"Sprint Final",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Fuerte",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Visualización",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Plan de Récords + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🧠",text:"Conexión muscular",sub:"Máxima en cada rep"},{icon:"🤝",text:"Seguridad (Spotter)",sub:"Utilizada"},{icon:"🏆",text:"Búsqueda de récord",sub:"Iniciada"}]},
-  { title:"Semana 11: La semana pico (Récords Personales)", theme:"MEDICIÓN DE FUERZA — SEMANA PICO", dates:"8 Jun – 14 Jun",
-    tasks:["🎯 PRIORIDAD: Testear y registrar tus nuevos Pesos Máximos para 1 a 5 repeticiones seguras","Calentar excelentemente bien las articulaciones antes de levantar pesado","Registrar el tonelaje total levantado (Peso x Repeticiones x Series) y aplaudir la bestialidad del número","Tomar las últimas fotos pre-cierre para ir viendo los cambios de composición","No intentar récords si hay fatiga acumulada extrema; la seguridad es primero"],
-    quote:"Conocer tu nueva fuerza te da la métrica exacta de lo que has ganado con tu disciplina.", cite:"Prueba de Fuego",
-    timeBlocks:[{type:"tb-strategic",label:"Test de Pesos Máximos",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Cálculo de Tonelaje",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Revisión fotos + WAM",desc:"Dom — 9:00–10:00 AM ☀️"}],
-    metrics:[{icon:"🏋️‍♂️",text:"PRs (Récords)",sub:"Medidos y anotados"},{icon:"📸",text:"Fotos pre-cierre",sub:"Tomadas"},{icon:"⚠️",text:"Seguridad articular",sub:"Cuidada al 100%"}]},
-  { title:"Semana 12: Medición final y próxima fase", theme:"CIERRE — COMPARA TU EVOLUCIÓN", dates:"15 Jun – 21 Jun",
-    tasks:["🎯 PRIORIDAD: Medición completa final: peso, todas las cintas (brazo, pecho, pierna) y fotos finales","Hacer la comparativa cruda: Día 1 vs Día 84. Los números no mienten.","Redactar tu bitácora de sensaciones: ¿te sientes más ágil en la obra? ¿la ropa queda diferente?","Disfrutar el entrenamiento de esta semana con mucha menor presión, como una celebración de la constancia","Diseñar la Fase 2: ¿Seguir subiendo limpio? ¿Mantener? Tú decides el nuevo objetivo."],
-    quote:"Terminar 12 semanas entrenando es ganar. La transformación física es el trofeo que te llevas puesto.", cite:"Misión Cumplida",
-    timeBlocks:[{type:"tb-strategic",label:"Entrenamiento Festivo",desc:"Lun/Mié/Vie 19:30–21:00 🏋️"},{type:"tb-buffer",label:"Medición Final",desc:"Mar — 17:30–18:00 🌙"},{type:"tb-breakout",label:"Diseño Fase 2 + WAM ☀️",desc:"Dom — 9:00–10:00 AM"}],
-    metrics:[{icon:"📏",text:"Medidas Finales",sub:"S1 vs S12 completado"},{icon:"📝",text:"Análisis físico",sub:"Redactado"},{icon:"🚀",text:"Nueva Temporada",sub:"Decidida y planificada"}]},
+/* ══════════════════════════════════════════════════════
+   NUEVAS TAREAS DE GIMNASIO (GENÉRICAS Y MOTIVADORAS)
+══════════════════════════════════════════════════════ */
+const genericGymTasks = [
+  "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. No importa si estás en el gym o colgado del TRX en la sierra, la disciplina no negocia con el entorno.",
+  "Ejecutar Día 2 (Cimientos y Piernas). Obliga a tu pierna izquierda (53cm) a marcar el límite de fuerza. Prohibido pisar una cancha de fútbol 48h antes o después.",
+  "Ejecutar Día 3 (Vigas Maestras). Máxima tensión en cada jalón para romper la barrera de los 33cm de brazo. Puro control, cero ego.",
+  "Cerrar la boca: Cumplir el déficit calórico de la semana. Las pesas construyen, pero la grasa de esos 91cm de abdomen solo se seca controlando lo que comes.",
+  "Recuperación de élite (8 horas). Deja los pulmones en tu partido de fútbol semanal (tu único HIIT), y usa la noche para reparar el tejido muscular roto."
 ];
+
+const gymWeeks = Array.from({length: 12}, (_, i) => {
+  let weekTask = "";
+  if (i === 0 || i === 3 || i === 7 || i === 11) {
+    weekTask = "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones' (Peso, pecho, barriga 91cm, brazo 33cm, pierna izq 53cm).";
+  } else if (i === 1 || i === 4 || i === 8) {
+    weekTask = "📈 Sobrecarga: Oblígate a sacar 1 repetición más o subir tensión respecto a la semana pasada.";
+  } else if (i === 5) {
+    weekTask = "🧘 Descarga activa: Baja la intensidad un 15% esta semana para dar respiro a las articulaciones.";
+  } else if (i === 10) {
+    weekTask = "🔥 Semana Pico: Máxima intensidad absoluta en todas las series al fallo.";
+  } else {
+    weekTask = "🎥 Técnica: Grábate haciendo una serie al fallo para corregir postura.";
+  }
+
+  return {
+    title: `Semana ${i+1}: Construcción y Nivelación`,
+    theme: "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+    dates: "", // Se llena dinámicamente
+    tasks: [...genericGymTasks, weekTask],
+    quote: "La consistencia no es hacer lo mismo siempre; es avanzar hacia la misma meta sin importar si hoy tienes máquinas de acero o unas cintas colgando de un árbol.",
+    cite: "Mentalidad de Hierro",
+    timeBlocks: [
+      { type: "tb-strategic", label: "Día 1, 2 y 3 (Expediente Activo)", desc: "19:30–21:00 🏋️" },
+      { type: "tb-buffer",    label: "Fútbol (Único Cardio HIIT)", desc: "Lejos del Día 2 ⚽" },
+      { type: "tb-breakout",  label: "Meal Prep + Revisión WAM", desc: "Dom — 9:00 AM ☀️" },
+    ],
+    metrics: [
+      { icon: "🛡️", text: "Asimetría", sub: "Control pierna 53cm" },
+      { icon: "⚖️", text: "Abdomen", sub: "Déficit mantenido" },
+      { icon: "🔥", text: "Fallo real", sub: "Alcanzado en series" },
+    ]
+  };
+});
 
 
 // ══════════════════════════════════════════════════════
@@ -1196,7 +1270,96 @@ const KEYS = {
 };
 
 function ls_get(key, fallback=null){ try{ const v=localStorage.getItem(key); return v!==null?JSON.parse(v):fallback; }catch(e){ return fallback; } }
-function ls_set(key,value){ try{ localStorage.setItem(key,JSON.stringify(value)); }catch(e){} }
+function ls_set(key,value){ 
+  try{ localStorage.setItem(key,JSON.stringify(value)); }catch(e){}
+  syncPlanToCloud(); 
+}
+
+/* ══════════════════════════════════════════════════════
+   SINCRONIZACIÓN FIREBASE (PLANES)
+══════════════════════════════════════════════════════ */
+function syncPlanToCloud() {
+  if(!navigator.onLine) return;
+  const ind = document.getElementById('cloud-indicator');
+  if(ind) { ind.classList.remove('cloud-online'); ind.classList.add('cloud-syncing'); }
+
+  const data = {
+    tasks: taskStates,
+    notes: {
+      topo: ls_get(KEYS.topo.notes,{}),
+      fin: ls_get(KEYS.fin.notes,{}),
+      gym: ls_get(KEYS.gym.notes,{})
+    },
+    hardstop: {
+      topo: ls_get(KEYS.topo.hardstop,{}),
+      fin: ls_get(KEYS.fin.hardstop,{}),
+      gym: ls_get(KEYS.gym.hardstop,{})
+    },
+    vision: {
+      topo: ls_get(KEYS.topo.vision,''),
+      fin: ls_get(KEYS.fin.vision,''),
+      gym: ls_get(KEYS.gym.vision,'')
+    },
+    settings: ls_get(KEYS.settings,{}),
+    startDate: ls_get(KEYS.startDate,'2025-03-30'),
+    gymMode: ls_get('gym_mode_v1', 'A'),
+    measurements: ls_get(MEDS_KEY, {})
+  };
+
+  db.ref('pierovski/plan').set(data).then(() => {
+    if(ind) { ind.classList.remove('cloud-syncing'); ind.classList.add('cloud-online'); }
+  }).catch(e => {
+    if(ind) ind.classList.remove('cloud-syncing');
+    console.error(e);
+  });
+}
+
+function initCloud() {
+  if (navigator.onLine) {
+    const ind = document.getElementById('cloud-indicator');
+    if(ind) ind.classList.add('cloud-syncing');
+    
+    db.ref('pierovski/plan').once('value').then(snap => {
+      if(snap.exists()) {
+        const data = snap.val();
+        if(data.tasks) {
+          if(data.tasks.topo) { localStorage.setItem(KEYS.topo.tasks, JSON.stringify(data.tasks.topo)); taskStates.topo = data.tasks.topo; }
+          if(data.tasks.fin)  { localStorage.setItem(KEYS.fin.tasks, JSON.stringify(data.tasks.fin)); taskStates.fin = data.tasks.fin; }
+          if(data.tasks.gym)  { localStorage.setItem(KEYS.gym.tasks, JSON.stringify(data.tasks.gym)); taskStates.gym = data.tasks.gym; }
+        }
+        if(data.notes) {
+          localStorage.setItem(KEYS.topo.notes, JSON.stringify(data.notes.topo || {}));
+          localStorage.setItem(KEYS.fin.notes, JSON.stringify(data.notes.fin || {}));
+          localStorage.setItem(KEYS.gym.notes, JSON.stringify(data.notes.gym || {}));
+        }
+        if(data.hardstop) {
+          localStorage.setItem(KEYS.topo.hardstop, JSON.stringify(data.hardstop.topo || {}));
+          localStorage.setItem(KEYS.fin.hardstop, JSON.stringify(data.hardstop.fin || {}));
+          localStorage.setItem(KEYS.gym.hardstop, JSON.stringify(data.hardstop.gym || {}));
+        }
+        if(data.vision) {
+          localStorage.setItem(KEYS.topo.vision, JSON.stringify(data.vision.topo || ''));
+          localStorage.setItem(KEYS.fin.vision, JSON.stringify(data.vision.fin || ''));
+          localStorage.setItem(KEYS.gym.vision, JSON.stringify(data.vision.gym || ''));
+        }
+        if(data.settings) localStorage.setItem(KEYS.settings, JSON.stringify(data.settings));
+        if(data.startDate) localStorage.setItem(KEYS.startDate, JSON.stringify(data.startDate));
+        if(data.gymMode) localStorage.setItem('gym_mode_v1', JSON.stringify(data.gymMode));
+        if(data.measurements) localStorage.setItem(MEDS_KEY, JSON.stringify(data.measurements));
+      }
+      
+      if(ind) { ind.classList.remove('cloud-syncing'); ind.classList.add('cloud-online'); }
+      
+      const savedStart = ls_get(KEYS.startDate, null);
+      if(savedStart) recalcDates(savedStart);
+      
+      // Re-render UI
+      Object.keys(PLANS).forEach(pid => buildPlanUI(pid));
+      markCurrentWeek();
+      switchPlan(currentPlan);
+    });
+  }
+}
 
 // ══════════════════════════════════════════════════════
 //  PLAN REGISTRY CON DATOS NUMÉRICOS
@@ -1211,9 +1374,9 @@ const PLANS = {
     meta:'Al <span id="vd-fin">21 de junio</span> habré ahorrado el 20% de mis ingresos exactos, liquidado 1 tarjeta de crédito al 100% y depositado S/ 3,000 en mi fondo de emergencia.',
     compromiso:'Todo gasto fuera de Trujillo/Cachicadán se audita. Transfiero al ahorro automático el mismo día que cobro mi sueldo.' },
   gym:  { id:'gym',  label:'Gimnasio',  icon:'🏋️', weeks: gymWeeks,
-    vision:'Mantengo un 12% de grasa corporal durante todo el año, levanto 1.5x mi peso en sentadilla y duermo 8 horas diarias para máxima recuperación.',
-    meta:'Al <span id="vd-gym">21 de junio</span> habré sumado 2.5 kg de masa muscular limpia, aumentado 10 kg en mis levantamientos base y completado 36 sesiones de entrenamiento.',
-    compromiso:'Entreno constante 3 días por semana sin excusas de cansancio laboral. La disciplina manda, registro los pesos sin falta.' },
+    vision:'Reducir mi abdomen a menos de 91cm con déficit calórico, nivelar asimetrías (brazos 33cm, pierna izq 53cm) y construir fuerza base. El fútbol es mi único cardio HIIT.',
+    meta:'Al <span id="vd-gym">21 de junio</span> habré cumplido 3 días semanales sin falta, alternando los Expedientes A y B, midiendo progreso cada 4 semanas exactas.',
+    compromiso:'No hago cardio de relleno, el fútbol me seca pero me agota; lo alejo 48h del día de piernas. Registro mis medidas sin excusas.' },
 };
 
 let currentPlan = 'topo';
@@ -1245,6 +1408,57 @@ function switchPlan(planId) {
 }
 
 // ══════════════════════════════════════════════════════
+//  GYM MODE TOGGLE
+// ══════════════════════════════════════════════════════
+function toggleGymMode() {
+  let mode = ls_get('gym_mode_v1', 'A');
+  mode = mode === 'A' ? 'B' : 'A';
+  ls_set('gym_mode_v1', mode);
+  renderGymRoutineBox();
+}
+
+function renderGymRoutineBox() {
+  const box = document.getElementById('gymRoutineBox');
+  if (!box) return;
+  const mode = ls_get('gym_mode_v1', 'A');
+  
+  box.innerHTML = `
+    <div class="routine-header">
+       <h3>${mode === 'A' ? '🏋️ EXPEDIENTE A: Gimnasio (Maquinaria)' : '🏕️ EXPEDIENTE B: Cachicadán (TRX)'}</h3>
+       <button class="btn-toggle-routine" onclick="toggleGymMode()">
+         Cambiar a ${mode === 'A' ? 'Modo Campo' : 'Modo Gimnasio'}
+       </button>
+    </div>
+    <div class="routine-content">
+      ${mode === 'A' ?
+        `<b>Frecuencia:</b> 3 días a la semana. <b>Enfoque:</b> Construir los cimientos pesados.<br>
+         <ul>
+           <li><b>Día 1: Fachada Frontal (Pecho, Hombro, Tríceps)</b><br>
+               Press Banca Mancuernas 4x8-10 (fallo en la 10) | Press Inclinado 3x10 | Laterales 4x12 (para 110cm) | Jalón Tríceps 3x12.</li>
+           <li><b>Día 2: Cimientos Asimétricos (Piernas)</b> <i>*No fútbol 48h antes/después</i><br>
+               Prensa Unilateral 4x10-12 (empieza izq 53cm, la der iguala reps) | Sentadilla Búlgara 3x10/pierna | Pantorrillas 4x15.</li>
+           <li><b>Día 3: Vigas Maestras (Espalda y Bíceps)</b><br>
+               Jalón Pecho 4x8-10 | Remo Serrucho 4x10 (traba abdomen) | Curl Bíceps 3x10 (giro para brazo 33cm).</li>
+         </ul>
+         <span style="color:var(--gold-light)">🔥 Estrategia Abdomen (91cm):</span> El fútbol es tu único cardio (HIIT). Cero caminadora. El secreto es déficit calórico en la mesa.`
+      :
+        `<b>Frecuencia:</b> 3-4 días a la semana. <b>Enfoque:</b> Tensión continua y supervivencia.<br>
+         <i>Nota: Formato Circuito. Ejercicio 1 → descansa 45s → Ejercicio 2... hasta el 5. Eso es 1 Vuelta. Haz 4 Vueltas.</i><br>
+         <ul>
+           <li><b>1. Flexiones Atómicas (TRX):</b> Pies en estribos, plancha y rodillas al abdomen (Al fallo).</li>
+           <li><b>2. Remo Invertido (TRX):</b> Jala hasta que pecho toque manos (12-15 reps).</li>
+           <li><b>3. Sentadilla 1 Pierna Asistida (TRX):</b> Baja todo el peso en pierna izq, frena 3s bajada (10 reps estrictas).</li>
+           <li><b>4. Curl Bíceps (Banda Morada):</b> Pisa y jala (Al fallo para brazo 33cm).</li>
+           <li><b>5. Press Tríceps (TRX):</b> De espaldas, déjate caer y empuja (Al fallo).</li>
+         </ul>
+         <span style="color:var(--gold-light)">🔥 Estrategia Abdomen (91cm):</span> El circuito quema, pero la dieta decide si esos 91cm bajan.`
+      }
+    </div>
+  `;
+}
+
+
+// ══════════════════════════════════════════════════════
 //  BUILD PLAN UI
 // ══════════════════════════════════════════════════════
 function buildPlanUI(planId) {
@@ -1256,6 +1470,16 @@ function buildPlanUI(planId) {
 
   const section = document.getElementById('section-' + planId);
   section.innerHTML = '';
+
+  // Si es el plan Gym, inyectamos la caja del Expediente Activo antes de la visión
+  if (planId === 'gym') {
+    const rBox = document.createElement('div');
+    rBox.className = 'routine-box';
+    rBox.id = 'gymRoutineBox';
+    section.appendChild(rBox);
+    // Para renderizar el contenido inicial
+    setTimeout(renderGymRoutineBox, 0); 
+  }
 
   // Vision block
   const vb = document.createElement('div');
@@ -1380,7 +1604,7 @@ function toggleTask(planId, wi, ti) {
   const key = wi + '-' + ti;
   const ts  = taskStates[planId];
   ts[key]   = !ts[key];
-  ls_set(KEYS[planId].tasks, ts);
+  ls_set(KEYS[planId].tasks, ts); // calls syncToCloud internally
   const el = document.getElementById(`task-${planId}-${wi}-${ti}`);
   if (el) el.classList.toggle('checked', !!ts[key]);
   refreshScore(planId, wi);
@@ -1402,10 +1626,9 @@ function refreshScore(planId, wi) {
   const setEl = (id, fn) => { const el=document.getElementById(id); if(el) fn(el); };
   setEl(`sc-val-${planId}-${wi}`,   el => el.textContent = done);
   setEl(`sc-pct-${planId}-${wi}`,   el => el.textContent = pct+'%');
-  setEl(`sc-grid-pct-${planId}-${wi}`, el => el.textContent = pct+'%'); // Actualiza el porcentaje en el recuadro
+  setEl(`sc-grid-pct-${planId}-${wi}`, el => el.textContent = pct+'%'); 
   setEl(`sc-circle-${planId}-${wi}`,el => el.style.borderColor = color);
   
-  // Actualización visual para la celda del Tablero de Puntuación
   const cell = document.getElementById(`sc-cell-${planId}-${wi}`);
   if (cell) {
       if (pct >= 85) {
@@ -1734,6 +1957,7 @@ function exportToPDF(planId){
 function resetPlan(planId){
   if(!confirm('¿Borrar todo el progreso del plan '+PLANS[planId].label+'? Esta acción no se puede deshacer.')) return;
   [KEYS[planId].tasks,KEYS[planId].notes,KEYS[planId].hardstop,KEYS[planId].vision].forEach(k=>{ try{localStorage.removeItem(k);}catch(e){} });
+  syncPlanToCloud();
   location.reload();
 }
 
@@ -1934,9 +2158,17 @@ backupBar.className='backup-bar';
 backupBar.innerHTML=`<span>💾 Respaldo de datos (los 3 planes)</span><button onclick="exportBackup()">⬇️ Exportar .json</button><button onclick="document.getElementById('importFile').click()">⬆️ Importar backup</button><input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(this.files[0])"><span style="margin-left:auto;opacity:0.5;font-size:10px;">Si borras el caché del navegador pierdes los datos</span>`;
 document.querySelector('.wrap').appendChild(backupBar);
 
-// Start date
+// Start date (Si no hay online, se carga local; si hay online, initCloud lo sobrescribirá)
 const savedStart=ls_get(KEYS.startDate,null);
 if(!savedStart){ showStartDateModal(); } else { recalcDates(savedStart); markCurrentWeek(); }
+
+// Cargar desde la nube al abrir la app
+initCloud();
+
+// Si se pierde y vuelve la conexión mientras usas la app
+window.addEventListener('online', () => {
+    syncPlanToCloud();
+});
 
 // Switch to topo by default
 switchPlan('topo');

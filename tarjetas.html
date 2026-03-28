@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tarjetas | Pierovski Center</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <style>
         :root {
             --bg: #f5f7fa;
@@ -48,7 +52,19 @@
             font-weight: 700;
             color: var(--blue);
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        /* Indicador de Nube */
+        .cloud-status {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: #cbd5e1; display: inline-block;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
+        .cloud-syncing { background: var(--amber); animation: pulse 1s infinite; }
+
         .btn-add {
             background: var(--blue);
             color: white;
@@ -88,7 +104,6 @@
             border-color: var(--green);
         }
 
-        /* Cabecera compacta visible */
         .t-header {
             padding: 16px;
             display: flex;
@@ -122,7 +137,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Badges */
         .badge {
             font-family: 'DM Mono', monospace;
             font-size: 0.6rem;
@@ -153,7 +167,6 @@
         }
         @keyframes slideDown { from { opacity:0; transform:translateY(-10px) } to { opacity:1; transform:translateY(0) } }
 
-        /* Degradados Originales */
         .color-naranja { background: linear-gradient(135deg, #FF7000, #e65c00); color: white; }
         .color-azul-bcp { background: linear-gradient(135deg, #002A8D, #001f66); color: white; }
         .color-verde { background: linear-gradient(135deg, #8CC63F, #7ab033); color: white; }
@@ -171,59 +184,34 @@
         }
         
         .chip {
-            width: 35px;
-            height: 24px;
+            width: 35px; height: 24px;
             background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%);
-            border-radius: 6px;
-            border: 1px solid rgba(255,255,255,0.5);
-            margin-bottom: 16px;
-            position: relative;
-            overflow: hidden;
+            border-radius: 6px; border: 1px solid rgba(255,255,255,0.5);
+            margin-bottom: 16px; position: relative; overflow: hidden;
         }
         .chip::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 0; right: 0;
+            content: ''; position: absolute; top: 50%; left: 0; right: 0;
             height: 1px; background: rgba(255,255,255,0.4);
         }
 
         .cc-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            font-size: 0.85rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem;
         }
         .cc-item { display: flex; flex-direction: column; gap: 2px; }
         .cc-item span {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            opacity: 0.8;
-            letter-spacing: 0.5px;
+            font-family: 'DM Mono', monospace; font-size: 0.6rem;
+            text-transform: uppercase; opacity: 0.8; letter-spacing: 0.5px;
         }
         .cc-item strong {
-            font-family: 'Fraunces', serif;
-            font-size: 1.05rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            font-family: 'Fraunces', serif; font-size: 1.05rem;
+            font-weight: 600; letter-spacing: 0.5px;
         }
 
-        /* Botones de acción */
-        .t-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .t-actions { display: flex; gap: 8px; flex-wrap: wrap; }
         .btn-act {
-            flex: 1;
-            padding: 10px;
-            border-radius: 6px;
-            border: none;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-transform: uppercase;
+            flex: 1; padding: 10px; border-radius: 6px; border: none;
+            font-family: 'DM Mono', monospace; font-size: 0.75rem;
+            font-weight: 600; cursor: pointer; text-transform: uppercase;
             transition: transform 0.1s;
         }
         .btn-act:active { transform: scale(0.96); }
@@ -256,14 +244,13 @@
         .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
         .btn-save { background: var(--blue); color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;}
         .btn-cancel { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;}
-
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">
-            <h1>MIS TARJETAS</h1>
+            <h1>MIS TARJETAS <div id="cloud-indicator" class="cloud-status" title="Estado de la Nube"></div></h1>
         </div>
         <button class="btn-add" onclick="abrirModal()">+ Agregar</button>
     </header>
@@ -305,33 +292,88 @@
     </div>
 
     <script>
+        // 2. CONFIGURACIÓN EXACTA DE TU FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
+            authDomain: "pierovski-center.firebaseapp.com",
+            databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com",
+            projectId: "pierovski-center",
+            storageBucket: "pierovski-center.firebasestorage.app",
+            messagingSenderId: "917980127507",
+            appId: "1:917980127507:web:117620486d77987f493ae6"
+        };
+
+        // 3. INICIALIZAR FIREBASE
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.database();
+
         const tarjetasPorDefecto = [
             { id: 1, name: "BCP Amex", line: 15091, closing: 22, payment: 18, desgravamen: 20, anniversary: "Noviembre", color: "color-naranja", paid: false },
             { id: 2, name: "BCP Visa", line: 32339, closing: 25, payment: 21, desgravamen: 20, anniversary: "Noviembre", color: "color-azul-bcp", paid: false },
-            { id: 3, name: "CMR Visa", line: 9200, closing: 14, payment: 8, desgravamen: 15, anniversary: "Enero", color: "color-verde", paid: false },
-            { id: 4, name: "Tarjeta Oh!", line: 6500, closing: 10, payment: 1, desgravamen: 15, anniversary: "Enero", color: "color-negro", paid: false },
-            { id: 5, name: "BBVA Visa", line: 33200, closing: 20, payment: 14, desgravamen: 15, anniversary: "Octubre", color: "color-azul-bbva", paid: false },
-            { id: 6, name: "Ripley", line: 15000, closing: 17, payment: 12, desgravamen: 15, anniversary: "Octubre", color: "color-morado", paid: false }
+            { id: 3, name: "CMR Visa", line: 9200, closing: 14, payment: 8, desgravamen: 15, anniversary: "Enero", color: "color-verde", paid: false }
         ];
 
         let misTarjetas = [];
+        const cloudIndicator = document.getElementById('cloud-indicator');
 
         function init() {
+            // A. Primero cargamos rápido desde la memoria del celular (Zero Lag)
             const datosGuardados = localStorage.getItem('tarjetasPremiumV3');
             if (datosGuardados) {
                 misTarjetas = JSON.parse(datosGuardados);
-                misTarjetas = misTarjetas.map(t => ({...t, paid: t.paid || false}));
+                renderizarTarjetas();
             } else {
                 misTarjetas = [...tarjetasPorDefecto];
-                guardarEnLocal();
+                guardarEnLocalYCloud();
             }
-            renderizarTarjetas();
+
+            // B. Intentamos conectarnos a la nube en segundo plano
+            if (navigator.onLine) {
+                cloudIndicator.classList.add('cloud-syncing');
+                // Buscamos datos en Firebase en la ruta 'pierovski/tarjetas'
+                db.ref('pierovski/tarjetas').once('value').then((snapshot) => {
+                    if (snapshot.exists()) {
+                        // Si hay datos en la nube, actualizamos el celular con lo de la nube
+                        misTarjetas = snapshot.val();
+                        // Forzar que el array no tenga nulos si Firebase borró algún índice
+                        misTarjetas = misTarjetas.filter(t => t != null);
+                        localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
+                        renderizarTarjetas();
+                    }
+                    cloudIndicator.classList.remove('cloud-syncing');
+                    cloudIndicator.classList.add('cloud-online');
+                }).catch(error => {
+                    console.error("Error conectando a Firebase:", error);
+                    cloudIndicator.classList.remove('cloud-syncing');
+                });
+            }
         }
 
-        function guardarEnLocal() {
+        // 4. FUNCIÓN MAESTRA DE GUARDADO (Híbrida)
+        function guardarEnLocalYCloud() {
+            // 1. Guarda al instante en el celular
             localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
+            
+            // 2. Dispara a la nube si hay señal
+            if (navigator.onLine) {
+                cloudIndicator.classList.remove('cloud-online');
+                cloudIndicator.classList.add('cloud-syncing');
+                
+                db.ref('pierovski/tarjetas').set(misTarjetas)
+                  .then(() => {
+                      cloudIndicator.classList.remove('cloud-syncing');
+                      cloudIndicator.classList.add('cloud-online');
+                  })
+                  .catch(e => {
+                      console.error("Fallo al subir a nube", e);
+                      cloudIndicator.classList.remove('cloud-syncing');
+                  });
+            }
         }
 
+        // Lógica de Interfaz...
         function toggleDetails(id) {
             const details = document.getElementById('det-' + id);
             const chevron = document.getElementById('chev-' + id);
@@ -349,7 +391,7 @@
             const index = misTarjetas.findIndex(t => t.id === id);
             if(index !== -1) {
                 misTarjetas[index].paid = !misTarjetas[index].paid;
-                guardarEnLocal();
+                guardarEnLocalYCloud(); // <- Usamos la función maestra
                 renderizarTarjetas();
             }
         }
@@ -360,50 +402,35 @@
             
             const hoy = new Date().getDate();
 
-            // 1. Identificar la tarjeta "Mejor usar hoy" (La que acaba de cerrar)
             let mejorTarjetaId = null;
             let minDiasDesdeCierre = 31;
             
             misTarjetas.forEach(t => {
                 let diasDesdeCierre = hoy - t.closing;
                 if (diasDesdeCierre < 0) diasDesdeCierre += 30;
-                
                 if (diasDesdeCierre > 0 && diasDesdeCierre < minDiasDesdeCierre) {
                     minDiasDesdeCierre = diasDesdeCierre;
                     mejorTarjetaId = t.id;
                 }
             });
 
-            // 2. Ordenamiento inteligente
             misTarjetas.sort((a, b) => {
-                // A) Pagadas van al final
                 if (a.paid !== b.paid) return a.paid ? 1 : -1;
-                
                 let diasPagoA = a.payment - hoy; if (diasPagoA < 0) diasPagoA += 30;
                 let diasPagoB = b.payment - hoy; if (diasPagoB < 0) diasPagoB += 30;
-                
                 const isUrgentA = diasPagoA <= 7;
                 const isUrgentB = diasPagoB <= 7;
-
-                // B) Urgencia de pago manda primero
                 if (isUrgentA && !isUrgentB) return -1;
                 if (!isUrgentA && isUrgentB) return 1;
-
                 if (isUrgentA && isUrgentB) return diasPagoA - diasPagoB;
-
-                // C) Luego, priorizar la "Mejor usar hoy"
                 if (a.id === mejorTarjetaId) return -1;
                 if (b.id === mejorTarjetaId) return 1;
-
-                // D) El resto se ordena por fecha de pago
                 return diasPagoA - diasPagoB;
             });
 
-            // 3. Render HTML
             misTarjetas.forEach(t => {
                 let diferenciaPago = t.payment - hoy;
                 if (diferenciaPago < 0 && hoy > 25 && t.payment < 10) diferenciaPago += 30; 
-                
                 const esAlerta = !t.paid && (diferenciaPago >= 0 && diferenciaPago <= 5);
                 const esIdeal = (!t.paid && t.id === mejorTarjetaId);
                 
@@ -424,7 +451,6 @@
                             </div>
                             <div class="th-chevron" id="chev-${t.id}">▼</div>
                         </div>
-
                         <div class="t-body" id="det-${t.id}">
                             <div class="credit-card ${t.color}">
                                 <div class="chip"></div>
@@ -484,7 +510,7 @@
                 misTarjetas.push(nuevaTarjeta);
             }
 
-            guardarEnLocal();
+            guardarEnLocalYCloud(); // <- Usamos la función maestra
             renderizarTarjetas();
             cerrarModal();
         }
@@ -492,11 +518,9 @@
         function editarTarjeta(id) {
             const t = misTarjetas.find(t => t.id === id);
             if(!t) return;
-
             ['id', 'name', 'line', 'closing', 'payment', 'desgravamen', 'anniversary', 'color'].forEach(k => {
                 document.getElementById(`card-${k}`).value = t[k] || '';
             });
-
             document.getElementById('modal-title').innerText = 'Editar Tarjeta';
             document.getElementById('modal').style.display = 'flex';
         }
@@ -504,15 +528,18 @@
         function eliminarTarjeta(id) {
             if(confirm("¿Seguro que quieres eliminar esta tarjeta?")) {
                 misTarjetas = misTarjetas.filter(t => t.id !== id);
-                guardarEnLocal();
+                guardarEnLocalYCloud(); // <- Usamos la función maestra
                 renderizarTarjetas();
             }
         }
 
         document.addEventListener('click', function(e) {
-            if (e.target.closest('.t-body')) {
-                e.stopPropagation();
-            }
+            if (e.target.closest('.t-body')) { e.stopPropagation(); }
+        });
+
+        // Eventos para actualizar la nube cuando el internet vuelve
+        window.addEventListener('online', () => {
+            if (misTarjetas.length > 0) guardarEnLocalYCloud();
         });
 
         init();

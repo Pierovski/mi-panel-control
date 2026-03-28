@@ -92,7 +92,6 @@
             display: inline-block;
         }
 
-        /* Línea animada con los 3 colores */
         .brand-title::after {
             content: '';
             position: absolute;
@@ -100,7 +99,6 @@
             left: 0;
             width: 100%;
             height: 3px;
-            /* Degradado con el amarillo, verde y rojo de tus botones */
             background: linear-gradient(90deg, #e8a838, #52c974, #ef4444, #e8a838);
             background-size: 200% 100%;
             animation: gradient-slide 3s linear infinite;
@@ -144,14 +142,69 @@
             background-color: #fcfcfc;
         }
 
-        .icon {
-            font-size: 2.2em;
+        .icon { font-size: 2.2em; }
+        .btn-compras { border-bottom: 4px solid #e8a838; }
+        .btn-plan { border-bottom: 4px solid #52c974; }
+        .btn-tarjetas { border-bottom: 4px solid #ef4444; }
+
+        /* --- MINI RESPALDO DESGLOSABLE --- */
+        .mini-backup-container {
+            margin-top: 35px;
+            text-align: center;
         }
 
-        /* Colores solicitados */
-        .btn-compras { border-bottom: 4px solid #e8a838; } /* Amarillo */
-        .btn-plan { border-bottom: 4px solid #52c974; }    /* Verde */
-        .btn-tarjetas { border-bottom: 4px solid #ef4444; } /* Rojo */
+        .btn-toggle-backup {
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            color: #64748b;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-toggle-backup:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        #backup-panel {
+            display: none;
+            margin-top: 12px;
+            gap: 8px;
+            justify-content: center;
+            animation: fadeDown 0.2s ease;
+        }
+
+        #backup-panel.show {
+            display: flex;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-micro {
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .btn-micro:active { transform: scale(0.95); }
+        .btn-micro-exp { background: #0d1b2a; color: white; }
+        .btn-micro-imp { background: #e2e8f0; color: #1e293b; }
 
         /* --- FOOTER --- */
         .footer-note {
@@ -196,6 +249,18 @@
         </a>
     </div>
 
+    <div class="mini-backup-container">
+        <button class="btn-toggle-backup" onclick="document.getElementById('backup-panel').classList.toggle('show')">
+            <span>💾</span> Respaldo
+        </button>
+        
+        <div id="backup-panel">
+            <button class="btn-micro btn-micro-exp" onclick="exportGlobalBackup()">⬇️ Exportar</button>
+            <button class="btn-micro btn-micro-imp" onclick="document.getElementById('importGlobal').click()">⬆️ Importar</button>
+            <input type="file" id="importGlobal" accept=".json" style="display:none" onchange="importGlobalBackup(event)">
+        </div>
+    </div>
+
     <div class="footer-note">
         System Active - v1.0.0<br>
         <small id="status-offline" style="display:none; color: #ef4444; margin-top: 5px; display: block;">[ Offline Mode ]</small>
@@ -203,7 +268,7 @@
 
     <script>
         // --- SISTEMA DE LOGIN (PIN) ---
-        const PIN_CORRECTO = "2026"; // <-- Tu clave actual es 2026
+        const PIN_CORRECTO = "2026";
 
         if (sessionStorage.getItem('auth') === 'true') {
             document.getElementById('login-screen').style.display = 'none';
@@ -226,6 +291,70 @@
                     setTimeout(() => { errorText.style.opacity = '0'; }, 2000);
                 }
             }
+        }
+
+        // --- RESPALDO GLOBAL MAESTRO ---
+        const GLOBAL_KEYS = [
+            'cpu_prods_data', 'cpu_hist_data', 'cpu_wish_data', // Compras 2026
+            'tarjetasPremiumV3', // Tarjetas
+            'topo_tasks_v1', 'topo_notes_v1', 'topo_hs_v1', 'topo_vision_v1', // Plan Topografía
+            'fin_tasks_v1', 'fin_notes_v1', 'fin_hs_v1', 'fin_vision_v1',     // Plan Finanzas
+            'gym_tasks_v1', 'gym_notes_v1', 'gym_hs_v1', 'gym_vision_v1',     // Plan Gimnasio
+            'topo_settings_v1', 'topo_start_date_v1', 'gym_mode_v1', 'gym_measurements_v1' // Configs y Medidas
+        ];
+
+        function exportGlobalBackup() {
+            const data = { 
+                version: "PIEROVSKI_GLOBAL_V1", 
+                fecha: new Date().toISOString(), 
+                payload: {} 
+            };
+            
+            GLOBAL_KEYS.forEach(key => {
+                const val = localStorage.getItem(key);
+                if (val) {
+                    try { data.payload[key] = JSON.parse(val); } 
+                    catch(e) { data.payload[key] = val; }
+                }
+            });
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `PIEROVSKI_GLOBAL_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            alert('✅ Respaldo global exportado con éxito.');
+        }
+
+        function importGlobalBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = e => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.version !== "PIEROVSKI_GLOBAL_V1" || !data.payload) {
+                        alert('⚠️ El archivo no es un respaldo global válido de PIEROVSKI.');
+                        return;
+                    }
+                    
+                    if (confirm('⚠️ ATENCIÓN: Esto sobrescribirá todo el sistema local (Compras, Tarjetas y Planes) con los datos del archivo. ¿Continuar?')) {
+                        Object.keys(data.payload).forEach(key => {
+                            const valToSave = typeof data.payload[key] === 'object' ? JSON.stringify(data.payload[key]) : data.payload[key];
+                            localStorage.setItem(key, valToSave);
+                        });
+                        alert('✅ Sistema restaurado por completo. Ingresa nuevamente tu PIN.');
+                        location.reload();
+                    }
+                } catch (err) {
+                    alert('❌ Error al leer el archivo JSON.');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
         }
 
         // --- SERVICE WORKER ---
