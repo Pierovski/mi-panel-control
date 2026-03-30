@@ -215,9 +215,10 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
 .btn-a:active { transform: scale(0.94); }
 .btn-edit    { background: var(--blue-glow); color: var(--blue-dim); border: 1px solid #93c5fd; }
 .btn-sold    { background: var(--green-glow); color: var(--green-dim); border: 1px solid #86efac; }
-.btn-restore { background: var(--blue-glow); color: var(--blue-dim); border: 1px solid #93c5fd; }
 .btn-desechar { background: var(--red-glow); color: var(--red-dim); border: 1px solid #fca5a5; }
+.btn-restore { background: var(--blue-glow); color: var(--blue-dim); border: 1px solid #93c5fd; }
 .btn-delete { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border2); }
+
 .empty { text-align: center; padding: 34px 24px; color: var(--text-dim); font-style: italic; font-family: 'Fraunces', serif; font-size: 0.88rem; border: 1px dashed var(--border2); border-radius: var(--r); background: var(--surface); }
 
 /* UTILIDADES Y MODALES */
@@ -245,6 +246,11 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
 @keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
 @keyframes scaleIn { from { opacity:0; transform:scale(0.9) } to { opacity:1; transform:scale(1) } }
 
+/* HISTORIAL BADGES */
+.reason-pill { font-family: 'DM Mono', monospace; font-size: 0.65rem; padding: 4px 8px; border-radius: 4px; font-weight: 600;}
+.rp-sold { background: var(--green-glow); color: var(--green-dim); border: 1px solid #86efac; }
+.rp-archive { background: var(--red-glow); color: var(--red-dim); border: 1px solid #fca5a5; }
+
 /* RESPONSIVE */
 @media (max-width: 860px) {
   .metrics-row { grid-template-columns: repeat(2, 1fr); }
@@ -259,6 +265,7 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
   .metrics-row { grid-template-columns: 1fr 1fr; }
   .hide-m { display: none !important; }
 }
+.td-nota { font-size: 0.7rem; color: #94a3b8; font-style: italic; margin-top: 3px; font-weight: 400; }
 </style>
 </head>
 <body>
@@ -734,7 +741,6 @@ function buildTable(wid, items, type) {
     return `<th class="sortable${cls}" onclick="setSort('${col}')">${label}</th>`;
   };
 
-  // AQUÍ ELIMINAMOS LA COLUMNA DE PROGRESO COMO HABÍAMOS ACORDADO
   wrap.innerHTML = `<div class="table-wrap"><table>
     <thead><tr>
         ${sc('nombre','Producto')}
@@ -751,18 +757,57 @@ function buildTable(wid, items, type) {
       const dr = Math.max(0, p.metaDias - p.dias);
       let faltan = type === 'green' ? `<span class="faltan-badge faltan-ok">✓ Rentable</span>` : (dr === 0 ? `<span class="faltan-badge faltan-hoy">¡Hoy!</span>` : `<span class="faltan-badge faltan-medio">${dr} días</span>`);
       let rentableCell = type === 'green' ? `<td class="tmono" style="color:var(--green-dim)">✓ Ok</td>` : `<td class="tmono">${fmtDateObj(p.gd)}</td>`;
-      return `<tr data-id="${p.id}"><td class="tname">${esc(p.nombre)}${p.nota?`<div class="td-nota">📝 ${esc(p.nota)}</div>`:''}</td><td><span class="cat-pill">${esc(p.categoria)}</span></td><td class="tmono">S/ ${fmtN(p.costo)}</td><td class="tmono hide-m">${fmtDate(p.fecha)}</td><td class="tmono">${p.dias}d</td><td class="tcost"><span class="cv">S/ ${fmtN(p.ch)}</span></td><td>${faltan}</td>${rentableCell}<td><div class="acts"><button class="btn-a btn-edit" onclick="openEdit('${p.id}')">✏</button><button class="btn-a btn-sold" onclick="askAction('${p.id}','sold')">Vendido</button><button class="btn-a btn-delete" onclick="askDelete('${p.id}')">🗑</button></div></td></tr>`;
+      return `<tr data-id="${p.id}">
+        <td class="tname">${esc(p.nombre)}${p.nota?`<div class="td-nota">📝 ${esc(p.nota)}</div>`:''}</td>
+        <td><span class="cat-pill">${esc(p.categoria)}</span></td>
+        <td class="tmono">S/ ${fmtN(p.costo)}</td>
+        <td class="tmono hide-m">${fmtDate(p.fecha)}</td>
+        <td class="tmono">${p.dias}d</td>
+        <td class="tcost"><span class="cv">S/ ${fmtN(p.ch)}</span></td>
+        <td>${faltan}</td>
+        ${rentableCell}
+        <td>
+          <div class="acts">
+            <button class="btn-a btn-edit" onclick="openEdit('${p.id}')">✏</button>
+            <button class="btn-a btn-sold" onclick="askAction('${p.id}','sold')">Vendido</button>
+            <button class="btn-a btn-desechar" onclick="askAction('${p.id}','archive')">Desechar</button>
+            <button class="btn-a btn-delete" onclick="askDelete('${p.id}')">🗑</button>
+          </div>
+        </td>
+      </tr>`;
     }).join('')}</tbody></table></div>`;
 }
 
 // ═══════════════════ MODALES Y UTILS BÁSICAS ═══════════════════
 let _confirm = null;
 function askDelete(id) { const p = loadProds().find(x => x.id === id); if(!p) return; _confirm = { id, type: 'delete' }; document.getElementById('cfTitle').textContent = '¿Eliminar producto?'; document.getElementById('cfBody').innerHTML = `Eliminará permanentemente <strong>${esc(p.nombre)}</strong>.`; document.getElementById('bdConfirm').style.display = 'flex'; }
-function askAction(id, type) { const p = loadProds().find(x => x.id === id); if(!p) return; _confirm = { id, type }; document.getElementById('cfTitle').textContent = '¿Mover a vendido?'; document.getElementById('cfBody').innerHTML = `Se moverá <strong>${esc(p.nombre)}</strong> al historial.`; document.getElementById('bdConfirm').style.display = 'flex'; }
+function askAction(id, type) { 
+  const p = loadProds().find(x => x.id === id); 
+  if(!p) return; 
+  _confirm = { id, type }; 
+  const isSold = type === 'sold';
+  document.getElementById('cfTitle').textContent = isSold ? '¿Vendido / Recuperado?' : '¿Desechar / Archivar?'; 
+  document.getElementById('cfBody').innerHTML = `Se moverá <strong>${esc(p.nombre)}</strong> al historial como ${isSold ? 'VENDIDO' : 'DESECHADO'}.`; 
+  
+  const btn = document.getElementById('cfBtn');
+  btn.className = 'mbtn ' + (isSold ? 'mbtn-green' : 'mbtn-red');
+  btn.textContent = isSold ? 'Sí, vendido ✓' : 'Sí, desechar';
+  
+  document.getElementById('bdConfirm').style.display = 'flex'; 
+}
+
 function runConfirm() {
   if (!_confirm) return; const { id, type } = _confirm; const prods = loadProds(); const p = prods.find(x => x.id === id); if (!p) return closeConfirmDirect();
   if (type === 'delete') { saveProds(prods.filter(x => x.id !== id)); closeConfirmDirect(); render(); toast('Eliminado'); return; }
-  const hist = loadHist(); hist.push({ ...p, diasUsados: calcDays(p.fecha), costoFinal: costDay(p.costo, calcDays(p.fecha)), reason: type, removedAt: new Date().toISOString() }); saveHist(hist); saveProds(prods.filter(x => x.id !== id)); closeConfirmDirect(); render(); toast('Movido al historial');
+  
+  const hist = loadHist(); 
+  hist.push({ ...p, diasUsados: calcDays(p.fecha), costoFinal: costDay(p.costo, calcDays(p.fecha)), reason: type, removedAt: new Date().toISOString() }); 
+  saveHist(hist); 
+  saveProds(prods.filter(x => x.id !== id)); 
+  closeConfirmDirect(); 
+  render(); 
+  if (document.getElementById('tab-historial').classList.contains('active')) renderHistory();
+  toast('Movido al historial');
 }
 function closeConfirmDirect() { document.getElementById('bdConfirm').style.display='none'; _confirm=null; }
 function closeConfirm(e) { if(e.target.id === 'bdConfirm') closeConfirmDirect(); }
@@ -779,10 +824,54 @@ function saveEdit() {
 function closeEditDirect() { document.getElementById('bdEdit').style.display='none'; }
 function closeEdit(e) { if(e.target.id === 'bdEdit') closeEditDirect(); }
 
+// ═══════════════════ RESTAURAR DEL HISTORIAL ═══════════════════
+function restoreProduct(hid) {
+  const hist = loadHist();
+  const h = hist.find(x => x.id === hid);
+  if (!h) return;
+
+  // Extraemos las propiedades extra del historial y nos quedamos con el producto original
+  const { diasUsados, costoFinal, reason, removedAt, ...prod } = h;
+  const prods = loadProds();
+  prods.push(prod);
+  
+  saveProds(prods);
+  saveHist(hist.filter(x => x.id !== hid));
+
+  renderHistory();
+  render();
+  toast(`"${h.nombre}" restaurado al panel ↩`);
+}
+
 function renderHistory() {
-  const hist = loadHist(); const wrap = document.getElementById('wrapHistorial');
-  if(!hist.length){ wrap.innerHTML = `<div class="empty">Historial vacío.</div>`; return; }
-  wrap.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Producto</th><th>Costo</th><th>Días</th><th>Costo Final/Día</th></tr></thead><tbody>${hist.map(h => `<tr><td class="tname">${esc(h.nombre)}</td><td class="tmono">S/ ${fmtN(h.costo)}</td><td class="tmono">${h.diasUsados}d</td><td class="tmono">S/ ${fmtN(h.costoFinal)}</td></tr>`).join('')}</tbody></table></div>`;
+  const hist = loadHist().sort((a,b) => new Date(b.removedAt)-new Date(a.removedAt)); 
+  const wrap = document.getElementById('wrapHistorial');
+  if(!hist.length){ wrap.innerHTML = `<div class="empty">Historial vacío. Los productos vendidos o desechados aparecerán aquí.</div>`; return; }
+  
+  wrap.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr>
+      <th>Producto</th>
+      <th>Categoría</th>
+      <th>Costo</th>
+      <th>Días</th>
+      <th>Costo/Día</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr></thead>
+    <tbody>${hist.map(h => {
+      const badge = h.reason === 'sold'
+        ? `<span class="reason-pill rp-sold">Vendido</span>`
+        : `<span class="reason-pill rp-archive">Desechado</span>`;
+      return `<tr>
+        <td class="tname">${esc(h.nombre)}</td>
+        <td><span class="cat-pill">${esc(h.categoria||'Otro')}</span></td>
+        <td class="tmono">S/ ${fmtN(h.costo)}</td>
+        <td class="tmono">${h.diasUsados}d</td>
+        <td class="tmono">S/ ${fmtN(h.costoFinal)}</td>
+        <td>${badge}</td>
+        <td><button class="btn-a btn-restore" onclick="restoreProduct('${h.id}')">↩ Restaurar</button></td>
+      </tr>`;
+    }).join('')}</tbody></table></div>`;
 }
 
 // ═══════════════════ DESEOS Y RECOMENDACIONES ═══════════════════
