@@ -292,7 +292,7 @@
     </div>
 
     <script>
-        // 2. CONFIGURACIÓN EXACTA DE TU FIREBASE
+        // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
             authDomain: "pierovski-center.firebaseapp.com",
@@ -303,7 +303,6 @@
             appId: "1:917980127507:web:117620486d77987f493ae6"
         };
 
-        // 3. INICIALIZAR FIREBASE
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
@@ -318,45 +317,88 @@
         let misTarjetas = [];
         const cloudIndicator = document.getElementById('cloud-indicator');
 
+        // SCRIPT MAESTRO DE RESCATE
+        function rescatarDatosAntiguos() {
+            for (let i = 0; i < localStorage.length; i++) {
+                let key = localStorage.key(i);
+                // Si la llave no es la nueva y parece contener datos
+                if (key !== 'tarjetasPremiumV3') {
+                    try {
+                        let data = JSON.parse(localStorage.getItem(key));
+                        // Si la data rescatada tiene la estructura de tus tarjetas
+                        if (Array.isArray(data) && data.length > 0 && data[0].hasOwnProperty('closing')) {
+                            // Validar que no sea mi basura de prueba por defecto
+                            let esDePrueba = data.length === 3 && data[0].name === "BCP Amex";
+                            if (!esDePrueba) {
+                                return data; // ¡Tus tarjetas verdaderas encontradas!
+                            }
+                        }
+                    } catch(e) { } // Silencia errores de lectura
+                }
+            }
+            return null; // No encontró tarjetas reales antiguas
+        }
+
         function init() {
-            // A. Primero cargamos rápido desde la memoria del celular (Zero Lag)
-            const datosGuardados = localStorage.getItem('tarjetasPremiumV3');
-            if (datosGuardados) {
-                misTarjetas = JSON.parse(datosGuardados);
-                renderizarTarjetas();
-            } else {
-                misTarjetas = [...tarjetasPorDefecto];
-                guardarEnLocalYCloud();
+            let datosGuardados = localStorage.getItem('tarjetasPremiumV3');
+            let tarjetasLocales = datosGuardados ? JSON.parse(datosGuardados) : null;
+            let esBasuraDePrueba = (!tarjetasLocales || (tarjetasLocales.length === 3 && tarjetasLocales[0].name === "BCP Amex"));
+
+            let rescatadas = null;
+            if (esBasuraDePrueba) {
+                rescatadas = rescatarDatosAntiguos();
             }
 
-            // B. Intentamos conectarnos a la nube en segundo plano
-            if (navigator.onLine) {
-                cloudIndicator.classList.add('cloud-syncing');
-                // Buscamos datos en Firebase en la ruta 'pierovski/tarjetas'
-                db.ref('pierovski/tarjetas').once('value').then((snapshot) => {
-                    if (snapshot.exists()) {
-                        // Si hay datos en la nube, actualizamos el celular con lo de la nube
-                        misTarjetas = snapshot.val();
-                        // Forzar que el array no tenga nulos si Firebase borró algún índice
-                        misTarjetas = misTarjetas.filter(t => t != null);
-                        localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
-                        renderizarTarjetas();
-                    }
-                    cloudIndicator.classList.remove('cloud-syncing');
-                    cloudIndicator.classList.add('cloud-online');
-                }).catch(error => {
-                    console.error("Error conectando a Firebase:", error);
-                    cloudIndicator.classList.remove('cloud-syncing');
-                });
+            if (rescatadas) {
+                // ¡RESCATE EXITOSO! Mueve tus tarjetas antiguas a la nueva bóveda
+                misTarjetas = rescatadas;
+                localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
+                
+                // Sobrescribe Firebase de inmediato con tu data real
+                if (navigator.onLine) {
+                    cloudIndicator.classList.add('cloud-syncing');
+                    db.ref('pierovski/tarjetas').set(misTarjetas).then(() => {
+                        cloudIndicator.classList.remove('cloud-syncing');
+                        cloudIndicator.classList.add('cloud-online');
+                    });
+                }
+                renderizarTarjetas();
+            } else {
+                // Flujo normal si no hay nada que rescatar o ya está todo bien
+                misTarjetas = tarjetasLocales || [...tarjetasPorDefecto];
+                renderizarTarjetas();
+
+                // Intentamos sincronizar desde la nube
+                if (navigator.onLine) {
+                    cloudIndicator.classList.add('cloud-syncing');
+                    db.ref('pierovski/tarjetas').once('value').then((snapshot) => {
+                        if (snapshot.exists()) {
+                            let dataNube = snapshot.val().filter(t => t != null);
+                            let nubeEsPrueba = (dataNube.length === 3 && dataNube[0].name === "BCP Amex");
+                            
+                            // Si la nube solo tiene la prueba por defecto, la ignoramos y subimos lo local.
+                            // De lo contrario, bajamos la data de la nube a tu celular.
+                            if (!nubeEsPrueba) {
+                                misTarjetas = dataNube;
+                                localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
+                                renderizarTarjetas();
+                            }
+                        } else if (!tarjetasLocales) {
+                            // Si la nube está vacía, subimos la plantilla
+                            guardarEnLocalYCloud();
+                        }
+                        cloudIndicator.classList.remove('cloud-syncing');
+                        cloudIndicator.classList.add('cloud-online');
+                    }).catch(error => {
+                        console.error("Error Firebase:", error);
+                        cloudIndicator.classList.remove('cloud-syncing');
+                    });
+                }
             }
         }
 
-        // 4. FUNCIÓN MAESTRA DE GUARDADO (Híbrida)
         function guardarEnLocalYCloud() {
-            // 1. Guarda al instante en el celular
             localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
-            
-            // 2. Dispara a la nube si hay señal
             if (navigator.onLine) {
                 cloudIndicator.classList.remove('cloud-online');
                 cloudIndicator.classList.add('cloud-syncing');
@@ -367,7 +409,6 @@
                       cloudIndicator.classList.add('cloud-online');
                   })
                   .catch(e => {
-                      console.error("Fallo al subir a nube", e);
                       cloudIndicator.classList.remove('cloud-syncing');
                   });
             }
@@ -391,7 +432,7 @@
             const index = misTarjetas.findIndex(t => t.id === id);
             if(index !== -1) {
                 misTarjetas[index].paid = !misTarjetas[index].paid;
-                guardarEnLocalYCloud(); // <- Usamos la función maestra
+                guardarEnLocalYCloud();
                 renderizarTarjetas();
             }
         }
@@ -510,7 +551,7 @@
                 misTarjetas.push(nuevaTarjeta);
             }
 
-            guardarEnLocalYCloud(); // <- Usamos la función maestra
+            guardarEnLocalYCloud();
             renderizarTarjetas();
             cerrarModal();
         }
@@ -528,7 +569,7 @@
         function eliminarTarjeta(id) {
             if(confirm("¿Seguro que quieres eliminar esta tarjeta?")) {
                 misTarjetas = misTarjetas.filter(t => t.id !== id);
-                guardarEnLocalYCloud(); // <- Usamos la función maestra
+                guardarEnLocalYCloud();
                 renderizarTarjetas();
             }
         }
@@ -537,7 +578,6 @@
             if (e.target.closest('.t-body')) { e.stopPropagation(); }
         });
 
-        // Eventos para actualizar la nube cuando el internet vuelve
         window.addEventListener('online', () => {
             if (misTarjetas.length > 0) guardarEnLocalYCloud();
         });
