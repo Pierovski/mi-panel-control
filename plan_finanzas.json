@@ -1,0 +1,295 @@
+{
+  "vision": "Mantengo 6 meses de gastos fijos en mi fondo de liquidez, mantengo 0 deudas de consumo y genero un 15% de rentabilidad anual con mis inversiones.",
+  "meta": "Al <span id=\"vd-fin\">21 de junio</span> habré ahorrado el 20% de mis ingresos exactos, liquidado 1 tarjeta de crédito al 100% y depositado S/ 3,000 en mi fondo de emergencia.",
+  "compromiso": "Todo gasto fuera de Trujillo/Cachicadán se audita. Transfiero al ahorro automático el mismo día que cobro mi sueldo.",
+  "weeks": [
+    {
+      "title": "Semana 1: Radiografía financiera completa",
+      "theme": "ARRANQUE — CONOCE EXACTAMENTE DÓNDE ESTÁS",
+      "tasks": [
+        "🎯 PRIORIDAD: Listar TODOS tus gastos del último mes categorizados: alimentación, transporte, ocio, deudas",
+        "📚 LIBRO DE LA SEMANA: 'El Hombre Más Rico de Babilonia' de George Clason",
+        "Ver en YouTube 'Cómo hacer un presupuesto personal' de Hazte Rico y aplicarlo",
+        "Calcular tu tasa de ahorro actual vs el objetivo: ¿cuánto necesitas ajustar para ahorrar el 20%?",
+        "Listar tus deudas actuales: monto total, tasa de interés y cuota mensual de cada una",
+        "Crear tu presupuesto 50/30/20 adaptado a tus ingresos de Gerente de COTA100",
+        "Abrir una cuenta de ahorro separada exclusiva para el fondo de emergencia"
+      ],
+      "quote": "No puedes optimizar lo que no conoces. La radiografía financiera es el paso cero de todo plan real.",
+      "cite": "Principio de Claridad",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Presupuesto + categorías", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Video + aplicación", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Cuenta ahorro + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📊", "text": "Presupuesto 50/30/20", "sub": "Aplicado" },
+        { "icon": "💳", "text": "Deudas mapeadas", "sub": "monto + tasa" },
+        { "icon": "🏦", "text": "Cuenta ahorro", "sub": "Activada" }
+      ]
+    },
+    {
+      "title": "Semana 2: Sistema automático de ahorro",
+      "theme": "META FINANCIERA — AHORRO GARANTIZADO",
+      "tasks": [
+        "🎯 PRIORIDAD: Configurar transferencia automática de ahorro el día de pago directo a la nueva cuenta",
+        "📚 LIBRO DE LA SEMANA: 'El Millonario Automático' de David Bach cap. 1–3",
+        "Ver 'El método de los sobres digitales' en YouTube y adaptarlo a tu estructura",
+        "Identificar los 3 gastos más fáciles de reducir sin afectar tu calidad de vida",
+        "Revisar tus tarjetas de crédito: ¿pagas el mínimo o el total? Revisa el Panel Financiero",
+        "Establecer regla para la tarjeta: solo usarla para gastos presupuestados y pagar total cada mes",
+        "Documentar tu meta de ahorro exacta para el cierre del plan"
+      ],
+      "quote": "El ahorro automático elimina la fuerza de voluntad. Lo que no ves en tu cuenta principal, no lo gastas.",
+      "cite": "David Bach",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Transferencia automática", "desc": "Día de pago" },
+        { "type": "tb-buffer", "label": "Auditoría de gastos", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-breakout", "label": "Reglas tarjeta + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "⚡", "text": "Ahorro automático", "sub": "Configurado" },
+        { "icon": "📉", "text": "3 gastos reducidos", "sub": "Identificados" },
+        { "icon": "💳", "text": "Regla tarjeta", "sub": "Documentada" }
+      ]
+    },
+    {
+      "title": "Semana 3: Estrategia para eliminar deudas",
+      "theme": "META FINANCIERA — DEUDAS BAJO CONTROL",
+      "tasks": [
+        "🎯 PRIORIDAD: Aplicar el método bola de nieve — ordenar deudas de menor a mayor monto y atacar la más pequeña",
+        "📚 LIBRO DE LA SEMANA: 'Transformación Total de Su Dinero' de Dave Ramsey",
+        "Ver 'Cómo salir de deudas rápido' en YouTube",
+        "Calcular cuánto puedes destinar extra a deudas este mes sin afectar el ahorro",
+        "Llamar a tu banco y preguntar por reprogramación o compra de deuda",
+        "Revisar los beneficios de tus tarjetas: Puntos, millas o cashback que no estás usando",
+        "Establecer fecha meta de liquidación para la tarjeta más pequeña en tu App"
+      ],
+      "quote": "Las deudas pequeñas no son el problema. El problema es no tener un sistema agresivo para eliminarlas.",
+      "cite": "Principio Bola de Nieve",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Plan bola de nieve", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Llamada banco + fechas", "desc": "Sáb — 13:00–14:00 ☀️" },
+        { "type": "tb-breakout", "label": "Fechas deuda + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🎯", "text": "Bola de nieve", "sub": "Aplicada" },
+        { "icon": "📞", "text": "Banco contactado", "sub": "Negociación" },
+        { "icon": "📅", "text": "Fecha liquidación", "sub": "Definida" }
+      ]
+    },
+    {
+      "title": "Semana 4: Tarjetas de crédito — Domínalas",
+      "theme": "EDUCACIÓN FINANCIERA — SISTEMA DE TARJETAS",
+      "tasks": [
+        "🎯 PRIORIDAD: Leer y registrar en tu app las fechas de corte, pago y la TCEA de todas tus tarjetas",
+        "📚 LIBRO DE LA SEMANA: 'Los Secretos de la Mente Millonaria' de T. Harv Eker",
+        "Ver 'Cómo usar la tarjeta de crédito inteligentemente' en YouTube",
+        "Aprender cómo tener hasta 50 días sin intereses jugando con la fecha de corte",
+        "Calcular si te conviene usar más la de Puntos o la de Supermercados según tus compras",
+        "Crear el hábito de marcar 'Pagado' en tu Panel Financiero en cuanto realices la transferencia"
+      ],
+      "quote": "La tarjeta de crédito bien usada es una herramienta. Mal usada, es un ancla que te roba el sueldo mensual.",
+      "cite": "Educación Financiera",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Revisión fechas App", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Estrategia Puntos/Millas", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Registro pagos + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "💳", "text": "TCEA y Fechas", "sub": "Dominadas en App" },
+        { "icon": "🗓️", "text": "50 días sin interés", "sub": "Estrategia clara" },
+        { "icon": "📋", "text": "Panel actualizado", "sub": "Con pagos al día" }
+      ]
+    },
+    {
+      "title": "Semana 5: Fondo de emergencia — El escudo",
+      "theme": "META FINANCIERA — CONSTRUIR EL COLCHÓN",
+      "tasks": [
+        "🎯 PRIORIDAD: Calcular tu meta de fondo de emergencia: mínimo 3 meses de gastos fijos",
+        "Ver 'Para qué sirve el fondo de emergencia y dónde guardarlo' en YouTube",
+        "Revisar el progreso de ahorro de las 4 semanas: documentar sin juzgar",
+        "Investigar opciones en Perú con liquidez y buen rendimiento (Alto Rendimiento, Financieras)",
+        "Establecer reglas claras de uso: una emergencia es un imprevisto de salud o pérdida de ingresos, no un viaje"
+      ],
+      "quote": "El fondo de emergencia no es ahorro — es paz mental. Te permite tomar riesgos profesionales sin estar desesperado.",
+      "cite": "Seguridad Financiera",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Cálculo fondo + bancos", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Investigación tasas", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Reglas del fondo + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Meta fondo", "sub": "Calculada en Soles" },
+        { "icon": "📈", "text": "Banco elegido", "sub": "Alta rentabilidad" },
+        { "icon": "📋", "text": "Reglas estrictas", "sub": "Documentadas" }
+      ]
+    },
+    {
+      "title": "Semana 6: Ingresos COTA100 y Freelance",
+      "theme": "META FINANCIERA — MÁS ALLÁ DEL SUELDO",
+      "tasks": [
+        "🎯 PRIORIDAD: Identificar 3 servicios topográficos adicionales que COTA100 puede ofrecer a terceros",
+        "📚 LIBRO DE LA SEMANA: 'Padre Rico, Padre Pobre' de Robert Kiyosaki",
+        "Ver 'Cómo conseguir clientes como empresa de servicios en Perú' en YouTube",
+        "Calcular la tarifa por hora/día de los equipos de COTA100 considerando depreciación",
+        "Revisar convocatorias, municipalidades o contactos que necesiten levantamientos",
+        "Contactar a 2 ingenieros residentes o arquitectos de tu red para recordarles tus servicios"
+      ],
+      "quote": "El techo de tus ingresos lo pones tú. Si dependes de un solo cliente, tienes un jefe, no una empresa.",
+      "cite": "Independencia Financiera",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Nuevos servicios + tarifas", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Búsqueda de clientes", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Red de contactos + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "💼", "text": "3 servicios COTA100", "sub": "Nuevos definidos" },
+        { "icon": "💵", "text": "Tarifario equipos", "sub": "Calculado" },
+        { "icon": "🤝", "text": "2 contactos clave", "sub": "Contactados" }
+      ]
+    },
+    {
+      "title": "Semana 7: Introducción a la inversión en Perú",
+      "theme": "EDUCACIÓN FINANCIERA — HACER TRABAJAR EL DINERO",
+      "tasks": [
+        "🎯 PRIORIDAD: Estudiar depósitos a plazo, fondos mutuos y factoring como opciones de inversión peruana",
+        "Ver videos del canal 'Aprender a Invertir' o 'Invertir Joven' sobre el mercado peruano",
+        "Entender tu perfil de riesgo: conservador, moderado o agresivo",
+        "Investigar tu AFP actual: evaluar el tipo de fondo (1, 2 o 3) según tu edad",
+        "Simular un depósito a plazo fijo en una Caja Municipal vs Bancos grandes",
+        "Invertir de manera simbólica tus primeros S/50 o S/100 en un fondo mutuo conservador"
+      ],
+      "quote": "Invertir no es para ricos — es para personas que entienden que la inflación se come sus ahorros si están bajo el colchón.",
+      "cite": "Inversión Temprana",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Estudio inversiones Perú", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Revisión AFP + Cajas", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Inversión piloto + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📈", "text": "3 instrumentos", "sub": "Estudiados" },
+        { "icon": "🧠", "text": "Revisión AFP", "sub": "Fondo verificado" },
+        { "icon": "💰", "text": "Inversión piloto", "sub": "Ejecutada (opcional)" }
+      ]
+    },
+    {
+      "title": "Semana 8: Revisión de mitad de camino",
+      "theme": "REVISIÓN — AUDITORÍA DEL PLAN",
+      "tasks": [
+        "🎯 PRIORIDAD: Auditar el panel 'Compras 2026' y 'Mis Tarjetas' de tu App — ¿cuántas metas están en verde?",
+        "Releer los conceptos clave de los libros financieros leídos hasta ahora",
+        "Auditar tus gastos de viáticos: ¿el dinero se está yendo en gastos no presupuestados?",
+        "Revisar el progreso real de tu fondo de emergencia y el pago de deuda pequeña",
+        "Evaluar los obstáculos para conseguir clientes para COTA100 y planificar nueva estrategia",
+        "Ajustar el presupuesto para las semanas 9–12 sin cambiar la meta final de ahorro"
+      ],
+      "quote": "La revisión no es para castigarte por gastar — es para alinear tu dinero con lo que realmente valoras hoy.",
+      "cite": "Auditoría de Progreso",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Revisión App Panel Central", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Auditoría viáticos", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Ajuste de plan + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📱", "text": "Panel actualizado", "sub": "Compras y Tarjetas" },
+        { "icon": "📉", "text": "Auditoría viáticos", "sub": "Realizada" },
+        { "icon": "📊", "text": "Plan ajustado", "sub": "Semanas 9–12" }
+      ]
+    },
+    {
+      "title": "Semana 9: Formalidad y Tributación (SUNAT)",
+      "theme": "META FINANCIERA — JUGAR CON LAS REGLAS CLARAS",
+      "tasks": [
+        "🎯 PRIORIDAD: Revisar el estado de COTA100 ante la SUNAT y tu situación personal de impuestos",
+        "📚 LIBRO DE LA SEMANA: 'El Cuadrante del Flujo de Dinero' de Robert Kiyosaki",
+        "Ver tutoriales sobre régimen tributario y deducciones para profesionales independientes",
+        "Confirmar si emites RH o Facturas y si estás guardando los impuestos correspondientes",
+        "Investigar qué gastos personales puedes deducir para pagar menos Impuesto a la Renta",
+        "Agendar una reunión de 30 min con un contador de confianza para despejar dudas"
+      ],
+      "quote": "El que ignora los impuestos paga doble. La formalidad inteligente es la base para contratar con empresas grandes.",
+      "cite": "Reglas de Juego",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Revisión SUNAT", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Deducciones posibles", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Charla contador + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🏛️", "text": "Estado SUNAT", "sub": "Verificado" },
+        { "icon": "🧾", "text": "Deducciones", "sub": "Investigadas" },
+        { "icon": "👨‍💼", "text": "Consulta contador", "sub": "Agendada" }
+      ]
+    },
+    {
+      "title": "Semana 10: Optimizar compras y tecnología",
+      "theme": "EDUCACIÓN FINANCIERA — INVERTIR EN HERRAMIENTAS",
+      "tasks": [
+        "🎯 PRIORIDAD: Revisar la pestaña de 'Posibles Compras' — analizar si la herramienta tecnológica tiene un ROI real",
+        "📚 LIBRO DE LA SEMANA: 'La Semana Laboral de 4 Horas' de Tim Ferriss",
+        "Si vas a comprar equipos, buscar la opción de Leasing para empresa vs usar tu capital",
+        "Vender o desechar equipos viejos usando el botón 'Vendido' o 'Desechado' de tu App",
+        "Cotizar seguros de equipos: un drone o estación robada te quiebra si no hay seguro",
+        "Planificar el cierre de mes y revisar cuánto lograste ahorrar en esta fase"
+      ],
+      "quote": "Gastar en un capricho es un lujo. Invertir en una herramienta que te ahorra horas de trabajo es una obligación empresarial.",
+      "cite": "Inversión vs Gasto",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Análisis ROE herramientas", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Cotización seguros", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Inventario de equipos + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "💻", "text": "Posibles Compras", "sub": "Auditadas en App" },
+        { "icon": "🛡️", "text": "Seguro equipos", "sub": "Cotizado" },
+        { "icon": "📦", "text": "Inventario", "sub": "Actualizado" }
+      ]
+    },
+    {
+      "title": "Semana 11: Estado financiero final",
+      "theme": "CONSOLIDACIÓN — TU PATRIMONIO HOY",
+      "tasks": [
+        "🎯 PRIORIDAD: Crear tu Estado Financiero Personal actualizado: sumar Activos y restar Pasivos",
+        "📚 LIBRO DE LA SEMANA: 'Psicología del Dinero' de Morgan Housel",
+        "Exportar tu historial de 'Compras 2026' y 'Planes' usando el Respaldo Maestro",
+        "Redactar tus 5 Reglas de Oro Financieras que mantendrás siempre",
+        "Tener claro el Patrimonio Neto de COTA100 y tu Patrimonio Personal separados"
+      ],
+      "quote": "La paz financiera empieza cuando sabes exactamente cuánto tienes y a quién le debes. La claridad mata a la ansiedad.",
+      "cite": "Patrimonio Neto",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Estado Financiero Personal", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Respaldo Maestro JSON", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Reglas de Oro + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📋", "text": "Patrimonio Neto", "sub": "Calculado exacto" },
+        { "icon": "💾", "text": "Backup Sistema", "sub": "Exportado con éxito" },
+        { "icon": "📜", "text": "5 Reglas Financieras", "sub": "Definidas" }
+      ]
+    },
+    {
+      "title": "Semana 12: Cierre y visión a futuro",
+      "theme": "CIERRE — CELEBRAR Y PROYECTAR",
+      "tasks": [
+        "🎯 PRIORIDAD: Comparar tu fondo ahorrado real versus la meta que te pusiste en la Semana 1",
+        "Celebrar el logro: invitar a cenar, comprar un detalle, reconociendo el avance logrado",
+        "Revisar cuánto bajó el nivel de endeudamiento en el Panel de Tarjetas de tu celular",
+        "Escribir un análisis de 1 página: ¿qué te frenó a ahorrar más? ¿fueron salidas o mala planificación?",
+        "Diseñar tus 3 metas financieras para la próxima temporada: ¿Invertir en Bolsa o liquidar un crédito?"
+      ],
+      "quote": "El dinero no te da libertad por sí solo — el sistema y la mentalidad que acabas de construir te la darán por el resto de tu vida.",
+      "cite": "Cierre de Período",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Comparativa Meta vs Real", "desc": "Mar / Jue — 17:30–19:00 🌙" },
+        { "type": "tb-buffer", "label": "Análisis de aprendizaje", "desc": "Sáb — 13:00–15:00 ☀️" },
+        { "type": "tb-breakout", "label": "Visión Financiera Próxima + WAM", "desc": "Dom — 9:00–10:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "💰", "text": "Ahorro final", "sub": "Comparado con meta" },
+        { "icon": "📉", "text": "Deuda eliminada", "sub": "Total calculado" },
+        { "icon": "🔭", "text": "Nuevas metas", "sub": "Escritas para próxima temporada" }
+      ]
+    }
+  ]
+}

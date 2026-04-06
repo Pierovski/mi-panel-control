@@ -1,0 +1,295 @@
+{
+  "vision": "Soy el topógrafo principal en obra, reduciendo errores de replanteo al 0%, procesando ortofotos en menos de 24 horas y asegurando 3 nuevos contratos mensuales para COTA100.",
+  "meta": "Al <span id=\"vd-topo\">21 de junio</span> habré procesado el 100% de los puntos del colegio, generado 1 ortofoto de precisión sub-centimétrica y entregado 3 planos aprobados sin observaciones.",
+  "compromiso": "Aprendo viendo y haciendo. Aplico lo de YouTube directo en los proyectos de Cachicadán para ganar destreza real.",
+  "weeks": [
+    {
+      "title": "Semana 1: Diagnóstico real y mapa de habilidades",
+      "theme": "ARRANQUE — CONOCE TU PUNTO DE PARTIDA REAL",
+      "tasks": [
+        "🎯 PRIORIDAD: Haz un test escrito de 20 preguntas técnicas y califícate del 1 al 10 en cada área: geodesia, software, campo, normas",
+        "Ver 'Cómo mejorar como topógrafo profesional' en YouTube — anotar 3 acciones concretas aplicables esta semana",
+        "Crear tu Mapa de Habilidades: tabla con 3 columnas — Domino / Conozco pero fallo / No sé — con 15 habilidades técnicas",
+        "En el trabajo (Cachicadán): observar qué hace diferente el topógrafo más senior y anotar 3 cosas concretas que él hace mejor que tú",
+        "Definir el proyecto ancla de las 12 semanas: El levantamiento del colegio para usarlo como hilo conductor",
+        "Escribir 3 oraciones específicas de qué vas a poder hacer el 21 de junio que hoy no puedes hacer"
+      ],
+      "quote": "Con 3 a 5 años de experiencia ya tienes la base. Lo que te falta no es más experiencia — es estructura y dirección.",
+      "cite": "Principio del 1% — Etapa intermedia",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Test + mapa de habilidades", "desc": "Lun / Mié / Vie — 17:30–19:00 💪" },
+        { "type": "tb-buffer", "label": "Video + notas accionables", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Proyecto ancla + WAM", "desc": "Dom — 9:00–11:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📊", "text": "Test completado", "sub": "10 áreas calificadas" },
+        { "icon": "🗺️", "text": "Mapa de habilidades", "sub": "15 ítems" },
+        { "icon": "🎯", "text": "Proyecto ancla", "sub": "Colegio Cachicadán" }
+      ]
+    },
+    {
+      "title": "Semana 2: Civil 3D básico — Superficies",
+      "theme": "META SOFTWARE — CIVIL 3D INICIAL-INTERMEDIO",
+      "tasks": [
+        "🎯 PRIORIDAD: Importar los puntos reales del colegio en Cachicadán a Civil 3D y generar una superficie TIN desde cero",
+        "Ver 'Crear Superficies en AutoCAD Civil 3D' en el canal 'Ingeniería BIM' o 'Sencico' en YouTube y replicar cada paso",
+        "Configurar estilos propios de curvas de nivel: 0.5m / 1m / 5m según terreno, con etiquetas y colores diferenciados",
+        "Practicar edición de superficie: líneas de quiebre (breaklines) en zonas de caminos o bordes de los pabellones",
+        "Generar plano de curvas de nivel con marco, norte, escala gráfica y cuadro de datos completo listo para entregar",
+        "En el colegio: Proponer procesar tú mismo un tramo del levantamiento en Civil 3D para ganar práctica real"
+      ],
+      "quote": "Ya tocaste Civil 3D. La diferencia entre ahora y el nivel profesional está en la profundidad, no en la teoría.",
+      "cite": "Principio del 1% — Software",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Civil 3D con puntos colegio", "desc": "Lun / Mié / Vie — 17:30–19:00 💪" },
+        { "type": "tb-buffer", "label": "Videos + replicación", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Plano final + WAM", "desc": "Dom — 9:00–11:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🖥️", "text": "1 superficie TIN", "sub": "Terreno del colegio" },
+        { "icon": "📏", "text": "Curvas de nivel", "sub": "3 estilos configurados" },
+        { "icon": "📄", "text": "Plano entregable", "sub": "completo" }
+      ]
+    },
+    {
+      "title": "Semana 3: Fotogrametría con drone",
+      "theme": "DOMINIO NUEVO — FOTOGRAMETRÍA UAV",
+      "tasks": [
+        "🎯 PRIORIDAD: Ejecutar tu primer vuelo fotogramétrico planificado y procesar las imágenes en Agisoft Metashape",
+        "Ver 'Tutorial Agisoft Metashape desde cero Español' en el canal 'Geomatica Libre' en YouTube",
+        "Planificar el vuelo correctamente: superposición lateral 70%, frontal 80%, calcular altura según GSD",
+        "Procesar el proyecto completo: alineación → nube densa → modelo 3D → ortomosaico → DEM",
+        "Exportar ortomosaico y DEM, y verificar precisión comparando visualmente con puntos medidos en campo",
+        "Documentar el flujo de trabajo completo en tu bitácora como protocolo personal de fotogrametría"
+      ],
+      "quote": "La fotogrametría con drone es la habilidad más demandada y menos dominada en el mercado topográfico regional.",
+      "cite": "Principio de Diferenciación — UAV",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Vuelo + procesamiento", "desc": "Sáb — 13:00–18:00 ☀️" },
+        { "type": "tb-buffer", "label": "Tutorial + replicación", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Protocolo UAV + WAM", "desc": "Dom — 9:00–11:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🚁", "text": "1 vuelo planificado", "sub": "y ejecutado" },
+        { "icon": "🗺️", "text": "Ortomosaico + DEM", "sub": "generados" },
+        { "icon": "📋", "text": "Protocolo UAV", "sub": "documentado" }
+      ]
+    },
+    {
+      "title": "Semana 4: Mini-proyecto 1 — Perimétrico",
+      "theme": "PROYECTO INTEGRADOR — LEVANTAMIENTO REAL",
+      "tasks": [
+        "🎯 PRIORIDAD: Ejecutar un levantamiento perimétrico completo del colegio de inicio a fin — campo, procesamiento y plano",
+        "Estudiar la normativa vigente: qué exige un plano perimétrico, tolerancias y referencias obligatorias",
+        "Ver 'Plano Perimétrico y de Ubicación en Civil 3D' en YouTube",
+        "Procesar el levantamiento en Civil 3D: puntos, límites, cuadro de datos técnicos (coordenadas, distancias, ángulos)",
+        "Generar el plano final con todos los elementos: membrete, norte, grilla y sello simulado",
+        "Revisar el trabajo con el ingeniero residente y anotar las correcciones"
+      ],
+      "quote": "Un perimétrico bien ejecutado es el lenguaje básico del suelo. Dominarlo es dominar tu oficio.",
+      "cite": "Principio del 1% — Proyectos",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Campo: perimétrico", "desc": "Sáb — 13:00–18:00 ☀️" },
+        { "type": "tb-buffer", "label": "Procesamiento CAD", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Plano final + revisión", "desc": "Dom — 9:00–12:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📐", "text": "Levantamiento", "sub": "Perimétrico colegio" },
+        { "icon": "📄", "text": "Plano perimétrico", "sub": "Cuadro de coordenadas" },
+        { "icon": "✅", "text": "Revisión externa", "sub": "Documentada" }
+      ]
+    },
+    {
+      "title": "Semana 5: Introducción a QGIS",
+      "theme": "META SOFTWARE — QGIS BÁSICO PARA TOPOGRAFÍA",
+      "tasks": [
+        "🎯 PRIORIDAD: Descargar QGIS, importar los puntos del colegio desde un archivo CSV y visualizar el terreno",
+        "Ver 'Curso Básico de QGIS desde cero' en YouTube (El Blog de Franz) y seguir los primeros pasos",
+        "Instalar el complemento 'QuickMapServices' para agregar imágenes satelitales (Google Satellite) de fondo",
+        "Crear una capa de polígono nueva (Shapefile) y dibujar el perímetro del colegio usando los puntos",
+        "Ir al 'Compositor de impresión' en QGIS y armar un plano de ubicación simple con grilla, norte y leyenda",
+        "Documentar en tu bitácora los pasos desde el CSV de la Estación Total hasta el plano en QGIS"
+      ],
+      "quote": "No necesitas saber todo de QGIS. Solo necesitas dominar el flujo que te permita entregar mejores mapas más rápido.",
+      "cite": "Principio de Integración Básica",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "QGIS: Instalación e importar", "desc": "Lun / Mié / Vie — 17:30–19:00 💪" },
+        { "type": "tb-buffer", "label": "Videos + Mapa base", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Plano ubicación + WAM", "desc": "Dom — 9:00–11:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📊", "text": "Puntos CSV", "sub": "Importados a QGIS" },
+        { "icon": "🗺️", "text": "Plano ubicación", "sub": "Exportado en PDF" },
+        { "icon": "🔗", "text": "Flujo básico", "sub": "CSV ↔ QGIS" }
+      ]
+    },
+    {
+      "title": "Semana 6: Proyectos viales básicos — Civil 3D",
+      "theme": "DOMINIO NUEVO — VIALIDAD Y ACCESOS",
+      "tasks": [
+        "🎯 PRIORIDAD: Crear un alineamiento horizontal y generar el perfil longitudinal de una vía de acceso al colegio",
+        "Ver 'Alineamiento y Perfil Longitudinal Civil 3D' en YouTube",
+        "Diseñar una rasante básica: pendientes máximas y curvas verticales con criterios técnicos correctos",
+        "Generar secciones transversales cada 20m para entender el corte transversal de la vía de acceso",
+        "Crear el plano de planta-perfil en formato A1 o A2 con su respectiva guitarra de elevaciones",
+        "Si hay vías en el proyecto actual, comparar tu metodología con los planos de obra y anotar diferencias"
+      ],
+      "quote": "Un plano de planta-perfil bien hecho dice más que cualquier CV. Es el emblema del topógrafo en infraestructura.",
+      "cite": "Principio del 1% — Proyectos viales",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Alineamiento + perfil", "desc": "Lun / Mié / Vie — 17:30–19:00 💪" },
+        { "type": "tb-buffer", "label": "Secciones + plano", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Revisión obra + WAM", "desc": "Dom — 9:00–12:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛣️", "text": "Alineamiento", "sub": "Perfil longitudinal" },
+        { "icon": "📦", "text": "Secciones", "sub": "Transversales generadas" },
+        { "icon": "📄", "text": "Planta-perfil", "sub": "Plano final terminado" }
+      ]
+    },
+    {
+      "title": "Semana 7: GNSS y redes satelitales",
+      "theme": "DOMINIO NUEVO — GEODESIA SATELITAL",
+      "tasks": [
+        "🎯 PRIORIDAD: Configurar y operar el GPS diferencial (si hay disponible) en modo RTK, documentar el procedimiento",
+        "Ver 'GPS RTK Topografía Explicado' en YouTube — entender PDOP y errores",
+        "Estudiar la Red Geodésica Nacional (IGN Perú): fichas de los Puntos Geodésicos de Orden 0, C, B",
+        "Hacer ensayo comparativo: medir 5 puntos con RTK y con estación total — analizar diferencias",
+        "Calcular la precisión real obtenida y compararla con las especificaciones del equipo",
+        "Redactar tu protocolo personal GNSS: cuándo usar RTK, estático o Estación Total"
+      ],
+      "quote": "El satélite no reemplaza tu criterio técnico. El profesional de élite sabe exactamente cuándo confiar en la señal.",
+      "cite": "Principio de Criterio — Geodesia",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "GPS RTK / Fichas IGN", "desc": "Lun / Mié / Vie — 17:30–19:00 💪" },
+        { "type": "tb-buffer", "label": "Análisis + protocolo", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Ensayo + WAM", "desc": "Dom — 9:00–11:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📡", "text": "Red IGN Perú", "sub": "Fichas revisadas" },
+        { "icon": "📊", "text": "Ensayo comparativo", "sub": "GPS vs ET" },
+        { "icon": "📋", "text": "Protocolo GNSS", "sub": "Personalizado" }
+      ]
+    },
+    {
+      "title": "Semana 8: Mini-proyecto 2 — Ortofoto con Drone",
+      "theme": "PROYECTO INTEGRADOR — UAV Y CONTROL",
+      "tasks": [
+        "🎯 PRIORIDAD: Ejecutar un vuelo corto sobre el área de trabajo y procesar una ortofoto de alta resolución",
+        "Si tienes acceso a puntos de control (GCPs) medidos en obra, úsalos en Agisoft Metashape",
+        "Procesar en Agisoft: incorporar los puntos de apoyo y analizar el reporte de errores (RMSE)",
+        "Generar ortomosaico final y exportarlo en formato GeoTIFF",
+        "Crear en QGIS un informe visual: ortomosaico de fondo + perímetro encima para validar",
+        "Calcular el costo aproximado de este servicio de drone en el mercado peruano para referencia"
+      ],
+      "quote": "Entregar un plano CAD sobre un ortomosaico actualizado es un producto de alto valor. Tú serás el que lo haga.",
+      "cite": "Principio de Diferenciación — UAV",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Vuelo drone + Puntos", "desc": "Sáb — 13:00–18:00 ☀️" },
+        { "type": "tb-buffer", "label": "Metashape + Ortofoto", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Montaje QGIS + WAM", "desc": "Dom — 9:00–12:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📍", "text": "Vuelo de detalle", "sub": "Ejecutado" },
+        { "icon": "🗺️", "text": "Ortofoto GeoTIFF", "sub": "Exportada" },
+        { "icon": "💰", "text": "Valorización", "sub": "Costo de mercado" }
+      ]
+    },
+    {
+      "title": "Semana 9: Movimiento de Tierras (Plataformas)",
+      "theme": "DOMINIO NUEVO — CÁLCULO DE VOLÚMENES",
+      "tasks": [
+        "🎯 PRIORIDAD: Calcular el volumen de corte y relleno para la plataforma de un nuevo pabellón",
+        "Ver 'Cálculo de Volúmenes por Comparación de Superficies' en YouTube",
+        "Tener tu superficie base (TN) y crear una superficie de diseño (Rasante o Plataforma)",
+        "Usar el 'Volume Dashboard' en Civil 3D para obtener el reporte exacto en metros cúbicos",
+        "Calcular el factor de esponjamiento típico para el tipo de suelo para saber el volumen a transportar",
+        "Generar un reporte técnico en PDF con la tabla de volúmenes para entregarlo a la residencia"
+      ],
+      "quote": "En obra civil, un error de volumen cuesta miles de soles. El topógrafo preciso es el mejor amigo del residente.",
+      "cite": "Principio de Precisión en Obra",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Superficies TN vs Diseño", "desc": "Lun / Mié / Vie — 17:30–19:00 💪" },
+        { "type": "tb-buffer", "label": "Volume Dashboard", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Reporte de volumen + WAM", "desc": "Dom — 9:00–11:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "⛏️", "text": "Plataforma", "sub": "Diseñada en Civil 3D" },
+        { "icon": "📐", "text": "Corte y Relleno", "sub": "Volumen calculado" },
+        { "icon": "📋", "text": "Reporte Técnico", "sub": "PDF para obra" }
+      ]
+    },
+    {
+      "title": "Semana 10: Replanteo y control de obra",
+      "theme": "DOMINIO PRÁCTICO — PRECISIÓN EN TERRENO",
+      "tasks": [
+        "🎯 PRIORIDAD: Organizar la data para replanteo: extraer coordenadas X,Y,Z de ejes desde AutoCAD al CSV de la Estación",
+        "Ver 'Cómo exportar puntos de AutoCAD a Estación Total' en YouTube",
+        "Verificar las tolerancias permitidas en edificación para estructuras de concreto (colegios)",
+        "Practicar la importación fluida de puntos desde la computadora al instrumento topográfico",
+        "Realizar un control de verticalidad en alguna columna construida y reportar desplomes",
+        "Identificar qué pasos concretos te faltan para dominar el control geométrico estructural"
+      ],
+      "quote": "El topógrafo en gabinete dibuja; el topógrafo en campo construye. Dominar la transferencia de data es tu puente.",
+      "cite": "Principio de Ejecución",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Extracción data CAD a CSV", "desc": "Lun / Mié / Vie — 17:30–19:00 💪" },
+        { "type": "tb-buffer", "label": "Carga a Estación", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Reporte verticalidad + WAM", "desc": "Dom — 9:00–11:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "💻", "text": "Extracción CAD", "sub": "Coordenadas a CSV" },
+        { "icon": "📏", "text": "Verticalidad", "sub": "Control estructural" },
+        { "icon": "🎓", "text": "Brecha técnica", "sub": "Habilidades a mejorar" }
+      ]
+    },
+    {
+      "title": "Semana 11: Portafolio técnico profesional",
+      "theme": "PROYECTO FINAL — EVIDENCIA DE TODO LO APRENDIDO",
+      "tasks": [
+        "🎯 PRIORIDAD: Armar tu portafolio técnico digital con los mejores trabajos de estas semanas",
+        "Seleccionar y pulir el mejor plano de cada tipo: perimétrico, curvas de nivel, volumetría, ortofoto",
+        "Redactar una ficha técnica breve por plano: equipos usados, software, metodología y precisión",
+        "Crear un PDF de presentación profesional: portada, índice, planos estrella y software que dominas",
+        "Pedir retroalimentación al ingeniero de obra o colega de confianza",
+        "Actualizar tu perfil de LinkedIn: incluir tu cargo como Gerente de COTA100 y subir el PDF"
+      ],
+      "quote": "El portafolio no es vanidad — es evidencia. En la ingeniería peruana, el trabajo demostrado habla más fuerte que cualquier título.",
+      "cite": "Principio de Credibilidad — COTA100",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Pulir planos + fichas", "desc": "Lun / Mié / Vie — 17:30–19:00 💪" },
+        { "type": "tb-buffer", "label": "PDF portafolio + LinkedIn", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Revisión externa + WAM", "desc": "Dom — 9:00–12:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📁", "text": "Proyectos COTA100", "sub": "Documentados" },
+        { "icon": "📄", "text": "PDF Portafolio", "sub": "Listo para clientes" },
+        { "icon": "💼", "text": "LinkedIn", "sub": "Actualizado" }
+      ]
+    },
+    {
+      "title": "Semana 12: Medición, cierre y nueva temporada",
+      "theme": "CIERRE — REFLEXIÓN Y PRÓXIMA TEMPORADA",
+      "tasks": [
+        "🎯 PRIORIDAD: Repetir el test de la semana 1 y comparar resultados — medir cuánto creció tu técnica en 84 días",
+        "Revisar el Mapa de Habilidades inicial: ¿cuántos ítems pasaron a 'Domino'? Calcula el porcentaje",
+        "Calcular la puntuación final de las 12 semanas y escribir un análisis honesto en la bitácora",
+        "Exportar el resumen de tu plan en PDF como tu primer documento de evidencia de constancia",
+        "Celebrar con algo concreto — estas semanas de trabajo duro en obra y gabinete merecen reconocimiento",
+        "Diseñar la visión de tu próxima temporada: ¿Nuevos contratos, programar drones, certificar PMP?"
+      ],
+      "quote": "No mides solo los planos que lograste hacer — mides el profesional en quien te convertiste. Tú pones el límite.",
+      "cite": "Brian Moran — El Año de 12 Semanas",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Test final + mapa", "desc": "Lun / Mié / Vie — 17:30–19:00 💪" },
+        { "type": "tb-buffer", "label": "Bitácora PDF + análisis", "desc": "Mar / Jue — 17:30–20:30 🌙" },
+        { "type": "tb-breakout", "label": "Celebración + nueva visión", "desc": "Dom — 9:00–12:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "📈", "text": "Test S1 vs S12", "sub": "Crecimiento medido" },
+        { "icon": "🏆", "text": "Puntuación final", "sub": "12 semanas" },
+        { "icon": "🔭", "text": "Visión COTA100", "sub": "Próxima temporada" }
+      ]
+    }
+  ]
+}

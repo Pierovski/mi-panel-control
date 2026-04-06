@@ -1,0 +1,295 @@
+{
+  "vision": "Reducir mi abdomen a menos de 91cm con déficit calórico, nivelar asimetrías (brazos 33cm, pierna izq 53cm) y construir fuerza base. El fútbol es mi único cardio HIIT.",
+  "meta": "Al <span id=\"vd-gym\">21 de junio</span> habré cumplido 3 días semanales sin falta, alternando los Expedientes A y B, midiendo progreso cada 4 semanas exactas.",
+  "compromiso": "No hago cardio de relleno, el fútbol me seca pero me agota; lo alejo 48h del día de piernas. Registro mis medidas sin excusas.",
+  "weeks": [
+    {
+      "title": "Semana 1: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones' (Peso, pecho, barriga, brazo, pierna)."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 2: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "📈 Sobrecarga: Oblígate a sacar 1 repetición más o subir tensión respecto a la semana pasada."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 3: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "🎥 Técnica: Grábate haciendo una serie al fallo para corregir postura."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 4: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones' para registrar cambios del primer mes."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 5: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "📈 Sobrecarga: Oblígate a sacar 1 repetición más o subir tensión respecto a la semana pasada."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 6: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "🧘 Descarga activa: Baja la intensidad un 15% esta semana para dar respiro a las articulaciones."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 7: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "🎥 Técnica: Grábate haciendo una serie al fallo para corregir postura."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 8: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones' para evaluar cierre del segundo mes."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 9: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "📈 Sobrecarga: Oblígate a sacar 1 repetición más o subir tensión respecto a la semana pasada."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 10: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "🎥 Técnica: Grábate haciendo una serie al fallo para corregir postura."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 11: Construcción y Nivelación",
+      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "🔥 Semana Pico: Máxima intensidad absoluta en todas las series al fallo."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    },
+    {
+      "title": "Semana 12: Medición y Cierre",
+      "theme": "CIERRE — EVALUACIÓN DEL EXPEDIENTE",
+      "tasks": [
+        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
+        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
+        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
+        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
+        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
+        "📏 TOMA DE MEDIDAS FINALES: Registrar cambios del plan completo y diseñar la próxima rutina."
+      ],
+      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "cite": "Mentalidad de Hierro",
+      "timeBlocks": [
+        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+      ],
+      "metrics": [
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
+        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
+        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+      ]
+    }
+  ]
+}
