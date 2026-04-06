@@ -1,294 +1,282 @@
 {
-  "vision": "Reducir mi abdomen a menos de 91cm con déficit calórico, nivelar asimetrías (brazos 33cm, pierna izq 53cm) y construir fuerza base. El fútbol es mi único cardio HIIT.",
-  "meta": "Al <span id=\"vd-gym\">21 de junio</span> habré cumplido 3 días semanales sin falta, alternando los Expedientes A y B, midiendo progreso cada 4 semanas exactas.",
-  "compromiso": "No hago cardio de relleno, el fútbol me seca pero me agota; lo alejo 48h del día de piernas. Registro mis medidas sin excusas.",
+  "vision": "Reducir mi abdomen a menos de 91cm con déficit calórico nocturno, nivelar asimetrías (brazos 33cm, pierna izq 53cm) y construir fuerza real. El fútbol es mi único cardio HIIT.",
+  "meta": "Al <span id=\"vd-gym\">21 de junio</span> habré cumplido mi régimen de 4 días por semana, dominando la zona mágica del RIR 1-2 (Gym) o la Isometría de 2s (TRX), midiendo mi progreso estructural cada 4 semanas exactas.",
+  "compromiso": "Dejo el ego en la puerta. Registro en Hevy o aplico hipoxia local. Cumplo mis 150g de proteína diarios, creatina en ayunas y corto los carbos a las 7:00 PM sin excusas.",
   "weeks": [
     {
-      "title": "Semana 1: Construcción y Nivelación",
+      "title": "Semana 1: Calibración del Sistema Dual",
       "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones' (Peso, pecho, barriga, brazo, pierna)."
+        "🎯 PRIORIDAD: Calibrar tu entorno. En Gym: Encuentra los pesos para un RIR 1-2. En Campo: Domina los 2s de pausa isométrica en máxima contracción.",
+        "Ejecutar los 4 Días (Torso y Piernas): Regla inquebrantable. La pierna izquierda (53cm) y el brazo izquierdo (33cm) arrancan y dictan el límite de reps.",
+        "🥗 Nutrición (Regla 2x1): Cumplir 150g de proteína para tus 74kg, 5g de creatina en ayunas y 3L de agua diarios.",
+        "🚫 Cena de 'Corte': Cero carbohidratos después de las 7:00 PM. Solo proteína y vegetales verdes para oxidar grasa nocturna.",
+        "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones' para registrar línea base (peso, pecho 94cm, abdomen 91cm, asimetrías)."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "El 99% levanta guiado por el ego o se balancea en el TRX. El 1% domina el RIR y la Isometría para mutar sin lesionarse.",
+      "cite": "Tip del 1% — El Sistema Dual",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep Semanal", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 2: Construcción y Nivelación",
-      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "title": "Semana 2: Tensión y Control Excéntrico",
+      "theme": "HIPERTROFIA — CONEXIÓN MENTE-MÚSCULO",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "📈 Sobrecarga: Oblígate a sacar 1 repetición más o subir tensión respecto a la semana pasada."
+        "🎯 PRIORIDAD: Mantener el RIR 1-2 o la pausa de 2s. Si haces 10 reps, la 11 te debe costar la vida. Registra en Hevy.",
+        "Fase Excéntrica: En Press Banca o Flexiones TRX, oblígate a bajar frenando en 3 segundos exactos. Control total.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua. Carbos solo en desayuno/post-entreno.",
+        "🚫 Cena de 'Corte': Cepíllate los dientes a las 7:05 PM para hackear el hambre. Cero carbos.",
+        "📈 Sobrecarga: Sube 1kg en Gym o saca 1 repetición más profunda en TRX respecto a la semana pasada."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "Bajar el peso lento rompe más fibras que subirlo rápido. El músculo no sabe de kilos o cintas, solo entiende de tensión.",
+      "cite": "Biomecánica del Crecimiento",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep Semanal", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 3: Construcción y Nivelación",
+      "title": "Semana 3: Consistencia Metabólica",
       "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "🎥 Técnica: Grábate haciendo una serie al fallo para corregir postura."
+        "🎯 PRIORIDAD: Mantener los 4 días impecables (Torso 1/A, Piernas 1/A, Torso 2/B, Piernas 2/B).",
+        "En Remo Iso-Lateral / Unilateral TRX: El brazo izquierdo (33cm) estira máximo y jala primero.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "🚫 Cena de 'Corte': Post 7:00 PM solo proteína y fibra verde.",
+        "🎥 Técnica: Grábate en Peso Muerto Rumano (con barra o banda). Asegúrate de empujar la cadera como bisagra."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
+      "quote": "La motivación inicial se apagó; ahora entra la disciplina. Anotar cada peso o congelar cada repetición debe ser instinto.",
       "cite": "Mentalidad de Hierro",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep Semanal", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 4: Construcción y Nivelación",
-      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "title": "Semana 4: Test de Progreso (Mes 1)",
+      "theme": "MEDICIÓN — ¿QUÉ TANTO HAS SECADO?",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones' para registrar cambios del primer mes."
+        "🎯 PRIORIDAD: Consolidar las cargas del primer mes. ¿Subieron tus pesos en Hevy o dominas mejor la banda morada?",
+        "Mantener la ejecución de los 4 días. El fútbol alejado de tus sesiones de Piernas para no quemar el músculo.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "🚫 Cena de 'Corte': Post 7:00 PM cero carbos.",
+        "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones'. Evalúa cuánto ha bajado la barriga de 91cm con la dieta nocturna."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "Los datos a las cuatro semanas te dicen la verdad que el espejo a veces oculta. Mide, analiza y ajusta.",
+      "cite": "Principio de Evaluación",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Mediciones Mes 1", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 5: Construcción y Nivelación",
-      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "title": "Semana 5: El Bloque Central",
+      "theme": "HIPERTROFIA — NUEVOS ESTÍMULOS",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "📈 Sobrecarga: Oblígate a sacar 1 repetición más o subir tensión respecto a la semana pasada."
+        "🎯 PRIORIDAD: El peso o resistencia de la Semana 1 debe sentirse ligero. Sube la exigencia para volver al RIR 1-2 o asegurar la isometría de 2s.",
+        "En Fondos Paralelas o Flexiones Declinadas TRX: Busca el fallo técnico real. Exprime el pecho.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "🚫 Cena de 'Corte': Post 7:00 PM cero carbos.",
+        "⚡ Enfoque: En las superseries de brazos (Polea/Banda y TRX), la transición es de 0 segundos. Fuego puro."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "El RIR 1-2 significa que si te pusieran una pistola en la cabeza harías máximo 2 reps más. Si haces 5, perdiste tu tiempo.",
+      "cite": "La Zona de Crecimiento",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep Semanal", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 6: Construcción y Nivelación",
-      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "title": "Semana 6: Descarga Activa",
+      "theme": "RECUPERACIÓN — PARA SEGUIR AVANZANDO",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "🧘 Descarga activa: Baja la intensidad un 15% esta semana para dar respiro a las articulaciones."
+        "🎯 PRIORIDAD: Cambia a RIR 3-4 (baja pesos 15%) o quita 1 serie por ejercicio. Da respiro al sistema nervioso.",
+        "Enfocarse 100% en el estiramiento profundo del músculo en cada repetición excéntrica.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "🚫 Cena de 'Corte': Post 7:00 PM cero carbos.",
+        "💤 Recuperación: Dormir estricto 8 horas diarias esta semana. El músculo crece en la cama, no en el gimnasio."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "El músculo es como una liga elástica. Si la mantienes tensada al máximo siempre, se rompe. Dale tregua para que vuelva a jalar con fuerza.",
+      "cite": "Regla de Reparación",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep Semanal", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 7: Construcción y Nivelación",
+      "title": "Semana 7: Retorno a la Intensidad",
       "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "🎥 Técnica: Grábate haciendo una serie al fallo para corregir postura."
+        "🎯 PRIORIDAD: El cuerpo descansó. Vuelve a las cargas máximas de la S5. RIR 1 o isometría de 2s exigida.",
+        "Asegura la técnica en Hip Thrust o Peso Muerto con Banda. Barbilla pegada al pecho, empuje de cadera.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "⚡ Carbohidratos Estratégicos: Asegura tu ración de papa o arroz justo después de entrenar para reponer glucógeno.",
+        "🚫 Cena de 'Corte': Post 7:00 PM cero carbos."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "El RIR 1 y la pausa isométrica es donde los niños se separan de los hombres. Exige al músculo para darle una razón para mutar.",
+      "cite": "Intensidad Real",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep Semanal", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 8: Construcción y Nivelación",
-      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "title": "Semana 8: Test de Progreso (Mes 2)",
+      "theme": "MEDICIÓN — ¿QUÉ TAN FUERTE ERES?",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones' para evaluar cierre del segundo mes."
+        "🎯 PRIORIDAD: Consolidar las marcas en Hevy o el control corporal de este segundo mes.",
+        "Revisa la asimetría: Si el brazo y pierna izquierda te permiten hacer más repeticiones hoy, vas por buen camino.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "🚫 Cena de 'Corte': Post 7:00 PM cero carbos.",
+        "📏 TOMA DE MEDIDAS: Usar el botón 'Mis mediciones'. Compara el pecho inicial (94cm) y valida el progreso de los brazos y piernas."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "Terminaste el segundo mes. La asimetría debería estar cediendo si respetaste que el lado débil dictara el ritmo.",
+      "cite": "Corrección Estructural",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Mediciones Mes 2", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 9: Construcción y Nivelación",
-      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "title": "Semana 9: Resistencia y Enfoque",
+      "theme": "HIPERTROFIA — TENSIÓN METABÓLICA",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "📈 Sobrecarga: Oblígate a sacar 1 repetición más o subir tensión respecto a la semana pasada."
+        "🎯 PRIORIDAD: Mantener la disciplina de los 4 días aunque el cansancio laboral apriete.",
+        "🔥 Exigencia: En las pantorrillas sentado, máquina o escalón, aguanta el dolor de la quemazón. El sóleo necesita castigo.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "🚫 Cena de 'Corte': Post 7:00 PM cero carbos.",
+        "En Aperturas (Flyes/TRX): Busca el estiramiento máximo del pecho. No choques las mancuernas ni juntes las manos arriba."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "Cualquiera entrena el primer día. Solo el 1% mantiene la dieta estricta a las 7 PM y llega al fallo en la semana 9.",
+      "cite": "La Milla Extra",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep Semanal", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 10: Construcción y Nivelación",
+      "title": "Semana 10: Concentración Absoluta",
       "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "🎥 Técnica: Grábate haciendo una serie al fallo para corregir postura."
+        "🎯 PRIORIDAD: Conexión mente-músculo. Al jalar en remo, piensa en los codos y la espalda, no en las manos.",
+        "Mantén el RIR 1-2. No sacrifiques técnica por subir de peso en la app Hevy. Calidad sobre cantidad.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "🚫 Cena de 'Corte': Post 7:00 PM cero carbos.",
+        "🎥 Técnica: Graba tus Sentadillas Búlgaras o Pistol Squats. Valida el equilibrio y la postura del torso."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "El dolor de la disciplina pesa gramos; el dolor de mirarte al espejo y saber que rendiste menos pesa toneladas.",
+      "cite": "Mentalidad de Cierre",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep Semanal", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 11: Construcción y Nivelación",
-      "theme": "DISCIPLINA — EJECUCIÓN DEL EXPEDIENTE",
+      "title": "Semana 11: Semana Pico (Fallo Real)",
+      "theme": "HIPERTROFIA — ALTA EXIGENCIA",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "🔥 Semana Pico: Máxima intensidad absoluta en todas las series al fallo."
+        "🎯 PRIORIDAD: Semana de buscar PRs (Récords) en Hevy. En el TRX, llega al fallo técnico en la última serie.",
+        "Llega al RIR 0. Vacíate por completo. Si haces press banca, pide un spotter.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "🚫 Cena de 'Corte': Post 7:00 PM cero carbos.",
+        "⚠️ El partido de fútbol de esta semana te va a pesar. Duerme todo lo que puedas el fin de semana."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "Los últimos kilómetros de la carrera son los que más cuestan, pero son los que definen el corte de tu abdomen y el grosor de tus hombros.",
+      "cite": "Sprint Final",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Meal Prep Semanal", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     },
     {
-      "title": "Semana 12: Medición y Cierre",
+      "title": "Semana 12: Cierre y Evolución",
       "theme": "CIERRE — EVALUACIÓN DEL EXPEDIENTE",
       "tasks": [
-        "🎯 PRIORIDAD: Destruir el Día 1 del Expediente Activo. La disciplina no negocia con el entorno.",
-        "Ejecutar Día 2 (Cimientos). Obliga a tu pierna izq (53cm) a marcar el límite. No fútbol 48h cerca.",
-        "Ejecutar Día 3 (Vigas Maestras). Máxima tensión para romper la barrera de 33cm de brazo.",
-        "Cerrar la boca: Cumplir déficit calórico. La grasa de los 91cm solo se seca en la mesa.",
-        "Recuperación: Dormir 8h. Usa la noche para reparar el tejido roto por el fútbol.",
-        "📏 TOMA DE MEDIDAS FINALES: Registrar cambios del plan completo y diseñar la próxima rutina."
+        "🎯 PRIORIDAD: Ejecutar con intensidad normal, disfrutando la fuerza que has construido en estos 84 días.",
+        "Exportar o revisar tu gráfica de progreso en Hevy. Los números te mostrarán tu evolución exacta en fuerza.",
+        "🥗 Nutrición de Corte: 150g de proteína, 5g de creatina en ayunas, 3L de agua.",
+        "🚫 Cena de 'Corte': Post 7:00 PM cero carbos.",
+        "📏 TOMA DE MEDIDAS FINALES: Registrar cambios del plan completo. Compara tu peso (74kg), abdomen (91cm) y asimetrías. Diseña la Fase 2."
       ],
-      "quote": "La consistencia no es hacer lo mismo siempre; es avanzar sin importar si tienes máquinas de acero o unas cintas colgando de un árbol.",
-      "cite": "Mentalidad de Hierro",
+      "quote": "Terminar 12 semanas cumpliendo la dieta nocturna, dominando el RIR o el TRX es ganar. La transformación física es el trofeo.",
+      "cite": "Misión Cumplida",
       "timeBlocks": [
-        { "type": "tb-strategic", "label": "Día 1, 2 y 3", "desc": "19:30–21:00 🏋️" },
-        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día 2 ⚽" },
-        { "type": "tb-breakout", "label": "Meal Prep + WAM", "desc": "Dom — 9:00 AM ☀️" }
+        { "type": "tb-strategic", "label": "L/M/J/V: Torso y Piernas", "desc": "19:30–21:00 🏋️" },
+        { "type": "tb-buffer", "label": "Fútbol (Único HIIT)", "desc": "Lejos del Día de Piernas ⚽" },
+        { "type": "tb-breakout", "label": "Diseño Fase 2", "desc": "Dom — 9:00 AM ☀️" }
       ],
       "metrics": [
-        { "icon": "🛡️", "text": "Asimetría", "sub": "Control pierna 53cm" },
-        { "icon": "⚖️", "text": "Abdomen", "sub": "Déficit mantenido" },
-        { "icon": "🔥", "text": "Fallo real", "sub": "Alcanzado en series" }
+        { "icon": "🛡️", "text": "Asimetría", "sub": "Izquierda dicta el límite" },
+        { "icon": "⚖️", "text": "Corte 7PM", "sub": "Cero carbos de noche" },
+        { "icon": "🔥", "text": "RIR / Isometría", "sub": "Técnica perfecta" }
       ]
     }
   ]
