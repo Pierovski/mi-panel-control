@@ -260,7 +260,6 @@ async function loadExternalPlans() {
   
   for (const [pid, filename] of Object.entries(files)) {
       try {
-          // fetch con ?v=Date para evitar que el navegador guarde versiones viejas
           const res = await fetch(filename + '?v=' + Date.now());
           if (!res.ok) throw new Error('Archivo no encontrado');
           const data = await res.json();
@@ -271,13 +270,10 @@ async function loadExternalPlans() {
           const cached = localStorage.getItem('cache_' + pid);
           if (cached) {
               PLANS[pid] = { ...PLANS[pid], ...JSON.parse(cached) };
-          } else {
-              console.error(`No hay caché para ${pid}. Requieres internet al menos la primera vez.`);
           }
       }
   }
 
-  // Inicializar UI si la data se cargó
   Object.keys(PLANS).forEach(pid => {
       if(PLANS[pid].weeks && PLANS[pid].weeks.length > 0) buildPlanUI(pid);
   });
@@ -291,7 +287,7 @@ async function loadExternalPlans() {
 }
 
 /* ══════════════════════════════════════════════════════
-   NUBE Y UI (SE MANTIENE IGUAL AL DISEÑO ANTERIOR)
+   NUBE Y UI
 ══════════════════════════════════════════════════════ */
 function syncPlanToCloud() {
   if(!navigator.onLine) return;
@@ -303,7 +299,8 @@ function syncPlanToCloud() {
     notes: { topo: ls_get(KEYS.topo.notes,{}), fin: ls_get(KEYS.fin.notes,{}), gym: ls_get(KEYS.gym.notes,{}) },
     vision: { topo: ls_get(KEYS.topo.vision,''), fin: ls_get(KEYS.fin.vision,''), gym: ls_get(KEYS.gym.vision,'') },
     startDate: ls_get(KEYS.startDate,'2025-03-30'),
-    gymMode: ls_get('gym_mode_v1', 'A')
+    gymMode: ls_get('gym_mode_v1', 'A'),
+    measurements: ls_get(MEDS_KEY, {})
   };
 
   db.ref('pierovski/plan').set(data).then(() => {
@@ -323,13 +320,13 @@ function initCloud() {
         if(data.vision) ['topo','fin','gym'].forEach(p => localStorage.setItem(KEYS[p].vision, JSON.stringify(data.vision[p] || '')));
         if(data.startDate) localStorage.setItem(KEYS.startDate, JSON.stringify(data.startDate));
         if(data.gymMode) localStorage.setItem('gym_mode_v1', JSON.stringify(data.gymMode));
+        if(data.measurements) localStorage.setItem(MEDS_KEY, JSON.stringify(data.measurements));
         
         Object.keys(PLANS).forEach(pid => { if(PLANS[pid].weeks && PLANS[pid].weeks.length) buildPlanUI(pid); });
         const sd = ls_get(KEYS.startDate, null); if(sd) { recalcDates(sd); markCurrentWeek(); }
       }
     });
   } else {
-    // Si está offline, cargar estados locales
     ['topo','fin','gym'].forEach(p => taskStates[p] = ls_get(KEYS[p].tasks, {}));
   }
 }
@@ -387,6 +384,16 @@ function buildPlanUI(planId) {
   plan.weeks.forEach((w, i) => { scGrid.innerHTML += `<div class="sc-week" id="sc-cell-${planId}-${i}" onclick="switchWeek('${planId}',${i})"><span class="scw-num">S${i+1}</span><span class="scw-pct" id="sc-grid-pct-${planId}-${i}">0%</span></div>`; });
   section.appendChild(scGrid);
 
+  const btns = document.createElement('div');
+  btns.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0;';
+  const measBtn = planId === 'gym'
+    ? `<button onclick="buildMeasurementsPanel()" style="background:var(--sage);color:#fff;border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">📏 Mis mediciones</button>`
+    : '';
+  btns.innerHTML = measBtn + `
+    <button onclick="showSummary('${planId}')" style="background:var(--navy);color:var(--gold-light);border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">📊 Ver resumen final</button>
+    <button onclick="exportToPDF('${planId}')" style="background:var(--gold);color:var(--navy);border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">🖨️ Exportar PDF</button>`;
+  section.appendChild(btns);
+
   plan.weeks.forEach((_, i) => refreshScore(planId, i));
 }
 
@@ -416,11 +423,40 @@ function refreshScore(p, wi) {
 
 function saveNote(p, wi) { const val = document.getElementById(`note-${p}-${wi}`).value; const n = ls_get(KEYS[p].notes, {}); n[wi] = val; ls_set(KEYS[p].notes, n); showToast('Nota guardada'); }
 
+// ══════════════════════════════════════════════════════
+// CAJA DE RUTINA (GIMNASIO)
+// ══════════════════════════════════════════════════════
 function toggleGymMode() { let m = ls_get('gym_mode_v1', 'A'); m = m==='A'?'B':'A'; ls_set('gym_mode_v1', m); renderGymRoutineBox(); }
 function renderGymRoutineBox() {
   const box = document.getElementById('gymRoutineBox'); if(!box) return;
   const m = ls_get('gym_mode_v1', 'A');
-  box.innerHTML = `<div class="routine-header"><h3>${m==='A'?'🏋️ EXPEDIENTE A (Gimnasio)':'🏕️ EXPEDIENTE B (TRX)'}</h3><button class="btn-toggle-routine" onclick="toggleGymMode()">Cambiar a Modo ${m==='A'?'Campo':'Gimnasio'}</button></div><div class="routine-content">${m==='A'?'Día 1: Pecho/Hombro/Tríceps | Día 2: Piernas | Día 3: Espalda/Bíceps':'Formato Circuito TRX y Bandas elásticas al fallo'}</div>`;
+  box.innerHTML = `
+    <div class="routine-header">
+       <h3>${m==='A'?'🏋️ EXPEDIENTE A (Gimnasio)':'🏕️ EXPEDIENTE B (TRX + Banda Morada)'}</h3>
+       <button class="btn-toggle-routine" onclick="toggleGymMode()">Cambiar a Modo ${m==='A'?'Campo':'Gimnasio'}</button>
+    </div>
+    <div class="routine-content" style="font-size:13px; line-height:1.65; max-height:500px; overflow-y:auto; padding-right:12px;">
+      ${m==='A' ?
+        `<b>Frecuencia:</b> 4 Días a la semana. <b>Enfoque:</b> Fuerza y Nivelación Estructural con RIR 1-2.<br>
+         <ul style="margin:10px 0; padding-left:15px;">
+           <li style="margin-bottom:8px;"><b>LUNES: Torso 1</b><br>Press Banca Mancuernas 4x8-10 (baja en 3s, pausa 1s) | Remo Iso-Lateral 4x10-12 (brazo izq dicta) | Press Hombros 80° 3x8-10 | Aperturas Mancuernas 3x12 (estiramiento máximo) | SS: Curl Bíceps + Tríceps Polea 3x12.</li>
+           <li style="margin-bottom:8px;"><b>MARTES: Piernas 1</b><br>Prensa Unilateral 4x10-12 (pierna izq dicta) | Sentadilla Búlgara 3x10/pierna | Extensión Piernas 3x15 (aprieta 1s arriba) | Curl Femoral 3x15 (frena en 3s) | Pantorrillas Máquina 4x20.</li>
+           <li style="margin-bottom:8px;"><b>JUEVES: Torso 2</b><br>Press Inclinado (30/45°) 4x8-10 | Jalón al Pecho 4x10-12 (codos al bolsillo) | Elevaciones Laterales 4x12 (empuja paredes) | Fondos Paralelas 3x fallo (torso inclinado) | SS: Martillo + Tríceps Cuerda 3x12.</li>
+           <li style="margin-bottom:8px;"><b>VIERNES: Piernas 2</b><br>Hip Thrust 4x10-12 | Peso Muerto Rumano 4x10-12 (bisagra) | Zancadas Caminando 3x12-15/pierna | Pantorrillas Sentado 4x fallo.</li>
+         </ul>
+         <span style="color:var(--sage); font-weight:bold; display:block; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.2);">🧪 EL TIP DEL 1% (RIR en Hevy):</span> Tu objetivo es registrar cada peso en Hevy manteniendo un RIR 1 o 2. Si puedes hacer 5 repeticiones más al terminar la serie, el peso es muy bajo. Si pierdes la postura en la última, es muy alto. Entrena inteligente.`
+      :
+        `<b>Frecuencia:</b> 4 Días a la semana.<br>
+         <ul style="margin:10px 0; padding-left:15px;">
+           <li style="margin-bottom:8px;"><b>LUNES: Torso A (Fuerza)</b><br>Flexiones TRX 4x fallo (baja 3s) | Remo Invertido TRX 4x12-15 (pausa 2s) | Press Hombros Banda 3x12 | Aperturas TRX 3x12 | SS: Bíceps Banda + Tríceps TRX 3x15.</li>
+           <li style="margin-bottom:8px;"><b>MARTES: Piernas A (Cuádriceps)</b><br>Pistol Squat TRX 4x10 (izq 53cm dicta) | Zancadas TRX 3x12 | Sentadilla Banda 4x20 | Pantorrillas en escalón 4x fallo.</li>
+           <li style="margin-bottom:8px;"><b>JUEVES: Torso B (Detalle)</b><br>Flexiones Declinadas TRX 4x fallo | Remo Unilateral TRX 4x10 (izq 33cm dicta) | Facepull Banda 4x15 | Flexiones Diamante 3x fallo | SS: Bíceps TRX + Tríceps Banda 3x15.</li>
+           <li style="margin-bottom:8px;"><b>VIERNES: Piernas B (Cadena Posterior)</b><br>Peso Muerto Banda 4x15 | Curl Femoral TRX 3x12 | Puente Glúteo Banda 4x20 | Pantorrillas 4x20.</li>
+         </ul>
+         <span style="color:var(--gold-light); font-weight:600; display:block; margin-bottom:6px;">🥗 Nutrición de Construcción:</span> Regla 2x1 (150g proteína). Creatina en ayunas. Carbos estratégicos. <span style="text-decoration:underline;">Cena de Corte:</span> post 7PM cero carbos. Agua: 3L.<br>
+         <span style="color:var(--sage); font-weight:bold; display:block; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.2);">🧪 EL TIP DEL 1% (Isometría de Control):</span> Congela el movimiento 2s en máxima contracción. La "hipoxia local" endurece la fibra muscular como concreto.`
+      }
+    </div>`;
 }
 
 function recalcDates(startStr) {
@@ -436,6 +472,99 @@ function showStartDateModal() { document.getElementById('cfg-start-date').value 
 function openSettings() { document.getElementById('cfg-start-date').value = ls_get(KEYS.startDate,'2025-03-30'); document.getElementById('settingsOverlay').classList.add('open'); }
 function closeSettings() { document.getElementById('settingsOverlay').classList.remove('open'); }
 function saveSettings() { const val = document.getElementById('cfg-start-date').value; if(val){ ls_set(KEYS.startDate,val); recalcDates(val); markCurrentWeek(); } closeSettings(); showToast('Configuración guardada'); }
+
+// ══════════════════════════════════════════════════════
+//  PANEL DE MEDICIONES CORPORALES
+// ══════════════════════════════════════════════════════
+const BASELINE = {
+  fecha:    '30 Mar 2025',
+  peso:     75.0,
+  medidas: [
+    { zona: 'Pecho',              valor: 94.5 },
+    { zona: 'Barriga',            valor: 91.0 },
+    { zona: 'Brazo izquierdo',    valor: 33.0 },
+    { zona: 'Brazo derecho',      valor: 33.0 },
+    { zona: 'Pierna izquierda',   valor: 53.0 },
+    { zona: 'Pierna derecha',     valor: 55.0 }
+  ]
+};
+const MEDS_KEY = 'gym_measurements_v1';
+function saveMeasurement(weekLabel, data) { const all = ls_get(MEDS_KEY, {}); all[weekLabel] = { ...data, savedAt: new Date().toISOString() }; ls_set(MEDS_KEY, all); }
+
+function buildMeasurementsPanel() {
+  const existing = document.getElementById('measPanel'); if (existing) existing.remove();
+  const saved = ls_get(MEDS_KEY, {});
+  const weeks = ['Semana 1', 'Semana 4', 'Semana 8', 'Semana 12'];
+
+  let headerCols = `<th style="padding:10px 8px;text-align:left;background:#f5f0e8;">Medida</th><th style="padding:10px 8px;text-align:center;background:#0d1b2a;color:#f0c060;">Inicio</th>`;
+  weeks.slice(1).forEach(w => headerCols += `<th style="padding:10px 8px;text-align:center;background:#f5f0e8;">${w.replace('Semana ','S')}</th>`);
+  headerCols += `<th style="padding:10px 8px;text-align:center;background:#f5f0e8;">Cambio</th>`;
+
+  let bodyRows = '';
+  const rowsData = [{ zona: 'Peso (kg)', key: 'peso', base: BASELINE.peso }, ...BASELINE.medidas.map(m => ({ zona: m.zona, key: m.zona, base: m.valor }))];
+  
+  rowsData.forEach(item => {
+    let cols = `<td style="padding:8px;font-size:12px;font-weight:500;">${item.zona}</td><td style="padding:8px;text-align:center;font-weight:700;">${item.base}</td>`;
+    let lastVal = item.base;
+    weeks.slice(1).forEach(w => {
+      const d = saved[w];
+      const val = d ? (item.key === 'peso' ? d.peso : (d.medidas || []).find(m => m.zona === item.zona)?.valor) : null;
+      if (val !== null && val !== undefined) lastVal = val;
+      cols += `<td style="padding:8px;text-align:center;color:${val?'#2a2420':'#ccc'};">${val !== null && val !== undefined ? val : '—'}</td>`;
+    });
+    const diff = lastVal - item.base;
+    const diffColor = item.zona === 'Barriga' || item.zona === 'Peso (kg)' ? (diff < 0 ? '#4a7c59' : diff > 0 ? '#b84c2a' : '#8a7e72') : (diff > 0 ? '#4a7c59' : diff < 0 ? '#b84c2a' : '#8a7e72');
+    cols += `<td style="padding:8px;text-align:center;font-weight:700;color:${diffColor};">${diff === 0 ? '—' : (diff > 0 ? '+' : '') + diff.toFixed(1)}</td>`;
+    bodyRows += `<tr style="border-bottom:1px solid #f0ece4;">${cols}</tr>`;
+  });
+
+  const medInputs = BASELINE.medidas.map(m => `<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><label style="font-size:12px;color:#5a6380;min-width:120px;">${m.zona}</label><input type="number" step="0.1" id="med-${m.zona}" placeholder="${m.valor}" style="font-family:monospace;font-size:13px;padding:6px;width:70px;"><span style="font-size:11px;">cm</span></div>`).join('');
+
+  const overlay = document.createElement('div'); overlay.id = 'measPanel'; overlay.style.cssText = 'position:fixed;inset:0;background:var(--paper);z-index:500;overflow-y:auto;';
+  overlay.innerHTML = `
+    <div style="max-width:900px;margin:0 auto;padding:60px 24px 80px;">
+      <button onclick="document.getElementById('measPanel').remove()" style="font-family:'DM Mono',monospace;font-size:10px;background:none;border:1px solid var(--border);padding:8px 16px;cursor:pointer;margin-bottom:30px;">← VOLVER</button>
+      <h1 style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--navy);margin-bottom:30px;">Progreso físico</h1>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:40px;font-family:'DM Sans',sans-serif;"><thead><tr>${headerCols}</tr></thead><tbody>${bodyRows}</tbody></table>
+      <div style="background:var(--cream);border:1px solid var(--border);border-top:4px solid var(--gold);padding:32px;">
+        <h3 style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);margin-bottom:20px;">Registrar medidas</h3>
+        <select id="meas-week" style="margin-bottom:16px;padding:8px;font-family:monospace;">${weeks.slice(1).map(w=>`<option value="${w}">${w}</option>`).join('')}</select>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;"><label style="font-size:12px;color:#5a6380;min-width:120px;">Peso (kg)</label><input type="number" step="0.1" id="med-peso" placeholder="75.0" style="font-family:monospace;font-size:13px;padding:6px;width:70px;"></div>
+        ${medInputs}
+        <button onclick="recordMeasurement()" style="margin-top:20px;background:var(--navy);color:var(--gold-light);border:none;padding:12px 24px;cursor:pointer;">💾 GUARDAR MEDICIONES</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function recordMeasurement() {
+  const weekLabel = document.getElementById('meas-week').value;
+  const peso = parseFloat(document.getElementById('med-peso').value) || null;
+  const medidas = BASELINE.medidas.map(m => { const val = parseFloat(document.getElementById('med-' + m.zona).value); return { zona: m.zona, valor: isNaN(val) ? null : val }; }).filter(m => m.valor !== null);
+  if (!peso && medidas.length === 0) return showToast('⚠️ Ingresa al menos un valor');
+  saveMeasurement(weekLabel, { peso, medidas }); showToast('✅ Guardado'); setTimeout(() => buildMeasurementsPanel(), 400);
+}
+
+// ══════════════════════════════════════════════════════
+//  SUMMARY Y REPORTES
+// ══════════════════════════════════════════════════════
+function showSummary(planId){
+  const existing=document.getElementById('summaryScreen'); if(existing) existing.remove();
+  const plan=PLANS[planId], weeks=plan.weeks, ts=taskStates[planId]||{}, notes=ls_get(KEYS[planId].notes,{});
+  let totalDone=0, totalTasks=0;
+  const weekScores=weeks.map((w,wi)=>{ let done=0; w.tasks.forEach((_,ti)=>{ if(ts[wi+'-'+ti]) done++; }); totalDone+=done; totalTasks+=w.tasks.length; return{n:wi+1,pct:Math.round((done/w.tasks.length)*100)}; });
+  const globalPct=Math.round((totalDone/totalTasks)*100);
+  
+  const el=document.createElement('div'); el.id='summaryScreen'; el.style.cssText='position:fixed;inset:0;background:var(--paper);z-index:500;overflow-y:auto;';
+  el.innerHTML=`<div style="max-width:800px;margin:0 auto;padding:60px 24px 80px;">
+    <button onclick="document.getElementById('summaryScreen').remove()" style="font-family:monospace;font-size:10px;background:none;border:1px solid var(--border);padding:8px 16px;cursor:pointer;margin-bottom:30px;">← VOLVER</button>
+    <h1 style="font-family:'DM Serif Display',serif;font-size:48px;color:var(--navy);margin-bottom:30px;">Resumen: ${plan.label}</h1>
+    <div style="background:var(--navy);color:var(--cream);padding:28px;text-align:center;font-size:40px;margin-bottom:30px;">${globalPct}% <span style="font-size:12px;display:block;">EJECUCIÓN GLOBAL</span></div>
+  </div>`;
+  document.body.appendChild(el);
+}
+
+function exportToPDF(planId){ showToast("🖨️ Función de exportación PDF llamada. Utiliza Ctrl+P para imprimir la pantalla de resumen."); }
 
 // 🚀 ARRANQUE DE MOTOR
 loadExternalPlans();
