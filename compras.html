@@ -73,6 +73,10 @@ header {
 .hstat.g .v { color: var(--green); }
 .hstat.a .v { color: var(--amber); }
 
+/* VOLVER AL DASHBOARD */
+.btn-back-dash { margin-left: 16px; font-size: 0.8rem; text-decoration: none; color: var(--text-muted); font-weight: 500; display: flex; align-items: center; gap: 4px; transition: color 0.2s; }
+.btn-back-dash:hover { color: var(--amber); }
+
 /* TABS */
 .tabs { display: flex; margin-top: 6px; }
 .tab-btn {
@@ -169,21 +173,20 @@ tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s;
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--surface2); }
 td { padding: 11px 14px; vertical-align: middle; }
-td.tname { font-weight: 600; color: var(--text); }
+td.tname { font-weight: 600; color: var(--text); position: relative; }
 td.tmono { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--text-muted); }
 td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 500; }
 .section.green td.tcost .cv { color: var(--green); }
 .section.pending td.tcost .cv { color: var(--amber); }
 .cat-pill { font-family: 'DM Mono', monospace; font-size: 0.62rem; padding: 3px 7px; border-radius: 4px; background: var(--surface3); border: 1px solid var(--border2); color: var(--text-muted); white-space: nowrap; font-weight: 500; }
 
-/* BADGES FALTAN */
-.faltan-badge { font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 600; padding: 4px 9px; border-radius: 5px; white-space: nowrap; display: inline-block; }
-.faltan-ok    { background: var(--green-glow);  color: var(--green-dim);  border: 1px solid #86efac; }
-.faltan-hoy   { background: var(--amber-glow); color: var(--amber-dim); border: 1px solid #fcd34d; animation: pulse 1.4s ease infinite; }
-.faltan-cerca { background: var(--amber-glow); color: var(--amber-dim); border: 1px solid #fcd34d; }
-.faltan-medio { background: var(--surface3); color: #b45309; border: 1px solid var(--border2); }
-.faltan-lejos { background: var(--surface2); color: var(--text-dim);   border: 1px solid var(--border2); }
-@keyframes pulse { 0%,100%{ opacity:1 } 50%{ opacity:0.6 } }
+/* BARRA DE VIDA ÚTIL */
+.life-bar-wrap { width: 100%; height: 4px; background: var(--surface3); border-radius: 2px; margin-top: 8px; overflow: hidden; position: relative; }
+.life-bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+.life-bar-fill.safe { background: var(--green); }
+.life-bar-fill.warn { background: var(--amber); }
+.life-bar-fill.danger { background: var(--red); }
+.life-text { font-size: 0.65rem; color: var(--text-dim); font-family: 'DM Mono', monospace; margin-top: 3px; display: block; }
 
 /* CATEGORIAS HORIZONTALES */
 .cat-summary { display: flex; gap: 12px; margin-bottom: 26px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
@@ -275,6 +278,7 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
     <div class="logo">
       <h1>COMPRAS 2026 <div id="cloud-indicator" class="cloud-status" title="Estado de la Nube"></div></h1>
     </div>
+    <a href="index.html" class="btn-back-dash">← Volver al Dashboard</a>
     <div class="hstats">
       <div class="hstat g"><div class="v" id="hGreen">0</div><div class="l">Rentables</div></div>
       <div class="hstat a"><div class="v" id="hPending">0</div><div class="l">Pendientes</div></div>
@@ -333,9 +337,9 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
       <div id="addFormContainer" class="hidden-content">
         <div class="form-grid">
           <div class="field"><label>Nombre del producto</label><input type="text" id="aNombre" placeholder="Ej: Zapatillas Nike" autocomplete="off"></div>
-          <div class="field"><label>Costo (S/)</label><input type="number" id="aCosto" placeholder="0.00" min="0" step="0.01"></div>
+          <div class="field"><label>Costo (S/)</label><input type="number" id="aCosto" placeholder="0" min="0" step="0.01"></div>
           <div class="field"><label>Fecha de inicio</label><input type="date" id="aFecha"></div>
-          <div class="field"><label>Meta S/ / día</label><input type="number" id="aMeta" placeholder="1.00" min="0.01" step="0.01" value="1.00"></div>
+          <div class="field"><label>Meta S/ / día</label><input type="number" id="aMeta" placeholder="1" min="0.01" step="0.01" value="1.00"></div>
           <div class="field"><label>Vida útil (días)</label><input type="number" id="aVida" placeholder="365" min="1" step="1"></div>
           <div class="field">
             <label>Categoría</label>
@@ -454,7 +458,7 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
         </div>
         <div class="field">
           <label>Precio estimado (S/)</label>
-          <input type="number" id="wPrecio" min="0" step="0.01" placeholder="0.00">
+          <input type="number" id="wPrecio" min="0" step="0.01" placeholder="0">
         </div>
         <div class="field">
           <label>Categoría</label>
@@ -509,7 +513,6 @@ const SK = 'cpu_prods_data';
 const SH = 'cpu_hist_data';
 const SW = 'cpu_wish_data';
 
-// Función para subir a la nube silenciosamente
 function syncToCloud(path, data) {
     if (navigator.onLine) {
         const indicator = document.getElementById('cloud-indicator');
@@ -550,7 +553,6 @@ function saveWish_(a) {
     syncToCloud('wishlist', a);
 }
 
-// Cargar desde Firebase al abrir la App
 function initCloud() {
     if (navigator.onLine) {
         const indicator = document.getElementById('cloud-indicator');
@@ -615,7 +617,14 @@ function goalDate(dateStr, costo, metaDiaria) { const s = new Date(dateStr + 'T0
 const MONTHS = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 function fmtDate(str) { const [y,m,d] = str.split('-'); return `${parseInt(d)} ${MONTHS[parseInt(m)-1]} ${y}`; }
 function fmtDateObj(d) { return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; }
-function fmtN(n) { return n.toLocaleString('es-PE',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+// MÁGIA VISUAL: Oculta los decimales si es un número cerrado
+function fmtN(n) { 
+  const num = parseFloat(n);
+  if (isNaN(num)) return "0";
+  return Number.isInteger(num) ? num.toLocaleString('es-PE') : num.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2}); 
+}
+
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function todayStr() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 
@@ -649,6 +658,7 @@ function addProduct(e) {
 
   document.getElementById('aNombre').value = ''; document.getElementById('aCosto').value = '';
   document.getElementById('aFecha').value = todayStr(); document.getElementById('aNota').value = '';
+  document.getElementById('aVida').value = '';
   render(); toast(`"${nombre}" agregado ✓`);
 }
 
@@ -721,6 +731,15 @@ function render() {
     .sort((a,b) => b[1].inv - a[1].inv)
     .map(([cat, d]) => `<div class="cat-card"><div class="cc-name">${cat}</div><div class="cc-inv">S/ ${fmtN(d.inv)}</div><div class="cc-sub">${d.count} ítem${d.count>1?'s':''} · S/ ${fmtN(d.diario)}/d</div></div>`).join('') || '<div style="color:var(--text-dim);font-size:0.8rem">Sin datos</div>';
 
+  let alertHTML = '';
+  allE.filter(p => p.ch > p.meta).forEach(p => {
+    const faltan = p.metaDias - p.dias;
+    if (faltan === 0) alertHTML += `• <strong>${esc(p.nombre)}</strong> llega a S/ ${fmtN(p.meta)}/día.<br>`;
+  });
+  const alertB = document.getElementById('alertBanner');
+  if (alertHTML) { document.getElementById('alertList').innerHTML = alertHTML; alertB.style.display = 'block'; }
+  else { alertB.style.display = 'none'; }
+
   const filtered = allE.filter(p => (!search || p.nombre.toLowerCase().includes(search)) && (!catFil || p.categoria === catFil));
   const green = filtered.filter(p => p.ch <= p.meta);
   const pending = filtered.filter(p => p.ch > p.meta);
@@ -749,22 +768,40 @@ function buildTable(wid, items, type) {
         <th class="hide-m">Inicio</th>
         ${sc('dias','Días')}
         ${sc('ch','Costo/día')}
-        <th>Faltan</th>
         <th>Rentable el</th>
         <th>Acciones</th>
     </tr></thead>
     <tbody>${items.map(p => {
-      const dr = Math.max(0, p.metaDias - p.dias);
-      let faltan = type === 'green' ? `<span class="faltan-badge faltan-ok">✓ Rentable</span>` : (dr === 0 ? `<span class="faltan-badge faltan-hoy">¡Hoy!</span>` : `<span class="faltan-badge faltan-medio">${dr} días</span>`);
       let rentableCell = type === 'green' ? `<td class="tmono" style="color:var(--green-dim)">✓ Ok</td>` : `<td class="tmono">${fmtDateObj(p.gd)}</td>`;
+      
+      // LOGICA DE BARRA DE VIDA (Solo se dibuja si el producto tiene vida útil y está en Zona Verde)
+      let lifeBarHTML = '';
+      if (type === 'green' && p.vidaUtil) {
+         const pct = Math.min((p.dias / p.vidaUtil) * 100, 100);
+         let barClass = 'safe';
+         let alertText = '';
+         if (pct >= 85) { barClass = 'danger'; alertText = ' ⚠️ Urgente'; }
+         else if (pct >= 65) { barClass = 'warn'; alertText = ' ⏳ Previsto'; }
+         
+         lifeBarHTML = `
+           <div class="life-bar-wrap">
+             <div class="life-bar-fill ${barClass}" style="width: ${pct}%"></div>
+           </div>
+           <span class="life-text">Uso: ${p.dias}/${p.vidaUtil} días${alertText}</span>
+         `;
+      }
+
       return `<tr data-id="${p.id}">
-        <td class="tname">${esc(p.nombre)}${p.nota?`<div class="td-nota">📝 ${esc(p.nota)}</div>`:''}</td>
+        <td class="tname">
+           ${esc(p.nombre)}
+           ${p.nota?`<div class="td-nota">📝 ${esc(p.nota)}</div>`:''}
+           ${lifeBarHTML}
+        </td>
         <td><span class="cat-pill">${esc(p.categoria)}</span></td>
         <td class="tmono">S/ ${fmtN(p.costo)}</td>
         <td class="tmono hide-m">${fmtDate(p.fecha)}</td>
         <td class="tmono">${p.dias}d</td>
         <td class="tcost"><span class="cv">S/ ${fmtN(p.ch)}</span></td>
-        <td>${faltan}</td>
         ${rentableCell}
         <td>
           <div class="acts">

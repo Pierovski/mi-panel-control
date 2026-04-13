@@ -1,377 +1,287 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pierovski Center</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0d1b2a">
-    <link rel="apple-touch-icon" href="icon.png">
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;600;700&display=swap');
-        
-        body {
-            background-color: #f5f7fa;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            color: #1e293b;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro de Comando | Pierovski</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-        /* --- PANTALLA DE BLOQUEO --- */
-        #login-screen {
-            position: fixed;
-            inset: 0;
-            background-color: #0d1b2a;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            color: white;
-            transition: opacity 0.3s ease;
-        }
+<style>
+:root {
+  --cream: #f5f0e8; --paper: #faf7f2; --navy: #0d1b2a; --navy2: #1a2e45;
+  --gold: #c8922a; --gold-light: #f0c060; --rust: #b84c2a; --sage: #4a7c59;
+  --ink: #2a2420; --muted: #8a7e72; --border: #d8cfc4;
+}
 
-        .login-title {
-            font-family: 'DM Mono', monospace;
-            font-size: 1.2em;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #e8a838;
-            margin-bottom: 30px;
-        }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: 'DM Sans', sans-serif; font-weight: 300;
+  min-height: 100vh; padding-bottom: 80px;
+}
 
-        #pin-input {
-            font-family: 'DM Mono', monospace;
-            font-size: 2em;
-            letter-spacing: 15px;
-            padding: 10px;
-            border: none;
-            border-bottom: 2px solid #52c974;
-            background: transparent;
-            color: white;
-            text-align: center;
-            width: 180px;
-            outline: none;
-        }
+/* HEADER Y SALUDO */
+header {
+  padding: 40px 24px 20px; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.logo-area h1 { font-family: 'Fraunces', serif; font-size: 28px; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
+.logo-area .sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; }
+.date-badge { text-align: right; }
+.date-badge .day { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; color: var(--gold); line-height: 1; }
+.date-badge .month { font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
 
-        #pin-input::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-        }
+main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
 
-        /* --- TÍTULO ANIMADO Y TECNOLÓGICO --- */
-        .brand-container {
-            margin: 50px 0 40px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
+/* MODULO 1: SEMÁFORO DE URGENCIAS */
+.alert-box { background: var(--surface); border: 1px dashed var(--rust); border-left: 4px solid var(--rust); padding: 16px 20px; border-radius: 4px; margin-bottom: 32px; display: none; }
+.alert-box.active { display: block; animation: fadeUp 0.3s ease; }
+.alert-box h3 { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--rust); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+.alert-content { font-size: 14px; font-weight: 500; color: var(--ink); display: flex; align-items: center; gap: 10px; }
 
-        .brand-subtitle {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.65em;
-            letter-spacing: 5px;
-            color: #94a3b8;
-        }
+/* MODULO 2: RADAR DE EJECUCIÓN (LEAD MEASURES DE HOY) */
+.section-title { font-family: 'Fraunces', serif; font-size: 20px; color: var(--navy); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+.btn-nav { font-family: 'DM Mono', monospace; font-size: 9px; padding: 6px 12px; background: var(--navy); color: var(--gold-light); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px; transition: 0.2s; }
+.btn-nav:hover { background: var(--gold); color: var(--navy); }
 
-        .brand-title {
-            font-family: 'DM Mono', monospace;
-            font-size: 1.8em;
-            margin: 0;
-            letter-spacing: 2px;
-            font-weight: 500;
-            color: #0d1b2a;
-            position: relative;
-            display: inline-block;
-        }
+.leads-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 40px; }
+.lead-card { background: #fff; border: 1px solid var(--border); padding: 20px; border-radius: 4px; border-top: 3px solid var(--border); transition: 0.2s; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; }
+.lead-card.topo { border-top-color: var(--navy2); }
+.lead-card.fin { border-top-color: var(--gold); }
+.lead-card.gym { border-top-color: var(--sage); }
+.lead-card:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-        .brand-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #e8a838, #52c974, #ef4444, #e8a838);
-            background-size: 200% 100%;
-            animation: gradient-slide 3s linear infinite;
-            border-radius: 2px;
-        }
+.check-circle { width: 22px; height: 22px; border: 2px solid var(--border2); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: 0.2s; margin-top: 2px; }
+.lead-card.done .check-circle { background: var(--sage); border-color: var(--sage); }
+.lead-card.done .check-circle::after { content: '✓'; color: #fff; font-size: 12px; font-weight: bold; }
+.lead-text { flex: 1; }
+.lead-cat { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+.lead-desc { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; transition: 0.2s; }
+.lead-card.done .lead-desc { color: var(--muted); text-decoration: line-through; }
 
-        @keyframes gradient-slide {
-            0% { background-position: 100% 0; }
-            100% { background-position: -100% 0; }
-        }
+/* MODULO 3: PROGRESO DE LA MISIÓN 4DX */
+.progress-container { background: #fff; border: 1px solid var(--border); padding: 24px; border-radius: 4px; }
+.prog-track { margin-bottom: 20px; }
+.prog-track:last-child { margin-bottom: 0; }
+.prog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
+.prog-title { font-size: 13px; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+.prog-pct { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: bold; color: var(--muted); }
+.bar-bg { width: 100%; height: 8px; background: var(--surface3); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
-        /* --- BOTONES --- */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            width: 100%;
-            max-width: 500px;
-        }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .menu-btn {
-            background: white;
-            border-radius: 16px;
-            padding: 25px 15px;
-            text-align: center;
-            text-decoration: none;
-            color: #334155;
-            font-weight: 600;
-            font-size: 1em;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .menu-btn:active {
-            transform: scale(0.95);
-            background-color: #fcfcfc;
-        }
-
-        .icon { font-size: 2.2em; }
-        .btn-compras { border-bottom: 4px solid #e8a838; }
-        .btn-plan { border-bottom: 4px solid #52c974; }
-        .btn-tarjetas { border-bottom: 4px solid #ef4444; }
-
-        /* --- MINI RESPALDO DESGLOSABLE --- */
-        .mini-backup-container {
-            margin-top: 35px;
-            text-align: center;
-        }
-
-        .btn-toggle-backup {
-            background: transparent;
-            border: 1px solid #cbd5e1;
-            color: #64748b;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.7rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-toggle-backup:hover {
-            background: #e2e8f0;
-            color: #1e293b;
-        }
-
-        #backup-panel {
-            display: none;
-            margin-top: 12px;
-            gap: 8px;
-            justify-content: center;
-            animation: fadeDown 0.2s ease;
-        }
-
-        #backup-panel.show {
-            display: flex;
-        }
-
-        @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .btn-micro {
-            border: none;
-            padding: 8px 14px;
-            border-radius: 6px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-        .btn-micro:active { transform: scale(0.95); }
-        .btn-micro-exp { background: #0d1b2a; color: white; }
-        .btn-micro-imp { background: #e2e8f0; color: #1e293b; }
-
-        /* --- FOOTER --- */
-        .footer-note {
-            margin-top: auto;
-            padding: 30px 0;
-            font-size: 0.75em;
-            font-family: 'DM Mono', monospace;
-            color: #94a3b8;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-    </style>
+@media (max-width: 600px) {
+  .leads-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 
-    <div id="login-screen">
-        <div class="login-title">Acceso Restringido</div>
-        <input type="password" id="pin-input" inputmode="numeric" maxlength="4" placeholder="••••" oninput="checkPin()">
-        <p id="pin-error" style="color: #ef4444; font-family: 'DM Mono', monospace; font-size: 0.8em; margin-top: 15px; opacity: 0;">PIN Incorrecto</p>
+<header>
+  <div class="logo-area">
+    <h1>Centro de Comando</h1>
+    <div class="sub">Operaciones Pierovski 2026</div>
+  </div>
+  <div class="date-badge">
+    <div class="day" id="headDay">--</div>
+    <div class="month" id="headMonth">--</div>
+  </div>
+</header>
+
+<main>
+  <div class="alert-box" id="urgencyAlert">
+    <h3>⚠️ Atención Requerida</h3>
+    <div class="alert-content" id="urgencyText">Escaneando sistemas...</div>
+  </div>
+
+  <div class="section-title">
+    <span>Radar de Ejecución (Hoy)</span>
+    <a href="plan.html" class="btn-nav">Ver Plan 12 Semanas →</a>
+  </div>
+  
+  <div class="leads-grid" id="leadsGrid">
     </div>
 
-    <div class="brand-container">
-        <div class="brand-subtitle"></div>
-        <h1 class="brand-title">PIEROVSKI CENTER</h1>
+  <div class="section-title" style="margin-top: 48px;">
+    <span>Progreso de la Misión (12 Semanas)</span>
+  </div>
+
+  <div class="progress-container">
+    <div class="prog-track">
+      <div class="prog-header">
+        <span class="prog-title">🗺️ Topógrafo</span>
+        <span class="prog-pct" id="pct-topo">0%</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" id="bar-topo" style="width: 0%; background: var(--navy2);"></div></div>
     </div>
 
-    <div class="menu-grid">
-        <a href="compras.html" class="menu-btn btn-compras">
-            <span class="icon">🛒</span>
-            <span>Compras 2026</span>
-        </a>
-        
-        <a href="plan.html" class="menu-btn btn-plan">
-            <span class="icon">📋</span>
-            <span>12 Semanas</span>
-        </a>
-        
-        <a href="tarjetas.html" class="menu-btn btn-tarjetas">
-            <span class="icon">💳</span>
-            <span>Tarjetas</span>
-        </a>
+    <div class="prog-track">
+      <div class="prog-header">
+        <span class="prog-title">💰 Finanzas</span>
+        <span class="prog-pct" id="pct-fin">0%</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" id="bar-fin" style="width: 0%; background: var(--gold);"></div></div>
     </div>
 
-    <div class="mini-backup-container">
-        <button class="btn-toggle-backup" onclick="document.getElementById('backup-panel').classList.toggle('show')">
-            <span>💾</span> Respaldo
-        </button>
-        
-        <div id="backup-panel">
-            <button class="btn-micro btn-micro-exp" onclick="exportGlobalBackup()">⬇️ Exportar</button>
-            <button class="btn-micro btn-micro-imp" onclick="document.getElementById('importGlobal').click()">⬆️ Importar</button>
-            <input type="file" id="importGlobal" accept=".json" style="display:none" onchange="importGlobalBackup(event)">
+    <div class="prog-track">
+      <div class="prog-header">
+        <span class="prog-title">🏋️ Gimnasio</span>
+        <span class="prog-pct" id="pct-gym">0%</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" id="bar-gym" style="width: 0%; background: var(--sage);"></div></div>
+    </div>
+  </div>
+  
+  <div style="margin-top: 32px; text-align: center;">
+    <a href="compras.html" style="font-family: 'DM Mono', monospace; font-size: 11px; font-weight: bold; color: var(--navy); text-decoration: none; border-bottom: 1px dashed var(--navy); padding-bottom: 2px;">📦 AUDITAR MÓDULO DE COMPRAS</a>
+  </div>
+
+</main>
+
+<script>
+// ════════════════════ FECHA Y DÍA ACTUAL ════════════════════
+const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+const DIAS_SEMANA = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
+const hoy = new Date();
+document.getElementById('headDay').textContent = hoy.getDate();
+document.getElementById('headMonth').textContent = MESES[hoy.getMonth()] + ' ' + hoy.getFullYear();
+
+// Índice del día para el Plan (Lunes=0, Domingo=6)
+let diaIndex = hoy.getDay() - 1;
+if (diaIndex === -1) diaIndex = 6; 
+
+// ════════════════════ SEMÁFORO DE URGENCIAS (TARJETAS) ════════════════════
+function checkUrgency() {
+  try {
+    const tarjetas = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
+    let alerta = null;
+    let urgenciaMaxima = 999;
+
+    tarjetas.forEach(t => {
+      if (!t.paid) {
+        // Cálculo simple de proximidad a fecha de pago
+        let faltanParaPago = t.payment - hoy.getDate();
+        if (faltanParaPago < 0) faltanParaPago += 30; // Pasó al mes siguiente
+
+        if (faltanParaPago <= 5 && faltanParaPago < urgenciaMaxima) {
+          urgenciaMaxima = faltanParaPago;
+          alerta = `La tarjeta ${t.name} vence en ${faltanParaPago} día(s). Paga y registra.`;
+        }
+      }
+    });
+
+    if (alerta) {
+      document.getElementById('urgencyText').innerHTML = `<span>💳 ${alerta}</span> <a href="tarjetas.html" class="btn-nav" style="margin-left:auto;">Pagar ahora</a>`;
+      document.getElementById('urgencyAlert').classList.add('active');
+    }
+  } catch (e) { console.log('Sin datos de tarjetas para alerta'); }
+}
+
+// ════════════════════ RADAR DE EJECUCIÓN (LEAD MEASURES) ════════════════════
+const LEAD_MEASURES = {
+  topo: { label: 'Topógrafo', leads: ["1h de Tutorial / Práctica Técnica", "Procesamiento de datos al día"] },
+  fin: { label: 'Finanzas', leads: ["0 Gastos Hormiga", "Registro de Caja/App actualizado"] },
+  gym: { label: 'Gimnasio', leads: ["Proteína (Regla 2x1) y Agua 3L", "Corte de Carbos a las 7:00 PM"] }
+};
+
+// Obtener semana actual basado en el plan
+function getWeekIndex() {
+  const startDateStr = localStorage.getItem('topo_start_date_v1') || '"2026-03-30"';
+  const s = new Date(JSON.parse(startDateStr) + 'T00:00:00');
+  const d = Math.floor((new Date().setHours(0,0,0,0) - s) / 86400000);
+  return d < 0 ? 0 : Math.min(Math.floor(d / 7), 11);
+}
+
+function loadLeads() {
+  const currentWeek = getWeekIndex();
+  let leadStates = {};
+  try { leadStates = JSON.parse(localStorage.getItem('lead_states_v1')) || {}; } catch(e) {}
+
+  const grid = document.getElementById('leadsGrid');
+  grid.innerHTML = '';
+
+  if (currentWeek < 2) {
+    grid.innerHTML = `<div style="grid-column: 1/-1; padding: 20px; text-align: center; color: var(--muted); font-style: italic; border: 1px dashed var(--border); border-radius: 4px;">Las Métricas de Acción (Lead Measures) se activan a partir de la Semana 3.</div>`;
+    return;
+  }
+
+  // Si es domingo, mostrar mensaje de WAM
+  if (hoy.getDay() === 0) {
+    grid.innerHTML = `
+      <a href="plan.html" class="lead-card fin" style="grid-column: 1/-1; background: var(--navy); color: var(--cream); border: none;">
+        <div class="lead-text">
+          <div class="lead-cat" style="color: var(--gold-light);">DÍA SAGRADO</div>
+          <div class="lead-desc" style="color: #fff; font-size: 16px;">🔥 Toca hacer la Reunión de Cierre Semanal (WAM). Evalúa tu disciplina.</div>
         </div>
-    </div>
+        <div style="font-size: 24px;">📝</div>
+      </a>`;
+    return;
+  }
 
-    <div class="footer-note">
-        System Active - v1.0.0<br>
-        <small id="status-offline" style="display:none; color: #ef4444; margin-top: 5px; display: block;">[ Offline Mode ]</small>
-    </div>
+  ['topo', 'fin', 'gym'].forEach(planId => {
+    LEAD_MEASURES[planId].leads.forEach((leadText, leadIdx) => {
+      // Clave: semana-leadIndex-diaSemana
+      const key = `${currentWeek}-${leadIdx}-${diaIndex}`;
+      const isDone = leadStates[planId] && leadStates[planId][key];
+      
+      grid.innerHTML += `
+        <div class="lead-card ${planId} ${isDone ? 'done' : ''}" onclick="toggleLead('${planId}', ${currentWeek}, ${leadIdx}, ${diaIndex}, this)">
+          <div class="check-circle"></div>
+          <div class="lead-text">
+            <div class="lead-cat">${LEAD_MEASURES[planId].label}</div>
+            <div class="lead-desc">${leadText}</div>
+          </div>
+        </div>
+      `;
+    });
+  });
+}
 
-    <script>
-        // --- SISTEMA DE LOGIN (PIN) ---
-        const PIN_CORRECTO = "2026";
+// Para que el Dashboard sea funcional y guarde los clics en la base de datos del Plan
+function toggleLead(planId, weekIdx, leadIdx, dayIdx, element) {
+  let leadStates = JSON.parse(localStorage.getItem('lead_states_v1')) || { topo:{}, fin:{}, gym:{} };
+  if(!leadStates[planId]) leadStates[planId] = {};
+  
+  const key = `${weekIdx}-${leadIdx}-${dayIdx}`;
+  leadStates[planId][key] = !leadStates[planId][key];
+  
+  localStorage.setItem('lead_states_v1', JSON.stringify(leadStates));
+  element.classList.toggle('done', leadStates[planId][key]);
+}
 
-        if (sessionStorage.getItem('auth') === 'true') {
-            document.getElementById('login-screen').style.display = 'none';
-        }
+// ════════════════════ PROGRESO GLOBAL 4DX ════════════════════
+function calcProgress() {
+  // Asumimos un aproximado de 50 tareas marcables por plan para el cálculo de progreso global
+  const TAREAS_ESTIMADAS_TOTALES = 50; 
 
-        function checkPin() {
-            const input = document.getElementById('pin-input');
-            const errorText = document.getElementById('pin-error');
-            
-            if (input.value.length === 4) {
-                if (input.value === PIN_CORRECTO) {
-                    sessionStorage.setItem('auth', 'true');
-                    document.getElementById('login-screen').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('login-screen').style.display = 'none';
-                    }, 300);
-                } else {
-                    errorText.style.opacity = '1';
-                    input.value = '';
-                    setTimeout(() => { errorText.style.opacity = '0'; }, 2000);
-                }
-            }
-        }
+  ['topo', 'fin', 'gym'].forEach(planId => {
+    try {
+      const tasks = JSON.parse(localStorage.getItem(`${planId}_tasks_v1`)) || {};
+      let completadas = 0;
+      Object.values(tasks).forEach(estado => { if(estado) completadas++; });
 
-        // --- RESPALDO GLOBAL MAESTRO ---
-        const GLOBAL_KEYS = [
-            'cpu_prods_data', 'cpu_hist_data', 'cpu_wish_data', // Compras 2026
-            'tarjetasPremiumV3', // Tarjetas
-            'topo_tasks_v1', 'topo_notes_v1', 'topo_hs_v1', 'topo_vision_v1', // Plan Topografía
-            'fin_tasks_v1', 'fin_notes_v1', 'fin_hs_v1', 'fin_vision_v1',     // Plan Finanzas
-            'gym_tasks_v1', 'gym_notes_v1', 'gym_hs_v1', 'gym_vision_v1',     // Plan Gimnasio
-            'topo_settings_v1', 'topo_start_date_v1', 'gym_mode_v1', 'gym_measurements_v1' // Configs y Medidas
-        ];
+      const pct = Math.min(Math.round((completadas / TAREAS_ESTIMADAS_TOTALES) * 100), 100);
+      
+      document.getElementById(`pct-${planId}`).textContent = pct + '%';
+      document.getElementById(`bar-${planId}`).style.width = pct + '%';
+      
+      if(pct > 80) document.getElementById(`bar-${planId}`).style.background = 'var(--sage)';
+      else if(pct < 30 && completadas > 0) document.getElementById(`bar-${planId}`).style.background = 'var(--rust)';
 
-        function exportGlobalBackup() {
-            const data = { 
-                version: "PIEROVSKI_GLOBAL_V1", 
-                fecha: new Date().toISOString(), 
-                payload: {} 
-            };
-            
-            GLOBAL_KEYS.forEach(key => {
-                const val = localStorage.getItem(key);
-                if (val) {
-                    try { data.payload[key] = JSON.parse(val); } 
-                    catch(e) { data.payload[key] = val; }
-                }
-            });
+    } catch (e) { console.log(`No se pudo cargar progreso de ${planId}`); }
+  });
+}
 
-            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `PIEROVSKI_GLOBAL_${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            alert('✅ Respaldo global exportado con éxito.');
-        }
+// Ejecutar todo al cargar
+window.onload = () => {
+  checkUrgency();
+  loadLeads();
+  // Animación suave de las barras
+  setTimeout(calcProgress, 200);
+};
 
-        function importGlobalBackup(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = e => {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if (data.version !== "PIEROVSKI_GLOBAL_V1" || !data.payload) {
-                        alert('⚠️ El archivo no es un respaldo global válido de PIEROVSKI.');
-                        return;
-                    }
-                    
-                    if (confirm('⚠️ ATENCIÓN: Esto sobrescribirá todo el sistema local (Compras, Tarjetas y Planes) con los datos del archivo. ¿Continuar?')) {
-                        Object.keys(data.payload).forEach(key => {
-                            const valToSave = typeof data.payload[key] === 'object' ? JSON.stringify(data.payload[key]) : data.payload[key];
-                            localStorage.setItem(key, valToSave);
-                        });
-                        alert('✅ Sistema restaurado por completo. Ingresa nuevamente tu PIN.');
-                        location.reload();
-                    }
-                } catch (err) {
-                    alert('❌ Error al leer el archivo JSON.');
-                }
-            };
-            reader.readAsText(file);
-            event.target.value = '';
-        }
-
-        // --- SERVICE WORKER ---
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('SW OK'))
-                    .catch(err => console.log('SW Error', err));
-            });
-        }
-
-        window.addEventListener('offline', () => {
-            document.getElementById('status-offline').style.display = 'block';
-        });
-        window.addEventListener('online', () => {
-            document.getElementById('status-offline').style.display = 'none';
-        });
-    </script>
+</script>
 </body>
 </html>

@@ -22,7 +22,19 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
   pointer-events: none; z-index: 0;
 }
-.wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 24px 80px; }
+.wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 24px 80px; transition: padding 0.3s; }
+
+/* UTILIDADES Y MODO ZEN */
+.hidden-content { display: none !important; }
+/* CORRECCIÓN: Quitamos .plan-selector de la lista de elementos ocultos en Modo Zen */
+body.zen-mode .hero, body.zen-mode .vision-block, 
+body.zen-mode .routine-box, body.zen-mode .weeks-nav, body.zen-mode .week-side, 
+body.zen-mode .scorecard-grid, body.zen-mode .wam-box, body.zen-mode .bottom-btns {
+  display: none !important;
+}
+body.zen-mode .wrap { padding-top: 30px; }
+body.zen-mode .week-panel { border: none; padding: 0; }
+body.zen-mode .week-panel.active { grid-template-columns: 1fr; }
 
 /* HERO */
 .hero { padding: 64px 0 24px; border-bottom: 1px solid var(--border); text-align: center; position: relative; }
@@ -34,7 +46,7 @@ body::before {
 @keyframes pulse-cloud { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
 /* VISION BLOCK */
-.vision-block { background: var(--navy); color: var(--cream); padding: 40px 48px; border-radius: 2px; margin-bottom: 32px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.vision-block { background: var(--navy); color: var(--cream); padding: 40px 48px; border-radius: 2px; margin-bottom: 32px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; transition: all 0.3s ease; }
 .vision-section h4 { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 12px; opacity: 0.8; }
 .vision-section p { font-size: 14px; line-height: 1.65; opacity: 0.85; font-weight: 300; }
 .vision-section strong { font-weight: 600; color: #fff; }
@@ -65,8 +77,10 @@ body::before {
 .week-tab.current-week { background: var(--gold) !important; color: var(--navy) !important; border-color: var(--gold) !important; font-weight: 700 !important; }
 .week-tab.current-week::after { content: ' ●'; font-size: 7px; vertical-align: middle; }
 .sc-current { border: 2px solid var(--gold) !important; }
+.week-tab.locked { opacity: 0.5; cursor: not-allowed; }
+.week-tab.locked:hover { background: transparent; color: var(--muted); }
 
-.week-panels { border: 1px solid var(--border); border-top: none; background: var(--paper); margin-bottom: 48px; }
+.week-panels { border: 1px solid var(--border); border-top: none; background: var(--paper); margin-bottom: 48px; transition: 0.3s; }
 .week-panel { display: none; padding: 36px 40px; animation: fadeIn 0.25s ease; }
 .week-panel.active { display: grid; grid-template-columns: 1fr 320px; gap: 40px; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -82,7 +96,18 @@ body::before {
 .task-check { width: 16px; height: 16px; border: 1.5px solid var(--border); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-size: 9px; color: transparent; }
 .tasks-list li.checked .task-check { background: var(--sage); border-color: var(--sage); color: #fff; }
 
-.week-quote { background: var(--cream); border-left: 3px solid var(--gold); padding: 16px 18px; font-style: italic; font-size: 13px; line-height: 1.65; color: var(--navy2); margin-top: 16px; }
+/* LEAD MEASURES TRACKER */
+.lead-tracker { background: var(--paper); border: 1px dashed var(--gold); padding: 16px 20px; border-radius: 4px; margin-top: 24px; }
+.lead-tracker h4 { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--navy); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+.lead-item { margin-bottom: 12px; }
+.lead-item:last-child { margin-bottom: 0; }
+.lead-title { font-size: 12.5px; margin-bottom: 6px; font-weight: 500; color: var(--navy2); }
+.lead-days { display: flex; gap: 6px; }
+.lead-btn { width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--border); background: #fff; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: bold; color: var(--muted); cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
+.lead-btn:hover { border-color: var(--gold); color: var(--navy); }
+.lead-btn.done { background: var(--sage); color: #fff; border-color: var(--sage); }
+
+.week-quote { background: var(--cream); border-left: 3px solid var(--gold); padding: 16px 18px; font-style: italic; font-size: 13px; line-height: 1.65; color: var(--navy2); margin-top: 24px; }
 .week-quote cite { display: block; font-style: normal; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.5px; color: var(--muted); margin-top: 8px; text-transform: uppercase; }
 
 /* SIDEBAR Y SCORE */
@@ -140,22 +165,26 @@ body::before {
 .plan-section{display:none;}
 .plan-section.active{display:block;}
 
-/* SETTINGS & MODALS */
-.settings-btn { position: fixed; bottom: 28px; right: 28px; width: 48px; height: 48px; background: var(--navy); color: var(--gold-light); border: none; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 200; box-shadow: 0 4px 20px rgba(0,0,0,0.25); transition: transform 0.2s; }
+/* SETTINGS, ZEN & MODALS */
+.settings-btn { position: fixed; bottom: 28px; right: 28px; width: 48px; height: 48px; background: var(--navy); color: var(--gold-light); border: none; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 200; box-shadow: 0 4px 20px rgba(0,0,0,0.25); transition: transform 0.2s; display:flex; align-items:center; justify-content:center;}
+.zen-btn { position: fixed; bottom: 84px; right: 28px; width: 48px; height: 48px; background: var(--paper); color: var(--navy); border: 1px solid var(--border); border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 200; box-shadow: 0 4px 20px rgba(0,0,0,0.15); transition: transform 0.2s; display:flex; align-items:center; justify-content:center;}
+.zen-btn:hover { border-color: var(--gold); }
+
 .settings-overlay { display: none; position: fixed; inset: 0; background: rgba(13,27,42,0.7); z-index: 300; backdrop-filter: blur(3px); align-items: center; justify-content: center; }
 .settings-overlay.open { display: flex; }
 .settings-modal { background: var(--paper); border: 1px solid var(--border); border-top: 4px solid var(--gold); width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; padding: 36px 40px; position: relative; animation: fadeUp 0.25s ease; }
 .settings-modal h2 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--navy); margin-bottom: 4px; }
 .settings-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--muted); }
 .s-group { margin-bottom: 24px; }
-.s-group label { display: block; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); margin-bottom: 8px; }
+.s-group label { display: block; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); margin-bottom: 8px; font-weight:bold; }
 .s-group input { font-family: 'DM Mono', monospace; font-size: 13px; padding: 10px 14px; width: 100%; border: 1px solid var(--border); outline: none; }
 
 @media (max-width: 768px) {
   .pillars { grid-template-columns: 1fr 1fr; }
   .week-panel.active { grid-template-columns: 1fr; }
   .week-side { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 24px; }
-  .vision-block, .wam-box { grid-template-columns: 1fr; }
+  .vision-block { grid-template-columns: 1fr; }
+  .wam-box { grid-template-columns: 1fr; }
   .scorecard-grid { grid-template-columns: repeat(6, 1fr); }
 }
 </style>
@@ -188,7 +217,7 @@ body::before {
 
   <div class="wam-box">
     <h2>Reunión semanal de rendición de cuentas</h2>
-    <div class="wam-sub">WAM — Cada domingo 9:00–10:00 AM — Los 3 planes en 30 minutos</div>
+    <div class="wam-sub">WAM — Cada domingo 9:00–10:00 AM — Diario de Guerra</div>
     <div class="wam-col">
       <h4>📋 Agenda (30 minutos)</h4>
       <ul>
@@ -204,9 +233,13 @@ body::before {
         <li>El domingo es sagrado: revisar primero, descansar después</li>
       </ul>
     </div>
+    <div class="wam-col" style="grid-column: 1 / -1; margin-top: 10px;">
+      <button onclick="openWam(currentPlan, detectCurrentWeek())" style="background:var(--gold);color:var(--navy);border:none;padding:14px 28px;font-family:'DM Mono',monospace;font-size:13px;font-weight:bold;cursor:pointer;width:100%;border-radius:4px;transition:0.2s;">🔥 HACER CIERRE WAM (DIARIO DE GUERRA)</button>
+    </div>
   </div>
 </div>
 
+<button id="zen-btn" class="zen-btn" onclick="toggleZenMode()" title="Modo Enfoque">👁️</button>
 <button class="settings-btn" onclick="openSettings()" title="Configurar horario">⚙️</button>
 
 <div class="settings-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
@@ -215,6 +248,18 @@ body::before {
     <h2>Mi horario</h2>
     <div class="s-group"><label>📅 Fecha de inicio del plan</label><input type="date" id="cfg-start-date"></div>
     <button onclick="saveSettings()" style="width:100%; background:var(--navy); color:var(--cream); border:none; padding:14px; cursor:pointer;">💾 Guardar configuración</button>
+  </div>
+</div>
+
+<div class="settings-overlay" id="wamOverlay" onclick="if(event.target===this)closeWam()">
+  <div class="settings-modal" style="border-top-color: var(--rust);">
+    <button class="settings-close" onclick="closeWam()">✕</button>
+    <h2>Diario de Guerra</h2>
+    <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:20px;text-transform:uppercase;">Semana <span id="wam-week-num"></span></p>
+    <div class="s-group"><label>1. ¿Qué te frenó o qué falló esta semana?</label><textarea id="wam-q1" class="notes-area" style="min-height:70px;"></textarea></div>
+    <div class="s-group"><label>2. ¿Qué acción concreta harás para mejorarlo?</label><textarea id="wam-q2" class="notes-area" style="min-height:70px;"></textarea></div>
+    <div class="s-group"><label>3. Califica tu Disciplina (1 al 10)</label><input type="number" id="wam-q3" min="1" max="10" style="width:80px; text-align:center; font-size:16px;"></div>
+    <button onclick="saveWam()" style="width:100%; background:var(--rust); color:var(--cream); border:none; padding:14px; font-weight:bold; cursor:pointer;">💾 GUARDAR CIERRE</button>
   </div>
 </div>
 
@@ -241,8 +286,12 @@ const KEYS = {
   startDate: 'topo_start_date_v1',
 };
 
+// AUTO-CORRECCIÓN DE FECHA BASE DE 2025 A 2026
 function ls_get(key, fallback=null){ try{ const v=localStorage.getItem(key); return v!==null?JSON.parse(v):fallback; }catch(e){ return fallback; } }
 function ls_set(key,value){ try{ localStorage.setItem(key,JSON.stringify(value)); }catch(e){} syncPlanToCloud(); }
+
+let oldDate = ls_get(KEYS.startDate);
+if (oldDate === '2025-03-30') { ls_set(KEYS.startDate, '2026-03-30'); }
 
 let PLANS = {
   topo: { id:'topo', label:'Topógrafo', icon:'🗺️', weeks: [], vision:'', meta:'', compromiso:'' },
@@ -251,6 +300,16 @@ let PLANS = {
 };
 let currentPlan = 'topo';
 let taskStates = { topo: {}, fin: {}, gym: {} };
+let leadStates = { topo: {}, fin: {}, gym: {} };
+let wamStates = { topo: {}, fin: {}, gym: {} };
+
+/* CONFIGURACIÓN DE LEAD MEASURES (Métricas de Acción) */
+const LEAD_MEASURES = {
+  topo: ["1h de Tutorial / Práctica Técnica", "Procesamiento de datos al día"],
+  fin: ["0 Gastos Hormiga", "Registro de Caja/App actualizado"],
+  gym: ["Proteína (Regla 2x1) y Agua 3L", "Corte de Carbos a las 7:00 PM"]
+};
+const DAYS = ['L','M','M','J','V','S','D'];
 
 /* ══════════════════════════════════════════════════════
    MOTOR DE DESCARGA DE JSON EXTERNOS
@@ -296,9 +355,11 @@ function syncPlanToCloud() {
 
   const data = {
     tasks: taskStates,
+    leads: leadStates,
+    wamLogs: wamStates,
     notes: { topo: ls_get(KEYS.topo.notes,{}), fin: ls_get(KEYS.fin.notes,{}), gym: ls_get(KEYS.gym.notes,{}) },
     vision: { topo: ls_get(KEYS.topo.vision,''), fin: ls_get(KEYS.fin.vision,''), gym: ls_get(KEYS.gym.vision,'') },
-    startDate: ls_get(KEYS.startDate,'2025-03-30'),
+    startDate: ls_get(KEYS.startDate,'2026-03-30'),
     gymMode: ls_get('gym_mode_v1', 'A'),
     measurements: ls_get(MEDS_KEY, {})
   };
@@ -316,6 +377,12 @@ function initCloud() {
         if(data.tasks) {
           ['topo','fin','gym'].forEach(p => { if(data.tasks[p]){ localStorage.setItem(KEYS[p].tasks, JSON.stringify(data.tasks[p])); taskStates[p] = data.tasks[p]; }});
         }
+        if(data.leads) { leadStates = data.leads; ls_set('lead_states_v1', leadStates); } 
+        else { leadStates = ls_get('lead_states_v1', { topo: {}, fin: {}, gym: {} }); }
+        
+        if(data.wamLogs) { wamStates = data.wamLogs; ls_set('wam_states_v1', wamStates); } 
+        else { wamStates = ls_get('wam_states_v1', { topo: {}, fin: {}, gym: {} }); }
+
         if(data.notes) ['topo','fin','gym'].forEach(p => localStorage.setItem(KEYS[p].notes, JSON.stringify(data.notes[p] || {})));
         if(data.vision) ['topo','fin','gym'].forEach(p => localStorage.setItem(KEYS[p].vision, JSON.stringify(data.vision[p] || '')));
         if(data.startDate) localStorage.setItem(KEYS.startDate, JSON.stringify(data.startDate));
@@ -328,7 +395,19 @@ function initCloud() {
     });
   } else {
     ['topo','fin','gym'].forEach(p => taskStates[p] = ls_get(KEYS[p].tasks, {}));
+    leadStates = ls_get('lead_states_v1', { topo: {}, fin: {}, gym: {} });
+    wamStates = ls_get('wam_states_v1', { topo: {}, fin: {}, gym: {} });
   }
+}
+
+/* ══════════════════════════════════════════════════════
+   MODO ENFOQUE Y CONSTRUCCIÓN DE INTERFAZ
+══════════════════════════════════════════════════════ */
+function toggleZenMode() {
+  document.body.classList.toggle('zen-mode');
+  const isZen = document.body.classList.contains('zen-mode');
+  document.getElementById('zen-btn').textContent = isZen ? '☀️' : '👁️';
+  showToast(isZen ? 'Modo Enfoque Activado' : 'Modo Normal');
 }
 
 function buildPlanUI(planId) {
@@ -336,15 +415,27 @@ function buildPlanUI(planId) {
   const section = document.getElementById('section-' + planId);
   section.innerHTML = '';
   
+  const currentWkIdx = detectCurrentWeek();
+
   if (planId === 'gym') {
     const rBox = document.createElement('div'); rBox.className = 'routine-box'; rBox.id = 'gymRoutineBox';
     section.appendChild(rBox); setTimeout(renderGymRoutineBox, 0); 
   }
 
-  const vb = document.createElement('div'); vb.className = 'vision-block';
-  vb.innerHTML = `<div class="vision-section"><h4>🎯 Visión a largo plazo</h4><p>${plan.vision}</p></div>
-    <div class="vision-section"><h4>🗓️ Meta</h4><p>${plan.meta}</p></div>
-    <div class="vision-section"><h4>⚡ Compromiso</h4><p>${plan.compromiso}</p></div>`;
+  // --- VISION BLOCK COLAPSABLE ---
+  const vb = document.createElement('div');
+  vb.style.cssText = 'background: var(--navy); border-radius: 2px; margin-bottom: 32px;';
+  vb.innerHTML = `
+    <div onclick="var c=document.getElementById('vc-${planId}'); var i=document.getElementById('vi-${planId}'); if(c.style.display==='none'){c.style.display='grid'; i.textContent='➖';}else{c.style.display='none'; i.textContent='➕';}" style="padding: 16px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; border-bottom: 1px solid rgba(255,255,255,0.05);">
+      <h4 style="margin:0; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold-light);">👁️ VISIÓN Y RESULTADO (LAG MEASURE)</h4>
+      <span id="vi-${planId}" style="color:var(--gold-light); font-size:16px;">➕</span>
+    </div>
+    <div id="vc-${planId}" class="vision-block" style="display: none; margin-bottom: 0; background: transparent; border-radius: 0; padding-top: 24px;">
+      <div class="vision-section"><h4>🎯 Visión a largo plazo</h4><p>${plan.vision}</p></div>
+      <div class="vision-section"><h4>🗓️ Meta (Lag Measure)</h4><p>${plan.meta}</p></div>
+      <div class="vision-section"><h4>⚡ Compromiso</h4><p>${plan.compromiso}</p></div>
+    </div>
+  `;
   section.appendChild(vb);
 
   const nav = document.createElement('nav'); nav.className = 'weeks-nav'; nav.id = 'nav-' + planId;
@@ -352,22 +443,62 @@ function buildPlanUI(planId) {
   const notes = ls_get(KEYS[planId].notes, {});
   const ts = taskStates[planId] || {};
 
+  // EXCEPCIÓN DEL CANDADO (Solo Sábado = 6 y Domingo = 0 pueden ver el futuro)
+  const todayDay = new Date().getDay();
+  const isPlanningDay = (todayDay === 6 || todayDay === 0);
+
   plan.weeks.forEach((w, i) => {
-    const tab = document.createElement('button'); tab.className = 'week-tab' + (i === 0 ? ' active' : '');
-    tab.textContent = 'S' + (i + 1); tab.onclick = () => switchWeek(planId, i); nav.appendChild(tab);
+    const isActive = (i === currentWkIdx);
+    const isFuture = (i > currentWkIdx);
+    const isLocked = isFuture && !isPlanningDay; 
+    
+    const tab = document.createElement('button'); 
+    tab.className = 'week-tab' + (isActive ? ' active' : '') + (isLocked ? ' locked' : '');
+    tab.innerHTML = 'S' + (i + 1) + (isLocked ? ' 🔒' : '');
+    
+    tab.onclick = () => {
+      if(isLocked) {
+        showToast('🔒 Bloqueado. Se abre el sábado para tu planificación.');
+        return;
+      }
+      switchWeek(planId, i);
+    };
+    nav.appendChild(tab);
 
     const tasksHTML = w.tasks.map((t, ti) => `<li id="task-${planId}-${i}-${ti}" onclick="toggleTask('${planId}',${i},${ti})" class="${ts[i+'-'+ti]?'checked':''}"><div class="task-check">✓</div><span>${t}</span></li>`).join('');
     const tbHTML = w.timeBlocks ? w.timeBlocks.map(tb => `<div class="time-block ${tb.type}"><div class="tb-dot"></div><span class="tb-label">${tb.label}</span><span class="tb-desc">${tb.desc}</span></div>`).join('') : '';
     const metHTML = w.metrics ? w.metrics.map(m => `<div class="metric-pill"><span class="mp-icon">${m.icon}</span><span class="mp-text">${m.text}</span><span class="mp-sub">${m.sub}</span></div>`).join('') : '';
 
-    const panel = document.createElement('div'); panel.className = 'week-panel' + (i === 0 ? ' active' : ''); panel.id = `panel-${planId}-${i}`;
+    // CONSTRUCCIÓN DEL TRACKER LEAD MEASURES
+    let leadTrackerHTML = '';
+    if (i >= 2) { 
+      leadTrackerHTML = `
+      <div class="lead-tracker">
+        <h4>🎯 Lead Measures (Métricas de Acción Diaria)</h4>
+        <div class="lead-item">
+          <div class="lead-title">${LEAD_MEASURES[planId][0]}</div>
+          <div class="lead-days">
+            ${DAYS.map((day, dIdx) => `<button class="lead-btn ${leadStates[planId] && leadStates[planId][i+'-0-'+dIdx] ? 'done' : ''}" onclick="toggleLead('${planId}',${i},0,${dIdx})" id="lead-${planId}-${i}-0-${dIdx}">${day}</button>`).join('')}
+          </div>
+        </div>
+        <div class="lead-item">
+          <div class="lead-title">${LEAD_MEASURES[planId][1]}</div>
+          <div class="lead-days">
+            ${DAYS.map((day, dIdx) => `<button class="lead-btn ${leadStates[planId] && leadStates[planId][i+'-1-'+dIdx] ? 'done' : ''}" onclick="toggleLead('${planId}',${i},1,${dIdx})" id="lead-${planId}-${i}-1-${dIdx}">${day}</button>`).join('')}
+          </div>
+        </div>
+      </div>`;
+    }
+
+    const panel = document.createElement('div'); panel.className = 'week-panel' + (isActive ? ' active' : ''); panel.id = `panel-${planId}-${i}`;
     panel.innerHTML = `
       <div class="week-main">
         <div class="week-theme">${w.theme}</div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;"><h3>${w.title}</h3><span id="date-badge-${planId}-${i}" style="font-family:'DM Mono',monospace;font-size:10px;background:var(--navy);color:var(--gold-light);padding:4px 12px;">📅 ${w.dates || ''}</span></div>
         <ul class="tasks-list">${tasksHTML}</ul>
+        ${leadTrackerHTML}
         <div class="week-quote">${w.quote}<cite>— ${w.cite}</cite></div>
-        <div style="margin-top:24px;"><textarea class="notes-area" id="note-${planId}-${i}" placeholder="Notas WAM...">${notes[i]||''}</textarea><button class="notes-save-btn" onclick="saveNote('${planId}',${i})">💾 Guardar nota</button></div>
+        <div style="margin-top:24px;"><textarea class="notes-area" id="note-${planId}-${i}" placeholder="Notas libres...">${notes[i]||''}</textarea><button class="notes-save-btn" onclick="saveNote('${planId}',${i})">💾 Guardar nota</button></div>
       </div>
       <div class="week-side">
         <div class="side-block"><h4>⏱ Bloques de tiempo</h4><div class="time-blocks">${tbHTML}</div></div>
@@ -381,10 +512,11 @@ function buildPlanUI(planId) {
   section.appendChild(nav); section.appendChild(panelsDiv);
 
   const scGrid = document.createElement('div'); scGrid.className = 'scorecard-grid'; scGrid.id = 'sc-grid-' + planId;
-  plan.weeks.forEach((w, i) => { scGrid.innerHTML += `<div class="sc-week" id="sc-cell-${planId}-${i}" onclick="switchWeek('${planId}',${i})"><span class="scw-num">S${i+1}</span><span class="scw-pct" id="sc-grid-pct-${planId}-${i}">0%</span></div>`; });
+  plan.weeks.forEach((w, i) => { scGrid.innerHTML += `<div class="sc-week" id="sc-cell-${planId}-${i}" onclick="if(!this.classList.contains('locked-sc')) switchWeek('${planId}',${i})"><span class="scw-num">S${i+1}</span><span class="scw-pct" id="sc-grid-pct-${planId}-${i}">0%</span></div>`; });
   section.appendChild(scGrid);
 
   const btns = document.createElement('div');
+  btns.className = 'bottom-btns';
   btns.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0;';
   const measBtn = planId === 'gym'
     ? `<button onclick="buildMeasurementsPanel()" style="background:var(--sage);color:#fff;border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">📏 Mis mediciones</button>`
@@ -397,6 +529,9 @@ function buildPlanUI(planId) {
   plan.weeks.forEach((_, i) => refreshScore(planId, i));
 }
 
+/* ══════════════════════════════════════════════════════
+   INTERACCIONES BÁSICAS
+══════════════════════════════════════════════════════ */
 function showToast(msg){ let t=document.getElementById('toast'); if(!t){ t=document.createElement('div'); t.id='toast'; t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--navy);color:var(--cream);padding:10px 22px;border-radius:2px;z-index:9999;transition:0.3s;'; document.body.appendChild(t); } t.textContent=msg; t.style.opacity='1'; clearTimeout(t._t); t._t=setTimeout(()=>t.style.opacity='0',2000); }
 function switchPlan(p) { currentPlan = p; document.querySelectorAll('.plan-btn').forEach(b => b.classList.toggle('active', b.dataset.plan === p)); document.querySelectorAll('.plan-section').forEach(s => s.classList.toggle('active', s.dataset.plan === p)); }
 function switchWeek(p, idx) { document.querySelectorAll(`#panels-${p} .week-panel`).forEach((el,i) => el.classList.toggle('active', i===idx)); document.querySelectorAll(`#nav-${p} .week-tab`).forEach((t,i) => t.classList.toggle('active', i===idx)); }
@@ -407,6 +542,15 @@ function toggleTask(p, wi, ti) {
   ls_set(KEYS[p].tasks, taskStates[p]);
   document.getElementById(`task-${p}-${wi}-${ti}`).classList.toggle('checked', taskStates[p][key]);
   refreshScore(p, wi);
+}
+
+function toggleLead(p, wi, mIdx, dIdx) {
+  if(!leadStates[p]) leadStates[p] = {};
+  const key = wi+'-'+mIdx+'-'+dIdx;
+  leadStates[p][key] = !leadStates[p][key];
+  ls_set('lead_states_v1', leadStates);
+  document.getElementById(`lead-${p}-${wi}-${mIdx}-${dIdx}`).classList.toggle('done', leadStates[p][key]);
+  syncPlanToCloud();
 }
 
 function refreshScore(p, wi) {
@@ -424,6 +568,35 @@ function refreshScore(p, wi) {
 function saveNote(p, wi) { const val = document.getElementById(`note-${p}-${wi}`).value; const n = ls_get(KEYS[p].notes, {}); n[wi] = val; ls_set(KEYS[p].notes, n); showToast('Nota guardada'); }
 
 // ══════════════════════════════════════════════════════
+// DIARIO DE GUERRA (WAM MODAL)
+// ══════════════════════════════════════════════════════
+function openWam(p, idx) {
+  document.getElementById('wam-week-num').textContent = idx + 1;
+  document.getElementById('wam-q1').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q1 : '';
+  document.getElementById('wam-q2').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q2 : '';
+  document.getElementById('wam-q3').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q3 : '';
+  document.getElementById('wamOverlay').dataset.plan = p;
+  document.getElementById('wamOverlay').dataset.idx = idx;
+  document.getElementById('wamOverlay').classList.add('open');
+}
+function closeWam() { document.getElementById('wamOverlay').classList.remove('open'); }
+function saveWam() {
+  const p = document.getElementById('wamOverlay').dataset.plan;
+  const idx = document.getElementById('wamOverlay').dataset.idx;
+  if(!wamStates[p]) wamStates[p] = {};
+  wamStates[p][idx] = {
+      q1: document.getElementById('wam-q1').value,
+      q2: document.getElementById('wam-q2').value,
+      q3: document.getElementById('wam-q3').value,
+      date: new Date().toISOString()
+  };
+  ls_set('wam_states_v1', wamStates);
+  syncPlanToCloud();
+  closeWam();
+  showToast('Diario de Guerra guardado 🔥');
+}
+
+// ══════════════════════════════════════════════════════
 // CAJA DE RUTINA (GIMNASIO)
 // ══════════════════════════════════════════════════════
 function toggleGymMode() { let m = ls_get('gym_mode_v1', 'A'); m = m==='A'?'B':'A'; ls_set('gym_mode_v1', m); renderGymRoutineBox(); }
@@ -431,30 +604,34 @@ function renderGymRoutineBox() {
   const box = document.getElementById('gymRoutineBox'); if(!box) return;
   const m = ls_get('gym_mode_v1', 'A');
   box.innerHTML = `
-    <div class="routine-header">
-       <h3>${m==='A'?'🏋️ EXPEDIENTE A (Gimnasio)':'🏕️ EXPEDIENTE B (TRX + Banda Morada)'}</h3>
-       <button class="btn-toggle-routine" onclick="toggleGymMode()">Cambiar a Modo ${m==='A'?'Campo':'Gimnasio'}</button>
+    <div class="routine-header" style="margin-bottom:0; border-bottom:none;">
+       <h3>${m==='A'?'🏋️ EXPEDIENTE A (Gym)':'🏕️ EXPEDIENTE B (TRX)'}</h3>
+       <button class="btn-toggle-routine" onclick="toggleGymMode()">Cambiar a ${m==='A'?'Campo':'Gimnasio'}</button>
     </div>
-    <div class="routine-content" style="font-size:13px; line-height:1.65; max-height:500px; overflow-y:auto; padding-right:12px;">
+    <div onclick="var c=document.getElementById('routine-content-box'); var i=document.getElementById('routine-icon'); if(c.style.display==='none'){c.style.display='block'; i.textContent='➖';}else{c.style.display='none'; i.textContent='➕';}" style="padding: 12px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; border-top: 1px solid rgba(255,255,255,0.1); margin-top:16px;">
+      <h4 style="margin:0; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold-light);">👁️ VER RUTINA DETALLADA</h4>
+      <span id="routine-icon" style="color:var(--gold-light); font-size:16px;">➕</span>
+    </div>
+    <div id="routine-content-box" class="routine-content" style="display:none; font-size:13px; line-height:1.65; max-height:500px; overflow-y:auto; padding-right:12px; margin-top:16px; border-top: 1px solid rgba(255,255,255,0.1); padding-top:16px;">
       ${m==='A' ?
         `<b>Frecuencia:</b> 4 Días a la semana. <b>Enfoque:</b> Fuerza y Nivelación Estructural con RIR 1-2.<br>
          <ul style="margin:10px 0; padding-left:15px;">
-           <li style="margin-bottom:8px;"><b>LUNES: Torso 1</b><br>Press Banca Mancuernas 4x8-10 (baja en 3s, pausa 1s) | Remo Iso-Lateral 4x10-12 (brazo izq dicta) | Press Hombros 80° 3x8-10 | Aperturas Mancuernas 3x12 (estiramiento máximo) | SS: Curl Bíceps + Tríceps Polea 3x12.</li>
-           <li style="margin-bottom:8px;"><b>MARTES: Piernas 1</b><br>Prensa Unilateral 4x10-12 (pierna izq dicta) | Sentadilla Búlgara 3x10/pierna | Extensión Piernas 3x15 (aprieta 1s arriba) | Curl Femoral 3x15 (frena en 3s) | Pantorrillas Máquina 4x20.</li>
-           <li style="margin-bottom:8px;"><b>JUEVES: Torso 2</b><br>Press Inclinado (30/45°) 4x8-10 | Jalón al Pecho 4x10-12 (codos al bolsillo) | Elevaciones Laterales 4x12 (empuja paredes) | Fondos Paralelas 3x fallo (torso inclinado) | SS: Martillo + Tríceps Cuerda 3x12.</li>
-           <li style="margin-bottom:8px;"><b>VIERNES: Piernas 2</b><br>Hip Thrust 4x10-12 | Peso Muerto Rumano 4x10-12 (bisagra) | Zancadas Caminando 3x12-15/pierna | Pantorrillas Sentado 4x fallo.</li>
+           <li style="margin-bottom:8px;"><b>LUNES: Torso 1</b><br>Press Banca Mancuernas 4x8-10 (baja 3s, pausa 1s) | Remo Iso-Lateral 4x10-12 (brazo izq dicta) | Press Hombros 80° 3x8-10 | Aperturas Mancuernas 3x12 (estira máximo) | SS: Curl Bíceps + Tríceps Polea 3x12.</li>
+           <li style="margin-bottom:8px;"><b>MARTES: Piernas 1</b><br>Prensa Unilateral 4x10-12 (pierna izq dicta) | Sentadilla Búlgara 3x10/pierna | Extensión Piernas 3x15 (aprieta 1s) | Curl Femoral 3x15 (frena 3s) | Pantorrillas Máquina 4x20.</li>
+           <li style="margin-bottom:8px;"><b>JUEVES: Torso 2</b><br>Press Inclinado (30/45°) 4x8-10 | Jalón al Pecho 4x10-12 (codos al bolsillo) | Elevaciones Laterales 4x12 | Fondos Paralelas 3x fallo | SS: Martillo + Tríceps Cuerda 3x12.</li>
+           <li style="margin-bottom:8px;"><b>VIERNES: Piernas 2</b><br>Hip Thrust 4x10-12 | Peso Muerto Rumano 4x10-12 | Zancadas Caminando 3x12-15/pierna | Pantorrillas Sentado 4x fallo.</li>
          </ul>
-         <span style="color:var(--sage); font-weight:bold; display:block; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.2);">🧪 EL TIP DEL 1% (RIR en Hevy):</span> Tu objetivo es registrar cada peso en Hevy manteniendo un RIR 1 o 2. Si puedes hacer 5 repeticiones más al terminar la serie, el peso es muy bajo. Si pierdes la postura en la última, es muy alto. Entrena inteligente.`
+         <span style="color:var(--sage); font-weight:bold; display:block; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.2);">🧪 EL TIP DEL 1% (RIR en Hevy):</span> RIR 1 o 2. Si puedes hacer 5 reps más, el peso es muy bajo. Si pierdes postura, es muy alto.`
       :
         `<b>Frecuencia:</b> 4 Días a la semana.<br>
          <ul style="margin:10px 0; padding-left:15px;">
            <li style="margin-bottom:8px;"><b>LUNES: Torso A (Fuerza)</b><br>Flexiones TRX 4x fallo (baja 3s) | Remo Invertido TRX 4x12-15 (pausa 2s) | Press Hombros Banda 3x12 | Aperturas TRX 3x12 | SS: Bíceps Banda + Tríceps TRX 3x15.</li>
-           <li style="margin-bottom:8px;"><b>MARTES: Piernas A (Cuádriceps)</b><br>Pistol Squat TRX 4x10 (izq 53cm dicta) | Zancadas TRX 3x12 | Sentadilla Banda 4x20 | Pantorrillas en escalón 4x fallo.</li>
+           <li style="margin-bottom:8px;"><b>MARTES: Piernas A (Cuádriceps)</b><br>Pistol Squat TRX 4x10 (izq 53cm dicta) | Zancadas TRX 3x12 | Sentadilla Banda 4x20 | Pantorrillas escalón 4x fallo.</li>
            <li style="margin-bottom:8px;"><b>JUEVES: Torso B (Detalle)</b><br>Flexiones Declinadas TRX 4x fallo | Remo Unilateral TRX 4x10 (izq 33cm dicta) | Facepull Banda 4x15 | Flexiones Diamante 3x fallo | SS: Bíceps TRX + Tríceps Banda 3x15.</li>
            <li style="margin-bottom:8px;"><b>VIERNES: Piernas B (Cadena Posterior)</b><br>Peso Muerto Banda 4x15 | Curl Femoral TRX 3x12 | Puente Glúteo Banda 4x20 | Pantorrillas 4x20.</li>
          </ul>
-         <span style="color:var(--gold-light); font-weight:600; display:block; margin-bottom:6px;">🥗 Nutrición de Construcción:</span> Regla 2x1 (150g proteína). Creatina en ayunas. Carbos estratégicos. <span style="text-decoration:underline;">Cena de Corte:</span> post 7PM cero carbos. Agua: 3L.<br>
-         <span style="color:var(--sage); font-weight:bold; display:block; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.2);">🧪 EL TIP DEL 1% (Isometría de Control):</span> Congela el movimiento 2s en máxima contracción. La "hipoxia local" endurece la fibra muscular como concreto.`
+         <span style="color:var(--gold-light); font-weight:600; display:block; margin-bottom:6px;">🥗 Nutrición:</span> Regla 2x1 (150g proteína). Creatina ayunas. Cena de Corte: post 7PM cero carbos. Agua 3L.<br>
+         <span style="color:var(--sage); font-weight:bold; display:block; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(255,255,255,0.2);">🧪 EL TIP DEL 1% (Isometría):</span> Congela el movimiento 2s en máxima contracción. La "hipoxia local" endurece la fibra.`
       }
     </div>`;
 }
@@ -466,10 +643,10 @@ function recalcDates(startStr) {
     plan.weeks.forEach((w,i)=>{ const d1=new Date(s); d1.setDate(s.getDate()+i*7); const d2=new Date(d1); d2.setDate(d1.getDate()+6); w.dates = f(d1)+' – '+f(d2); const b=document.getElementById(`date-badge-${plan.id}-${i}`); if(b) b.textContent='📅 '+w.dates; });
   });
 }
-function detectCurrentWeek() { const s=new Date(ls_get(KEYS.startDate,'2025-03-30')+'T00:00:00'); const d=Math.floor((new Date().setHours(0,0,0,0)-s)/86400000); return d<0?0:Math.min(Math.floor(d/7),11); }
+function detectCurrentWeek() { const s=new Date(ls_get(KEYS.startDate,'2026-03-30')+'T00:00:00'); const d=Math.floor((new Date().setHours(0,0,0,0)-s)/86400000); return d<0?0:Math.min(Math.floor(d/7),11); }
 function markCurrentWeek() { const idx = detectCurrentWeek(); Object.keys(PLANS).forEach(p => { document.querySelectorAll(`#nav-${p} .week-tab`).forEach((t,i)=>t.classList.toggle('current-week',i===idx)); const c=document.getElementById(`sc-cell-${p}-${idx}`); if(c) c.classList.add('sc-current'); }); }
-function showStartDateModal() { document.getElementById('cfg-start-date').value = '2025-03-30'; openSettings(); }
-function openSettings() { document.getElementById('cfg-start-date').value = ls_get(KEYS.startDate,'2025-03-30'); document.getElementById('settingsOverlay').classList.add('open'); }
+function showStartDateModal() { document.getElementById('cfg-start-date').value = '2026-03-30'; openSettings(); }
+function openSettings() { document.getElementById('cfg-start-date').value = ls_get(KEYS.startDate,'2026-03-30'); document.getElementById('settingsOverlay').classList.add('open'); }
 function closeSettings() { document.getElementById('settingsOverlay').classList.remove('open'); }
 function saveSettings() { const val = document.getElementById('cfg-start-date').value; if(val){ ls_set(KEYS.startDate,val); recalcDates(val); markCurrentWeek(); } closeSettings(); showToast('Configuración guardada'); }
 
@@ -477,7 +654,7 @@ function saveSettings() { const val = document.getElementById('cfg-start-date').
 //  PANEL DE MEDICIONES CORPORALES
 // ══════════════════════════════════════════════════════
 const BASELINE = {
-  fecha:    '30 Mar 2025',
+  fecha:    '30 Mar 2026',
   peso:     75.0,
   medidas: [
     { zona: 'Pecho',              valor: 94.5 },
@@ -572,3 +749,4 @@ loadExternalPlans();
 </script>
 </body>
 </html>
+
