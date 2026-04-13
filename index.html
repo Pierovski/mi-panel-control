@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centro de Comando | Pierovski</title>
+<title>Pierovski Center | Comando</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d1b2a">
+<link rel="apple-touch-icon" href="icon-192x192.png">
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -20,10 +25,11 @@ body {
   min-height: 100vh; padding-bottom: 80px;
 }
 
-/* HEADER Y SALUDO */
+/* HEADER */
 header {
   padding: 40px 24px 20px; border-bottom: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: flex-end;
+  background: var(--paper);
 }
 .logo-area h1 { font-family: 'Fraunces', serif; font-size: 28px; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
 .logo-area .sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; }
@@ -34,18 +40,18 @@ header {
 main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
 
 /* MODULO 1: SEMÁFORO DE URGENCIAS */
-.alert-box { background: var(--surface); border: 1px dashed var(--rust); border-left: 4px solid var(--rust); padding: 16px 20px; border-radius: 4px; margin-bottom: 32px; display: none; }
+.alert-box { background: #fff; border: 1px dashed var(--rust); border-left: 4px solid var(--rust); padding: 16px 20px; border-radius: 4px; margin-bottom: 32px; display: none; }
 .alert-box.active { display: block; animation: fadeUp 0.3s ease; }
 .alert-box h3 { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--rust); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
 .alert-content { font-size: 14px; font-weight: 500; color: var(--ink); display: flex; align-items: center; gap: 10px; }
 
-/* MODULO 2: RADAR DE EJECUCIÓN (LEAD MEASURES DE HOY) */
+/* MODULO 2: RADAR DE EJECUCIÓN */
 .section-title { font-family: 'Fraunces', serif; font-size: 20px; color: var(--navy); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
 .btn-nav { font-family: 'DM Mono', monospace; font-size: 9px; padding: 6px 12px; background: var(--navy); color: var(--gold-light); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px; transition: 0.2s; }
 .btn-nav:hover { background: var(--gold); color: var(--navy); }
 
 .leads-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 40px; }
-.lead-card { background: #fff; border: 1px solid var(--border); padding: 20px; border-radius: 4px; border-top: 3px solid var(--border); transition: 0.2s; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; }
+.lead-card { background: #fff; border: 1px solid var(--border); padding: 20px; border-radius: 4px; border-top: 3px solid var(--border); transition: 0.2s; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; text-decoration: none; color: inherit;}
 .lead-card.topo { border-top-color: var(--navy2); }
 .lead-card.fin { border-top-color: var(--gold); }
 .lead-card.gym { border-top-color: var(--sage); }
@@ -59,8 +65,8 @@ main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
 .lead-desc { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; transition: 0.2s; }
 .lead-card.done .lead-desc { color: var(--muted); text-decoration: line-through; }
 
-/* MODULO 3: PROGRESO DE LA MISIÓN 4DX */
-.progress-container { background: #fff; border: 1px solid var(--border); padding: 24px; border-radius: 4px; }
+/* MODULO 3: PROGRESO DE LA MISIÓN */
+.progress-container { background: #fff; border: 1px solid var(--border); padding: 24px; border-radius: 4px; margin-bottom: 40px;}
 .prog-track { margin-bottom: 20px; }
 .prog-track:last-child { margin-bottom: 0; }
 .prog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
@@ -69,10 +75,18 @@ main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
 .bar-bg { width: 100%; height: 8px; background: var(--surface3); border-radius: 4px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 4px; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
+/* ACCESO A MÓDULOS */
+.access-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 40px; }
+.access-btn { background: var(--surface); border: 1px solid var(--border); padding: 16px; border-radius: 4px; text-decoration: none; text-align: center; transition: 0.2s; }
+.access-btn:hover { border-color: var(--navy); background: var(--cream); }
+.access-icon { font-size: 20px; display: block; margin-bottom: 8px; }
+.access-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: bold; color: var(--navy); text-transform: uppercase; }
+
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 600px) {
   .leads-grid { grid-template-columns: 1fr; }
+  .access-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -80,7 +94,7 @@ main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
 
 <header>
   <div class="logo-area">
-    <h1>Centro de Comando</h1>
+    <h1>Comando</h1>
     <div class="sub">Operaciones Pierovski 2026</div>
   </div>
   <div class="date-badge">
@@ -92,196 +106,142 @@ main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
 <main>
   <div class="alert-box" id="urgencyAlert">
     <h3>⚠️ Atención Requerida</h3>
-    <div class="alert-content" id="urgencyText">Escaneando sistemas...</div>
+    <div class="alert-content" id="urgencyText">Escaneando...</div>
   </div>
 
   <div class="section-title">
     <span>Radar de Ejecución (Hoy)</span>
-    <a href="plan.html" class="btn-nav">Ver Plan 12 Semanas →</a>
+    <a href="plan.html" class="btn-nav">Ver Todo →</a>
   </div>
   
   <div class="leads-grid" id="leadsGrid">
     </div>
 
-  <div class="section-title" style="margin-top: 48px;">
-    <span>Progreso de la Misión (12 Semanas)</span>
+  <div class="section-title">
+    <span>Progreso de la Misión</span>
   </div>
 
   <div class="progress-container">
     <div class="prog-track">
-      <div class="prog-header">
-        <span class="prog-title">🗺️ Topógrafo</span>
-        <span class="prog-pct" id="pct-topo">0%</span>
-      </div>
+      <div class="prog-header"><span class="prog-title">🗺️ Topógrafo</span><span class="prog-pct" id="pct-topo">0%</span></div>
       <div class="bar-bg"><div class="bar-fill" id="bar-topo" style="width: 0%; background: var(--navy2);"></div></div>
     </div>
-
     <div class="prog-track">
-      <div class="prog-header">
-        <span class="prog-title">💰 Finanzas</span>
-        <span class="prog-pct" id="pct-fin">0%</span>
-      </div>
+      <div class="prog-header"><span class="prog-title">💰 Finanzas</span><span class="prog-pct" id="pct-fin">0%</span></div>
       <div class="bar-bg"><div class="bar-fill" id="bar-fin" style="width: 0%; background: var(--gold);"></div></div>
     </div>
-
     <div class="prog-track">
-      <div class="prog-header">
-        <span class="prog-title">🏋️ Gimnasio</span>
-        <span class="prog-pct" id="pct-gym">0%</span>
-      </div>
+      <div class="prog-header"><span class="prog-title">🏋️ Gimnasio</span><span class="prog-pct" id="pct-gym">0%</span></div>
       <div class="bar-bg"><div class="bar-fill" id="bar-gym" style="width: 0%; background: var(--sage);"></div></div>
     </div>
   </div>
-  
-  <div style="margin-top: 32px; text-align: center;">
-    <a href="compras.html" style="font-family: 'DM Mono', monospace; font-size: 11px; font-weight: bold; color: var(--navy); text-decoration: none; border-bottom: 1px dashed var(--navy); padding-bottom: 2px;">📦 AUDITAR MÓDULO DE COMPRAS</a>
+
+  <div class="access-grid">
+    <a href="compras.html" class="access-btn"><span class="access-icon">📦</span><span class="access-label">Compras</span></a>
+    <a href="tarjetas.html" class="access-btn"><span class="access-icon">💳</span><span class="access-label">Tarjetas</span></a>
+    <a href="plan.html" class="access-btn"><span class="access-icon">🎯</span><span class="access-label">Plan</span></a>
   </div>
 
 </main>
 
 <script>
-// ════════════════════ FECHA Y DÍA ACTUAL ════════════════════
+// 1. FECHA ACTUAL
 const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-const DIAS_SEMANA = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-
 const hoy = new Date();
 document.getElementById('headDay').textContent = hoy.getDate();
 document.getElementById('headMonth').textContent = MESES[hoy.getMonth()] + ' ' + hoy.getFullYear();
 
-// Índice del día para el Plan (Lunes=0, Domingo=6)
-let diaIndex = hoy.getDay() - 1;
+let diaIndex = hoy.getDay() - 1; // Lunes=0
 if (diaIndex === -1) diaIndex = 6; 
 
-// ════════════════════ SEMÁFORO DE URGENCIAS (TARJETAS) ════════════════════
+// 2. SEMÁFORO DE URGENCIAS
 function checkUrgency() {
   try {
     const tarjetas = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
     let alerta = null;
-    let urgenciaMaxima = 999;
-
     tarjetas.forEach(t => {
       if (!t.paid) {
-        // Cálculo simple de proximidad a fecha de pago
-        let faltanParaPago = t.payment - hoy.getDate();
-        if (faltanParaPago < 0) faltanParaPago += 30; // Pasó al mes siguiente
-
-        if (faltanParaPago <= 5 && faltanParaPago < urgenciaMaxima) {
-          urgenciaMaxima = faltanParaPago;
-          alerta = `La tarjeta ${t.name} vence en ${faltanParaPago} día(s). Paga y registra.`;
-        }
+        let faltan = t.payment - hoy.getDate();
+        if (faltan < 0) faltan += 30;
+        if (faltan <= 5) alerta = `La tarjeta ${t.name} vence en ${faltan} días.`;
       }
     });
-
     if (alerta) {
-      document.getElementById('urgencyText').innerHTML = `<span>💳 ${alerta}</span> <a href="tarjetas.html" class="btn-nav" style="margin-left:auto;">Pagar ahora</a>`;
+      document.getElementById('urgencyText').innerHTML = `<span>💳 ${alerta}</span> <a href="tarjetas.html" class="btn-nav" style="margin-left:auto;">Pagar</a>`;
       document.getElementById('urgencyAlert').classList.add('active');
     }
-  } catch (e) { console.log('Sin datos de tarjetas para alerta'); }
+  } catch (e) {}
 }
 
-// ════════════════════ RADAR DE EJECUCIÓN (LEAD MEASURES) ════════════════════
-const LEAD_MEASURES = {
-  topo: { label: 'Topógrafo', leads: ["1h de Tutorial / Práctica Técnica", "Procesamiento de datos al día"] },
-  fin: { label: 'Finanzas', leads: ["0 Gastos Hormiga", "Registro de Caja/App actualizado"] },
-  gym: { label: 'Gimnasio', leads: ["Proteína (Regla 2x1) y Agua 3L", "Corte de Carbos a las 7:00 PM"] }
+// 3. RADAR DE EJECUCIÓN
+const MEASURES = {
+  topo: { label: 'Topografía', leads: ["1h de Tutorial / Práctica Técnica", "Procesamiento de datos al día"] },
+  fin: { label: 'Finanzas', leads: ["0 Gastos Hormiga", "Registro de Caja actualizado"] },
+  gym: { label: 'Físico', leads: ["Proteína (Regla 2x1) y Agua 3L", "Corte de Carbos 7:00 PM"] }
 };
 
-// Obtener semana actual basado en el plan
 function getWeekIndex() {
-  const startDateStr = localStorage.getItem('topo_start_date_v1') || '"2026-03-30"';
-  const s = new Date(JSON.parse(startDateStr) + 'T00:00:00');
+  const sdStr = localStorage.getItem('topo_start_date_v1') || '"2026-03-30"';
+  const s = new Date(JSON.parse(sdStr) + 'T00:00:00');
   const d = Math.floor((new Date().setHours(0,0,0,0) - s) / 86400000);
   return d < 0 ? 0 : Math.min(Math.floor(d / 7), 11);
 }
 
 function loadLeads() {
-  const currentWeek = getWeekIndex();
-  let leadStates = {};
-  try { leadStates = JSON.parse(localStorage.getItem('lead_states_v1')) || {}; } catch(e) {}
-
+  const week = getWeekIndex();
+  let states = {};
+  try { states = JSON.parse(localStorage.getItem('lead_states_v1')) || {}; } catch(e) {}
   const grid = document.getElementById('leadsGrid');
   grid.innerHTML = '';
 
-  if (currentWeek < 2) {
-    grid.innerHTML = `<div style="grid-column: 1/-1; padding: 20px; text-align: center; color: var(--muted); font-style: italic; border: 1px dashed var(--border); border-radius: 4px;">Las Métricas de Acción (Lead Measures) se activan a partir de la Semana 3.</div>`;
+  if (hoy.getDay() === 0) { // Domingo: WAM
+    grid.innerHTML = `<a href="plan.html" class="lead-card fin" style="grid-column:1/-1; background:var(--navy);"><div class="lead-text"><div class="lead-cat" style="color:var(--gold-light);">DÍA SAGRADO</div><div class="lead-desc" style="color:#fff;">🔥 Toca hacer el Cierre Semanal (WAM). Evalúa tu disciplina.</div></div></a>`;
     return;
   }
 
-  // Si es domingo, mostrar mensaje de WAM
-  if (hoy.getDay() === 0) {
-    grid.innerHTML = `
-      <a href="plan.html" class="lead-card fin" style="grid-column: 1/-1; background: var(--navy); color: var(--cream); border: none;">
-        <div class="lead-text">
-          <div class="lead-cat" style="color: var(--gold-light);">DÍA SAGRADO</div>
-          <div class="lead-desc" style="color: #fff; font-size: 16px;">🔥 Toca hacer la Reunión de Cierre Semanal (WAM). Evalúa tu disciplina.</div>
-        </div>
-        <div style="font-size: 24px;">📝</div>
-      </a>`;
-    return;
-  }
-
-  ['topo', 'fin', 'gym'].forEach(planId => {
-    LEAD_MEASURES[planId].leads.forEach((leadText, leadIdx) => {
-      // Clave: semana-leadIndex-diaSemana
-      const key = `${currentWeek}-${leadIdx}-${diaIndex}`;
-      const isDone = leadStates[planId] && leadStates[planId][key];
-      
-      grid.innerHTML += `
-        <div class="lead-card ${planId} ${isDone ? 'done' : ''}" onclick="toggleLead('${planId}', ${currentWeek}, ${leadIdx}, ${diaIndex}, this)">
-          <div class="check-circle"></div>
-          <div class="lead-text">
-            <div class="lead-cat">${LEAD_MEASURES[planId].label}</div>
-            <div class="lead-desc">${leadText}</div>
-          </div>
-        </div>
-      `;
+  ['topo', 'fin', 'gym'].forEach(p => {
+    MEASURES[p].leads.forEach((text, lIdx) => {
+      const key = `${week}-${lIdx}-${diaIndex}`;
+      const isDone = states[p] && states[p][key];
+      grid.innerHTML += `<div class="lead-card ${p} ${isDone?'done':''}" onclick="toggleLead('${p}',${week},${lIdx},${diaIndex},this)"><div class="check-circle"></div><div class="lead-text"><div class="lead-cat">${MEASURES[p].label}</div><div class="lead-desc">${text}</div></div></div>`;
     });
   });
 }
 
-// Para que el Dashboard sea funcional y guarde los clics en la base de datos del Plan
-function toggleLead(planId, weekIdx, leadIdx, dayIdx, element) {
-  let leadStates = JSON.parse(localStorage.getItem('lead_states_v1')) || { topo:{}, fin:{}, gym:{} };
-  if(!leadStates[planId]) leadStates[planId] = {};
-  
-  const key = `${weekIdx}-${leadIdx}-${dayIdx}`;
-  leadStates[planId][key] = !leadStates[planId][key];
-  
-  localStorage.setItem('lead_states_v1', JSON.stringify(leadStates));
-  element.classList.toggle('done', leadStates[planId][key]);
+function toggleLead(p, w, l, d, el) {
+  let s = JSON.parse(localStorage.getItem('lead_states_v1')) || { topo:{}, fin:{}, gym:{} };
+  if(!s[p]) s[p] = {};
+  const key = `${w}-${l}-${d}`;
+  s[p][key] = !s[p][key];
+  localStorage.setItem('lead_states_v1', JSON.stringify(s));
+  el.classList.toggle('done');
 }
 
-// ════════════════════ PROGRESO GLOBAL 4DX ════════════════════
+// 4. PROGRESO GLOBAL
 function calcProgress() {
-  // Asumimos un aproximado de 50 tareas marcables por plan para el cálculo de progreso global
-  const TAREAS_ESTIMADAS_TOTALES = 50; 
-
-  ['topo', 'fin', 'gym'].forEach(planId => {
+  ['topo', 'fin', 'gym'].forEach(p => {
     try {
-      const tasks = JSON.parse(localStorage.getItem(`${planId}_tasks_v1`)) || {};
-      let completadas = 0;
-      Object.values(tasks).forEach(estado => { if(estado) completadas++; });
-
-      const pct = Math.min(Math.round((completadas / TAREAS_ESTIMADAS_TOTALES) * 100), 100);
-      
-      document.getElementById(`pct-${planId}`).textContent = pct + '%';
-      document.getElementById(`bar-${planId}`).style.width = pct + '%';
-      
-      if(pct > 80) document.getElementById(`bar-${planId}`).style.background = 'var(--sage)';
-      else if(pct < 30 && completadas > 0) document.getElementById(`bar-${planId}`).style.background = 'var(--rust)';
-
-    } catch (e) { console.log(`No se pudo cargar progreso de ${planId}`); }
+      const tasks = JSON.parse(localStorage.getItem(`${p}_tasks_v1`)) || {};
+      let done = 0; Object.values(tasks).forEach(v => { if(v) done++; });
+      const pct = Math.min(Math.round((done / 50) * 100), 100);
+      document.getElementById(`pct-${p}`).textContent = pct + '%';
+      document.getElementById(`bar-${p}`).style.width = pct + '%';
+    } catch (e) {}
   });
 }
 
-// Ejecutar todo al cargar
+// 🚀 ARRANQUE MOTOR Y SERVICE WORKER
 window.onload = () => {
   checkUrgency();
   loadLeads();
-  // Animación suave de las barras
   setTimeout(calcProgress, 200);
-};
 
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('PWA Lista'))
+      .catch(err => console.log('Error PWA', err));
+  }
+};
 </script>
 </body>
 </html>
