@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pierovski Center | Comando</title>
+<title>Comando | Pierovski</title>
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d1b2a">
@@ -13,24 +13,16 @@
 
 <style>
 :root {
-  --cream: #f5f0e8; --paper: #faf7f2; --navy: #0d1b2a; --navy2: #1a2e45;
+  --paper: #faf7f2; --navy: #0d1b2a; --navy2: #1a2e45;
   --gold: #c8922a; --gold-light: #f0c060; --rust: #b84c2a; --sage: #4a7c59;
-  --ink: #2a2420; --muted: #8a7e72; --border: #d8cfc4;
+  --ink: #2a2420; --muted: #8a7e72; --border: #d8cfc4; --surface3: #eef0f2;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: var(--paper); color: var(--ink);
-  font-family: 'DM Sans', sans-serif; font-weight: 300;
-  min-height: 100vh; padding-bottom: 80px;
-}
+body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 80px; }
 
 /* HEADER */
-header {
-  padding: 40px 24px 20px; border-bottom: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: flex-end;
-  background: var(--paper);
-}
+header { padding: 40px 24px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; background: var(--paper); }
 .logo-area h1 { font-family: 'Fraunces', serif; font-size: 28px; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
 .logo-area .sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; }
 .date-badge { text-align: right; }
@@ -39,55 +31,35 @@ header {
 
 main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
 
-/* MODULO 1: SEMÁFORO DE URGENCIAS */
-.alert-box { background: #fff; border: 1px dashed var(--rust); border-left: 4px solid var(--rust); padding: 16px 20px; border-radius: 4px; margin-bottom: 32px; display: none; }
-.alert-box.active { display: block; animation: fadeUp 0.3s ease; }
+/* ALERTA DE URGENCIAS */
+.alert-box { background: #fff; border: 1px dashed var(--rust); border-left: 4px solid var(--rust); padding: 16px 20px; border-radius: 4px; margin-bottom: 32px; display: none; animation: fadeUp 0.3s ease; }
+.alert-box.active { display: block; }
 .alert-box h3 { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--rust); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
 .alert-content { font-size: 14px; font-weight: 500; color: var(--ink); display: flex; align-items: center; gap: 10px; }
-
-/* MODULO 2: RADAR DE EJECUCIÓN */
-.section-title { font-family: 'Fraunces', serif; font-size: 20px; color: var(--navy); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
-.btn-nav { font-family: 'DM Mono', monospace; font-size: 9px; padding: 6px 12px; background: var(--navy); color: var(--gold-light); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px; transition: 0.2s; }
+.btn-nav { font-family: 'DM Mono', monospace; font-size: 9px; padding: 6px 12px; background: var(--navy); color: var(--gold-light); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px; transition: 0.2s; cursor: pointer; border: none;}
 .btn-nav:hover { background: var(--gold); color: var(--navy); }
 
-.leads-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 40px; }
-.lead-card { background: #fff; border: 1px solid var(--border); padding: 20px; border-radius: 4px; border-top: 3px solid var(--border); transition: 0.2s; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; text-decoration: none; color: inherit;}
-.lead-card.topo { border-top-color: var(--navy2); }
-.lead-card.fin { border-top-color: var(--gold); }
-.lead-card.gym { border-top-color: var(--sage); }
-.lead-card:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-
-.check-circle { width: 22px; height: 22px; border: 2px solid var(--border2); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: 0.2s; margin-top: 2px; }
-.lead-card.done .check-circle { background: var(--sage); border-color: var(--sage); }
-.lead-card.done .check-circle::after { content: '✓'; color: #fff; font-size: 12px; font-weight: bold; }
-.lead-text { flex: 1; }
-.lead-cat { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
-.lead-desc { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; transition: 0.2s; }
-.lead-card.done .lead-desc { color: var(--muted); text-decoration: line-through; }
-
-/* MODULO 3: PROGRESO DE LA MISIÓN */
+/* PROGRESO DE LA MISIÓN */
+.section-title { font-family: 'Fraunces', serif; font-size: 20px; color: var(--navy); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
 .progress-container { background: #fff; border: 1px solid var(--border); padding: 24px; border-radius: 4px; margin-bottom: 40px;}
-.prog-track { margin-bottom: 20px; }
+.prog-track { margin-bottom: 24px; }
 .prog-track:last-child { margin-bottom: 0; }
-.prog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
-.prog-title { font-size: 13px; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 8px; }
-.prog-pct { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: bold; color: var(--muted); }
-.bar-bg { width: 100%; height: 8px; background: var(--surface3); border-radius: 4px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 4px; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.prog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
+.prog-title { font-size: 14px; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+.prog-pct { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: bold; color: var(--muted); }
+.bar-bg { width: 100%; height: 10px; background: var(--surface3); border-radius: 5px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 5px; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
 /* ACCESO A MÓDULOS */
-.access-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 40px; }
-.access-btn { background: var(--surface); border: 1px solid var(--border); padding: 16px; border-radius: 4px; text-decoration: none; text-align: center; transition: 0.2s; }
-.access-btn:hover { border-color: var(--navy); background: var(--cream); }
-.access-icon { font-size: 20px; display: block; margin-bottom: 8px; }
-.access-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: bold; color: var(--navy); text-transform: uppercase; }
+.access-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+.access-btn { background: #fff; border: 1px solid var(--border); padding: 20px 16px; border-radius: 4px; text-decoration: none; text-align: center; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;}
+.access-btn:hover { border-color: var(--navy); box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
+.access-icon { font-size: 24px; display: block; margin-bottom: 10px; }
+.access-label { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: bold; color: var(--navy); text-transform: uppercase; letter-spacing: 1px;}
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-@media (max-width: 600px) {
-  .leads-grid { grid-template-columns: 1fr; }
-  .access-grid { grid-template-columns: 1fr; }
-}
+@media (max-width: 600px) { .access-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -109,17 +81,7 @@ main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
     <div class="alert-content" id="urgencyText">Escaneando...</div>
   </div>
 
-  <div class="section-title">
-    <span>Radar de Ejecución (Hoy)</span>
-    <a href="plan.html" class="btn-nav">Ver Todo →</a>
-  </div>
-  
-  <div class="leads-grid" id="leadsGrid">
-    </div>
-
-  <div class="section-title">
-    <span>Progreso de la Misión</span>
-  </div>
+  <div class="section-title"><span>Progreso de la Misión</span></div>
 
   <div class="progress-container">
     <div class="prog-track">
@@ -137,11 +99,10 @@ main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
   </div>
 
   <div class="access-grid">
-    <a href="compras.html" class="access-btn"><span class="access-icon">📦</span><span class="access-label">Compras</span></a>
-    <a href="tarjetas.html" class="access-btn"><span class="access-icon">💳</span><span class="access-label">Tarjetas</span></a>
-    <a href="plan.html" class="access-btn"><span class="access-icon">🎯</span><span class="access-label">Plan</span></a>
+    <a href="compras.html" class="access-btn" onclick="navTo(event, 'compras.html', this)"><span class="access-icon">📦</span><span class="access-label">Compras</span></a>
+    <a href="tarjetas.html" class="access-btn" onclick="navTo(event, 'tarjetas.html', this)"><span class="access-icon">💳</span><span class="access-label">Tarjetas</span></a>
+    <a href="plan.html" class="access-btn" onclick="navTo(event, 'plan.html', this)"><span class="access-icon">🎯</span><span class="access-label">Plan 12 Sem.</span></a>
   </div>
-
 </main>
 
 <script>
@@ -151,10 +112,45 @@ const hoy = new Date();
 document.getElementById('headDay').textContent = hoy.getDate();
 document.getElementById('headMonth').textContent = MESES[hoy.getMonth()] + ' ' + hoy.getFullYear();
 
-let diaIndex = hoy.getDay() - 1; // Lunes=0
-if (diaIndex === -1) diaIndex = 6; 
+// ⚡ 2. MOTOR DE NAVEGACIÓN CON SONIDO (GAMIFICACIÓN) ⚡
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
 
-// 2. SEMÁFORO DE URGENCIAS
+function navTo(e, url, btnElement) {
+  e.preventDefault(); // Evita que salte de página inmediatamente
+  
+  // Despierta el motor de audio
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  
+  // Crea el sonido de navegación ("Bloop" veloz)
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(300, audioCtx.currentTime); 
+  osc.frequency.exponentialRampToValueAtTime(500, audioCtx.currentTime + 0.1); 
+  
+  gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); 
+  
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.1);
+
+  // Micro-vibración si el celular lo soporta
+  if (navigator.vibrate) navigator.vibrate(30);
+
+  // Efecto visual de hundimiento
+  btnElement.style.transform = "scale(0.92)";
+  btnElement.style.background = "var(--surface3)";
+
+  // Cambia de página después de 150 milisegundos (para dejar que suene)
+  setTimeout(() => {
+    window.location.href = url;
+  }, 150);
+}
+
+// 3. SEMÁFORO DE URGENCIAS
 function checkUrgency() {
   try {
     const tarjetas = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
@@ -167,54 +163,10 @@ function checkUrgency() {
       }
     });
     if (alerta) {
-      document.getElementById('urgencyText').innerHTML = `<span>💳 ${alerta}</span> <a href="tarjetas.html" class="btn-nav" style="margin-left:auto;">Pagar</a>`;
+      document.getElementById('urgencyText').innerHTML = `<span>💳 ${alerta}</span> <button class="btn-nav" style="margin-left:auto;" onclick="navTo(event, 'tarjetas.html', this)">Pagar</button>`;
       document.getElementById('urgencyAlert').classList.add('active');
     }
   } catch (e) {}
-}
-
-// 3. RADAR DE EJECUCIÓN
-const MEASURES = {
-  topo: { label: 'Topografía', leads: ["1h de Tutorial / Práctica Técnica", "Procesamiento de datos al día"] },
-  fin: { label: 'Finanzas', leads: ["0 Gastos Hormiga", "Registro de Caja actualizado"] },
-  gym: { label: 'Físico', leads: ["Proteína (Regla 2x1) y Agua 3L", "Corte de Carbos 7:00 PM"] }
-};
-
-function getWeekIndex() {
-  const sdStr = localStorage.getItem('topo_start_date_v1') || '"2026-03-30"';
-  const s = new Date(JSON.parse(sdStr) + 'T00:00:00');
-  const d = Math.floor((new Date().setHours(0,0,0,0) - s) / 86400000);
-  return d < 0 ? 0 : Math.min(Math.floor(d / 7), 11);
-}
-
-function loadLeads() {
-  const week = getWeekIndex();
-  let states = {};
-  try { states = JSON.parse(localStorage.getItem('lead_states_v1')) || {}; } catch(e) {}
-  const grid = document.getElementById('leadsGrid');
-  grid.innerHTML = '';
-
-  if (hoy.getDay() === 0) { // Domingo: WAM
-    grid.innerHTML = `<a href="plan.html" class="lead-card fin" style="grid-column:1/-1; background:var(--navy);"><div class="lead-text"><div class="lead-cat" style="color:var(--gold-light);">DÍA SAGRADO</div><div class="lead-desc" style="color:#fff;">🔥 Toca hacer el Cierre Semanal (WAM). Evalúa tu disciplina.</div></div></a>`;
-    return;
-  }
-
-  ['topo', 'fin', 'gym'].forEach(p => {
-    MEASURES[p].leads.forEach((text, lIdx) => {
-      const key = `${week}-${lIdx}-${diaIndex}`;
-      const isDone = states[p] && states[p][key];
-      grid.innerHTML += `<div class="lead-card ${p} ${isDone?'done':''}" onclick="toggleLead('${p}',${week},${lIdx},${diaIndex},this)"><div class="check-circle"></div><div class="lead-text"><div class="lead-cat">${MEASURES[p].label}</div><div class="lead-desc">${text}</div></div></div>`;
-    });
-  });
-}
-
-function toggleLead(p, w, l, d, el) {
-  let s = JSON.parse(localStorage.getItem('lead_states_v1')) || { topo:{}, fin:{}, gym:{} };
-  if(!s[p]) s[p] = {};
-  const key = `${w}-${l}-${d}`;
-  s[p][key] = !s[p][key];
-  localStorage.setItem('lead_states_v1', JSON.stringify(s));
-  el.classList.toggle('done');
 }
 
 // 4. PROGRESO GLOBAL
@@ -230,16 +182,12 @@ function calcProgress() {
   });
 }
 
-// 🚀 ARRANQUE MOTOR Y SERVICE WORKER
+// 🚀 ARRANQUE MOTOR
 window.onload = () => {
   checkUrgency();
-  loadLeads();
   setTimeout(calcProgress, 200);
-
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(() => console.log('PWA Lista'))
-      .catch(err => console.log('Error PWA', err));
+    navigator.serviceWorker.register('sw.js').catch(err => console.log('Error PWA', err));
   }
 };
 </script>

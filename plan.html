@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mis 3 Planes de 12 Semanas</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d1b2a">
+<link rel="apple-touch-icon" href="icon-192x192.png">
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -26,7 +31,6 @@ body::before {
 
 /* UTILIDADES Y MODO ZEN */
 .hidden-content { display: none !important; }
-/* CORRECCIÓN: Quitamos .plan-selector de la lista de elementos ocultos en Modo Zen */
 body.zen-mode .hero, body.zen-mode .vision-block, 
 body.zen-mode .routine-box, body.zen-mode .weeks-nav, body.zen-mode .week-side, 
 body.zen-mode .scorecard-grid, body.zen-mode .wam-box, body.zen-mode .bottom-btns {
@@ -44,6 +48,9 @@ body.zen-mode .week-panel.active { grid-template-columns: 1fr; }
 .cloud-online { background: var(--sage); box-shadow: 0 0 8px var(--sage); }
 .cloud-syncing { background: var(--gold); animation: pulse-cloud 1s infinite; }
 @keyframes pulse-cloud { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+.btn-back-dash { font-family: 'DM Mono', monospace; font-size: 11px; text-decoration: none; color: var(--muted); font-weight: bold; border: 1px solid var(--border); padding: 8px 16px; border-radius: 4px; display: inline-flex; margin-top: 20px; transition: 0.2s; background: var(--paper); text-transform: uppercase;}
+.btn-back-dash:hover { color: var(--navy); border-color: var(--navy); }
 
 /* VISION BLOCK */
 .vision-block { background: var(--navy); color: var(--cream); padding: 40px 48px; border-radius: 2px; margin-bottom: 32px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; transition: all 0.3s ease; }
@@ -88,24 +95,26 @@ body.zen-mode .week-panel.active { grid-template-columns: 1fr; }
 .week-main h3 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--navy); margin-bottom: 6px; }
 .week-main .week-theme { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
 .week-main .week-theme::before { content: ''; display: block; width: 16px; height: 1px; background: var(--gold); }
+
+/* LISTA DE TAREAS Y ANIMACIÓN POP */
 .tasks-list { list-style: none; margin-bottom: 24px; }
-.tasks-list li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--border); font-size: 14px; line-height: 1.5; color: var(--ink); cursor: pointer; transition: color 0.15s; }
+.tasks-list li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--border); font-size: 14px; line-height: 1.5; color: var(--ink); cursor: pointer; transition: color 0.15s; user-select: none; }
 .tasks-list li:last-child { border-bottom: none; }
 .tasks-list li:hover { color: var(--navy); }
 .tasks-list li.checked { color: var(--muted); text-decoration: line-through; }
-.task-check { width: 16px; height: 16px; border: 1.5px solid var(--border); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-size: 9px; color: transparent; }
-.tasks-list li.checked .task-check { background: var(--sage); border-color: var(--sage); color: #fff; }
+.task-check { width: 16px; height: 16px; border: 1.5px solid var(--border); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-size: 9px; color: transparent; border-radius: 2px; }
 
-/* LEAD MEASURES TRACKER */
-.lead-tracker { background: var(--paper); border: 1px dashed var(--gold); padding: 16px 20px; border-radius: 4px; margin-top: 24px; }
-.lead-tracker h4 { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--navy); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
-.lead-item { margin-bottom: 12px; }
-.lead-item:last-child { margin-bottom: 0; }
-.lead-title { font-size: 12.5px; margin-bottom: 6px; font-weight: 500; color: var(--navy2); }
-.lead-days { display: flex; gap: 6px; }
-.lead-btn { width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--border); background: #fff; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: bold; color: var(--muted); cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
-.lead-btn:hover { border-color: var(--gold); color: var(--navy); }
-.lead-btn.done { background: var(--sage); color: #fff; border-color: var(--sage); }
+@keyframes popIn {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+.tasks-list li.checked .task-check { 
+  background: var(--sage); 
+  border-color: var(--sage); 
+  color: #fff; 
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
+}
 
 .week-quote { background: var(--cream); border-left: 3px solid var(--gold); padding: 16px 18px; font-style: italic; font-size: 13px; line-height: 1.65; color: var(--navy2); margin-top: 24px; }
 .week-quote cite { display: block; font-style: normal; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.5px; color: var(--muted); margin-top: 8px; text-transform: uppercase; }
@@ -124,7 +133,7 @@ body.zen-mode .week-panel.active { grid-template-columns: 1fr; }
 .time-block .tb-desc { color: var(--muted); font-size: 11px; }
 
 .score-wrap { display: flex; align-items: center; gap: 14px; }
-.score-circle { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
+.score-circle { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.3s ease; }
 .score-circle .sc-val { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--navy); line-height: 1; }
 .score-circle .sc-unit { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); }
 .score-info p { font-size: 12px; color: var(--muted); line-height: 1.55; }
@@ -132,13 +141,13 @@ body.zen-mode .week-panel.active { grid-template-columns: 1fr; }
 .metric-pill { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); padding: 7px 12px; font-size: 12px; margin: 3px 3px 3px 0; background: #fff; }
 
 /* NOTAS Y WAM */
-.notes-area { width: 100%; min-height: 90px; font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.6; background: #fff; border: 1px solid var(--border); color: var(--ink); padding: 10px 12px; resize: vertical; outline: none; margin-top: 4px; }
+.notes-area { width: 100%; min-height: 90px; font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.6; background: #fff; border: 1px solid var(--border); color: var(--ink); padding: 10px 12px; resize: vertical; outline: none; margin-top: 4px; border-radius: 2px;}
 .notes-area:focus { border-color: var(--gold); }
-.notes-save-btn { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; background: none; border: 1px solid var(--border); color: var(--muted); padding: 6px 14px; cursor: pointer; margin-top: 6px; transition: all 0.15s; }
+.notes-save-btn { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; background: none; border: 1px solid var(--border); color: var(--muted); padding: 6px 14px; cursor: pointer; margin-top: 6px; transition: all 0.15s; border-radius: 2px;}
 .notes-save-btn:hover { border-color: var(--gold); color: var(--gold); }
 
 .scorecard-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; margin-top: 20px; }
-.sc-week { background: #fff; border: 1px solid var(--border); padding: 14px 8px; text-align: center; cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.sc-week { background: #fff; border: 1px solid var(--border); padding: 14px 8px; text-align: center; cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border-radius: 2px;}
 .sc-week:hover { border-color: var(--navy); }
 .sc-week.sc-done { background: var(--sage); border-color: var(--sage); }
 .sc-week .scw-num { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 600; color: var(--navy); }
@@ -177,7 +186,7 @@ body.zen-mode .week-panel.active { grid-template-columns: 1fr; }
 .settings-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--muted); }
 .s-group { margin-bottom: 24px; }
 .s-group label { display: block; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); margin-bottom: 8px; font-weight:bold; }
-.s-group input { font-family: 'DM Mono', monospace; font-size: 13px; padding: 10px 14px; width: 100%; border: 1px solid var(--border); outline: none; }
+.s-group input { font-family: 'DM Mono', monospace; font-size: 13px; padding: 10px 14px; width: 100%; border: 1px solid var(--border); outline: none; border-radius: 2px;}
 
 @media (max-width: 768px) {
   .pillars { grid-template-columns: 1fr 1fr; }
@@ -196,6 +205,8 @@ body.zen-mode .week-panel.active { grid-template-columns: 1fr; }
   <header class="hero">
     <div>
       <h1>Mis mejores<br><em>12 semanas</em> <div id="cloud-indicator" class="cloud-status" title="Estado de la Nube"></div></h1>
+      <br>
+      <a href="index.html" class="btn-back-dash">← Volver al Comando</a>
     </div>
   </header>
 
@@ -247,7 +258,7 @@ body.zen-mode .week-panel.active { grid-template-columns: 1fr; }
     <button class="settings-close" onclick="closeSettings()">✕</button>
     <h2>Mi horario</h2>
     <div class="s-group"><label>📅 Fecha de inicio del plan</label><input type="date" id="cfg-start-date"></div>
-    <button onclick="saveSettings()" style="width:100%; background:var(--navy); color:var(--cream); border:none; padding:14px; cursor:pointer;">💾 Guardar configuración</button>
+    <button onclick="saveSettings()" style="width:100%; background:var(--navy); color:var(--cream); border:none; padding:14px; cursor:pointer; border-radius:2px;">💾 Guardar configuración</button>
   </div>
 </div>
 
@@ -259,7 +270,7 @@ body.zen-mode .week-panel.active { grid-template-columns: 1fr; }
     <div class="s-group"><label>1. ¿Qué te frenó o qué falló esta semana?</label><textarea id="wam-q1" class="notes-area" style="min-height:70px;"></textarea></div>
     <div class="s-group"><label>2. ¿Qué acción concreta harás para mejorarlo?</label><textarea id="wam-q2" class="notes-area" style="min-height:70px;"></textarea></div>
     <div class="s-group"><label>3. Califica tu Disciplina (1 al 10)</label><input type="number" id="wam-q3" min="1" max="10" style="width:80px; text-align:center; font-size:16px;"></div>
-    <button onclick="saveWam()" style="width:100%; background:var(--rust); color:var(--cream); border:none; padding:14px; font-weight:bold; cursor:pointer;">💾 GUARDAR CIERRE</button>
+    <button onclick="saveWam()" style="width:100%; background:var(--rust); color:var(--cream); border:none; padding:14px; font-weight:bold; cursor:pointer; border-radius:2px;">💾 GUARDAR CIERRE</button>
   </div>
 </div>
 
@@ -271,10 +282,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
     authDomain: "pierovski-center.firebaseapp.com",
     databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com",
-    projectId: "pierovski-center",
-    storageBucket: "pierovski-center.firebasestorage.app",
-    messagingSenderId: "917980127507",
-    appId: "1:917980127507:web:117620486d77987f493ae6"
+    projectId: "pierovski-center"
 };
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
@@ -286,7 +294,6 @@ const KEYS = {
   startDate: 'topo_start_date_v1',
 };
 
-// AUTO-CORRECCIÓN DE FECHA BASE DE 2025 A 2026
 function ls_get(key, fallback=null){ try{ const v=localStorage.getItem(key); return v!==null?JSON.parse(v):fallback; }catch(e){ return fallback; } }
 function ls_set(key,value){ try{ localStorage.setItem(key,JSON.stringify(value)); }catch(e){} syncPlanToCloud(); }
 
@@ -300,16 +307,32 @@ let PLANS = {
 };
 let currentPlan = 'topo';
 let taskStates = { topo: {}, fin: {}, gym: {} };
-let leadStates = { topo: {}, fin: {}, gym: {} };
 let wamStates = { topo: {}, fin: {}, gym: {} };
 
-/* CONFIGURACIÓN DE LEAD MEASURES (Métricas de Acción) */
-const LEAD_MEASURES = {
-  topo: ["1h de Tutorial / Práctica Técnica", "Procesamiento de datos al día"],
-  fin: ["0 Gastos Hormiga", "Registro de Caja/App actualizado"],
-  gym: ["Proteína (Regla 2x1) y Agua 3L", "Corte de Carbos a las 7:00 PM"]
-};
-const DAYS = ['L','M','M','J','V','S','D'];
+/* ══════════════════════════════════════════════════════
+   MOTOR DE SONIDO SINTETIZADO ⚡
+══════════════════════════════════════════════════════ */
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
+
+function playSuccessSound() {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
+  osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1); 
+  
+  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); 
+  
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.1);
+}
 
 /* ══════════════════════════════════════════════════════
    MOTOR DE DESCARGA DE JSON EXTERNOS
@@ -355,7 +378,6 @@ function syncPlanToCloud() {
 
   const data = {
     tasks: taskStates,
-    leads: leadStates,
     wamLogs: wamStates,
     notes: { topo: ls_get(KEYS.topo.notes,{}), fin: ls_get(KEYS.fin.notes,{}), gym: ls_get(KEYS.gym.notes,{}) },
     vision: { topo: ls_get(KEYS.topo.vision,''), fin: ls_get(KEYS.fin.vision,''), gym: ls_get(KEYS.gym.vision,'') },
@@ -377,8 +399,6 @@ function initCloud() {
         if(data.tasks) {
           ['topo','fin','gym'].forEach(p => { if(data.tasks[p]){ localStorage.setItem(KEYS[p].tasks, JSON.stringify(data.tasks[p])); taskStates[p] = data.tasks[p]; }});
         }
-        if(data.leads) { leadStates = data.leads; ls_set('lead_states_v1', leadStates); } 
-        else { leadStates = ls_get('lead_states_v1', { topo: {}, fin: {}, gym: {} }); }
         
         if(data.wamLogs) { wamStates = data.wamLogs; ls_set('wam_states_v1', wamStates); } 
         else { wamStates = ls_get('wam_states_v1', { topo: {}, fin: {}, gym: {} }); }
@@ -395,7 +415,6 @@ function initCloud() {
     });
   } else {
     ['topo','fin','gym'].forEach(p => taskStates[p] = ls_get(KEYS[p].tasks, {}));
-    leadStates = ls_get('lead_states_v1', { topo: {}, fin: {}, gym: {} });
     wamStates = ls_get('wam_states_v1', { topo: {}, fin: {}, gym: {} });
   }
 }
@@ -469,34 +488,12 @@ function buildPlanUI(planId) {
     const tbHTML = w.timeBlocks ? w.timeBlocks.map(tb => `<div class="time-block ${tb.type}"><div class="tb-dot"></div><span class="tb-label">${tb.label}</span><span class="tb-desc">${tb.desc}</span></div>`).join('') : '';
     const metHTML = w.metrics ? w.metrics.map(m => `<div class="metric-pill"><span class="mp-icon">${m.icon}</span><span class="mp-text">${m.text}</span><span class="mp-sub">${m.sub}</span></div>`).join('') : '';
 
-    // CONSTRUCCIÓN DEL TRACKER LEAD MEASURES
-    let leadTrackerHTML = '';
-    if (i >= 2) { 
-      leadTrackerHTML = `
-      <div class="lead-tracker">
-        <h4>🎯 Lead Measures (Métricas de Acción Diaria)</h4>
-        <div class="lead-item">
-          <div class="lead-title">${LEAD_MEASURES[planId][0]}</div>
-          <div class="lead-days">
-            ${DAYS.map((day, dIdx) => `<button class="lead-btn ${leadStates[planId] && leadStates[planId][i+'-0-'+dIdx] ? 'done' : ''}" onclick="toggleLead('${planId}',${i},0,${dIdx})" id="lead-${planId}-${i}-0-${dIdx}">${day}</button>`).join('')}
-          </div>
-        </div>
-        <div class="lead-item">
-          <div class="lead-title">${LEAD_MEASURES[planId][1]}</div>
-          <div class="lead-days">
-            ${DAYS.map((day, dIdx) => `<button class="lead-btn ${leadStates[planId] && leadStates[planId][i+'-1-'+dIdx] ? 'done' : ''}" onclick="toggleLead('${planId}',${i},1,${dIdx})" id="lead-${planId}-${i}-1-${dIdx}">${day}</button>`).join('')}
-          </div>
-        </div>
-      </div>`;
-    }
-
     const panel = document.createElement('div'); panel.className = 'week-panel' + (isActive ? ' active' : ''); panel.id = `panel-${planId}-${i}`;
     panel.innerHTML = `
       <div class="week-main">
         <div class="week-theme">${w.theme}</div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;"><h3>${w.title}</h3><span id="date-badge-${planId}-${i}" style="font-family:'DM Mono',monospace;font-size:10px;background:var(--navy);color:var(--gold-light);padding:4px 12px;">📅 ${w.dates || ''}</span></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;"><h3>${w.title}</h3><span id="date-badge-${planId}-${i}" style="font-family:'DM Mono',monospace;font-size:10px;background:var(--navy);color:var(--gold-light);padding:4px 12px; border-radius: 2px;">📅 ${w.dates || ''}</span></div>
         <ul class="tasks-list">${tasksHTML}</ul>
-        ${leadTrackerHTML}
         <div class="week-quote">${w.quote}<cite>— ${w.cite}</cite></div>
         <div style="margin-top:24px;"><textarea class="notes-area" id="note-${planId}-${i}" placeholder="Notas libres...">${notes[i]||''}</textarea><button class="notes-save-btn" onclick="saveNote('${planId}',${i})">💾 Guardar nota</button></div>
       </div>
@@ -519,38 +516,44 @@ function buildPlanUI(planId) {
   btns.className = 'bottom-btns';
   btns.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0;';
   const measBtn = planId === 'gym'
-    ? `<button onclick="buildMeasurementsPanel()" style="background:var(--sage);color:#fff;border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">📏 Mis mediciones</button>`
+    ? `<button onclick="buildMeasurementsPanel()" style="background:var(--sage);color:#fff;border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;">📏 Mis mediciones</button>`
     : '';
   btns.innerHTML = measBtn + `
-    <button onclick="showSummary('${planId}')" style="background:var(--navy);color:var(--gold-light);border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">📊 Ver resumen final</button>
-    <button onclick="exportToPDF('${planId}')" style="background:var(--gold);color:var(--navy);border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">🖨️ Exportar PDF</button>`;
+    <button onclick="showSummary('${planId}')" style="background:var(--navy);color:var(--gold-light);border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;">📊 Ver resumen final</button>
+    <button onclick="exportToPDF('${planId}')" style="background:var(--gold);color:var(--navy);border:none;padding:12px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;">🖨️ Exportar PDF</button>`;
   section.appendChild(btns);
 
   plan.weeks.forEach((_, i) => refreshScore(planId, i));
 }
 
 /* ══════════════════════════════════════════════════════
-   INTERACCIONES BÁSICAS
+   INTERACCIONES Y SONIDO (GAMIFICACIÓN)
 ══════════════════════════════════════════════════════ */
 function showToast(msg){ let t=document.getElementById('toast'); if(!t){ t=document.createElement('div'); t.id='toast'; t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--navy);color:var(--cream);padding:10px 22px;border-radius:2px;z-index:9999;transition:0.3s;'; document.body.appendChild(t); } t.textContent=msg; t.style.opacity='1'; clearTimeout(t._t); t._t=setTimeout(()=>t.style.opacity='0',2000); }
+
 function switchPlan(p) { currentPlan = p; document.querySelectorAll('.plan-btn').forEach(b => b.classList.toggle('active', b.dataset.plan === p)); document.querySelectorAll('.plan-section').forEach(s => s.classList.toggle('active', s.dataset.plan === p)); }
+
 function switchWeek(p, idx) { document.querySelectorAll(`#panels-${p} .week-panel`).forEach((el,i) => el.classList.toggle('active', i===idx)); document.querySelectorAll(`#nav-${p} .week-tab`).forEach((t,i) => t.classList.toggle('active', i===idx)); }
 
 function toggleTask(p, wi, ti) {
   if(!taskStates[p]) taskStates[p] = {};
-  const key = wi+'-'+ti; taskStates[p][key] = !taskStates[p][key];
+  const key = wi+'-'+ti; 
+  
+  // Cambiamos el estado de falso a verdadero o al revés
+  taskStates[p][key] = !taskStates[p][key];
+  
+  // ⚡ ACTIVAMOS SONIDO Y VIBRACIÓN SOLO SI FUE MARCADA COMO LISTA ⚡
+  if (taskStates[p][key]) {
+    playSuccessSound();
+    if (navigator.vibrate) navigator.vibrate(50);
+  }
+  
   ls_set(KEYS[p].tasks, taskStates[p]);
+  
+  // La animación visual (el Pop) se encarga sola desde el CSS al recibir la clase 'checked'
   document.getElementById(`task-${p}-${wi}-${ti}`).classList.toggle('checked', taskStates[p][key]);
+  
   refreshScore(p, wi);
-}
-
-function toggleLead(p, wi, mIdx, dIdx) {
-  if(!leadStates[p]) leadStates[p] = {};
-  const key = wi+'-'+mIdx+'-'+dIdx;
-  leadStates[p][key] = !leadStates[p][key];
-  ls_set('lead_states_v1', leadStates);
-  document.getElementById(`lead-${p}-${wi}-${mIdx}-${dIdx}`).classList.toggle('done', leadStates[p][key]);
-  syncPlanToCloud();
 }
 
 function refreshScore(p, wi) {
@@ -695,7 +698,7 @@ function buildMeasurementsPanel() {
     bodyRows += `<tr style="border-bottom:1px solid #f0ece4;">${cols}</tr>`;
   });
 
-  const medInputs = BASELINE.medidas.map(m => `<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><label style="font-size:12px;color:#5a6380;min-width:120px;">${m.zona}</label><input type="number" step="0.1" id="med-${m.zona}" placeholder="${m.valor}" style="font-family:monospace;font-size:13px;padding:6px;width:70px;"><span style="font-size:11px;">cm</span></div>`).join('');
+  const medInputs = BASELINE.medidas.map(m => `<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><label style="font-size:12px;color:#5a6380;min-width:120px;">${m.zona}</label><input type="number" step="0.1" id="med-${m.zona}" placeholder="${m.valor}" style="font-family:monospace;font-size:13px;padding:6px;width:70px; border:1px solid var(--border);"><span style="font-size:11px;">cm</span></div>`).join('');
 
   const overlay = document.createElement('div'); overlay.id = 'measPanel'; overlay.style.cssText = 'position:fixed;inset:0;background:var(--paper);z-index:500;overflow-y:auto;';
   overlay.innerHTML = `
@@ -705,8 +708,8 @@ function buildMeasurementsPanel() {
       <table style="width:100%;border-collapse:collapse;margin-bottom:40px;font-family:'DM Sans',sans-serif;"><thead><tr>${headerCols}</tr></thead><tbody>${bodyRows}</tbody></table>
       <div style="background:var(--cream);border:1px solid var(--border);border-top:4px solid var(--gold);padding:32px;">
         <h3 style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);margin-bottom:20px;">Registrar medidas</h3>
-        <select id="meas-week" style="margin-bottom:16px;padding:8px;font-family:monospace;">${weeks.slice(1).map(w=>`<option value="${w}">${w}</option>`).join('')}</select>
-        <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;"><label style="font-size:12px;color:#5a6380;min-width:120px;">Peso (kg)</label><input type="number" step="0.1" id="med-peso" placeholder="75.0" style="font-family:monospace;font-size:13px;padding:6px;width:70px;"></div>
+        <select id="meas-week" style="margin-bottom:16px;padding:8px;font-family:monospace; border:1px solid var(--border);">${weeks.slice(1).map(w=>`<option value="${w}">${w}</option>`).join('')}</select>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;"><label style="font-size:12px;color:#5a6380;min-width:120px;">Peso (kg)</label><input type="number" step="0.1" id="med-peso" placeholder="75.0" style="font-family:monospace;font-size:13px;padding:6px;width:70px; border:1px solid var(--border);"></div>
         ${medInputs}
         <button onclick="recordMeasurement()" style="margin-top:20px;background:var(--navy);color:var(--gold-light);border:none;padding:12px 24px;cursor:pointer;">💾 GUARDAR MEDICIONES</button>
       </div>
@@ -749,4 +752,3 @@ loadExternalPlans();
 </script>
 </body>
 </html>
-

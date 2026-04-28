@@ -1,588 +1,263 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tarjetas | Pierovski Center</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarjetas | Pierovski Center</title>
 
-    <style>
-        :root {
-            --bg: #f5f7fa;
-            --surface: #ffffff;
-            --surface2: #f8f9fa;
-            --border: #e2e4e8;
-            --amber: #d97706;
-            --green: #10b981;
-            --red: #ef4444;
-            --blue: #3b82f6;
-            --text: #1e293b;
-            --text-muted: #64748b;
-            --r: 12px;
-        }
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d1b2a">
+<link rel="apple-touch-icon" href="icon-192x192.png">
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            background-color: var(--bg);
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text);
-            min-height: 100vh;
-            padding-bottom: 80px;
-        }
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-        /* ─── HEADER ─── */
-        header {
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 20px 24px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo h1 {
-            font-family: 'Fraunces', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--blue);
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        /* Indicador de Nube */
-        .cloud-status {
-            width: 10px; height: 10px; border-radius: 50%;
-            background: #cbd5e1; display: inline-block;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }
-        .cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
-        .cloud-syncing { background: var(--amber); animation: pulse 1s infinite; }
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-        .btn-add {
-            background: var(--blue);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
-            transition: transform 0.1s;
-        }
-        .btn-add:active { transform: scale(0.95); }
+<style>
+:root {
+  --cream: #f5f0e8; --paper: #faf7f2; --navy: #0d1b2a; --navy2: #1a2e45;
+  --gold: #c8922a; --rust: #b84c2a; --sage: #4a7c59; --ink: #2a2420; --muted: #8a7e72; --border: #d8cfc4; --surface3: #eef0f2;
+  /* Colores de Tarjetas */
+  --bbva: #004481; --bcp: #ff7800; --bcp-blue: #002a8d; --ripley: #6a1b9a; --oh: #171717; --cmr: #059669;
+}
 
-        /* ─── MAIN CONTAINER ─── */
-        main {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 24px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; padding-bottom: 80px; }
 
-        /* ─── ITEM ACORDEÓN (EXTERIOR) ─── */
-        .t-item {
-            background: var(--surface);
-            border-radius: var(--r);
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            overflow: hidden;
-            transition: opacity 0.3s;
-        }
-        .t-item.is-paid {
-            opacity: 0.55;
-            border-color: var(--green);
-        }
+/* HEADER */
+header { padding: 40px 24px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; background: var(--paper); position: sticky; top: 0; z-index: 100; }
+.logo-area h1 { font-family: 'Fraunces', serif; font-size: 28px; color: var(--navy); line-height: 1.1; margin-bottom: 6px; display: flex; align-items: center; gap: 10px;}
+.logo-area .sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; display: block; margin-top: 4px; }
+.btn-back-dash { font-size: 0.8rem; text-decoration: none; color: var(--text-muted); font-weight: 500; display: flex; align-items: center; gap: 4px; transition: color 0.2s; font-family: 'DM Mono', monospace; border: 1px solid var(--border); padding: 6px 12px; border-radius: 4px;}
+.btn-back-dash:hover { color: var(--navy); background: var(--cream); }
 
-        .t-header {
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .th-main { display: flex; align-items: center; gap: 14px; flex: 1; }
-        
-        .th-dot {
-            width: 14px; height: 14px; border-radius: 50%;
-            flex-shrink: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+.cloud-status { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+.cloud-online { background: var(--sage); box-shadow: 0 0 8px var(--sage); }
+.cloud-syncing { background: var(--gold); animation: pulse-cloud 1s infinite; }
+@keyframes pulse-cloud { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        .th-texts h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 3px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .th-texts p {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
 
-        .badge {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.6rem;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .b-alert { background: rgba(239, 68, 68, 0.15); color: var(--red); animation: pulse 1.5s infinite; }
-        .b-ideal { background: rgba(59, 130, 246, 0.15); color: var(--blue); }
-        .b-paid { background: var(--green); color: white; }
+/* METRICAS */
+.metrics-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+.mcard { background: #fff; border: 1px solid var(--border); padding: 20px; border-radius: 4px; text-align: center; border-top: 3px solid var(--border); }
+.mcard.mc-red { border-top-color: var(--rust); }
+.mcard.mc-green { border-top-color: var(--sage); }
+.m-title { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.m-val { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; color: var(--navy); }
 
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+/* GRID DE TARJETAS */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.cc-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+.cc-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+.cc-header { padding: 20px; color: #fff; display: flex; justify-content: space-between; align-items: flex-start; }
+.cc-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.cc-cat { font-family: 'DM Mono', monospace; font-size: 10px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+.cc-line { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.2); padding: 4px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
 
-        .th-chevron {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            transition: transform 0.3s;
-        }
+.cc-body { padding: 20px; }
+.cc-dates { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--surface3); padding-bottom: 16px; }
+.date-box { text-align: center; }
+.date-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.date-val { font-size: 16px; font-weight: 700; color: var(--navy); display: flex; flex-direction: column; align-items: center;}
+.date-val.urg { color: var(--rust); }
+.days-left { font-size: 10px; font-weight: 500; padding: 2px 6px; border-radius: 4px; margin-top: 4px; }
+.days-left.danger { background: var(--rust); color: #fff; }
+.days-left.safe { background: var(--surface3); color: var(--muted); }
 
-        /* ─── DETALLES (RÉPLICA DE TARJETA FÍSICA) ─── */
-        .t-body {
-            display: none;
-            border-top: 1px solid var(--border);
-            background: var(--surface2);
-            padding: 16px;
-            animation: slideDown 0.2s ease-out;
-        }
-        @keyframes slideDown { from { opacity:0; transform:translateY(-10px) } to { opacity:1; transform:translateY(0) } }
+/* ⚡ ANIMACIÓN POP PARA EL BOTÓN ⚡ */
+@keyframes popIn {
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
 
-        .color-naranja { background: linear-gradient(135deg, #FF7000, #e65c00); color: white; }
-        .color-azul-bcp { background: linear-gradient(135deg, #002A8D, #001f66); color: white; }
-        .color-verde { background: linear-gradient(135deg, #8CC63F, #7ab033); color: white; }
-        .color-negro { background: linear-gradient(135deg, #2c3e50, #1a252f); color: white; }
-        .color-azul-bbva { background: linear-gradient(135deg, #072146, #041226); color: white; }
-        .color-morado { background: linear-gradient(135deg, #6a1b9a, #4a148c); color: white; }
-        .color-gris { background: linear-gradient(135deg, #7f8c8d, #636e72); color: white; }
+.cc-action { width: 100%; border: none; padding: 12px; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+.btn-pay { background: var(--surface3); color: var(--navy); border: 1px solid var(--border); }
+.btn-pay:hover { background: var(--border); }
+.btn-paid { 
+  background: var(--sage); color: #fff; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); 
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.btn-paid::before { content: '✓ '; }
 
-        .credit-card {
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            margin-bottom: 16px;
-            position: relative;
-        }
-        
-        .chip {
-            width: 35px; height: 24px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%);
-            border-radius: 6px; border: 1px solid rgba(255,255,255,0.5);
-            margin-bottom: 16px; position: relative; overflow: hidden;
-        }
-        .chip::after {
-            content: ''; position: absolute; top: 50%; left: 0; right: 0;
-            height: 1px; background: rgba(255,255,255,0.4);
-        }
+/* COLORES DINÁMICOS */
+.color-azul-bbva { background: var(--bbva); }
+.color-naranja { background: var(--bcp); }
+.color-azul-bcp { background: var(--bcp-blue); }
+.color-morado { background: var(--ripley); }
+.color-negro { background: var(--oh); }
+.color-verde { background: var(--cmr); }
 
-        .cc-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem;
-        }
-        .cc-item { display: flex; flex-direction: column; gap: 2px; }
-        .cc-item span {
-            font-family: 'DM Mono', monospace; font-size: 0.6rem;
-            text-transform: uppercase; opacity: 0.8; letter-spacing: 0.5px;
-        }
-        .cc-item strong {
-            font-family: 'Fraunces', serif; font-size: 1.05rem;
-            font-weight: 600; letter-spacing: 0.5px;
-        }
-
-        .t-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-        .btn-act {
-            flex: 1; padding: 10px; border-radius: 6px; border: none;
-            font-family: 'DM Mono', monospace; font-size: 0.75rem;
-            font-weight: 600; cursor: pointer; text-transform: uppercase;
-            transition: transform 0.1s;
-        }
-        .btn-act:active { transform: scale(0.96); }
-        .btn-pay { background: var(--green); color: white; flex-basis: 100%; font-size: 0.85rem; }
-        .btn-pay.revert { background: var(--text-muted); }
-        .btn-edit { background: white; border: 1px solid var(--border); color: var(--text); }
-        .btn-delete { background: rgba(239, 68, 68, 0.1); color: var(--red); }
-
-        /* ─── MODAL NUEVO/EDITAR ─── */
-        .modal-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(3px);
-            justify-content: center; align-items: center; z-index: 1000;
-        }
-        .modal {
-            background: var(--surface); padding: 24px; border-radius: var(--r);
-            width: 90%; max-width: 400px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-            max-height: 90vh; overflow-y: auto;
-        }
-        .modal h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; margin-bottom: 16px; color: var(--navy); }
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; }
-        .form-group input, .form-group select {
-            width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.95rem; background: var(--surface2); outline: none;
-        }
-        .form-group input:focus, .form-group select:focus { border-color: var(--blue); }
-        
-        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
-        .btn-save { background: var(--blue); color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;}
-        .btn-cancel { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;}
-    </style>
+@media (max-width: 600px) { .metrics-row { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <h1>MIS TARJETAS <div id="cloud-indicator" class="cloud-status" title="Estado de la Nube"></div></h1>
-        </div>
-        <button class="btn-add" onclick="abrirModal()">+ Agregar</button>
-    </header>
+<header>
+  <div class="logo-area">
+    <h1>TARJETAS <div id="cloud-indicator" class="cloud-status" title="Estado de la Nube"></div></h1>
+    <a href="index.html" class="btn-back-dash">← Volver al Comando</a>
+  </div>
+</header>
 
-    <main id="tarjetas-container">
-        </main>
-
-    <div class="modal-overlay" id="modal">
-        <div class="modal">
-            <h2 id="modal-title">Nueva Tarjeta</h2>
-            <input type="hidden" id="card-id">
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div class="form-group" style="grid-column: 1 / -1;"><label>Banco / Nombre</label><input type="text" id="card-name" placeholder="Ej: BCP Visa" autocomplete="off"></div>
-                <div class="form-group" style="grid-column: 1 / -1;"><label>Línea de Crédito (S/)</label><input type="number" id="card-line" placeholder="5000"></div>
-                <div class="form-group"><label>Día Cierre</label><input type="number" id="card-closing" placeholder="15" min="1" max="31"></div>
-                <div class="form-group"><label>Día Pago</label><input type="number" id="card-payment" placeholder="5" min="1" max="31"></div>
-                <div class="form-group"><label>Desgravamen (S/)</label><input type="number" id="card-desgravamen" placeholder="15.00"></div>
-                <div class="form-group"><label>Aniversario</label><input type="text" id="card-anniversary" placeholder="Enero"></div>
-                <div class="form-group" style="grid-column: 1 / -1;">
-                    <label>Color de Tarjeta</label>
-                    <select id="card-color">
-                        <option value="color-naranja">Naranja (Amex)</option>
-                        <option value="color-azul-bcp">Azul Vivo (BCP)</option>
-                        <option value="color-verde">Verde (CMR)</option>
-                        <option value="color-negro">Oscuro (Oh!)</option>
-                        <option value="color-azul-bbva">Azul Marino (BBVA)</option>
-                        <option value="color-morado">Morado (Ripley)</option>
-                        <option value="color-gris">Gris (Estándar)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="modal-actions">
-                <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
-                <button class="btn-save" onclick="guardarTarjeta()">Guardar</button>
-            </div>
-        </div>
+<main>
+  <div class="metrics-row">
+    <div class="mcard mc-red">
+      <div class="m-title">Tarjetas por Pagar</div>
+      <div class="m-val" id="tarjetasPendientes" style="color: var(--rust);">0</div>
     </div>
+    <div class="mcard mc-green">
+      <div class="m-title">Tarjetas Pagadas</div>
+      <div class="m-val" id="tarjetasPagadas" style="color: var(--sage);">0</div>
+    </div>
+  </div>
+  <div class="cards-grid" id="cardsContainer"></div>
+</main>
 
-    <script>
-        // CONFIGURACIÓN DE FIREBASE
-        const firebaseConfig = {
-            apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
-            authDomain: "pierovski-center.firebaseapp.com",
-            databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com",
-            projectId: "pierovski-center",
-            storageBucket: "pierovski-center.firebasestorage.app",
-            messagingSenderId: "917980127507",
-            appId: "1:917980127507:web:117620486d77987f493ae6"
-        };
+<div id="toast" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--navy); color:#fff; padding:10px 20px; border-radius:30px; font-family:'DM Mono', monospace; font-size:12px; opacity:0; transition:0.3s; pointer-events:none; z-index: 1000;"></div>
 
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const db = firebase.database();
+<script>
+/* FIREBASE CONFIG */
+const firebaseConfig = { apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g", authDomain: "pierovski-center.firebaseapp.com", databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com", projectId: "pierovski-center" };
+if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+const db = firebase.database();
 
-        const tarjetasPorDefecto = [
-            { id: 1, name: "BCP Amex", line: 15091, closing: 22, payment: 18, desgravamen: 20, anniversary: "Noviembre", color: "color-naranja", paid: false },
-            { id: 2, name: "BCP Visa", line: 32339, closing: 25, payment: 21, desgravamen: 20, anniversary: "Noviembre", color: "color-azul-bcp", paid: false },
-            { id: 3, name: "CMR Visa", line: 9200, closing: 14, payment: 8, desgravamen: 15, anniversary: "Enero", color: "color-verde", paid: false }
-        ];
+const SK = 'tarjetasPremiumV3';
+let tarjetas = [];
 
-        let misTarjetas = [];
-        const cloudIndicator = document.getElementById('cloud-indicator');
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.opacity = '1';
+  setTimeout(() => t.style.opacity = '0', 2000);
+}
 
-        // SCRIPT MAESTRO DE RESCATE
-        function rescatarDatosAntiguos() {
-            for (let i = 0; i < localStorage.length; i++) {
-                let key = localStorage.key(i);
-                // Si la llave no es la nueva y parece contener datos
-                if (key !== 'tarjetasPremiumV3') {
-                    try {
-                        let data = JSON.parse(localStorage.getItem(key));
-                        // Si la data rescatada tiene la estructura de tus tarjetas
-                        if (Array.isArray(data) && data.length > 0 && data[0].hasOwnProperty('closing')) {
-                            // Validar que no sea mi basura de prueba por defecto
-                            let esDePrueba = data.length === 3 && data[0].name === "BCP Amex";
-                            if (!esDePrueba) {
-                                return data; // ¡Tus tarjetas verdaderas encontradas!
-                            }
-                        }
-                    } catch(e) { } // Silencia errores de lectura
-                }
-            }
-            return null; // No encontró tarjetas reales antiguas
-        }
+// ⚡ MOTOR DE SONIDO SINTETIZADO ⚡
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
 
-        function init() {
-            let datosGuardados = localStorage.getItem('tarjetasPremiumV3');
-            let tarjetasLocales = datosGuardados ? JSON.parse(datosGuardados) : null;
-            let esBasuraDePrueba = (!tarjetasLocales || (tarjetasLocales.length === 3 && tarjetasLocales[0].name === "BCP Amex"));
+function playSuccessSound() {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
+  osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1); 
+  
+  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); 
+  
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.1);
+}
 
-            let rescatadas = null;
-            if (esBasuraDePrueba) {
-                rescatadas = rescatarDatosAntiguos();
-            }
+// AUTO-RESETEO
+function autoResetCards(data) {
+  const today = new Date(); const currentMonth = today.getMonth(); const currentDay = today.getDate();
+  let changed = false;
+  data.forEach(t => {
+    if (t.paid && currentDay >= t.closing && t.lastResetMonth !== currentMonth) {
+      t.paid = false; t.lastResetMonth = currentMonth; changed = true;
+    }
+  });
+  return changed;
+}
 
-            if (rescatadas) {
-                // ¡RESCATE EXITOSO! Mueve tus tarjetas antiguas a la nueva bóveda
-                misTarjetas = rescatadas;
-                localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
-                
-                // Sobrescribe Firebase de inmediato con tu data real
-                if (navigator.onLine) {
-                    cloudIndicator.classList.add('cloud-syncing');
-                    db.ref('pierovski/tarjetas').set(misTarjetas).then(() => {
-                        cloudIndicator.classList.remove('cloud-syncing');
-                        cloudIndicator.classList.add('cloud-online');
-                    });
-                }
-                renderizarTarjetas();
-            } else {
-                // Flujo normal si no hay nada que rescatar o ya está todo bien
-                misTarjetas = tarjetasLocales || [...tarjetasPorDefecto];
-                renderizarTarjetas();
+function syncToCloud() {
+  localStorage.setItem(SK, JSON.stringify(tarjetas));
+  if (navigator.onLine) {
+    const ind = document.getElementById('cloud-indicator');
+    ind.className = 'cloud-status cloud-syncing';
+    db.ref('pierovski/' + SK).set(tarjetas).then(() => { ind.className = 'cloud-status cloud-online'; });
+  }
+}
 
-                // Intentamos sincronizar desde la nube
-                if (navigator.onLine) {
-                    cloudIndicator.classList.add('cloud-syncing');
-                    db.ref('pierovski/tarjetas').once('value').then((snapshot) => {
-                        if (snapshot.exists()) {
-                            let dataNube = snapshot.val().filter(t => t != null);
-                            let nubeEsPrueba = (dataNube.length === 3 && dataNube[0].name === "BCP Amex");
-                            
-                            // Si la nube solo tiene la prueba por defecto, la ignoramos y subimos lo local.
-                            // De lo contrario, bajamos la data de la nube a tu celular.
-                            if (!nubeEsPrueba) {
-                                misTarjetas = dataNube;
-                                localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
-                                renderizarTarjetas();
-                            }
-                        } else if (!tarjetasLocales) {
-                            // Si la nube está vacía, subimos la plantilla
-                            guardarEnLocalYCloud();
-                        }
-                        cloudIndicator.classList.remove('cloud-syncing');
-                        cloudIndicator.classList.add('cloud-online');
-                    }).catch(error => {
-                        console.error("Error Firebase:", error);
-                        cloudIndicator.classList.remove('cloud-syncing');
-                    });
-                }
-            }
-        }
+function init() {
+  const localData = JSON.parse(localStorage.getItem(SK));
+  if (localData) {
+    tarjetas = localData;
+    if (autoResetCards(tarjetas)) syncToCloud();
+    render();
+  }
 
-        function guardarEnLocalYCloud() {
-            localStorage.setItem('tarjetasPremiumV3', JSON.stringify(misTarjetas));
-            if (navigator.onLine) {
-                cloudIndicator.classList.remove('cloud-online');
-                cloudIndicator.classList.add('cloud-syncing');
-                
-                db.ref('pierovski/tarjetas').set(misTarjetas)
-                  .then(() => {
-                      cloudIndicator.classList.remove('cloud-syncing');
-                      cloudIndicator.classList.add('cloud-online');
-                  })
-                  .catch(e => {
-                      cloudIndicator.classList.remove('cloud-syncing');
-                  });
-            }
-        }
+  if (navigator.onLine) {
+    db.ref('pierovski/' + SK).once('value').then(snap => {
+      if (snap.exists()) {
+        tarjetas = snap.val() || [];
+        if (autoResetCards(tarjetas)) syncToCloud(); else localStorage.setItem(SK, JSON.stringify(tarjetas));
+        render();
+        document.getElementById('cloud-indicator').className = 'cloud-status cloud-online';
+      }
+    });
+  }
+}
 
-        // Lógica de Interfaz...
-        function toggleDetails(id) {
-            const details = document.getElementById('det-' + id);
-            const chevron = document.getElementById('chev-' + id);
-            if (details.style.display === 'block') {
-                details.style.display = 'none';
-                chevron.style.transform = 'rotate(0deg)';
-            } else {
-                details.style.display = 'block';
-                chevron.style.transform = 'rotate(180deg)';
-            }
-        }
+function togglePaid(id) {
+  const t = tarjetas.find(x => x.id === id);
+  if (!t) return;
+  
+  t.paid = !t.paid;
+  if (t.paid) {
+    t.lastResetMonth = new Date().getMonth();
+    playSuccessSound(); // ⚡ Suena el "Ting!"
+    if (navigator.vibrate) navigator.vibrate(50); // ⚡ Vibra el celular
+  }
+  
+  syncToCloud();
+  render();
+  toast(t.paid ? 'Tarjeta marcada como Pagada ✓' : 'Marcada como Pendiente');
+}
 
-        function togglePago(id, event) {
-            if(event) event.stopPropagation();
-            const index = misTarjetas.findIndex(t => t.id === id);
-            if(index !== -1) {
-                misTarjetas[index].paid = !misTarjetas[index].paid;
-                guardarEnLocalYCloud();
-                renderizarTarjetas();
-            }
-        }
+function render() {
+  const container = document.getElementById('cardsContainer');
+  container.innerHTML = '';
+  let pagadas = 0, pendientes = 0;
+  const hoy = new Date().getDate();
 
-        function renderizarTarjetas() {
-            const container = document.getElementById('tarjetas-container');
-            container.innerHTML = '';
-            
-            const hoy = new Date().getDate();
+  const sorted = [...tarjetas].sort((a,b) => {
+    if (a.paid !== b.paid) return a.paid ? 1 : -1;
+    let faltaA = a.payment - hoy; if (faltaA < 0) faltaA += 30;
+    let faltaB = b.payment - hoy; if (faltaB < 0) faltaB += 30;
+    return faltaA - faltaB;
+  });
 
-            let mejorTarjetaId = null;
-            let minDiasDesdeCierre = 31;
-            
-            misTarjetas.forEach(t => {
-                let diasDesdeCierre = hoy - t.closing;
-                if (diasDesdeCierre < 0) diasDesdeCierre += 30;
-                if (diasDesdeCierre > 0 && diasDesdeCierre < minDiasDesdeCierre) {
-                    minDiasDesdeCierre = diasDesdeCierre;
-                    mejorTarjetaId = t.id;
-                }
-            });
+  sorted.forEach(t => {
+    if (t.paid) pagadas++; else pendientes++;
+    let faltaPago = t.payment - hoy; if (faltaPago < 0) faltaPago += 30;
+    let urgClass = (!t.paid && faltaPago <= 5) ? 'urg' : '';
+    let badgeClass = (!t.paid && faltaPago <= 5) ? 'danger' : 'safe';
+    let badgeText = t.paid ? 'Limpio' : `Faltan ${faltaPago} d`;
+    let faltaCorte = t.closing - hoy; if (faltaCorte < 0) faltaCorte += 30;
 
-            misTarjetas.sort((a, b) => {
-                if (a.paid !== b.paid) return a.paid ? 1 : -1;
-                let diasPagoA = a.payment - hoy; if (diasPagoA < 0) diasPagoA += 30;
-                let diasPagoB = b.payment - hoy; if (diasPagoB < 0) diasPagoB += 30;
-                const isUrgentA = diasPagoA <= 7;
-                const isUrgentB = diasPagoB <= 7;
-                if (isUrgentA && !isUrgentB) return -1;
-                if (!isUrgentA && isUrgentB) return 1;
-                if (isUrgentA && isUrgentB) return diasPagoA - diasPagoB;
-                if (a.id === mejorTarjetaId) return -1;
-                if (b.id === mejorTarjetaId) return 1;
-                return diasPagoA - diasPagoB;
-            });
+    container.innerHTML += `
+      <div class="cc-card">
+        <div class="cc-header ${t.color}">
+          <div><div class="cc-name">${t.name}</div><div class="cc-cat">${t.category}</div></div>
+          <div class="cc-line">ANIV: ${t.anniversary || '---'}</div>
+        </div>
+        <div class="cc-body">
+          <div class="cc-dates">
+            <div class="date-box"><div class="date-lbl">Corte</div><div class="date-val">Día ${t.closing} <span class="days-left safe">En ${faltaCorte} d</span></div></div>
+            <div class="date-box"><div class="date-lbl">Pago</div><div class="date-val ${urgClass}">Día ${t.payment} <span class="days-left ${badgeClass}">${badgeText}</span></div></div>
+          </div>
+          <button class="cc-action ${t.paid ? 'btn-paid' : 'btn-pay'}" onclick="togglePaid(${t.id})">
+            ${t.paid ? 'Tarjeta Pagada' : 'Marcar como Pagado'}
+          </button>
+        </div>
+      </div>
+    `;
+  });
 
-            misTarjetas.forEach(t => {
-                let diferenciaPago = t.payment - hoy;
-                if (diferenciaPago < 0 && hoy > 25 && t.payment < 10) diferenciaPago += 30; 
-                const esAlerta = !t.paid && (diferenciaPago >= 0 && diferenciaPago <= 5);
-                const esIdeal = (!t.paid && t.id === mejorTarjetaId);
-                
-                let badgeHTML = '';
-                if (t.paid) badgeHTML = '<span class="badge b-paid">✓ PAGADO</span>';
-                else if (esAlerta) badgeHTML = '<span class="badge b-alert">⚠️ PAGO CERCA</span>';
-                else if (esIdeal) badgeHTML = '<span class="badge b-ideal">✨ MEJOR USAR HOY</span>';
+  document.getElementById('tarjetasPendientes').textContent = pendientes;
+  document.getElementById('tarjetasPagadas').textContent = pagadas;
+}
 
-                container.innerHTML += `
-                    <div class="t-item ${t.paid ? 'is-paid' : ''}">
-                        <div class="t-header" onclick="toggleDetails(${t.id})">
-                            <div class="th-main">
-                                <div class="th-dot ${t.color}"></div>
-                                <div class="th-texts">
-                                    <h3>${t.name} ${badgeHTML}</h3>
-                                    <p>Día de Pago: <strong>${t.payment}</strong></p>
-                                </div>
-                            </div>
-                            <div class="th-chevron" id="chev-${t.id}">▼</div>
-                        </div>
-                        <div class="t-body" id="det-${t.id}">
-                            <div class="credit-card ${t.color}">
-                                <div class="chip"></div>
-                                <div class="cc-grid">
-                                    <div class="cc-item"><span>Línea de Crédito</span><strong>S/ ${t.line.toLocaleString('en-US')}</strong></div>
-                                    <div class="cc-item"><span>Día de Cierre</span><strong>${t.closing}</strong></div>
-                                    <div class="cc-item"><span>Día de Pago</span><strong>${t.payment}</strong></div>
-                                    <div class="cc-item"><span>Desgravamen</span><strong>S/ ${t.desgravamen}</strong></div>
-                                    <div class="cc-item" style="grid-column: 1 / -1;"><span>Mes de Aniversario</span><strong>${t.anniversary || '—'}</strong></div>
-                                </div>
-                            </div>
-                            <div class="t-actions">
-                                <button class="btn-act btn-pay ${t.paid ? 'revert' : ''}" onclick="togglePago(${t.id}, event)">
-                                    ${t.paid ? '↩ Deshacer Pago' : '✓ Marcar como Pagado'}
-                                </button>
-                                <button class="btn-act btn-edit" onclick="editarTarjeta(${t.id})">Editar</button>
-                                <button class="btn-act btn-delete" onclick="eliminarTarjeta(${t.id})">Eliminar</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function abrirModal() {
-            document.getElementById('modal').style.display = 'flex';
-            document.getElementById('modal-title').innerText = 'Nueva Tarjeta';
-            document.getElementById('card-id').value = '';
-            ['name', 'line', 'closing', 'payment', 'desgravamen', 'anniversary'].forEach(id => document.getElementById(`card-${id}`).value = '');
-            document.getElementById('card-color').value = 'color-gris';
-        }
-
-        function cerrarModal() { document.getElementById('modal').style.display = 'none'; }
-
-        function guardarTarjeta() {
-            const id = document.getElementById('card-id').value;
-            const name = document.getElementById('card-name').value.trim();
-            if(!name) return alert("Ingresa el nombre de la tarjeta.");
-
-            const nuevaTarjeta = {
-                id: id ? parseInt(id) : Date.now(),
-                name: name,
-                line: parseFloat(document.getElementById('card-line').value) || 0,
-                closing: parseInt(document.getElementById('card-closing').value) || 1,
-                payment: parseInt(document.getElementById('card-payment').value) || 1,
-                desgravamen: parseFloat(document.getElementById('card-desgravamen').value) || 0,
-                anniversary: document.getElementById('card-anniversary').value,
-                color: document.getElementById('card-color').value,
-                paid: false
-            };
-
-            if (id) {
-                const index = misTarjetas.findIndex(t => t.id == id);
-                nuevaTarjeta.paid = misTarjetas[index].paid;
-                misTarjetas[index] = nuevaTarjeta;
-            } else {
-                misTarjetas.push(nuevaTarjeta);
-            }
-
-            guardarEnLocalYCloud();
-            renderizarTarjetas();
-            cerrarModal();
-        }
-
-        function editarTarjeta(id) {
-            const t = misTarjetas.find(t => t.id === id);
-            if(!t) return;
-            ['id', 'name', 'line', 'closing', 'payment', 'desgravamen', 'anniversary', 'color'].forEach(k => {
-                document.getElementById(`card-${k}`).value = t[k] || '';
-            });
-            document.getElementById('modal-title').innerText = 'Editar Tarjeta';
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function eliminarTarjeta(id) {
-            if(confirm("¿Seguro que quieres eliminar esta tarjeta?")) {
-                misTarjetas = misTarjetas.filter(t => t.id !== id);
-                guardarEnLocalYCloud();
-                renderizarTarjetas();
-            }
-        }
-
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.t-body')) { e.stopPropagation(); }
-        });
-
-        window.addEventListener('online', () => {
-            if (misTarjetas.length > 0) guardarEnLocalYCloud();
-        });
-
-        init();
-    </script>
+init();
+</script>
 </body>
 </html>
