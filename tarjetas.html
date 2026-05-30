@@ -29,8 +29,11 @@ body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans
 header { padding: 40px 24px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; background: var(--paper); position: sticky; top: 0; z-index: 100; }
 .logo-area h1 { font-family: 'Fraunces', serif; font-size: 28px; color: var(--navy); line-height: 1.1; margin-bottom: 6px; display: flex; align-items: center; gap: 10px;}
 .logo-area .sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; display: block; margin-top: 4px; }
+.header-actions { display: flex; gap: 10px; align-items: center; }
 .btn-back-dash { font-size: 0.8rem; text-decoration: none; color: var(--text-muted); font-weight: 500; display: flex; align-items: center; gap: 4px; transition: color 0.2s; font-family: 'DM Mono', monospace; border: 1px solid var(--border); padding: 6px 12px; border-radius: 4px;}
 .btn-back-dash:hover { color: var(--navy); background: var(--cream); }
+.btn-add-main { font-size: 0.8rem; font-family: 'DM Mono', monospace; background: var(--navy); color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; transition: 0.2s; font-weight: 500; }
+.btn-add-main:hover { background: var(--navy2); }
 
 .cloud-status { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
 .cloud-online { background: var(--sage); box-shadow: 0 0 8px var(--sage); }
@@ -54,7 +57,11 @@ main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
 .cc-header { padding: 20px; color: #fff; display: flex; justify-content: space-between; align-items: flex-start; }
 .cc-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
 .cc-cat { font-family: 'DM Mono', monospace; font-size: 10px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+.cc-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
 .cc-line { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.2); padding: 4px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
+.cc-crud-actions { display: flex; gap: 8px; }
+.btn-crud-small { background: rgba(255,255,255,0.2); border: none; color: white; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; transition: 0.2s; }
+.btn-crud-small:hover { background: rgba(255,255,255,0.4); }
 
 .cc-body { padding: 20px; }
 .cc-dates { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--surface3); padding-bottom: 16px; }
@@ -66,7 +73,7 @@ main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
 .days-left.danger { background: var(--rust); color: #fff; }
 .days-left.safe { background: var(--surface3); color: var(--muted); }
 
-/* ⚡ ANIMACIÓN POP PARA EL BOTÓN ⚡ */
+/* ANIMACIÓN POP */
 @keyframes popIn {
   0% { transform: scale(0.95); }
   50% { transform: scale(1.05); }
@@ -82,6 +89,21 @@ main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
 }
 .btn-paid::before { content: '✓ '; }
 
+/* MODAL FORMULARIO */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 27, 42, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: 0.3s; }
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+.modal-content { background: var(--paper); border: 1px solid var(--border); width: 90%; max-width: 450px; padding: 28px; border-radius: 8px; box-shadow: 0 12px 30px rgba(0,0,0,0.15); animation: fadeUp 0.3s ease; }
+.modal-title { font-family: 'Fraunces', serif; font-size: 22px; color: var(--navy); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+.form-group { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.form-control { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 14px; background: #fff; color: var(--ink); }
+.form-control:focus { outline: none; border-color: var(--navy); }
+.modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.btn-cancel { background: transparent; border: 1px solid var(--border); padding: 10px 16px; font-family: 'DM Mono', monospace; font-size: 11px; border-radius: 4px; cursor: pointer; color: var(--muted); }
+.btn-cancel:hover { background: var(--surface3); color: var(--ink); }
+.btn-save { background: var(--navy); border: none; color: #fff; padding: 10px 16px; font-family: 'DM Mono', monospace; font-size: 11px; border-radius: 4px; cursor: pointer; }
+.btn-save:hover { background: var(--navy2); }
+
 /* COLORES DINÁMICOS */
 .color-azul-bbva { background: var(--bbva); }
 .color-naranja { background: var(--bcp); }
@@ -90,7 +112,32 @@ main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
 .color-negro { background: var(--oh); }
 .color-verde { background: var(--cmr); }
 
-@media (max-width: 600px) { .metrics-row { grid-template-columns: 1fr; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 600px) { 
+  header { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 16px; 
+    padding: 25px 20px 15px; /* Ajustamos el padding para móvil */
+  } 
+  .header-actions { 
+    width: 100%; 
+    flex-direction: row-reverse; /* Ponemos el botón principal a la derecha */
+    justify-content: space-between; 
+    gap: 10px; 
+  } 
+  .btn-add-main, .btn-back-dash {
+    flex: 1; /* Ambos botones se reparten el 50% del ancho */
+    text-align: center;
+    justify-content: center;
+    padding: 10px 5px; /* Más altos para que sea fácil tocarlos */
+    font-size: 0.75rem;
+  }
+  .metrics-row { 
+    grid-template-columns: 1fr; 
+  } 
+}
+
 </style>
 </head>
 <body>
@@ -98,6 +145,10 @@ main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
 <header>
   <div class="logo-area">
     <h1>TARJETAS <div id="cloud-indicator" class="cloud-status" title="Estado de la Nube"></div></h1>
+    <span class="sub">Gestión Premium de Créditos</span>
+  </div>
+  <div class="header-actions">
+    <button class="btn-add-main" onclick="openModal()">+ Agregar Tarjeta</button>
     <a href="index.html" class="btn-back-dash">← Volver al Comando</a>
   </div>
 </header>
@@ -116,6 +167,52 @@ main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
   <div class="cards-grid" id="cardsContainer"></div>
 </main>
 
+<div class="modal-overlay" id="cardModal">
+  <div class="modal-content">
+    <div class="modal-title" id="modalTitle">Nueva Tarjeta</div>
+    <form id="cardForm" onsubmit="saveCard(event)">
+      <input type="hidden" id="cardId">
+      <div class="form-group">
+        <label for="cardName">Nombre Entidad / Tarjeta</label>
+        <input type="text" id="cardName" class="form-control" placeholder="Ej. BBVA Visa Signature" required>
+      </div>
+      <div class="form-group">
+        <label for="cardCategory">Categoría / Tipo</label>
+        <input type="text" id="cardCategory" class="form-control" placeholder="Ej. Crédito VIP" required>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="form-group">
+          <label for="cardClosing">Día de Corte</label>
+          <input type="number" id="cardClosing" class="form-control" min="1" max="31" placeholder="Ej. 20" required>
+        </div>
+        <div class="form-group">
+          <label for="cardPayment">Día de Pago</label>
+          <input type="number" id="cardPayment" class="form-control" min="1" max="31" placeholder="Ej. 15" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cardColor">Estilo de Color</label>
+        <select id="cardColor" class="form-control" required>
+          <option value="color-azul-bbva">Azul BBVA</option>
+          <option value="color-naranja">Naranja BCP</option>
+          <option value="color-azul-bcp">Azul BCP</option>
+          <option value="color-morado">Morado Ripley</option>
+          <option value="color-negro">Negro Oh!</option>
+          <option value="color-verde">Verde CMR</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="cardAnniversary">Mes Aniversario (Membresía)</label>
+        <input type="text" id="cardAnniversary" class="form-control" placeholder="Ej. SET o ENE (Opcional)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn-save">Guardar Tarjeta</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div id="toast" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--navy); color:#fff; padding:10px 20px; border-radius:30px; font-family:'DM Mono', monospace; font-size:12px; opacity:0; transition:0.3s; pointer-events:none; z-index: 1000;"></div>
 
 <script>
@@ -133,7 +230,7 @@ function toast(msg) {
   setTimeout(() => t.style.opacity = '0', 2000);
 }
 
-// ⚡ MOTOR DE SONIDO SINTETIZADO ⚡
+// MOTOR DE SONIDO SINTETIZADO
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
@@ -141,28 +238,56 @@ function playSuccessSound() {
   if (audioCtx.state === 'suspended') audioCtx.resume();
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
-  
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  
+  osc.connect(gain); gain.connect(audioCtx.destination);
   osc.type = 'sine';
   osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
   osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1); 
-  
   gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); 
-  
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.1);
+  osc.start(); osc.stop(audioCtx.currentTime + 0.1);
 }
 
-// AUTO-RESETEO
+// AUTO-RESETEO BASADO EN FECHAS DE CORTE REALES
 function autoResetCards(data) {
-  const today = new Date(); const currentMonth = today.getMonth(); const currentDay = today.getDate();
+  const hoy = new Date();
   let changed = false;
+
   data.forEach(t => {
-    if (t.paid && currentDay >= t.closing && t.lastResetMonth !== currentMonth) {
-      t.paid = false; t.lastResetMonth = currentMonth; changed = true;
+    if (t.paid && t.closing) {
+      // Si tenemos el registro exacto de cuándo se pagó (nuevo sistema)
+      if (t.lastPaymentDate) {
+        const fechaPago = new Date(t.lastPaymentDate);
+        let mesCorte = fechaPago.getMonth();
+        let anioCorte = fechaPago.getFullYear();
+
+        // Si se pagó el mismo día del corte o después, el próximo corte es hasta el mes siguiente
+        if (fechaPago.getDate() >= t.closing) {
+          mesCorte++;
+          if (mesCorte > 11) {
+            mesCorte = 0;
+            anioCorte++;
+          }
+        }
+
+        // Calculamos la fecha en la que la tarjeta debe volver a "No Pagada"
+        const proximaFechaCorte = new Date(anioCorte, mesCorte, t.closing);
+
+        // Si el día de hoy ya alcanzó o pasó esa fecha de corte, reseteamos
+        if (hoy >= proximaFechaCorte) {
+          t.paid = false;
+          changed = true;
+        }
+      } 
+      // Respaldo para tus tarjetas viejas que aún no tienen fecha de pago guardada
+      else {
+        const currentMonth = hoy.getMonth();
+        const currentDay = hoy.getDate();
+        if (currentDay >= t.closing && t.lastResetMonth !== currentMonth) {
+          t.paid = false; 
+          t.lastResetMonth = currentMonth; 
+          changed = true;
+        }
+      }
     }
   });
   return changed;
@@ -197,25 +322,99 @@ function init() {
   }
 }
 
+// FUNCIÓN DE PAGO CORREGIDA
 function togglePaid(id) {
   const t = tarjetas.find(x => x.id === id);
-  if (!t) return;
-  
-  t.paid = !t.paid;
-  if (t.paid) {
-    t.lastResetMonth = new Date().getMonth();
-    playSuccessSound(); // ⚡ Suena el "Ting!"
-    if (navigator.vibrate) navigator.vibrate(50); // ⚡ Vibra el celular
+  if (t) {
+    t.paid = !t.paid;
+    
+    if (t.paid) {
+      playSuccessSound();
+      toast('Tarjeta pagada');
+      // Guardamos el momento exacto del pago para calcular el próximo corte
+      t.lastPaymentDate = new Date().toISOString(); 
+    } else {
+      t.lastPaymentDate = null; // Limpiamos la fecha si la desmarcamos manualmente
+    }
+    
+    syncToCloud(); // Sincronizamos con Firebase
+    render(); // Refrescamos el HTML sin errores
   }
+}
+
+/* === MOTOR CRUD INTERNO === */
+function openModal(id = null) {
+  const modal = document.getElementById('cardModal');
+  const form = document.getElementById('cardForm');
+  form.reset();
   
+  if (id) {
+    document.getElementById('modalTitle').textContent = 'Editar Tarjeta';
+    const t = tarjetas.find(x => x.id === id);
+    if (!t) return;
+    document.getElementById('cardId').value = t.id;
+    document.getElementById('cardName').value = t.name;
+    document.getElementById('cardCategory').value = t.category;
+    document.getElementById('cardClosing').value = t.closing;
+    document.getElementById('cardPayment').value = t.payment;
+    document.getElementById('cardColor').value = t.color;
+    document.getElementById('cardAnniversary').value = t.anniversary || '';
+  } else {
+    document.getElementById('modalTitle').textContent = 'Nueva Tarjeta';
+    document.getElementById('cardId').value = '';
+  }
+  modal.classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('cardModal').classList.remove('active');
+}
+
+function saveCard(e) {
+  e.preventDefault();
+  
+  const id = document.getElementById('cardId').value;
+  const name = document.getElementById('cardName').value;
+  const category = document.getElementById('cardCategory').value;
+  const closing = parseInt(document.getElementById('cardClosing').value);
+  const payment = parseInt(document.getElementById('cardPayment').value);
+  const color = document.getElementById('cardColor').value;
+  const anniversary = document.getElementById('cardAnniversary').value;
+
+  if (id) {
+    const idx = tarjetas.findIndex(x => x.id == id);
+    if (idx !== -1) {
+      tarjetas[idx] = { ...tarjetas[idx], name, category, closing, payment, color, anniversary };
+      toast('Tarjeta actualizada.');
+    }
+  } else {
+    const newCard = {
+      id: Date.now(),
+      name, category, closing, payment, color, anniversary,
+      paid: false,
+      lastResetMonth: new Date().getMonth()
+    };
+    tarjetas.push(newCard);
+    toast('Nueva tarjeta añadida con éxito.');
+  }
+
   syncToCloud();
   render();
-  toast(t.paid ? 'Tarjeta marcada como Pagada ✓' : 'Marcada como Pendiente');
+  closeModal();
+}
+
+function deleteCard(id) {
+  if (confirm('¿Estás seguro de que deseas eliminar esta tarjeta definitivamente?')) {
+    tarjetas = tarjetas.filter(x => x.id !== id);
+    syncToCloud();
+    render();
+    toast('Tarjeta eliminada correctamente.');
+  }
 }
 
 function render() {
   const container = document.getElementById('cardsContainer');
-  container.innerHTML = '';
+  let cardsHTML = ''; 
   let pagadas = 0, pendientes = 0;
   const hoy = new Date().getDate();
 
@@ -234,11 +433,20 @@ function render() {
     let badgeText = t.paid ? 'Limpio' : `Faltan ${faltaPago} d`;
     let faltaCorte = t.closing - hoy; if (faltaCorte < 0) faltaCorte += 30;
 
-    container.innerHTML += `
+    cardsHTML += `
       <div class="cc-card">
         <div class="cc-header ${t.color}">
-          <div><div class="cc-name">${t.name}</div><div class="cc-cat">${t.category}</div></div>
-          <div class="cc-line">ANIV: ${t.anniversary || '---'}</div>
+          <div>
+            <div class="cc-name">${t.name}</div>
+            <div class="cc-cat">${t.category}</div>
+          </div>
+          <div class="cc-header-right">
+            <div class="cc-line">ANIV: ${t.anniversary || '---'}</div>
+            <div class="cc-crud-actions">
+              <button class="btn-crud-small" onclick="openModal(${t.id})" title="Editar">✏️</button>
+              <button class="btn-crud-small" onclick="deleteCard(${t.id})" title="Eliminar">🗑️</button>
+            </div>
+          </div>
         </div>
         <div class="cc-body">
           <div class="cc-dates">
@@ -253,11 +461,13 @@ function render() {
     `;
   });
 
+  container.innerHTML = cardsHTML;
   document.getElementById('tarjetasPendientes').textContent = pendientes;
   document.getElementById('tarjetasPagadas').textContent = pagadas;
 }
 
 init();
 </script>
+
 </body>
 </html>
