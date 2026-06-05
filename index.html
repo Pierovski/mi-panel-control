@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comando | COTA100</title>
-
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f172a">
-<link rel="apple-touch-icon" href="icon-192x192.png">
+<link rel="apple-touch-icon" href="icon.jpg">
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* VARIABLES GLOBALES CORREGIDAS */
+/* VARIABLES GLOBALES */
 :root {
   color-scheme: light;
   --bg: #f4f5f7; --surface: #ffffff; --surface2: #f8f9fa; --surface3: #eef0f2;
   --border: #e2e4e8; --border2: #d1d5db; --amber: #d97706; --amber-dim: #b45309;
-  --green: #10b981; --green-dim: #059669; /* Variable añadida para reparar la barra */
-  --red: #ef4444; --red-dim: #dc2626; --blue: #3b82f6; 
+  --amber-glow: rgba(217,119,6,0.1); --green: #10b981; --green-dim: #059669;
+  --green-glow: rgba(16,185,129,0.1); --red: #ef4444; --red-dim: #dc2626; 
+  --blue: #3b82f6; --blue-dim: #2563eb;
   --text: #1e293b; --text-muted: #64748b; --text-dim: #94a3b8;
   --r: 12px; --r-sm: 8px; --shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
@@ -29,6 +29,7 @@ body.dark-theme {
   --border: #334155; --border2: #475569; --text: #f8fafc;
   --text-muted: #cbd5e1; --text-dim: #64748b;
   --shadow: 0 6px 16px rgba(0,0,0,0.2);
+  --amber-glow: rgba(217,119,6,0.2); --green-glow: rgba(16,185,129,0.2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,14 +39,13 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
 /* HEADER DINÁMICO */
 header { padding: 35px 24px 25px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; background: var(--surface); position: sticky; top: 0; z-index: 100; transition: background 0.3s;}
 .greeting-area h1 { font-family: 'Fraunces', serif; font-size: 1.6rem; color: var(--text); line-height: 1.1; margin-bottom: 4px; font-weight: 700; transition: color 0.3s;}
-.greeting-area .sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--amber); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;}
 .header-actions { display: flex; gap: 10px; align-items: center; }
 .date-badge { text-align: right; margin-right: 8px;}
 .date-badge .day { font-family: 'DM Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--text); line-height: 1; }
 .date-badge .month { font-family: 'DM Mono', monospace; font-size: 0.65rem; text-transform: uppercase; color: var(--text-dim); margin-top: 4px; }
 .btn-icon-tool { background: var(--surface2); border: 1px solid var(--border2); color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px; font-size: 1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; position: relative;}
 .btn-icon-tool:hover { background: var(--surface3); color: var(--text); border-color: var(--amber); transform: scale(1.05);}
-.btn-icon-tool.active { color: var(--amber); border-color: var(--amber); background: rgba(217,119,6,0.1); }
+.btn-icon-tool.active { color: var(--amber); border-color: var(--amber); background: var(--amber-glow); }
 
 /* PUNTO ROJO DE ALERTA */
 .btn-icon-tool.has-alerts::after {
@@ -56,19 +56,28 @@ header { padding: 35px 24px 25px; border-bottom: 1px solid var(--border); displa
 
 main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
 
-/* PÍLDORA MENTAL (ALEATORIA) */
+/* PÍLDORA MENTAL */
 .quote-box { text-align: center; margin-bottom: 24px; padding: 0 10px;}
 .quote-text { font-family: 'Fraunces', serif; font-size: 0.95rem; font-style: italic; color: var(--text-muted); line-height: 1.5;}
 
-/* ENFOQUE DEL DÍA (MINIMALISTA) */
-.focus-line {
+/* TRACKER SEMANAL (SEMÁFORO) */
+.section-title { font-family: 'Fraunces', serif; font-size: 1rem; color: var(--text); margin-bottom: 14px; font-weight: 600;}
+.week-tracker {
   background: var(--surface); border: 1px solid var(--border);
-  border-left: 3px solid var(--amber); padding: 12px 16px;
-  border-radius: var(--r-sm); margin-bottom: 32px;
-  font-size: 0.85rem; color: var(--text); display: flex; align-items: center; gap: 10px;
-  box-shadow: var(--shadow); font-weight: 500;
+  padding: 18px 24px; border-radius: var(--r-sm); margin-bottom: 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: var(--shadow);
 }
-.focus-line span.f-lbl { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--amber); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; white-space: nowrap;}
+.day-dot {
+  width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 0.85rem; font-weight: 700;
+  background: var(--surface2); color: var(--text-dim); border: 2px solid transparent;
+  transition: all 0.3s;
+}
+.day-dot.past { background: var(--surface3); color: var(--text-muted); }
+.day-dot.today-pending { border-color: var(--amber); color: var(--amber-dim); background: var(--amber-glow); box-shadow: 0 0 12px var(--amber-glow); transform: scale(1.1);}
+.day-dot.today-done { border-color: var(--green); color: var(--green-dim); background: var(--green-glow); box-shadow: 0 0 12px var(--green-glow); transform: scale(1.1);}
+.day-dot.today-neutral { border-color: var(--blue); color: var(--blue-dim); background: rgba(59,130,246,0.1); transform: scale(1.1);}
 
 /* CAJA DE ALERTA (PLEGABLE) */
 .alert-box { background: var(--surface); border: 1px solid var(--red); border-left: 4px solid var(--red); padding: 18px 20px; border-radius: var(--r-sm); margin-bottom: 32px; display: none; animation: fadeUp 0.3s ease; box-shadow: var(--shadow); }
@@ -80,34 +89,29 @@ main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
 .btn-nav-alert { font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 5px 12px; background: var(--red); color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; transition: 0.2s; cursor: pointer; border: none; font-weight: 600; white-space: nowrap;}
 .btn-nav-alert:hover { background: var(--red-dim); }
 
-/* ACCESO A MÓDULOS */
-.section-title { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 16px; font-weight: 600;}
-.access-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 36px; }
+/* ACCESO A MÓDULOS - OPTIMIZADOS PARA SER MÁS COMPACTOS */
+.access-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 36px; }
 .access-btn { 
-  background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; 
+  background: var(--surface); border: 1px solid var(--border); padding: 14px 18px; 
   border-radius: var(--r); text-decoration: none; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; 
-  display: flex; align-items: center; gap: 16px; cursor: pointer; box-shadow: var(--shadow); position: relative; overflow: hidden;
+  display: flex; align-items: center; gap: 12px; cursor: pointer; box-shadow: var(--shadow); position: relative; overflow: hidden;
 }
 .access-btn::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 4px 0 0 4px; opacity: 0.8;}
 .btn-compras::before { background: var(--amber); }
 .btn-tarjetas::before { background: var(--red); }
 .btn-plan::before { background: var(--blue); }
 
-.access-btn:hover { border-color: var(--amber); box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-3px); }
-.access-icon { font-size: 1.6rem; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--surface2); border-radius: 50%; flex-shrink: 0; position: relative;}
-.access-content { display: flex; flex-direction: column; gap: 4px; width: 100%;}
-.access-label { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); display: flex; justify-content: space-between; align-items: center;}
-.access-stat { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-muted); font-weight: 500;}
-
-/* SPARKLINE (MICRO-GRÁFICO) */
-.sparkline-svg { position: absolute; bottom: 0; right: 0; opacity: 0.15; pointer-events: none; width: 100px; height: 40px;}
-.dark-theme .sparkline-svg { opacity: 0.3; }
+.access-btn:hover { border-color: var(--amber); box-shadow: 0 8px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.access-icon { font-size: 1.3rem; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--surface2); border-radius: 50%; flex-shrink: 0; position: relative;}
+.access-content { display: flex; flex-direction: column; gap: 2px; width: 100%;}
+.access-label { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text); display: flex; justify-content: space-between; align-items: center;}
+.access-stat { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-muted); font-weight: 500;}
 
 /* PROGRESO DE LA MISIÓN */
-.progress-container { background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: var(--r); box-shadow: var(--shadow); transition: background 0.3s, border 0.3s;}
-.prog-track { margin-bottom: 24px; }
+.progress-container { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: var(--r); box-shadow: var(--shadow); transition: background 0.3s, border 0.3s;}
+.prog-track { margin-bottom: 20px; }
 .prog-track:last-child { margin-bottom: 0; }
-.prog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
+.prog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
 .prog-title { font-size: 0.85rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif;}
 .prog-pct { font-family: 'DM Mono', monospace; font-size: 0.85rem; font-weight: 600; color: var(--text-dim); }
 .bar-bg { width: 100%; height: 8px; background: var(--surface3); border-radius: 4px; overflow: hidden; position: relative;}
@@ -129,8 +133,7 @@ main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
 
 <header>
   <div class="greeting-area">
-    <h1 id="greetText">Comando</h1>
-    <span class="sub" id="greetSub">Operaciones COTA100</span>
+    <h1 id="greetText">Buenos días, Piero</h1>
   </div>
   <div class="header-actions">
     <div class="date-badge">
@@ -149,10 +152,13 @@ main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
     <div class="quote-text" id="dailyQuote">"Cargando protocolo mental..."</div>
   </div>
 
-  <!-- Enfoque del Día Minimalista -->
-  <div class="focus-line">
-    <span class="f-lbl">🎯 Foco</span>
-    <span id="focusText">Sincronizando base de datos...</span>
+  <!-- Tracker Semanal de Ejecución (Reemplaza a Foco) -->
+  <div class="section-title" style="display: flex; justify-content: space-between; align-items: center;">
+    <span>🔥 Racha de Ejecución</span>
+    <span style="font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-muted);">SEMANA ACTUAL</span>
+  </div>
+  <div class="week-tracker" id="weekTracker">
+    <!-- Renderizado por JS -->
   </div>
 
   <!-- Caja de Alertas (Desplegable) -->
@@ -166,16 +172,15 @@ main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
     <a href="compras.html" class="access-btn btn-compras" onclick="navTo(event, 'compras.html', this)">
       <div class="access-icon">📦</div>
       <div class="access-content">
-        <div class="access-label">Gestor de Compras <span class="access-stat v-money" id="stat-money-compras" style="color: var(--amber); font-size: 0.9rem;">S/ 0</span></div>
+        <div class="access-label">Gestor de Compras <span class="access-stat v-money" id="stat-money-compras" style="color: var(--amber); font-size: 0.85rem;">S/ 0</span></div>
         <span class="access-stat" id="stat-compras">Analizando activos...</span>
       </div>
-      <svg class="sparkline-svg" viewBox="0 0 100 40" id="spark-compras"></svg>
     </a>
     
     <a href="tarjetas.html" class="access-btn btn-tarjetas" onclick="navTo(event, 'tarjetas.html', this)">
       <div class="access-icon">💳</div>
       <div class="access-content">
-        <div class="access-label">Líneas de Crédito <span class="access-stat" id="stat-money-tarjetas" style="color: var(--red); font-size: 0.9rem;">0</span></div>
+        <div class="access-label">Gestor de Tarjetas <span class="access-stat" id="stat-money-tarjetas" style="color: var(--red); font-size: 0.85rem;">0</span></div>
         <span class="access-stat" id="stat-tarjetas">Verificando deudas...</span>
       </div>
     </a>
@@ -227,7 +232,6 @@ function toggleDarkMode() {
   const isDark = document.body.classList.contains('dark-theme');
   localStorage.setItem('compras_theme', isDark ? 'dark' : 'light');
   document.getElementById('themeToggleBtn').innerText = isDark ? '☀️' : '🌙';
-  loadMiniStats(); 
 }
 
 function initGlobals() {
@@ -244,7 +248,6 @@ function initGlobals() {
   
   if(hoy.getDay() === 0) { 
     document.getElementById('greetText').textContent = "🔥 Diario de Guerra";
-    document.getElementById('greetSub').textContent = "Revisión semanal requerida";
     document.getElementById('greetText').style.color = "var(--red)";
   } else {
     const hour = hoy.getHours();
@@ -274,6 +277,7 @@ function initGlobals() {
 // ═══════════════════ 2. LECTURA DE DATOS MAESTROS ═══════════════════
 async function syncPlanData() {
   const files = { topo: 'plan_topografia.json', fin: 'plan_finanzas.json', gym: 'plan_gimnasio.json' };
+  
   for (const [pid, filename] of Object.entries(files)) {
       try {
           const res = await fetch(filename + '?v=' + Date.now());
@@ -282,29 +286,15 @@ async function syncPlanData() {
               localStorage.setItem('cache_' + pid, JSON.stringify(data));
           }
       } catch (e) {
-          console.log('Modo offline, usando caché local para', pid);
+          console.log(`Modo offline o archivo no encontrado para ${pid}`);
       }
   }
-  loadEnfoqueDelDia();
+  
+  renderWeekTracker();
   calcProgress();
 }
 
-
-// ═══════════════════ 3. LECTURA DE DATOS (MICRO-GRÁFICOS Y STATS) ═══════════════════
-function drawSparkline(svgId, dataArray, colorHex) {
-  const svg = document.getElementById(svgId);
-  if (!svg || dataArray.length === 0) return;
-  const max = Math.max(...dataArray, 1);
-  const min = Math.min(...dataArray, 0);
-  const stepX = 100 / Math.max(dataArray.length - 1, 1);
-  const pts = dataArray.map((val, i) => {
-    const x = i * stepX;
-    const y = 38 - (((val - min) / (max - min)) * 36); 
-    return `${x},${y}`;
-  }).join(' ');
-  svg.innerHTML = `<polyline fill="none" stroke="${colorHex}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${pts}"/>`;
-}
-
+// ═══════════════════ 3. LECTURA DE DATOS (STATS SIN SPARKLINE) ═══════════════════
 function loadMiniStats() {
   try {
     const tarjetas = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
@@ -327,7 +317,6 @@ function loadMiniStats() {
     const hoy = new Date();
     const currMonth = hoy.getMonth();
     const currYear = hoy.getFullYear();
-    let last7Days = [0,0,0,0,0,0,0];
     
     compras.forEach(p => {
       if(p && typeof p === 'object') {
@@ -336,49 +325,79 @@ function loadMiniStats() {
         if(pDate.getMonth() === currMonth && pDate.getFullYear() === currYear) {
           gastoTotalMes += costo;
         }
-        const diffDays = Math.floor((hoy - pDate) / (1000 * 60 * 60 * 24));
-        if (diffDays >= 0 && diffDays < 7) {
-          last7Days[6 - diffDays] += costo; 
-        }
       }
     });
 
     document.getElementById('stat-money-compras').innerText = formatMoney(gastoTotalMes);
     document.getElementById('stat-compras').innerText = "Gasto del mes";
-    
-    const isDark = document.body.classList.contains('dark-theme');
-    drawSparkline('spark-compras', last7Days, isDark ? '#fcd34d' : '#d97706'); 
 
   } catch(e) { console.error("Error cargando stats", e); }
 }
 
-// ═══════════════════ 4. ENFOQUE DEL DÍA (BÚSQUEDA EN EL PLAN) ═══════════════════
-function loadEnfoqueDelDia() {
-  try {
-    const planStr = localStorage.getItem('cache_topo');
-    if (!planStr) {
-        document.getElementById('focusText').innerText = "Falta cargar plan estratégico.";
-        return; 
-    }
-    
-    const plan = JSON.parse(planStr);
+// ═══════════════════ 4. TRACKER SEMANAL (NUEVO SEMÁFORO DE RACHA) ═══════════════════
+function getCurrentWeekGlobal() {
     const startDateStr = localStorage.getItem('topo_start_date_v1') || '2026-03-30';
     const startDate = new Date(startDateStr + 'T00:00:00');
     const today = new Date().setHours(0,0,0,0);
-    
     const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
     let currentWeek = Math.max(0, Math.floor(diffDays / 7));
-    if (currentWeek > 11) currentWeek = 11; 
+    return Math.min(currentWeek, 11);
+}
 
-    if (plan.weeks && plan.weeks[currentWeek]) {
-      const weekData = plan.weeks[currentWeek];
-      const targetTask = weekData.tasks.find(t => t.includes('🎯')) || weekData.tasks[0];
-      const cleanText = targetTask.replace('🎯 PRIORIDAD:', '').replace('🎯', '').trim();
-      document.getElementById('focusText').innerText = cleanText;
-    } else {
-      document.getElementById('focusText').innerText = "Misión completada o fuera de rango temporal.";
-    }
-  } catch(e) { console.error("Error leyendo enfoque", e); document.getElementById('focusText').innerText = "Sistema de enfoque inactivo.";}
+function renderWeekTracker() {
+    const currentWeek = getCurrentWeekGlobal();
+    const jsToday = new Date().getDay(); 
+    
+    const dayNames = ["[DOMINGO]", "[LUNES]", "[MARTES]", "[MIÉRCOLES]", "[JUEVES]", "[VIERNES]", "[SÁBADO]"];
+    const todayName = dayNames[jsToday];
+    
+    let hasTasksToday = false;
+    let tasksDoneToday = false;
+    
+    // Escaneo profundo del plan para ver el estatus de hoy
+    const planes = ['topo', 'gym', 'fin'];
+    planes.forEach(p => {
+        const planStr = localStorage.getItem(`cache_${p}`);
+        const statesStr = localStorage.getItem(`${p}_tasks_v1`);
+        if(planStr && statesStr) {
+            const plan = JSON.parse(planStr);
+            const states = JSON.parse(statesStr);
+            if(plan.weeks && plan.weeks[currentWeek]) {
+                plan.weeks[currentWeek].tasks.forEach((task, idx) => {
+                    if(task.includes(todayName) || task.includes('[DIARIO]')) {
+                        hasTasksToday = true;
+                        // Si encuentra AL MENOS UNA tarea completada hoy, marca el día como verde
+                        if(states[`${currentWeek}-${idx}`] === true) {
+                            tasksDoneToday = true;
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    const tracker = document.getElementById('weekTracker');
+    const labels = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+    const mapJsToLabel = [6, 0, 1, 2, 3, 4, 5]; // Mapeo: jsToday (0=Dom, 1=Lun...) a índice de labels
+    
+    let html = '';
+    labels.forEach((lbl, idx) => {
+        const isToday = mapJsToLabel[jsToday] === idx;
+        const isPast = idx < mapJsToLabel[jsToday];
+        
+        let cls = 'day-dot';
+        if (isToday) {
+            if (tasksDoneToday) cls += ' today-done';
+            else if (hasTasksToday) cls += ' today-pending';
+            else cls += ' today-neutral';
+        } else if (isPast) {
+            cls += ' past';
+        }
+        
+        html += `<div class="${cls}">${lbl}</div>`;
+    });
+    
+    tracker.innerHTML = html;
 }
 
 // ═══════════════════ 5. ALERTAS Y NOTIFICACIONES INTEGRADAS ═══════════════════
@@ -460,8 +479,13 @@ function calcProgress() {
 
       const pct = Math.min(Math.round((done / totalTasks) * 100), 100);
       
-      document.getElementById(`pct-${p}`).textContent = pct + '%';
-      document.getElementById(`bar-${p}`).style.width = pct + '%';
+      const pctEl = document.getElementById(`pct-${p}`);
+      const barEl = document.getElementById(`bar-${p}`);
+      
+      if(pctEl && barEl) {
+          pctEl.textContent = pct + '%';
+          barEl.style.width = pct + '%';
+      }
       
     } catch (e) { 
         console.error(`Error calculando progreso exacto de ${p}`, e); 
@@ -501,7 +525,30 @@ window.onload = () => {
   syncPlanData();
   
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(err => console.log('Error PWA', err));
+    // Registramos el Service Worker
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => {
+        // Escuchamos si hay una nueva actualización del archivo sw.js
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            // Si hay un nuevo SW instalado y listo para tomar el control
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              console.log('Nueva versión disponible. Aplicando actualización...');
+            }
+          });
+        });
+      })
+      .catch(err => console.log('Error PWA', err));
+
+    // Forzamos a la página a recargarse sola automáticamente cuando se actualiza el SW.
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) {
+        refreshing = true;
+        window.location.reload();
+      }
+    });
   }
 };
 </script>
