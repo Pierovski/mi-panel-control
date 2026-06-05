@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pierovski-v5'; // Nueva versión
+const CACHE_NAME = 'pierovski-v5.6'; // Sube este número cada vez que modifiques tu código
 
 const ASSETS = [
   './',
@@ -7,7 +7,7 @@ const ASSETS = [
   'plan.html',
   'tarjetas.html',
   'manifest.json',
-  'icon.png',
+  'icon.jpg',
   'plan_finanzas.json',
   'plan_gimnasio.json',
   'plan_topografia.json'
