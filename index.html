@@ -3,216 +3,507 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comando | Pierovski</title>
+<title>Comando | COTA100</title>
 
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0d1b2a">
+<meta name="theme-color" content="#0f172a">
 <link rel="apple-touch-icon" href="icon-192x192.png">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* VARIABLES GLOBALES CORREGIDAS */
 :root {
-  --paper: #faf7f2; --navy: #0d1b2a; --navy2: #1a2e45;
-  --gold: #c8922a; --gold-light: #f0c060; --rust: #b84c2a; --sage: #4a7c59;
-  --ink: #2a2420; --muted: #8a7e72; --border: #d8cfc4; --surface3: #eef0f2;
+  color-scheme: light;
+  --bg: #f4f5f7; --surface: #ffffff; --surface2: #f8f9fa; --surface3: #eef0f2;
+  --border: #e2e4e8; --border2: #d1d5db; --amber: #d97706; --amber-dim: #b45309;
+  --green: #10b981; --green-dim: #059669; /* Variable añadida para reparar la barra */
+  --red: #ef4444; --red-dim: #dc2626; --blue: #3b82f6; 
+  --text: #1e293b; --text-muted: #64748b; --text-dim: #94a3b8;
+  --r: 12px; --r-sm: 8px; --shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+body.dark-theme {
+  color-scheme: dark;
+  --bg: #0f172a; --surface: #1e293b; --surface2: #0f172a; --surface3: #334155;
+  --border: #334155; --border2: #475569; --text: #f8fafc;
+  --text-muted: #cbd5e1; --text-dim: #64748b;
+  --shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 80px; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 50px; transition: background 0.3s, color 0.3s; }
 
-/* HEADER */
-header { padding: 40px 24px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; background: var(--paper); }
-.logo-area h1 { font-family: 'Fraunces', serif; font-size: 28px; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
-.logo-area .sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; }
-.date-badge { text-align: right; }
-.date-badge .day { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; color: var(--gold); line-height: 1; }
-.date-badge .month { font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+/* HEADER DINÁMICO */
+header { padding: 35px 24px 25px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; background: var(--surface); position: sticky; top: 0; z-index: 100; transition: background 0.3s;}
+.greeting-area h1 { font-family: 'Fraunces', serif; font-size: 1.6rem; color: var(--text); line-height: 1.1; margin-bottom: 4px; font-weight: 700; transition: color 0.3s;}
+.greeting-area .sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--amber); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;}
+.header-actions { display: flex; gap: 10px; align-items: center; }
+.date-badge { text-align: right; margin-right: 8px;}
+.date-badge .day { font-family: 'DM Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--text); line-height: 1; }
+.date-badge .month { font-family: 'DM Mono', monospace; font-size: 0.65rem; text-transform: uppercase; color: var(--text-dim); margin-top: 4px; }
+.btn-icon-tool { background: var(--surface2); border: 1px solid var(--border2); color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px; font-size: 1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; position: relative;}
+.btn-icon-tool:hover { background: var(--surface3); color: var(--text); border-color: var(--amber); transform: scale(1.05);}
+.btn-icon-tool.active { color: var(--amber); border-color: var(--amber); background: rgba(217,119,6,0.1); }
 
-main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+/* PUNTO ROJO DE ALERTA */
+.btn-icon-tool.has-alerts::after {
+  content: ''; position: absolute; top: -1px; right: -1px;
+  width: 10px; height: 10px; background: var(--red);
+  border-radius: 50%; border: 2px solid var(--surface);
+}
 
-/* ALERTA DE URGENCIAS */
-.alert-box { background: #fff; border: 1px dashed var(--rust); border-left: 4px solid var(--rust); padding: 16px 20px; border-radius: 4px; margin-bottom: 32px; display: none; animation: fadeUp 0.3s ease; }
+main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
+
+/* PÍLDORA MENTAL (ALEATORIA) */
+.quote-box { text-align: center; margin-bottom: 24px; padding: 0 10px;}
+.quote-text { font-family: 'Fraunces', serif; font-size: 0.95rem; font-style: italic; color: var(--text-muted); line-height: 1.5;}
+
+/* ENFOQUE DEL DÍA (MINIMALISTA) */
+.focus-line {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--amber); padding: 12px 16px;
+  border-radius: var(--r-sm); margin-bottom: 32px;
+  font-size: 0.85rem; color: var(--text); display: flex; align-items: center; gap: 10px;
+  box-shadow: var(--shadow); font-weight: 500;
+}
+.focus-line span.f-lbl { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--amber); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; white-space: nowrap;}
+
+/* CAJA DE ALERTA (PLEGABLE) */
+.alert-box { background: var(--surface); border: 1px solid var(--red); border-left: 4px solid var(--red); padding: 18px 20px; border-radius: var(--r-sm); margin-bottom: 32px; display: none; animation: fadeUp 0.3s ease; box-shadow: var(--shadow); }
 .alert-box.active { display: block; }
-.alert-box h3 { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--rust); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
-.alert-content { font-size: 14px; font-weight: 500; color: var(--ink); display: flex; align-items: center; gap: 10px; }
-.btn-nav { font-family: 'DM Mono', monospace; font-size: 9px; padding: 6px 12px; background: var(--navy); color: var(--gold-light); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px; transition: 0.2s; cursor: pointer; border: none;}
-.btn-nav:hover { background: var(--gold); color: var(--navy); }
+.alert-box h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--red); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600;}
+.alert-content { font-size: 0.85rem; font-weight: 500; color: var(--text); display: flex; flex-direction: column; gap: 12px; }
+.alert-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border2); padding-bottom: 8px;}
+.alert-item:last-child { border-bottom: none; padding-bottom: 0; }
+.btn-nav-alert { font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 5px 12px; background: var(--red); color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; transition: 0.2s; cursor: pointer; border: none; font-weight: 600; white-space: nowrap;}
+.btn-nav-alert:hover { background: var(--red-dim); }
+
+/* ACCESO A MÓDULOS */
+.section-title { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 16px; font-weight: 600;}
+.access-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 36px; }
+.access-btn { 
+  background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; 
+  border-radius: var(--r); text-decoration: none; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; 
+  display: flex; align-items: center; gap: 16px; cursor: pointer; box-shadow: var(--shadow); position: relative; overflow: hidden;
+}
+.access-btn::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 4px 0 0 4px; opacity: 0.8;}
+.btn-compras::before { background: var(--amber); }
+.btn-tarjetas::before { background: var(--red); }
+.btn-plan::before { background: var(--blue); }
+
+.access-btn:hover { border-color: var(--amber); box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-3px); }
+.access-icon { font-size: 1.6rem; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--surface2); border-radius: 50%; flex-shrink: 0; position: relative;}
+.access-content { display: flex; flex-direction: column; gap: 4px; width: 100%;}
+.access-label { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); display: flex; justify-content: space-between; align-items: center;}
+.access-stat { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-muted); font-weight: 500;}
+
+/* SPARKLINE (MICRO-GRÁFICO) */
+.sparkline-svg { position: absolute; bottom: 0; right: 0; opacity: 0.15; pointer-events: none; width: 100px; height: 40px;}
+.dark-theme .sparkline-svg { opacity: 0.3; }
 
 /* PROGRESO DE LA MISIÓN */
-.section-title { font-family: 'Fraunces', serif; font-size: 20px; color: var(--navy); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
-.progress-container { background: #fff; border: 1px solid var(--border); padding: 24px; border-radius: 4px; margin-bottom: 40px;}
+.progress-container { background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: var(--r); box-shadow: var(--shadow); transition: background 0.3s, border 0.3s;}
 .prog-track { margin-bottom: 24px; }
 .prog-track:last-child { margin-bottom: 0; }
 .prog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
-.prog-title { font-size: 14px; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 8px; }
-.prog-pct { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: bold; color: var(--muted); }
-.bar-bg { width: 100%; height: 10px; background: var(--surface3); border-radius: 5px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 5px; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
-
-/* ACCESO A MÓDULOS */
-.access-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
-.access-btn { background: #fff; border: 1px solid var(--border); padding: 20px 16px; border-radius: 4px; text-decoration: none; text-align: center; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;}
-.access-btn:hover { border-color: var(--navy); box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
-.access-icon { font-size: 24px; display: block; margin-bottom: 10px; }
-.access-label { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: bold; color: var(--navy); text-transform: uppercase; letter-spacing: 1px;}
+.prog-title { font-size: 0.85rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif;}
+.prog-pct { font-family: 'DM Mono', monospace; font-size: 0.85rem; font-weight: 600; color: var(--text-dim); }
+.bar-bg { width: 100%; height: 8px; background: var(--surface3); border-radius: 4px; overflow: hidden; position: relative;}
+.bar-fill { height: 100%; border-radius: 4px; transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+#bar-topo { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+#bar-fin { background: linear-gradient(90deg, var(--amber-dim), var(--amber)); }
+#bar-gym { background: linear-gradient(90deg, var(--green-dim), var(--green)); }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-@media (max-width: 600px) { .access-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { 
+  .access-grid { grid-template-columns: 1fr; } 
+  header { padding: 25px 20px 20px; }
+  .greeting-area h1 { font-size: 1.3rem; }
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-area">
-    <h1>Comando</h1>
-    <div class="sub">Operaciones Pierovski 2026</div>
+  <div class="greeting-area">
+    <h1 id="greetText">Comando</h1>
+    <span class="sub" id="greetSub">Operaciones COTA100</span>
   </div>
-  <div class="date-badge">
-    <div class="day" id="headDay">--</div>
-    <div class="month" id="headMonth">--</div>
+  <div class="header-actions">
+    <div class="date-badge">
+      <div class="day" id="headDay">--</div>
+      <div class="month" id="headMonth">--</div>
+    </div>
+    <button class="btn-icon-tool" id="bellToggleBtn" onclick="toggleAlerts()" title="Notificaciones">🔔</button>
+    <button class="btn-icon-tool" id="privacyToggleBtn" onclick="togglePrivacy()" title="Modo Privacidad">👁️</button>
+    <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()" title="Cambiar Tema">🌙</button>
   </div>
 </header>
 
 <main>
+  <!-- Píldora de Mentalidad Aleatoria -->
+  <div class="quote-box">
+    <div class="quote-text" id="dailyQuote">"Cargando protocolo mental..."</div>
+  </div>
+
+  <!-- Enfoque del Día Minimalista -->
+  <div class="focus-line">
+    <span class="f-lbl">🎯 Foco</span>
+    <span id="focusText">Sincronizando base de datos...</span>
+  </div>
+
+  <!-- Caja de Alertas (Desplegable) -->
   <div class="alert-box" id="urgencyAlert">
-    <h3>⚠️ Atención Requerida</h3>
+    <h3>⚠️ Requerimientos Operativos</h3>
     <div class="alert-content" id="urgencyText">Escaneando...</div>
   </div>
 
-  <div class="section-title"><span>Progreso de la Misión</span></div>
+  <div class="section-title">🚀 Módulos Operativos</div>
+  <div class="access-grid">
+    <a href="compras.html" class="access-btn btn-compras" onclick="navTo(event, 'compras.html', this)">
+      <div class="access-icon">📦</div>
+      <div class="access-content">
+        <div class="access-label">Gestor de Compras <span class="access-stat v-money" id="stat-money-compras" style="color: var(--amber); font-size: 0.9rem;">S/ 0</span></div>
+        <span class="access-stat" id="stat-compras">Analizando activos...</span>
+      </div>
+      <svg class="sparkline-svg" viewBox="0 0 100 40" id="spark-compras"></svg>
+    </a>
+    
+    <a href="tarjetas.html" class="access-btn btn-tarjetas" onclick="navTo(event, 'tarjetas.html', this)">
+      <div class="access-icon">💳</div>
+      <div class="access-content">
+        <div class="access-label">Líneas de Crédito <span class="access-stat" id="stat-money-tarjetas" style="color: var(--red); font-size: 0.9rem;">0</span></div>
+        <span class="access-stat" id="stat-tarjetas">Verificando deudas...</span>
+      </div>
+    </a>
 
-  <div class="progress-container">
-    <div class="prog-track">
-      <div class="prog-header"><span class="prog-title">🗺️ Topógrafo</span><span class="prog-pct" id="pct-topo">0%</span></div>
-      <div class="bar-bg"><div class="bar-fill" id="bar-topo" style="width: 0%; background: var(--navy2);"></div></div>
-    </div>
-    <div class="prog-track">
-      <div class="prog-header"><span class="prog-title">💰 Finanzas</span><span class="prog-pct" id="pct-fin">0%</span></div>
-      <div class="bar-bg"><div class="bar-fill" id="bar-fin" style="width: 0%; background: var(--gold);"></div></div>
-    </div>
-    <div class="prog-track">
-      <div class="prog-header"><span class="prog-title">🏋️ Gimnasio</span><span class="prog-pct" id="pct-gym">0%</span></div>
-      <div class="bar-bg"><div class="bar-fill" id="bar-gym" style="width: 0%; background: var(--sage);"></div></div>
-    </div>
+    <a href="plan.html" class="access-btn btn-plan" onclick="navTo(event, 'plan.html', this)">
+      <div class="access-icon">📈</div>
+      <div class="access-content">
+        <span class="access-label">Plan 12 Semanas</span>
+        <span class="access-stat">Ejecución táctica</span>
+      </div>
+    </a>
   </div>
 
-  <div class="access-grid">
-    <a href="compras.html" class="access-btn" onclick="navTo(event, 'compras.html', this)"><span class="access-icon">📦</span><span class="access-label">Compras</span></a>
-    <a href="tarjetas.html" class="access-btn" onclick="navTo(event, 'tarjetas.html', this)"><span class="access-icon">💳</span><span class="access-label">Tarjetas</span></a>
-    <a href="plan.html" class="access-btn" onclick="navTo(event, 'plan.html', this)"><span class="access-icon">🎯</span><span class="access-label">Plan 12 Sem.</span></a>
+  <div class="section-title">📊 Progreso de la Misión</div>
+  <div class="progress-container">
+    <div class="prog-track">
+      <div class="prog-header"><span class="prog-title">🗺️ Topografía / COTA100</span><span class="prog-pct" id="pct-topo">0%</span></div>
+      <div class="bar-bg"><div class="bar-fill" id="bar-topo" style="width: 0%;"></div></div>
+    </div>
+    <div class="prog-track">
+      <div class="prog-header"><span class="prog-title">💰 Expansión Financiera</span><span class="prog-pct" id="pct-fin">0%</span></div>
+      <div class="bar-bg"><div class="bar-fill" id="bar-fin" style="width: 0%;"></div></div>
+    </div>
+    <div class="prog-track">
+      <div class="prog-header"><span class="prog-title">🏋️ Reconstrucción Física</span><span class="prog-pct" id="pct-gym">0%</span></div>
+      <div class="bar-bg"><div class="bar-fill" id="bar-gym" style="width: 0%;"></div></div>
+    </div>
   </div>
 </main>
 
 <script>
-// 1. FECHA ACTUAL
-const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-const hoy = new Date();
-document.getElementById('headDay').textContent = hoy.getDate();
-document.getElementById('headMonth').textContent = MESES[hoy.getMonth()] + ' ' + hoy.getFullYear();
+// ═══════════════════ 1. ESTADOS GLOBALES (MODO NOCHE Y PRIVACIDAD) ═══════════════════
+let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
 
-// ⚡ 2. MOTOR DE NAVEGACIÓN CON SONIDO (GAMIFICACIÓN) ⚡
+function formatMoney(val) {
+  if (isPrivacyMode) return 'S/ ***.**';
+  return 'S/ ' + (Number(val) || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function togglePrivacy() {
+  isPrivacyMode = !isPrivacyMode;
+  localStorage.setItem('pierovski_privacy', isPrivacyMode);
+  document.getElementById('privacyToggleBtn').classList.toggle('active', isPrivacyMode);
+  loadMiniStats(); 
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-theme');
+  const isDark = document.body.classList.contains('dark-theme');
+  localStorage.setItem('compras_theme', isDark ? 'dark' : 'light');
+  document.getElementById('themeToggleBtn').innerText = isDark ? '☀️' : '🌙';
+  loadMiniStats(); 
+}
+
+function initGlobals() {
+  if (localStorage.getItem('compras_theme') === 'dark') {
+    document.body.classList.add('dark-theme');
+    document.getElementById('themeToggleBtn').innerText = '☀️';
+  } else {
+    document.getElementById('themeToggleBtn').innerText = '🌙';
+  }
+
+  if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
+
+  const hoy = new Date();
+  
+  if(hoy.getDay() === 0) { 
+    document.getElementById('greetText').textContent = "🔥 Diario de Guerra";
+    document.getElementById('greetSub').textContent = "Revisión semanal requerida";
+    document.getElementById('greetText').style.color = "var(--red)";
+  } else {
+    const hour = hoy.getHours();
+    let greeting = "Buenas noches";
+    if(hour >= 5 && hour < 12) greeting = "Buenos días";
+    else if(hour >= 12 && hour < 19) greeting = "Buenas tardes";
+    document.getElementById('greetText').textContent = `${greeting}, Piero`;
+  }
+
+  const MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  document.getElementById('headDay').textContent = hoy.getDate();
+  document.getElementById('headMonth').textContent = `${MESES[hoy.getMonth()]} ${hoy.getFullYear()}`;
+  
+  const quotes = [
+    "La motivación te hace empezar; la disciplina te mantiene en el camino.",
+    "El dinero no te da libertad por sí solo, el sistema que construyes sí.",
+    "Un profesional no confía en su memoria, confía en sus sistemas.",
+    "El que ignora los impuestos paga doble. La formalidad es tu escudo.",
+    "Gastar en caprichos es un lujo. Invertir en herramientas es una obligación.",
+    "La asimetría cede cuando el lado débil dicta el límite. Ego en la puerta.",
+    "El satélite no reemplaza tu criterio técnico. Domina la base.",
+    "Tu mente es para resolver problemas en campo, no para almacenar precios."
+  ];
+  document.getElementById('dailyQuote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+}
+
+// ═══════════════════ 2. LECTURA DE DATOS MAESTROS ═══════════════════
+async function syncPlanData() {
+  const files = { topo: 'plan_topografia.json', fin: 'plan_finanzas.json', gym: 'plan_gimnasio.json' };
+  for (const [pid, filename] of Object.entries(files)) {
+      try {
+          const res = await fetch(filename + '?v=' + Date.now());
+          if (res.ok) {
+              const data = await res.json();
+              localStorage.setItem('cache_' + pid, JSON.stringify(data));
+          }
+      } catch (e) {
+          console.log('Modo offline, usando caché local para', pid);
+      }
+  }
+  loadEnfoqueDelDia();
+  calcProgress();
+}
+
+
+// ═══════════════════ 3. LECTURA DE DATOS (MICRO-GRÁFICOS Y STATS) ═══════════════════
+function drawSparkline(svgId, dataArray, colorHex) {
+  const svg = document.getElementById(svgId);
+  if (!svg || dataArray.length === 0) return;
+  const max = Math.max(...dataArray, 1);
+  const min = Math.min(...dataArray, 0);
+  const stepX = 100 / Math.max(dataArray.length - 1, 1);
+  const pts = dataArray.map((val, i) => {
+    const x = i * stepX;
+    const y = 38 - (((val - min) / (max - min)) * 36); 
+    return `${x},${y}`;
+  }).join(' ');
+  svg.innerHTML = `<polyline fill="none" stroke="${colorHex}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${pts}"/>`;
+}
+
+function loadMiniStats() {
+  try {
+    const tarjetas = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
+    const pendientes = tarjetas.filter(t => !t.paid).length;
+    const statTarjetas = document.getElementById('stat-tarjetas');
+    const moneyTarjetas = document.getElementById('stat-money-tarjetas');
+    
+    moneyTarjetas.innerText = isPrivacyMode ? '***' : pendientes;
+    if (pendientes > 0) {
+      statTarjetas.innerHTML = `<span style="color: var(--red); font-weight: 600;">Por pagar</span>`;
+    } else {
+      statTarjetas.innerHTML = `<span style="color: var(--green); font-weight: 600;">Todo al día ✓</span>`;
+      moneyTarjetas.style.color = "var(--green)";
+      moneyTarjetas.innerText = "0";
+    }
+
+    const comprasRaw = JSON.parse(localStorage.getItem('c_prods')) || [];
+    const compras = Array.isArray(comprasRaw) ? comprasRaw : Object.values(comprasRaw);
+    let gastoTotalMes = 0;
+    const hoy = new Date();
+    const currMonth = hoy.getMonth();
+    const currYear = hoy.getFullYear();
+    let last7Days = [0,0,0,0,0,0,0];
+    
+    compras.forEach(p => {
+      if(p && typeof p === 'object') {
+        const pDate = new Date((p.date || new Date()) + 'T12:00:00');
+        const costo = parseFloat(p.cost || p.baseCost || 0);
+        if(pDate.getMonth() === currMonth && pDate.getFullYear() === currYear) {
+          gastoTotalMes += costo;
+        }
+        const diffDays = Math.floor((hoy - pDate) / (1000 * 60 * 60 * 24));
+        if (diffDays >= 0 && diffDays < 7) {
+          last7Days[6 - diffDays] += costo; 
+        }
+      }
+    });
+
+    document.getElementById('stat-money-compras').innerText = formatMoney(gastoTotalMes);
+    document.getElementById('stat-compras').innerText = "Gasto del mes";
+    
+    const isDark = document.body.classList.contains('dark-theme');
+    drawSparkline('spark-compras', last7Days, isDark ? '#fcd34d' : '#d97706'); 
+
+  } catch(e) { console.error("Error cargando stats", e); }
+}
+
+// ═══════════════════ 4. ENFOQUE DEL DÍA (BÚSQUEDA EN EL PLAN) ═══════════════════
+function loadEnfoqueDelDia() {
+  try {
+    const planStr = localStorage.getItem('cache_topo');
+    if (!planStr) {
+        document.getElementById('focusText').innerText = "Falta cargar plan estratégico.";
+        return; 
+    }
+    
+    const plan = JSON.parse(planStr);
+    const startDateStr = localStorage.getItem('topo_start_date_v1') || '2026-03-30';
+    const startDate = new Date(startDateStr + 'T00:00:00');
+    const today = new Date().setHours(0,0,0,0);
+    
+    const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+    let currentWeek = Math.max(0, Math.floor(diffDays / 7));
+    if (currentWeek > 11) currentWeek = 11; 
+
+    if (plan.weeks && plan.weeks[currentWeek]) {
+      const weekData = plan.weeks[currentWeek];
+      const targetTask = weekData.tasks.find(t => t.includes('🎯')) || weekData.tasks[0];
+      const cleanText = targetTask.replace('🎯 PRIORIDAD:', '').replace('🎯', '').trim();
+      document.getElementById('focusText').innerText = cleanText;
+    } else {
+      document.getElementById('focusText').innerText = "Misión completada o fuera de rango temporal.";
+    }
+  } catch(e) { console.error("Error leyendo enfoque", e); document.getElementById('focusText').innerText = "Sistema de enfoque inactivo.";}
+}
+
+// ═══════════════════ 5. ALERTAS Y NOTIFICACIONES INTEGRADAS ═══════════════════
+function toggleAlerts() {
+  document.getElementById('urgencyAlert').classList.toggle('active');
+}
+
+function checkAlerts() {
+  let alertasHTML = '';
+  let countUrgencias = 0;
+
+  try {
+    const tarjetas = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
+    const hoyD = new Date().getDate();
+    tarjetas.forEach(t => {
+      if (!t.paid) {
+        let faltan = t.payment - hoyD;
+        if (faltan < 0) faltan += 30;
+        if (faltan <= 5) {
+          alertasHTML += `<div class="alert-item"><span>💳 <b>${t.name}</b> vence en ${faltan} días.</span> <button class="btn-nav-alert" onclick="navTo(event, 'tarjetas.html', this)">Pagar</button></div>`;
+          countUrgencias++;
+        }
+      }
+    });
+  } catch(e){}
+
+  try {
+    const comprasRaw = JSON.parse(localStorage.getItem('c_prods')) || [];
+    const compras = Array.isArray(comprasRaw) ? comprasRaw : Object.values(comprasRaw);
+    let sinFactura = 0;
+    compras.forEach(p => {
+      if(p && typeof p === 'object' && (!p.link || p.link.trim() === '')) {
+        sinFactura++;
+      }
+    });
+    if(sinFactura > 0) {
+      alertasHTML += `<div class="alert-item"><span>📄 Tienes <b>${sinFactura} registro(s)</b> sin enlace de respaldo en Drive.</span> <button class="btn-nav-alert" style="background:var(--amber);" onclick="navTo(event, 'compras.html', this)">Revisar</button></div>`;
+      countUrgencias++;
+    }
+  } catch(e){}
+
+  const bell = document.getElementById('bellToggleBtn');
+  const alertText = document.getElementById('urgencyText');
+
+  if(countUrgencias > 0) {
+    bell.classList.add('has-alerts'); 
+    alertText.innerHTML = alertasHTML;
+  } else {
+    bell.classList.remove('has-alerts');
+    alertText.innerHTML = '<span style="color:var(--green); font-weight: 600;">Todo en orden. Sistemas operando al 100%.</span>';
+  }
+}
+
+// ═══════════════════ 6. PROGRESO GLOBAL (MATEMÁTICA EXACTA) ═══════════════════
+function calcProgress() {
+  ['topo', 'fin', 'gym'].forEach(p => {
+    try {
+      let totalTasks = 0;
+      const cachedPlanStr = localStorage.getItem(`cache_${p}`);
+      if (cachedPlanStr) {
+          const cachedPlan = JSON.parse(cachedPlanStr);
+          if (cachedPlan.weeks) {
+              cachedPlan.weeks.forEach(w => {
+                  if (w.tasks) totalTasks += w.tasks.length;
+              });
+          }
+      }
+      
+      if (totalTasks === 0) totalTasks = 1;
+
+      const tasksStr = localStorage.getItem(`${p}_tasks_v1`);
+      let done = 0;
+      if (tasksStr) {
+          const tasks = JSON.parse(tasksStr);
+          Object.values(tasks).forEach(v => { 
+              if(v === true) done++; 
+          });
+      }
+
+      const pct = Math.min(Math.round((done / totalTasks) * 100), 100);
+      
+      document.getElementById(`pct-${p}`).textContent = pct + '%';
+      document.getElementById(`bar-${p}`).style.width = pct + '%';
+      
+    } catch (e) { 
+        console.error(`Error calculando progreso exacto de ${p}`, e); 
+    }
+  });
+}
+
+// ═══════════════════ 7. MOTOR DE NAVEGACIÓN Y GAMIFICACIÓN ═══════════════════
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
 function navTo(e, url, btnElement) {
-  e.preventDefault(); // Evita que salte de página inmediatamente
-  
-  // Despierta el motor de audio
+  e.preventDefault(); 
   if (audioCtx.state === 'suspended') audioCtx.resume();
   
-  // Crea el sonido de navegación ("Bloop" veloz)
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
   osc.connect(gain); gain.connect(audioCtx.destination);
-  
   osc.type = 'sine';
   osc.frequency.setValueAtTime(300, audioCtx.currentTime); 
   osc.frequency.exponentialRampToValueAtTime(500, audioCtx.currentTime + 0.1); 
-  
   gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); 
-  
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.1);
+  osc.start(); osc.stop(audioCtx.currentTime + 0.1);
 
-  // Micro-vibración si el celular lo soporta
   if (navigator.vibrate) navigator.vibrate(30);
 
-  // Efecto visual de hundimiento
-  btnElement.style.transform = "scale(0.92)";
-  btnElement.style.background = "var(--surface3)";
-
-  // Cambia de página después de 150 milisegundos (para dejar que suene)
-  setTimeout(() => {
-    window.location.href = url;
-  }, 150);
-}
-
-// 3. SEMÁFORO DE URGENCIAS
-function checkUrgency() {
-  try {
-    const tarjetas = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
-    let alerta = null;
-    tarjetas.forEach(t => {
-      if (!t.paid) {
-        let faltan = t.payment - hoy.getDate();
-        if (faltan < 0) faltan += 30;
-        if (faltan <= 5) alerta = `La tarjeta ${t.name} vence en ${faltan} días.`;
-      }
-    });
-    if (alerta) {
-      document.getElementById('urgencyText').innerHTML = `<span>💳 ${alerta}</span> <button class="btn-nav" style="margin-left:auto;" onclick="navTo(event, 'tarjetas.html', this)">Pagar</button>`;
-      document.getElementById('urgencyAlert').classList.add('active');
-    }
-  } catch (e) {}
-}
-
-// 4. PROGRESO GLOBAL
-function calcProgress() {
-  ['topo', 'fin', 'gym'].forEach(p => {
-    try {
-      const tasks = JSON.parse(localStorage.getItem(`${p}_tasks_v1`)) || {};
-      let done = 0; Object.values(tasks).forEach(v => { if(v) done++; });
-      const pct = Math.min(Math.round((done / 50) * 100), 100);
-      document.getElementById(`pct-${p}`).textContent = pct + '%';
-      document.getElementById(`bar-${p}`).style.width = pct + '%';
-    } catch (e) {}
-  });
+  btnElement.style.transform = "scale(0.95)";
+  setTimeout(() => { window.location.href = url; }, 150);
 }
 
 // 🚀 ARRANQUE MOTOR
 window.onload = () => {
-  checkUrgency();
-  setTimeout(calcProgress, 200);
+  initGlobals();
+  loadMiniStats();
+  checkAlerts();
+  syncPlanData();
+  
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(err => console.log('Error PWA', err));
   }
 };
 </script>
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').then(reg => {
-    reg.addEventListener('updatefound', () => {
-      const newWorker = reg.installing;
-      newWorker.addEventListener('statechange', () => {
-        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-          console.log("Nueva versión detectada. Actualizando...");
-        }
-      });
-    });
-  });
-
-  let refreshing = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!refreshing) {
-      refreshing = true;
-      window.location.reload(); 
-    }
-  });
-}
-</script>
-
 </body>
 </html>

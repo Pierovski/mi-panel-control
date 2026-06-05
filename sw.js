@@ -1,6 +1,5 @@
-const CACHE_NAME = 'pierovski-v3.4'; // Incremementamos versión
+const CACHE_NAME = 'pierovski-v5'; // Nueva versión
 
-// Lista exacta de archivos que tu celular guardará para usar sin internet
 const ASSETS = [
   './',
   'index.html',
@@ -11,29 +10,25 @@ const ASSETS = [
   'icon.png',
   'plan_finanzas.json',
   'plan_gimnasio.json',
-  'plan_topografia.json' // Agregados para soporte offline total
+  'plan_topografia.json'
 ];
 
-// 1. INSTALACIÓN: Descarga y guarda los archivos en el celular
 self.addEventListener('install', (e) => {
+  self.skipWaiting(); // Fuerza a que el nuevo Service Worker se instale de inmediato
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Guardando archivos en caché');
       return cache.addAll(ASSETS);
     })
   );
-  self.skipWaiting(); 
 });
 
-// 2. ACTIVACIÓN: Limpia la basura de versiones antiguas
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log('[Service Worker] Borrando caché antiguo:', cache);
-            return caches.delete(cache);
+            return caches.delete(cache); // Elimina la basura de versiones pasadas
           }
         })
       );
@@ -42,18 +37,33 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
-// 3. ESTRATEGIA DE RED: "Stale-While-Revalidate"
+// ESTRATEGIA: NETWORK FIRST (Red primero, luego caché)
 self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((cachedResponse) => {
-      const fetchPromise = fetch(e.request).then((networkResponse) => {
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(e.request, networkResponse.clone());
+  // Solo aplicamos Network First a los archivos HTML para que siempre veas la última versión de tu código
+  if (e.request.mode === 'navigate' || e.request.headers.get('accept').includes('text/html')) {
+    e.respondWith(
+      fetch(e.request).then(response => {
+        return caches.open(CACHE_NAME).then(cache => {
+          cache.put(e.request, response.clone());
+          return response;
         });
-        return networkResponse;
-      }).catch(() => {});
-      
-      return cachedResponse || fetchPromise;
-    })
-  );
+      }).catch(() => {
+        // Si no hay internet, saca la versión guardada del caché
+        return caches.match(e.request);
+      })
+    );
+  } else {
+    // Para imágenes y otros archivos, usamos Stale-While-Revalidate
+    e.respondWith(
+      caches.match(e.request).then((cachedResponse) => {
+        const fetchPromise = fetch(e.request).then((networkResponse) => {
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(e.request, networkResponse.clone());
+          });
+          return networkResponse;
+        }).catch(() => {});
+        return cachedResponse || fetchPromise;
+      })
+    );
+  }
 });
