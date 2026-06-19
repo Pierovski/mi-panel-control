@@ -85,6 +85,12 @@ main { max-width: 1180px; margin: 0 auto; padding: 30px 22px 0; }
 .milestone-banner .icon { font-size: 1.4rem; }
 .milestone-banner .text { font-size: 0.88rem; color: var(--text); line-height: 1.4; }
 .milestone-banner .text strong { font-family: 'Fraunces', serif; font-weight: 600; color: var(--amber-dim); }
+.hidden-content { display: none !important; }
+
+/* RATING BADGE PREMIUM */
+.rating-badge { display: inline-flex; align-items: center; gap: 2px; background: var(--surface2); padding: 2px 8px; border-radius: 12px; border: 1px solid var(--border2); font-size: 0.65rem; margin-top: 6px; width: fit-content; font-family: 'DM Mono', monospace;}
+.star-on { color: var(--amber); }
+.star-off { color: var(--border2); }
 
 /* FILTERS & CUSTOM SELECT */
 .filter-bar { display: flex; gap: 10px; margin-bottom: 22px; align-items: center; flex-wrap: wrap; }
@@ -325,7 +331,6 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
 
     <div id="milestoneBanner" class="milestone-banner hidden-content"></div>
     
-    <!-- BURN RATE BUDGETS CARDS -->
     <div class="cat-summary" id="catSummary"></div>
 
     <div class="filter-bar">
@@ -547,7 +552,7 @@ function openWishModal() {
 function getSafeArray(key) { try { let data = JSON.parse(localStorage.getItem(key)); if (!data) return []; if (!Array.isArray(data)) data = Object.values(data); return data.filter(i => i && typeof i === 'object'); } catch(e) { return []; } }
 function mergeData(localArr, importedArr) { const map = new Map(); localArr.forEach(item => { if (item && item.id) map.set(item.id, item); }); importedArr.forEach(item => { if (item) { if (!item.id) item.id = 'imp_' + Math.random().toString(36).substr(2,9); map.set(item.id, item); } }); return Array.from(map.values()); }
 
-function loadProds() { return getSafeArray('c_prods').map(p => ({ id: p.id || 'p_' + Math.random().toString(36).substr(2,9), name: String(p.name || "Sin nombre"), category: String(p.category || "Otros"), link: String(p.link || ""), cost: parseFloat(p.cost || p.baseCost) || 0, baseCost: parseFloat(p.baseCost || p.cost) || 0, goal: parseFloat(p.goal) || 1, date: p.date || todayStr(), note: String(p.note || ""), extraCosts: Array.isArray(p.extraCosts) ? p.extraCosts : [] })); }
+function loadProds() { return getSafeArray('c_prods').map(p => ({ id: p.id || 'p_' + Math.random().toString(36).substr(2,9), name: String(p.name || "Sin nombre"), category: String(p.category || "Otros"), link: String(p.link || ""), cost: parseFloat(p.cost || p.baseCost) || 0, baseCost: parseFloat(p.baseCost || p.cost) || 0, goal: parseFloat(p.goal) || 1, rating: parseInt(p.rating)||0, date: p.date || todayStr(), note: String(p.note || ""), extraCosts: Array.isArray(p.extraCosts) ? p.extraCosts : [] })); }
 function loadWishes() { return getSafeArray('c_wishes').map(w => ({ id: w.id || 'w_' + Math.random().toString(36).substr(2,9), name: String(w.name || "Deseo"), category: String(w.category || "Otros"), price: parseFloat(w.price) || 0, priority: String(w.priority || "Media"), note: String(w.note || "") })); }
 function loadHist() { return getSafeArray('c_hist').map(h => ({ ...h, id: h.id || 'h_' + Math.random().toString(36).substr(2,9), name: String(h.name || "Sin nombre"), category: String(h.category || "Otros"), cost: parseFloat(h.cost) || 0, soldPrice: parseFloat(h.soldPrice) || 0, date: h.date || todayStr(), endDate: h.endDate || todayStr() })); }
 function loadTrash() { return getSafeArray('c_trash'); }
@@ -562,6 +567,12 @@ function calcDays(dateStr) { if (!dateStr) return 1; const diffTime = Math.abs(n
 function formatMoney(num) { 
   if (isPrivacyMode) return 'S/ ***.**';
   return 'S/ ' + (Number(num) || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+}
+
+function renderStars(rating) {
+    if(rating === 0 || !rating) return '';
+    const on = '★'.repeat(rating); const off = '★'.repeat(5-rating);
+    return `<div class="rating-badge"><span class="star-on">${on}</span><span class="star-off">${off}</span></div>`;
 }
 
 // ═══════════════════ SINCRONIZACIÓN CON LA NUBE ═══════════════════
@@ -617,6 +628,7 @@ function openEditModal(id) {
              <div class="field" style="flex:1;"><label>Fecha</label><input type="date" id="editFecha" value="${p.date}"></div>
              <div class="field" style="flex:1;"><label>Categoría</label><select id="editCat" onchange="handleNewOption(this)"></select></div>
           </div>
+          <div class="field"><label>Rating</label><select id="editRating"><option value="0">Sin calificar</option><option value="5">⭐⭐⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option><option value="3">⭐⭐⭐</option><option value="2">⭐⭐</option><option value="1">⭐</option></select></div>
           <div class="field"><label>Enlace de Respaldo</label><input type="url" id="editLink" value="${p.link||''}"></div>
           <div class="field"><label>Nota</label><input type="text" id="editNota" value="${p.note || ''}"></div>
         </div>
@@ -625,13 +637,14 @@ function openEditModal(id) {
     </div>`;
     populateSelects('edit'); 
     document.getElementById('editCat').value = p.category;
+    document.getElementById('editRating').value = p.rating || 0;
 }
 
 function executeEdit(id) {
-  const n = document.getElementById('editNombre').value.trim(); const c = parseFloat(document.getElementById('editCosto').value); const g = parseFloat(document.getElementById('editMeta').value); const d = document.getElementById('editFecha').value; const cat = document.getElementById('editCat').value; const link = document.getElementById('editLink').value.trim(); const nt = document.getElementById('editNota').value.trim();
+  const n = document.getElementById('editNombre').value.trim(); const c = parseFloat(document.getElementById('editCosto').value); const g = parseFloat(document.getElementById('editMeta').value); const d = document.getElementById('editFecha').value; const cat = document.getElementById('editCat').value; const link = document.getElementById('editLink').value.trim(); const nt = document.getElementById('editNota').value.trim(); const r = parseInt(document.getElementById('editRating').value);
   if(!n || isNaN(c) || !d) return toast('⚠ Datos obligatorios');
   let prods = loadProds(); const p = prods.find(i => i.id === id); if(!p) return;
-  p.name = n; p.baseCost = c; p.goal = isNaN(g)?1:g; p.date = d; p.category = cat; p.link = link; p.note = nt; p.cost = c + (p.extraCosts || []).reduce((acc, curr) => acc + curr.amount, 0);
+  p.name = n; p.baseCost = c; p.goal = isNaN(g)?1:g; p.date = d; p.category = cat; p.link = link; p.note = nt; p.rating = r; p.cost = c + (p.extraCosts || []).reduce((acc, curr) => acc + curr.amount, 0);
   saveProds(prods); closeModal(); toast('✓ Actualizado'); renderAll();
 }
 
@@ -657,11 +670,13 @@ function openBackupModal() { document.getElementById('modalContainer').innerHTML
 function renderAll() { render(); renderWishes(); renderHistory(); renderTrash(); }
 
 function render() {
-  const prods = loadProds(); const query = String(document.getElementById('searchBar').value || "").toLowerCase().trim(); const sortBy = window.currentSortBy;
+  const prods = loadProds(); 
+  const query = String(document.getElementById('searchBar').value || "").toLowerCase().trim(); 
+  const sortBy = window.currentSortBy || 'date-desc';
+  
   let totalActivos = 0; let cGreen = 0; let cPend = 0; 
   let valAmortizado = 0; let valPending = 0; let actDaily = 0;
   
-  // Variables para Burn Rate (Gasto mensual)
   const catMapTotal = {}; const catMapMonth = {}; 
   const dObj = new Date(); const currMonth = dObj.getMonth(); const currYear = dObj.getFullYear();
   let closePend = null; let minDays = Infinity;
@@ -693,21 +708,24 @@ function render() {
   if (closePend && minDays <= 15 && currentDashboardFilter === 'all') { bannerEl.innerHTML = `<div class="icon">🎯</div><div class="text">Próximo Hito: <b>${closePend.name}</b> a Zona Verde en <b>${minDays} día(s)</b>.</div>`; bannerEl.classList.remove('hidden-content'); } else { bannerEl.classList.add('hidden-content'); }
 
   const budgets = loadBudgets();
-  document.getElementById('catSummary').innerHTML = Object.keys(catMapTotal).map(c => {
-    const total = catMapTotal[c] || 0;
-    const spentThisMonth = catMapMonth[c] || 0;
-    const limit = budgets[c] || 1000; 
-    const pct = Math.min((spentThisMonth / limit) * 100, 100);
-    const bColor = pct > 90 ? 'danger' : pct > 70 ? 'warn' : '';
+  const catSummaryEl = document.getElementById('catSummary');
+  if(catSummaryEl) {
+      catSummaryEl.innerHTML = Object.keys(catMapTotal).map(c => {
+        const total = catMapTotal[c] || 0;
+        const spentThisMonth = catMapMonth[c] || 0;
+        const limit = budgets[c] || 1000; 
+        const pct = Math.min((spentThisMonth / limit) * 100, 100);
+        const bColor = pct > 90 ? 'danger' : pct > 70 ? 'warn' : '';
 
-    return `
-    <div class="cat-card ${currentCategoryFilter === c ? 'active-filter' : ''}" onclick="setCategoryFilter('${c}')">
-      <div class="cc-name">${c} <button class="btn-edit-budget" onclick="event.stopPropagation(); editBudgetModal('${c}')">✏️</button></div>
-      <div class="cc-inv">${formatMoney(total)}</div>
-      <div class="budget-wrap"><div class="budget-fill ${bColor}" style="width:${pct}%"></div></div>
-      <div class="budget-text"><span>Mes: ${formatMoney(spentThisMonth)}</span><span>Tope: ${formatMoney(limit).replace('S/ ','')}</span></div>
-    </div>`;
-  }).join('');
+        return `
+        <div class="cat-card ${currentCategoryFilter === c ? 'active-filter' : ''}" onclick="setCategoryFilter('${c}')">
+          <div class="cc-name">${c} <button class="btn-edit-budget" onclick="event.stopPropagation(); editBudgetModal('${c}')">✏️</button></div>
+          <div class="cc-inv">${formatMoney(total)}</div>
+          <div class="budget-wrap"><div class="budget-fill ${bColor}" style="width:${pct}%"></div></div>
+          <div class="budget-text"><span>Mes: ${formatMoney(spentThisMonth)}</span><span>Tope: ${formatMoney(limit).replace('S/ ','')}</span></div>
+        </div>`;
+      }).join('');
+  }
 
   let filtered = prods.filter(p => {
     if(currentCategoryFilter !== 'all' && p.category !== currentCategoryFilter) return false;
@@ -755,6 +773,7 @@ function render() {
         <td data-label="Artículo" class="tname">
           <div class="tname-content">
             <div style="font-size: 1rem; color: var(--text); font-weight: 600;">${p.name}</div>
+            ${renderStars(p.rating)}
             <div class="mobile-mini-info">
               <span style="color: var(--text);">${formatMoney(cDay)}/d</span>
               ${miniStatus}
@@ -792,7 +811,8 @@ function render() {
   document.getElementById('badge-pending').innerText = bPend.children.length; 
   document.getElementById('badge-green').innerText = bGreen.children.length;
   
-  if(bPend.children.length === 0) bPend.innerHTML = `<tr><td colspan="7"><div class="empty">Ningún pendiente.</div></td></tr>`; if(bGreen.children.length === 0) bGreen.innerHTML = `<tr><td colspan="7"><div class="empty">Ningún amortizado.</div></td></tr>`;
+  if(bPend.children.length === 0) bPend.innerHTML = `<tr><td colspan="7"><div class="empty">Ningún pendiente.</div></td></tr>`; 
+  if(bGreen.children.length === 0) bGreen.innerHTML = `<tr><td colspan="7"><div class="empty">Ningún amortizado.</div></td></tr>`;
 }
 
 // ═══════════════════ DESEOS, HISTORIAL Y PAPELERA ═══════════════════

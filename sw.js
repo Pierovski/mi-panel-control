@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pierovski-v5.7'; // Sube este número cada vez que modifiques tu código
+const CACHE_NAME = 'pierovski-v5.8'; // Sube este número cada vez que modifiques tu código
 
 const ASSETS = [
   './',

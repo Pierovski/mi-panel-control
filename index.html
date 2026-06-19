@@ -64,7 +64,7 @@ main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
 .section-title { font-family: 'Fraunces', serif; font-size: 1rem; color: var(--text); margin-bottom: 14px; font-weight: 600;}
 .week-tracker {
   background: var(--surface); border: 1px solid var(--border);
-  padding: 18px 24px; border-radius: var(--r-sm); margin-bottom: 32px;
+  padding: 18px 24px 34px; border-radius: var(--r-sm); margin-bottom: 32px;
   display: flex; justify-content: space-between; align-items: center;
   box-shadow: var(--shadow);
 }
@@ -74,10 +74,13 @@ main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
   background: var(--surface2); color: var(--text-dim); border: 2px solid transparent;
   transition: all 0.3s;
 }
-.day-dot.past { background: var(--surface3); color: var(--text-muted); }
-.day-dot.today-pending { border-color: var(--amber); color: var(--amber-dim); background: var(--amber-glow); box-shadow: 0 0 12px var(--amber-glow); transform: scale(1.1);}
-.day-dot.today-done { border-color: var(--green); color: var(--green-dim); background: var(--green-glow); box-shadow: 0 0 12px var(--green-glow); transform: scale(1.1);}
-.day-dot.today-neutral { border-color: var(--blue); color: var(--blue-dim); background: rgba(59,130,246,0.1); transform: scale(1.1);}
+.day-dot.future { opacity: 0.3; } 
+.day-dot.empty { background: var(--surface3); color: var(--text-muted); } 
+.day-dot.done-100 { border-color: var(--green); color: var(--green-dim); background: var(--green-glow); }
+.day-dot.done-partial { border-color: var(--amber); color: var(--amber-dim); background: var(--amber-glow); }
+.day-dot.missed { border-color: var(--red); color: var(--red-dim); background: var(--red-glow); } 
+.day-dot.pending { border-color: var(--blue); color: var(--blue-dim); background: rgba(59,130,246,0.1); } 
+.day-dot.is-today { transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 2;}
 
 /* CAJA DE ALERTA (PLEGABLE) */
 .alert-box { background: var(--surface); border: 1px solid var(--red); border-left: 4px solid var(--red); padding: 18px 20px; border-radius: var(--r-sm); margin-bottom: 32px; display: none; animation: fadeUp 0.3s ease; box-shadow: var(--shadow); }
@@ -89,7 +92,7 @@ main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
 .btn-nav-alert { font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 5px 12px; background: var(--red); color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; transition: 0.2s; cursor: pointer; border: none; font-weight: 600; white-space: nowrap;}
 .btn-nav-alert:hover { background: var(--red-dim); }
 
-/* ACCESO A MÓDULOS - OPTIMIZADOS PARA SER MÁS COMPACTOS */
+/* ACCESO A MÓDULOS */
 .access-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 36px; }
 .access-btn { 
   background: var(--surface); border: 1px solid var(--border); padding: 14px 18px; 
@@ -147,21 +150,17 @@ main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
 </header>
 
 <main>
-  <!-- Píldora de Mentalidad Aleatoria -->
   <div class="quote-box">
     <div class="quote-text" id="dailyQuote">"Cargando protocolo mental..."</div>
   </div>
 
-  <!-- Tracker Semanal de Ejecución (Reemplaza a Foco) -->
   <div class="section-title" style="display: flex; justify-content: space-between; align-items: center;">
     <span>🔥 Racha de Ejecución</span>
     <span style="font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-muted);">SEMANA ACTUAL</span>
   </div>
   <div class="week-tracker" id="weekTracker">
-    <!-- Renderizado por JS -->
-  </div>
+    </div>
 
-  <!-- Caja de Alertas (Desplegable) -->
   <div class="alert-box" id="urgencyAlert">
     <h3>⚠️ Requerimientos Operativos</h3>
     <div class="alert-content" id="urgencyText">Escaneando...</div>
@@ -212,7 +211,6 @@ main { max-width: 900px; margin: 0 auto; padding: 24px 24px; }
 </main>
 
 <script>
-// ═══════════════════ 1. ESTADOS GLOBALES (MODO NOCHE Y PRIVACIDAD) ═══════════════════
 let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
 
 function formatMoney(val) {
@@ -245,7 +243,6 @@ function initGlobals() {
   if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
 
   const hoy = new Date();
-  
   if(hoy.getDay() === 0) { 
     document.getElementById('greetText').textContent = "🔥 Diario de Guerra";
     document.getElementById('greetText').style.color = "var(--red)";
@@ -274,10 +271,8 @@ function initGlobals() {
   document.getElementById('dailyQuote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
 }
 
-// ═══════════════════ 2. LECTURA DE DATOS MAESTROS ═══════════════════
 async function syncPlanData() {
   const files = { topo: 'plan_topografia.json', fin: 'plan_finanzas.json', gym: 'plan_gimnasio.json' };
-  
   for (const [pid, filename] of Object.entries(files)) {
       try {
           const res = await fetch(filename + '?v=' + Date.now());
@@ -289,12 +284,10 @@ async function syncPlanData() {
           console.log(`Modo offline o archivo no encontrado para ${pid}`);
       }
   }
-  
   renderWeekTracker();
   calcProgress();
 }
 
-// ═══════════════════ 3. LECTURA DE DATOS (STATS SIN SPARKLINE) ═══════════════════
 function loadMiniStats() {
   try {
     const tarjetas = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
@@ -334,7 +327,6 @@ function loadMiniStats() {
   } catch(e) { console.error("Error cargando stats", e); }
 }
 
-// ═══════════════════ 4. TRACKER SEMANAL (NUEVO SEMÁFORO DE RACHA) ═══════════════════
 function getCurrentWeekGlobal() {
     const startDateStr = localStorage.getItem('topo_start_date_v1') || '2026-03-30';
     const startDate = new Date(startDateStr + 'T00:00:00');
@@ -348,59 +340,85 @@ function renderWeekTracker() {
     const currentWeek = getCurrentWeekGlobal();
     const jsToday = new Date().getDay(); 
     
-    const dayNames = ["[DOMINGO]", "[LUNES]", "[MARTES]", "[MIÉRCOLES]", "[JUEVES]", "[VIERNES]", "[SÁBADO]"];
-    const todayName = dayNames[jsToday];
+    const labels = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+    const dayNamesMap = ["[LUNES]", "[MARTES]", "[MIÉRCOLES]", "[JUEVES]", "[VIERNES]", "[SÁBADO]", "[DOMINGO]"];
+    const mapJsToLabel = [6, 0, 1, 2, 3, 4, 5]; 
+    const todayIndex = mapJsToLabel[jsToday];
     
-    let hasTasksToday = false;
-    let tasksDoneToday = false;
-    
-    // Escaneo profundo del plan para ver el estatus de hoy
-    const planes = ['topo', 'gym', 'fin'];
-    planes.forEach(p => {
+    const isTrujilloMode = localStorage.getItem('trujillo_mode_v1') === 'true';
+    const tracker = document.getElementById('weekTracker');
+    let html = '';
+
+    const planesData = [];
+    ['topo', 'gym', 'fin'].forEach(p => {
         const planStr = localStorage.getItem(`cache_${p}`);
-        const statesStr = localStorage.getItem(`${p}_tasks_v1`);
-        if(planStr && statesStr) {
-            const plan = JSON.parse(planStr);
-            const states = JSON.parse(statesStr);
-            if(plan.weeks && plan.weeks[currentWeek]) {
-                plan.weeks[currentWeek].tasks.forEach((task, idx) => {
-                    if(task.includes(todayName) || task.includes('[DIARIO]')) {
-                        hasTasksToday = true;
-                        // Si encuentra AL MENOS UNA tarea completada hoy, marca el día como verde
-                        if(states[`${currentWeek}-${idx}`] === true) {
-                            tasksDoneToday = true;
+        // EL SALVAVIDAS
+        const statesStr = localStorage.getItem(`${p}_tasks_v1`) || '{}';
+        
+        if(planStr) {
+            planesData.push({
+                plan: JSON.parse(planStr),
+                states: JSON.parse(statesStr)
+            });
+        }
+    });
+    
+    labels.forEach((lbl, dayIdx) => {
+        const isToday = (dayIdx === todayIndex);
+        const isPast = (dayIdx < todayIndex);
+        const isFuture = (dayIdx > todayIndex);
+        const currentDayName = dayNamesMap[dayIdx];
+        
+        let totalDayTasks = 0;
+        let doneDayTasks = 0;
+
+        planesData.forEach(data => {
+            if(data.plan.weeks && data.plan.weeks[currentWeek]) {
+                data.plan.weeks[currentWeek].tasks.forEach((task, tIdx) => {
+                    const isWeekendTask = task.includes('[SÁBADO]') || task.includes('[DOMINGO]');
+                    if (isTrujilloMode && isWeekendTask) return;
+
+                    if(task.includes(currentDayName) || task.includes('[DIARIO]')) {
+                        totalDayTasks++;
+                        if(data.states[`${currentWeek}-${tIdx}`] === true) {
+                            doneDayTasks++;
                         }
                     }
                 });
             }
-        }
-    });
-
-    const tracker = document.getElementById('weekTracker');
-    const labels = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
-    const mapJsToLabel = [6, 0, 1, 2, 3, 4, 5]; // Mapeo: jsToday (0=Dom, 1=Lun...) a índice de labels
-    
-    let html = '';
-    labels.forEach((lbl, idx) => {
-        const isToday = mapJsToLabel[jsToday] === idx;
-        const isPast = idx < mapJsToLabel[jsToday];
+        });
         
+        let pct = totalDayTasks === 0 ? 0 : Math.round((doneDayTasks / totalDayTasks) * 100);
         let cls = 'day-dot';
-        if (isToday) {
-            if (tasksDoneToday) cls += ' today-done';
-            else if (hasTasksToday) cls += ' today-pending';
-            else cls += ' today-neutral';
-        } else if (isPast) {
-            cls += ' past';
+        
+        if (isFuture) {
+            cls += ' future';
+        } else if (totalDayTasks === 0) {
+            cls += ' empty';
+        } else {
+            if (pct === 100) cls += ' done-100'; 
+            else if (pct > 0) cls += ' done-partial'; 
+            else if (isPast) cls += ' missed'; 
+            else if (isToday) cls += ' pending'; 
         }
         
-        html += `<div class="${cls}">${lbl}</div>`;
+        if(isToday) cls += ' is-today';
+
+        let pctText = '';
+        if(!isFuture && totalDayTasks > 0) {
+            let textColor = pct === 100 ? 'var(--green-dim)' : (pct === 0 && isPast ? 'var(--red-dim)' : 'var(--text-muted)');
+            pctText = `<span style="position:absolute; bottom:-18px; font-size:0.6rem; font-weight:700; color:${textColor}; font-family:'DM Mono', monospace;">${pct}%</span>`;
+        }
+        
+        html += `<div style="position:relative; display:flex; flex-direction:column; align-items:center;">
+                    <div class="${cls}">${lbl}</div>
+                    ${pctText}
+                 </div>`;
     });
     
     tracker.innerHTML = html;
 }
 
-// ═══════════════════ 5. ALERTAS Y NOTIFICACIONES INTEGRADAS ═══════════════════
 function toggleAlerts() {
   document.getElementById('urgencyAlert').classList.toggle('active');
 }
@@ -451,7 +469,6 @@ function checkAlerts() {
   }
 }
 
-// ═══════════════════ 6. PROGRESO GLOBAL (MATEMÁTICA EXACTA) ═══════════════════
 function calcProgress() {
   ['topo', 'fin', 'gym'].forEach(p => {
     try {
@@ -493,7 +510,6 @@ function calcProgress() {
   });
 }
 
-// ═══════════════════ 7. MOTOR DE NAVEGACIÓN Y GAMIFICACIÓN ═══════════════════
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
@@ -517,7 +533,6 @@ function navTo(e, url, btnElement) {
   setTimeout(() => { window.location.href = url; }, 150);
 }
 
-// 🚀 ARRANQUE MOTOR
 window.onload = () => {
   initGlobals();
   loadMiniStats();
@@ -525,14 +540,11 @@ window.onload = () => {
   syncPlanData();
   
   if ('serviceWorker' in navigator) {
-    // Registramos el Service Worker
     navigator.serviceWorker.register('sw.js')
       .then(reg => {
-        // Escuchamos si hay una nueva actualización del archivo sw.js
         reg.addEventListener('updatefound', () => {
           const newWorker = reg.installing;
           newWorker.addEventListener('statechange', () => {
-            // Si hay un nuevo SW instalado y listo para tomar el control
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
               console.log('Nueva versión disponible. Aplicando actualización...');
             }
@@ -541,7 +553,6 @@ window.onload = () => {
       })
       .catch(err => console.log('Error PWA', err));
 
-    // Forzamos a la página a recargarse sola automáticamente cuando se actualiza el SW.
     let refreshing = false;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (!refreshing) {
