@@ -224,14 +224,13 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
 .sort-item.active-sort { color: var(--amber); font-weight: 600; }
 
 /* =========================================================================
-   DISEÑO RESPONSIVO MÓVIL (ACORDEÓN CON MINI-INFO)
+   DISEÑO RESPONSIVO MÓVIL
    ========================================================================= */
 @media (max-width: 860px) {
   .metrics-row { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-  /* En móvil, la tabla se convierte en tarjetas Acordeón */
   thead tr { display: none; }
   table, tbody, tr, td { display: block; width: 100%; }
   
@@ -241,7 +240,6 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
     overflow: hidden; cursor: pointer;
   }
   
-  /* Celda principal siempre visible con el Mini-Info */
   td.tname { 
     padding: 14px 16px; border-bottom: none; text-align: left; 
     display: block; position: relative;
@@ -256,16 +254,13 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
     margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border);
   }
   
-  /* Icono de acordeón */
   td.tname::after { 
     content: '▼'; position: absolute; right: 16px; top: 18px; 
     font-size: 0.7rem; color: var(--text-dim); transition: transform 0.3s; 
   }
   
-  /* Ocultar el resto de celdas por defecto */
   td:not(.tname) { display: none; }
   
-  /* Estado expandido */
   tr.expanded { border-color: var(--amber); }
   tr.expanded td.tname::after { transform: rotate(180deg); color: var(--amber); }
   tr.expanded td:not(.tname) { 
@@ -401,79 +396,170 @@ td.tcost { font-family: 'DM Mono', monospace; font-size: 0.9rem; font-weight: 50
 <div id="toast">Notificación</div>
 
 <script>
-// ═══════════════════ CONFIGURACIÓN FIREBASE ═══════════════════
+// ═══════════════════ CONFIGURACIÓN FIREBASE & SYNC ═══════════════════
 const firebaseConfig = { databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com/" };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const CLOUD_KEY = "compras"; 
 
-// ═══════════════════ VARIABLES, MODO NOCHE Y PRIVACIDAD ═══════════════════
+// Lógica de Timestamps para Sincronización Bidireccional
+function getLocalUpdate() { return parseInt(localStorage.getItem('c_last_update')) || 0; }
+function setLocalUpdate(ts) { localStorage.setItem('c_last_update', ts); }
+
+let isOnline = false;
+function setCloudStatus(status) { const el = document.getElementById('cloudStatus'); el.className = "cloud-status"; if(status==='online') el.classList.add('cloud-online'); if(status==='syncing') el.classList.add('cloud-syncing'); }
+
+function initCloud() {
+  setCloudStatus('syncing');
+  db.ref(CLOUD_KEY).once('value').then(snap => {
+    isOnline = true; setCloudStatus('online');
+    if (snap.exists()) {
+      const cloud = snap.val();
+      const cloudTs = cloud.lastUpdated || 0;
+      const localTs = getLocalUpdate();
+
+      if (cloudTs >= localTs) {
+        if (cloud.products) localStorage.setItem('c_prods', JSON.stringify(cloud.products));
+        if (cloud.wishes) localStorage.setItem('c_wishes', JSON.stringify(cloud.wishes));
+        if (cloud.history) localStorage.setItem('c_hist', JSON.stringify(cloud.history));
+        if (cloud.trash) localStorage.setItem('c_trash', JSON.stringify(cloud.trash));
+        if (cloud.categories) localStorage.setItem('c_cats', JSON.stringify(cloud.categories));
+        if (cloud.budgets) localStorage.setItem('c_budgets', JSON.stringify(cloud.budgets));
+        setLocalUpdate(cloudTs);
+        renderAll();
+      } else {
+        syncCloud(localTs);
+      }
+    } else { syncCloud(Date.now()); }
+  }).catch(() => { isOnline = false; });
+}
+
+function triggerSync() {
+  const ts = Date.now();
+  setLocalUpdate(ts);
+  syncCloud(ts);
+}
+
+function syncCloud(ts) {
+  if(!isOnline) return; setCloudStatus('syncing');
+  db.ref(CLOUD_KEY).set({ 
+      lastUpdated: ts,
+      products: loadProds(), wishes: loadWishes(), history: loadHist(), 
+      trash: loadTrash(), categories: loadCategories(), budgets: loadBudgets() 
+  }).then(() => setCloudStatus('online')).catch(() => { isOnline = false; });
+}
+
+// ═══════════════════ VARIABLES GLOBALES ═══════════════════
 let searchTimeout = null; 
 let currentDashboardFilter = 'all'; 
 let currentCategoryFilter = 'all';
 window.currentSortBy = 'date-desc';
 let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
 
-const sortOptions = [
-  {val: 'date-desc', label: 'Fecha: Más recientes primero'},
-  {val: 'date-asc', label: 'Fecha: Más antiguos primero'},
-  {val: 'cost-desc', label: 'Costo Total: Mayor a menor'},
-  {val: 'costday-desc', label: '⚠️ Gasto Diario: Más alto primero'},
-  {val: 'goal-closest', label: '🎯 Proximidad: Más cerca a meta'}
-];
+const sortOptions = [{val:'date-desc', label:'Más recientes'}, {val:'costday-desc', label:'Gasto Diario más alto'}];
 
-function togglePrivacy() {
-  isPrivacyMode = !isPrivacyMode;
-  localStorage.setItem('pierovski_privacy', isPrivacyMode);
-  document.getElementById('privacyToggleBtn').classList.toggle('active', isPrivacyMode);
-  renderAll(); 
-}
+function togglePrivacy() { isPrivacyMode = !isPrivacyMode; localStorage.setItem('pierovski_privacy', isPrivacyMode); document.getElementById('privacyToggleBtn').classList.toggle('active', isPrivacyMode); renderAll(); }
 
 window.addEventListener('DOMContentLoaded', () => { 
   if (localStorage.getItem('compras_theme') === 'dark') document.body.classList.add('dark-theme');
   if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
 });
 
-// ═══════════════════ SISTEMA DE ACORDEONES ═══════════════════
+// ═══════════════════ ACORDEONES ═══════════════════
 function toggleSection(secId) {
-  let sec, wrap, header;
-  if (secId === 'sec-history' || secId === 'sec-trash') {
-    wrap = document.getElementById(secId);
-    header = wrap.previousElementSibling;
-  } else {
-    sec = document.getElementById(secId);
-    wrap = sec.querySelector('.table-wrap');
-    header = sec.querySelector('.sec-header');
-  }
-  wrap.classList.toggle('collapsed');
-  header.classList.toggle('collapsed');
+  let sec = document.getElementById(secId); if(!sec)return;
+  let wrap = sec.querySelector('.table-wrap') || sec;
+  let header = sec.querySelector('.sec-header') || sec.previousElementSibling;
+  if(wrap) wrap.classList.toggle('collapsed');
+  if(header) header.classList.toggle('collapsed');
+}
+function toggleRow(row, e) { if (e.target.closest('button') || e.target.closest('input') || e.target.closest('a')) return; row.classList.toggle('expanded'); }
+
+// ═══════════════════ CARGA DE DATOS Y AUTO-RESCATE INTELIGENTE ═══════════════════
+function getSafeArray(key) { try { let data = JSON.parse(localStorage.getItem(key)); return (!data) ? [] : (!Array.isArray(data) ? Object.values(data) : data).filter(i => i && typeof i === 'object'); } catch(e) { return []; } }
+
+function loadCategories() { 
+    let defaultCats = ["Topografía", "Gabinete", "Herramientas", "Personal", "Otros"];
+    try {
+        let savedCats = JSON.parse(localStorage.getItem('c_cats'));
+        let baseCats = (Array.isArray(savedCats) && savedCats.length > 0) ? savedCats : defaultCats;
+        
+        let prods = getSafeArray('c_prods');
+        
+        // 1. Rescatar categorías que estén usando tus compras
+        prods.forEach(p => {
+            if (p && p.category && typeof p.category === 'string') {
+                let cat = p.category.trim();
+                if(cat !== '') {
+                    let exists = baseCats.some(c => c.toLowerCase() === cat.toLowerCase());
+                    let isOtro = (cat.toLowerCase() === 'otro' || cat.toLowerCase() === 'otros');
+                    let hasOtro = baseCats.some(c => c.toLowerCase() === 'otro' || c.toLowerCase() === 'otros');
+                    
+                    if (!exists && !(isOtro && hasOtro)) {
+                        baseCats.push(cat);
+                    }
+                }
+            }
+        });
+        
+        // 2. Limpieza final: Quitar duplicados y fusionar "Otro" y "Otros"
+        let finalCats = [];
+        baseCats.forEach(cat => {
+            let isOtro = (cat.toLowerCase() === 'otro' || cat.toLowerCase() === 'otros');
+            let hasOtro = finalCats.some(c => c.toLowerCase() === 'otro' || c.toLowerCase() === 'otros');
+            let exists = finalCats.some(c => c.toLowerCase() === cat.toLowerCase());
+            
+            if(!exists && !(isOtro && hasOtro)) {
+                if(isOtro) finalCats.push("Otros"); // Normalizamos a "Otros"
+                else finalCats.push(cat);
+            }
+        });
+
+        localStorage.setItem('c_cats', JSON.stringify(finalCats));
+        return finalCats;
+    } catch(e) {
+        return defaultCats;
+    }
 }
 
-function toggleRow(row, e) {
-  if (e.target.closest('button') || e.target.closest('input') || e.target.closest('a')) return;
-  row.classList.toggle('expanded');
+function loadProds() { return getSafeArray('c_prods').map(p => ({ ...p, id: p.id || 'p_'+Date.now(), category: p.category || 'Otros', cost: parseFloat(p.cost)||0, goal: parseFloat(p.goal)||1, rating: parseInt(p.rating)||0, date: p.date||todayStr(), extraCosts: p.extraCosts||[] })); }
+function loadBudgets() { try { return JSON.parse(localStorage.getItem('c_budgets')) || {}; } catch(e){ return {}; } }
+function loadWishes() { return getSafeArray('c_wishes'); } function loadHist() { return getSafeArray('c_hist'); } function loadTrash() { return getSafeArray('c_trash'); }
+
+function saveCategories(cats) { localStorage.setItem('c_cats', JSON.stringify(cats)); triggerSync(); }
+function saveProds(arr) { localStorage.setItem('c_prods', JSON.stringify(arr)); triggerSync(); }
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function toast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+function formatMoney(num) { return isPrivacyMode ? 'S/ ***.**' : 'S/ ' + (Number(num) || 0).toLocaleString('es-PE', { minimumFractionDigits: 2 }); }
+function calcDays(dStr) { const diff = Math.abs(new Date() - new Date(dStr)); return Math.max(1, Math.ceil(diff / 86400000)); }
+
+function renderStars(rating) {
+    if(rating === 0 || !rating) return '';
+    const on = '★'.repeat(rating); const off = '★'.repeat(5-rating);
+    return `<div class="rating-badge"><span class="star-on">${on}</span><span class="star-off">${off}</span></div>`;
 }
 
-// ═══════════════════ SISTEMA DINÁMICO (CATEGORÍAS Y BUDGETS) ═══════════════════
-function loadCategories() { let cats = getSafeArray('c_cats'); if(cats.length === 0) cats = ["Topografía", "Gabinete", "Herramientas", "Personal", "Otros"]; return cats; }
-function saveCategories(cats) { localStorage.setItem('c_cats', JSON.stringify(cats)); syncCloud(); }
-
-function loadBudgets() { let b = {}; try { b = JSON.parse(localStorage.getItem('c_budgets')) || {}; } catch(e){} return b; }
+// ═══════════════════ MODALES (ADD / EDIT) ═══════════════════
+function handleFabClick() { openAddModal(); }
+function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
+function populateSelects(prefix) { const cats = loadCategories(); const el = document.getElementById(prefix+'Cat'); if(el) el.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('') + `<option value="ADD" style="color:var(--amber);">+ Nueva...</option>`; }
 
 function editBudgetModal(cat) {
   const b = loadBudgets(); const current = b[cat] || 1000;
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal" style="max-width:350px;">
-        <h3>Límite Mensual</h3>
-        <p class="desc">Ajusta el presupuesto para <b>${cat}</b></p>
-        <div class="edit-grid">
-          <div class="field"><label>Nuevo Tope (S/)</label><input type="number" step="10" id="newBudgetVal" value="${current}"></div>
+        <h3>Ajustar: ${cat}</h3>
+        <div class="edit-grid" style="margin-top: 15px;">
+          <div class="field"><label>Tope Mensual (S/)</label><input type="number" step="10" id="newBudgetVal" value="${current}"></div>
         </div>
         <div class="modal-btns">
           <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
           <button class="mbtn mbtn-green" onclick="saveBudget('${cat}')">Guardar</button>
         </div>
+        
+        <hr style="border: 0; border-top: 1px dashed var(--border); margin: 25px 0 15px;">
+        <button class="btn-a btn-desechar" onclick="deleteCategory('${cat}')" style="width: 100%; padding: 10px; font-size: 0.8rem;">🗑️ Eliminar esta Categoría</button>
       </div>
     </div>`;
 }
@@ -482,34 +568,51 @@ function saveBudget(cat) {
   const val = parseFloat(document.getElementById('newBudgetVal').value);
   if(!isNaN(val) && val > 0) {
     let b = loadBudgets(); b[cat] = val; localStorage.setItem('c_budgets', JSON.stringify(b));
-    syncCloud(); renderAll(); closeModal(); toast('✓ Presupuesto actualizado');
+    triggerSync(); renderAll(); closeModal(); toast('✓ Presupuesto actualizado');
   } else {
     toast('⚠ Ingresa un monto válido');
   }
 }
 
-function populateSelects(prefix) {
-  const cats = loadCategories();
-  let catHtml = cats.map(c => `<option value="${c}">${c}</option>`).join('') + `<option value="ADD_NEW" style="color:var(--amber); font-weight:bold;">+ Nueva Categoría...</option>`;
-  const catEl = document.getElementById(prefix + 'Cat'); if(catEl) catEl.innerHTML = catHtml;
+function deleteCategory(cat) {
+    let prods = loadProds();
+    // Validar si la categoría está en uso antes de borrar
+    let inUse = prods.some(p => p.category === cat);
+    
+    if (inUse) {
+        toast('⚠ Error: Hay compras usando esta categoría. Edítalas primero.');
+        return;
+    }
+    
+    if(confirm(`¿Estás seguro de eliminar la categoría "${cat}"?`)) {
+        let cats = loadCategories();
+        cats = cats.filter(c => c !== cat);
+        saveCategories(cats);
+        closeModal();
+        renderAll();
+        toast('✓ Categoría eliminada');
+    }
 }
 
 function handleNewOption(selectEl) {
-  if(selectEl.value === 'ADD_NEW') {
+  if(selectEl.value === 'ADD') {
       const newVal = prompt(`Escribe el nombre de la nueva Categoría:`);
       if(newVal && newVal.trim() !== '') {
           const cleanName = newVal.trim();
-          const arr = loadCategories(); if(!arr.includes(cleanName)) { arr.push(cleanName); saveCategories(arr); }
+          let arr = loadCategories(); 
+          let exists = arr.some(c => c.toLowerCase() === cleanName.toLowerCase());
+          
+          if(!exists) { 
+              arr.push(cleanName); 
+              saveCategories(arr); 
+          }
           populateSelects('a'); populateSelects('edit');
-          selectEl.value = cleanName; renderAll(); 
-      } else { populateSelects('a'); populateSelects('edit'); }
+          selectEl.value = cleanName; 
+          renderAll(); 
+      } else { 
+          populateSelects('a'); populateSelects('edit'); 
+      }
   }
-}
-
-// ═══════════════════ MODALES (FAB, SORT, ADD) ═══════════════════
-function handleFabClick() {
-  const activeTab = document.querySelector('.tab-pane.active').id;
-  if(activeTab === 'tab-deseos') openWishModal(); else openAddModal();
 }
 
 function openSortModal() {
@@ -521,153 +624,69 @@ function applySort(val) { window.currentSortBy = val; const selectedOpt = sortOp
 function openAddModal() {
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
-      <div class="modal">
-        <h3>Registrar Movimiento</h3>
-        <p class="desc">Ingresa un nuevo activo o gasto de obra</p>
+      <div class="modal"><h3>Registrar Compra</h3>
         <div class="edit-grid">
-          <div class="field"><label>Nombre del artículo</label><input type="text" id="aNombre" placeholder="Ej. Estación Total, Viático..."></div>
-          <div class="field"><label>Costo (S/)</label><input type="number" step="0.01" id="aCosto" placeholder="0.00"></div>
-          <div class="field" id="aMetaBox"><label>Meta Diaria para Amortizar (S/)</label><input type="number" step="0.01" id="aMeta" value="1.00"></div>
+          <div class="field"><label>Artículo</label><input type="text" id="aNombre" required></div>
           <div style="display:flex; gap:10px;">
-             <div class="field" style="flex:1;"><label>Fecha</label><input type="date" id="aFecha" value="${todayStr()}"></div>
-             <div class="field" style="flex:1;"><label>Categoría</label><select id="aCat" onchange="handleNewOption(this)"></select></div>
+             <div class="field" style="flex:1;"><label>Costo (S/)</label><input type="number" step="0.01" id="aCosto"></div>
+             <div class="field" style="flex:1;"><label>Meta Diaria (S/)</label><input type="number" step="0.01" id="aMeta" value="1.00"></div>
           </div>
-          <div class="field"><label>Bóveda (Enlace a Factura/Drive)</label><input type="url" id="aLink" placeholder="https://drive.google.com/..."></div>
-          <div class="field"><label>Nota corta</label><input type="text" id="aNota" placeholder="Opcional..."></div>
+          <div style="display:flex; gap:10px;">
+             <div class="field" style="flex:1;"><label>Categoría</label><select id="aCat" onchange="handleNewOption(this)"></select></div>
+             <div class="field" style="flex:1;"><label>Calidad / Rating</label>
+                <select id="aRating">
+                    <option value="0">Sin calificar</option>
+                    <option value="5">⭐⭐⭐⭐⭐ (Excelente)</option>
+                    <option value="4">⭐⭐⭐⭐ (Bueno)</option>
+                    <option value="3">⭐⭐⭐ (Regular)</option>
+                    <option value="2">⭐⭐ (Malo)</option>
+                    <option value="1">⭐ (Pésimo)</option>
+                </select>
+             </div>
+          </div>
+          <div class="field"><label>Fecha</label><input type="date" id="aFecha" value="${todayStr()}"></div>
         </div>
-        <div class="modal-btns">
-          <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
-          <button class="mbtn mbtn-blue" onclick="addProduct()">Guardar Registro</button>
-        </div>
+        <div class="modal-btns"><button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button><button class="mbtn mbtn-blue" onclick="addProduct()">Guardar</button></div>
       </div>
     </div>`;
   populateSelects('a');
 }
 
-function openWishModal() {
-  document.getElementById('modalContainer').innerHTML = `<div class="backdrop" onclick="if(event.target===this) closeModal()"><div class="modal" style="border-top: 4px solid var(--purple);"><h3 style="color: var(--purple);">Añadir a Lista de Deseos</h3><div class="edit-grid" style="margin-top: 20px;"><div class="field"><label>Artículo Deseado</label><input type="text" id="wNombre" placeholder="Ej. Drone DJI"></div><div class="field"><label>Precio Estimado (S/)</label><input type="number" step="0.01" id="wPrecio" placeholder="0.00"></div><div class="field"><label>Prioridad</label><select id="wPrio"><option value="Alta">Alta</option><option value="Media" selected>Media</option><option value="Baja">Baja</option></select></div><div class="field"><label>Justificación</label><input type="text" id="wNota" placeholder="Por qué lo necesitas..."></div></div><div class="modal-btns"><button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button><button class="mbtn" style="background:var(--purple); color:white;" onclick="addWish()">Guardar Deseo</button></div></div></div>`;
-}
-
-// ═══════════════════ CARGA DE DATOS (ANTI-DUPLICADOS) ═══════════════════
-function getSafeArray(key) { try { let data = JSON.parse(localStorage.getItem(key)); if (!data) return []; if (!Array.isArray(data)) data = Object.values(data); return data.filter(i => i && typeof i === 'object'); } catch(e) { return []; } }
-function mergeData(localArr, importedArr) { const map = new Map(); localArr.forEach(item => { if (item && item.id) map.set(item.id, item); }); importedArr.forEach(item => { if (item) { if (!item.id) item.id = 'imp_' + Math.random().toString(36).substr(2,9); map.set(item.id, item); } }); return Array.from(map.values()); }
-
-function loadProds() { return getSafeArray('c_prods').map(p => ({ id: p.id || 'p_' + Math.random().toString(36).substr(2,9), name: String(p.name || "Sin nombre"), category: String(p.category || "Otros"), link: String(p.link || ""), cost: parseFloat(p.cost || p.baseCost) || 0, baseCost: parseFloat(p.baseCost || p.cost) || 0, goal: parseFloat(p.goal) || 1, rating: parseInt(p.rating)||0, date: p.date || todayStr(), note: String(p.note || ""), extraCosts: Array.isArray(p.extraCosts) ? p.extraCosts : [] })); }
-function loadWishes() { return getSafeArray('c_wishes').map(w => ({ id: w.id || 'w_' + Math.random().toString(36).substr(2,9), name: String(w.name || "Deseo"), category: String(w.category || "Otros"), price: parseFloat(w.price) || 0, priority: String(w.priority || "Media"), note: String(w.note || "") })); }
-function loadHist() { return getSafeArray('c_hist').map(h => ({ ...h, id: h.id || 'h_' + Math.random().toString(36).substr(2,9), name: String(h.name || "Sin nombre"), category: String(h.category || "Otros"), cost: parseFloat(h.cost) || 0, soldPrice: parseFloat(h.soldPrice) || 0, date: h.date || todayStr(), endDate: h.endDate || todayStr() })); }
-function loadTrash() { return getSafeArray('c_trash'); }
-
-function todayStr() { return new Date().toISOString().split('T')[0]; }
-function saveProds(arr) { localStorage.setItem('c_prods', JSON.stringify(arr)); syncCloud(); }
-function saveWishes(arr) { localStorage.setItem('c_wishes', JSON.stringify(arr)); syncCloud(); }
-function saveHist(arr) { localStorage.setItem('c_hist', JSON.stringify(arr)); syncCloud(); }
-function saveTrash(arr) { localStorage.setItem('c_trash', JSON.stringify(arr)); syncCloud(); }
-function toast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
-function calcDays(dateStr) { if (!dateStr) return 1; const diffTime = Math.abs(new Date() - new Date(dateStr)); return Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24))) || 1; }
-function formatMoney(num) { 
-  if (isPrivacyMode) return 'S/ ***.**';
-  return 'S/ ' + (Number(num) || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-}
-
-function renderStars(rating) {
-    if(rating === 0 || !rating) return '';
-    const on = '★'.repeat(rating); const off = '★'.repeat(5-rating);
-    return `<div class="rating-badge"><span class="star-on">${on}</span><span class="star-off">${off}</span></div>`;
-}
-
-// ═══════════════════ SINCRONIZACIÓN CON LA NUBE ═══════════════════
-let isOnline = false;
-function setCloudStatus(status) { const el = document.getElementById('cloudStatus'); el.className = "cloud-status"; if(status==='online') el.classList.add('cloud-online'); if(status==='syncing') el.classList.add('cloud-syncing'); }
-function initCloud() {
-  setCloudStatus('syncing');
-  db.ref(CLOUD_KEY).once('value').then(snap => {
-    isOnline = true; setCloudStatus('online');
-    if (snap.exists()) {
-      const cloud = snap.val();
-      if (cloud.products) localStorage.setItem('c_prods', JSON.stringify(cloud.products));
-      if (cloud.wishes) localStorage.setItem('c_wishes', JSON.stringify(cloud.wishes));
-      if (cloud.history) localStorage.setItem('c_hist', JSON.stringify(cloud.history));
-      if (cloud.trash) localStorage.setItem('c_trash', JSON.stringify(cloud.trash));
-      if (cloud.categories) localStorage.setItem('c_cats', JSON.stringify(cloud.categories));
-      if (cloud.budgets) localStorage.setItem('c_budgets', JSON.stringify(cloud.budgets));
-      renderAll();
-    } else { syncCloud(); }
-  }).catch(() => { isOnline = false; });
-}
-function syncCloud() {
-  if(!isOnline) return; setCloudStatus('syncing');
-  db.ref(CLOUD_KEY).set({ products: loadProds(), wishes: loadWishes(), history: loadHist(), trash: loadTrash(), categories: loadCategories(), budgets: loadBudgets() }).then(() => setCloudStatus('online')).catch(() => { isOnline = false; });
-}
-
-// ═══════════════════ NAVEGACIÓN Y ACCIONES ═══════════════════
-function switchTab(tabId) { document.querySelectorAll('.tab-pane, .tab-btn').forEach(el => el.classList.remove('active')); document.getElementById('tab-' + tabId).classList.add('active'); event.target.classList.add('active'); renderAll(); }
-function handleSearchDebounce() { clearTimeout(searchTimeout); searchTimeout = setTimeout(() => { render(); }, 300); }
-function setDashboardFilter(ft) { currentDashboardFilter = ft; render(); setTimeout(() => { document.querySelector(ft==='green'?'#sec-green':ft==='all'?'.filter-bar':'#sec-pending').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100); }
-function setCategoryFilter(c) { currentCategoryFilter = (currentCategoryFilter === c) ? 'all' : c; render(); setTimeout(() => document.querySelector('.filter-bar').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100); }
-
 function addProduct() {
-  const n = document.getElementById('aNombre').value.trim(); const c = parseFloat(document.getElementById('aCosto').value); const m = parseFloat(document.getElementById('aMeta').value); const f = document.getElementById('aFecha').value; const cat = document.getElementById('aCat').value; const link = document.getElementById('aLink').value.trim(); const nota = document.getElementById('aNota').value.trim();
-  if(!n || isNaN(c) || !f) return toast('⚠ Completa los campos obligatorios');
-  const prods = loadProds(); prods.push({ id: 'p_'+Date.now(), name: n, cost: c, baseCost: c, goal: isNaN(m)?1:m, date: f, category: cat, link: link, note: nota, extraCosts: [] }); saveProds(prods);
-  closeModal(); toast('✓ Registro guardado'); renderAll();
+  const n=document.getElementById('aNombre').value, c=parseFloat(document.getElementById('aCosto').value), r=parseInt(document.getElementById('aRating').value);
+  if(!n || isNaN(c)) return toast('⚠ Datos incompletos');
+  let prods = loadProds();
+  prods.push({ id:'p_'+Date.now(), name:n, cost:c, baseCost:c, goal:parseFloat(document.getElementById('aMeta').value)||1, date:document.getElementById('aFecha').value, category:document.getElementById('aCat').value, rating:r, extraCosts:[] });
+  saveProds(prods); closeModal(); toast('✓ Guardado'); renderAll();
 }
 
 function openEditModal(id) {
-  const prods = loadProds(); const p = prods.find(i => i.id === id); if(!p) return;
+  const p = loadProds().find(i => i.id === id); if(!p) return;
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
-      <div class="modal">
-        <h3>Editar Información</h3>
+      <div class="modal"><h3>Editar</h3>
         <div class="edit-grid">
-          <div class="field"><label>Artículo</label><input type="text" id="editNombre" value="${p.name}"></div>
+          <div class="field"><label>Artículo</label><input type="text" id="eNombre" value="${p.name}"></div>
           <div style="display:flex; gap:10px;">
-             <div class="field" style="flex:1;"><label>Costo Base (S/)</label><input type="number" step="0.01" id="editCosto" value="${p.baseCost}"></div>
+             <div class="field"><label>Categoría</label><select id="eCat" onchange="handleNewOption(this)"></select></div>
+             <div class="field"><label>Rating</label><select id="eRating"><option value="0">Sin calificar</option><option value="5">⭐⭐⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option><option value="3">⭐⭐⭐</option><option value="2">⭐⭐</option><option value="1">⭐</option></select></div>
           </div>
-          <div class="field" id="editMetaBox"><label>Meta (S/)</label><input type="number" step="0.01" id="editMeta" value="${p.goal}"></div>
-          <div style="display:flex; gap:10px;">
-             <div class="field" style="flex:1;"><label>Fecha</label><input type="date" id="editFecha" value="${p.date}"></div>
-             <div class="field" style="flex:1;"><label>Categoría</label><select id="editCat" onchange="handleNewOption(this)"></select></div>
-          </div>
-          <div class="field"><label>Rating</label><select id="editRating"><option value="0">Sin calificar</option><option value="5">⭐⭐⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option><option value="3">⭐⭐⭐</option><option value="2">⭐⭐</option><option value="1">⭐</option></select></div>
-          <div class="field"><label>Enlace de Respaldo</label><input type="url" id="editLink" value="${p.link||''}"></div>
-          <div class="field"><label>Nota</label><input type="text" id="editNota" value="${p.note || ''}"></div>
         </div>
         <div class="modal-btns"><button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button><button class="mbtn mbtn-blue" onclick="executeEdit('${id}')">Guardar</button></div>
       </div>
     </div>`;
-    populateSelects('edit'); 
-    document.getElementById('editCat').value = p.category;
-    document.getElementById('editRating').value = p.rating || 0;
+    populateSelects('e'); document.getElementById('eCat').value = p.category; document.getElementById('eRating').value = p.rating || 0;
 }
 
 function executeEdit(id) {
-  const n = document.getElementById('editNombre').value.trim(); const c = parseFloat(document.getElementById('editCosto').value); const g = parseFloat(document.getElementById('editMeta').value); const d = document.getElementById('editFecha').value; const cat = document.getElementById('editCat').value; const link = document.getElementById('editLink').value.trim(); const nt = document.getElementById('editNota').value.trim(); const r = parseInt(document.getElementById('editRating').value);
-  if(!n || isNaN(c) || !d) return toast('⚠ Datos obligatorios');
   let prods = loadProds(); const p = prods.find(i => i.id === id); if(!p) return;
-  p.name = n; p.baseCost = c; p.goal = isNaN(g)?1:g; p.date = d; p.category = cat; p.link = link; p.note = nt; p.rating = r; p.cost = c + (p.extraCosts || []).reduce((acc, curr) => acc + curr.amount, 0);
-  saveProds(prods); closeModal(); toast('✓ Actualizado'); renderAll();
+  p.name = document.getElementById('eNombre').value; p.category = document.getElementById('eCat').value; p.rating = parseInt(document.getElementById('eRating').value);
+  saveProds(prods); closeModal(); toast('✓ Editado'); renderAll();
 }
 
-function openExtraCostModal(id) {
-  const p = loadProds().find(i => i.id === id); if(!p) return;
-  let list = (p.extraCosts || []).map(e => `<div style="display:flex; justify-content:space-between; font-size:0.75rem; background:var(--surface2); padding:6px 10px; border-radius:4px; margin-bottom:4px; font-family:'DM Mono', monospace;"><span>${e.desc}</span><span style="font-weight:600;">+ ${formatMoney(e.amount)}</span></div>`).join('') || '<p style="font-size:0.75rem; color:var(--text-dim); italic">Ninguno</p>';
-  document.getElementById('modalContainer').innerHTML = `<div class="backdrop" onclick="if(event.target===this) closeModal()"><div class="modal" style="max-width:400px;"><h3>Costos Adicionales</h3><p class="desc" style="margin-bottom:10px;">Sumar a: <b class="hl">${p.name}</b></p><div style="max-height:110px; overflow-y:auto; margin-bottom:12px;">${list}</div><div class="edit-grid"><div class="field"><label>Descripción</label><input type="text" id="ecDesc" placeholder="Ej. Calibración"></div><div class="field"><label>Monto</label><input type="number" step="0.01" id="ecAmount" placeholder="0.00"></div></div><div class="modal-btns"><button class="mbtn mbtn-cancel" onclick="closeModal()">Cerrar</button><button class="mbtn mbtn-blue" onclick="saveExtraCost('${id}')">Añadir</button></div></div></div>`;
-}
-function saveExtraCost(id) {
-  const d = document.getElementById('ecDesc').value.trim(); const a = parseFloat(document.getElementById('ecAmount').value); if(!d || isNaN(a)) return toast('⚠ Inválido');
-  let prods = loadProds(); const p = prods.find(i => i.id === id); if(!p) return;
-  if(!p.extraCosts) p.extraCosts = []; p.extraCosts.push({ desc: d, amount: a, date: todayStr() }); p.cost = p.baseCost + p.extraCosts.reduce((acc, curr) => acc + curr.amount, 0);
-  saveProds(prods); closeModal(); toast('✓ Gasto sumado'); renderAll();
-}
-
-function openSoldModal(id) { document.getElementById('modalContainer').innerHTML = `<div class="backdrop" onclick="if(event.target===this) closeModal()"><div class="modal"><h3>¿Vender / Finalizar?</h3><div class="edit-grid"><div class="field"><label>Precio de Recuperación (S/)</label><input type="number" step="0.01" id="soldPrice" value="0.00"></div></div><div class="modal-btns"><button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button><button class="mbtn mbtn-green" onclick="executeSold('${id}')">Confirmar</button></div></div></div>`; }
-function executeSold(id) { const pr = parseFloat(document.getElementById('soldPrice').value) || 0; let prods = loadProds(); const p = prods.find(i => i.id === id); if(!p) return; let hist = loadHist(); p.soldPrice = pr; p.endDate = todayStr(); p.status = 'sold'; hist.push(p); saveHist(hist); prods = prods.filter(i => i.id !== id); saveProds(prods); closeModal(); toast('✓ Al historial'); renderAll(); }
-function trashProduct(id) { let prods = loadProds(); const p = prods.find(i => i.id === id); if(!p) return; let trash = loadTrash(); trash.push(p); saveTrash(trash); prods = prods.filter(i => i.id !== id); saveProds(prods); toast('✓ A papelera'); renderAll(); }
-function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
-function openBackupModal() { document.getElementById('modalContainer').innerHTML = `<div class="backdrop" onclick="if(event.target===this) closeModal()"><div class="modal"><h3>⚙️ Gestión JSON</h3><div class="edit-grid" style="display:flex; gap:10px;"><button class="mbtn mbtn-cancel" onclick="document.getElementById('importFile').click()" style="flex:1;">📥 Importar</button><input type="file" id="importFile" style="display:none" accept=".json" onchange="importJSON(event)"><button class="mbtn mbtn-blue" onclick="exportJSON()" style="flex:1;">📤 Exportar</button></div></div></div>`; }
-
-// ═══════════════════ RENDER PRINCIPAL ═══════════════════
-function renderAll() { render(); renderWishes(); renderHistory(); renderTrash(); }
+// ═══════════════════ RENDER MAIN ═══════════════════
+function renderAll() { render(); }
+function switchTab(t) { document.querySelectorAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('active')); document.getElementById('tab-'+t).classList.add('active'); event.target.classList.add('active'); }
 
 function render() {
   const prods = loadProds(); 
@@ -679,7 +698,6 @@ function render() {
   
   const catMapTotal = {}; const catMapMonth = {}; 
   const dObj = new Date(); const currMonth = dObj.getMonth(); const currYear = dObj.getFullYear();
-  let closePend = null; let minDays = Infinity;
 
   prods.forEach(p => {
     catMapTotal[p.category] = (catMapTotal[p.category] || 0) + p.cost;
@@ -699,18 +717,15 @@ function render() {
         cPend++; 
         valPending += p.cost; 
         actDaily += cd; 
-        const dg = Math.ceil(p.cost / p.goal); const dn = Math.max(0, dg - d); 
-        if (dn < minDays) { minDays = dn; closePend = p; } 
     }
   });
 
-  const bannerEl = document.getElementById('milestoneBanner');
-  if (closePend && minDays <= 15 && currentDashboardFilter === 'all') { bannerEl.innerHTML = `<div class="icon">🎯</div><div class="text">Próximo Hito: <b>${closePend.name}</b> a Zona Verde en <b>${minDays} día(s)</b>.</div>`; bannerEl.classList.remove('hidden-content'); } else { bannerEl.classList.add('hidden-content'); }
-
+  const allCategories = loadCategories();
   const budgets = loadBudgets();
   const catSummaryEl = document.getElementById('catSummary');
+  
   if(catSummaryEl) {
-      catSummaryEl.innerHTML = Object.keys(catMapTotal).map(c => {
+      catSummaryEl.innerHTML = allCategories.map(c => {
         const total = catMapTotal[c] || 0;
         const spentThisMonth = catMapMonth[c] || 0;
         const limit = budgets[c] || 1000; 
@@ -747,88 +762,50 @@ function render() {
 
   filtered.forEach(p => {
     const days = calcDays(p.date);
-    const isRecent = (new Date() - new Date(p.date)) / 86400000 <= 30;
     
     const cDay = p.cost / days; const isAmort = cDay <= p.goal;
     const dGoal = Math.ceil(p.cost / p.goal); const dNeed = Math.max(0, dGoal - days);
-    const sDate = new Date(new Date(p.date).getTime() + (dGoal * 86400000)).toLocaleDateString('es-PE', {day:'numeric', month:'short'});
-    const pPct = Math.min(100, Math.round((days / dGoal) * 100)); const cClass = pPct > 45 ? 'warn' : 'danger';
     
-    let targetTable = bPend;
-    let htmlProgress = '';
-    let miniStatus = !isAmort ? `<span style="color:var(--amber-dim); font-weight: 500;">⏳ Faltan ${dNeed} d</span>` : `<span style="color:var(--green-dim); font-weight: 600;">✓ Amortizado</span>`;
-
-    if(!isAmort) {
-        htmlProgress = `<div class="life-bar-wrap"><div class="life-bar-fill ${cClass}" style="width: ${pPct}%"></div></div><span class="life-text">Faltan ${dNeed} d <span style="color:var(--text-muted)">(${sDate})</span></span>`;
-        targetTable = bPend;
-    } else {
-        htmlProgress = `<span class="cat-pill" style="background:var(--green-glow); color:var(--green-dim); border-color:#86efac;">AMORTIZADO</span><span class="life-text" style="color:var(--green-dim)">Exceso: ${days - dGoal} d</span>`;
-        targetTable = bGreen;
-    }
-
-    const linkBtn = p.link ? `<a href="${p.link}" target="_blank" class="btn-a btn-link" title="Ver Respaldo">🔗</a>` : '';
+    let targetTable = isAmort ? bGreen : bPend;
+    let badge = isAmort ? `<span class="cat-pill" style="background:var(--green-glow); color:var(--green-dim);">✓ AMORTIZADO</span>` : `<span style="color:var(--amber-dim); font-weight:500;">⏳ Faltan ${dNeed} d</span>`;
 
     const rowHtml = `
-      <tr onclick="toggleRow(this, event)" class="${isRecent ? 'recent-asset' : ''}">
+      <tr onclick="toggleRow(this, event)">
         <td data-label="Artículo" class="tname">
           <div class="tname-content">
             <div style="font-size: 1rem; color: var(--text); font-weight: 600;">${p.name}</div>
             ${renderStars(p.rating)}
             <div class="mobile-mini-info">
               <span style="color: var(--text);">${formatMoney(cDay)}/d</span>
-              ${miniStatus}
+              ${badge}
             </div>
-            ${p.note ? `<div style="font-size:0.7rem; color:var(--text-muted); font-weight:400; margin-top:4px;">${p.note}</div>` : ''}
           </div>
         </td>
         <td data-label="Categoría" class="hide-on-compact"><span class="cat-pill">${p.category}</span></td>
-        <td data-label="Inversión Base" class="tmono hide-on-compact">${formatMoney(p.cost)} ${p.extraCosts && p.extraCosts.length ? `<span style="color:var(--blue-dim); font-size:0.65rem;">(+${p.extraCosts.length})</span>` : ''}</td>
+        <td data-label="Inversión Base" class="tmono hide-on-compact">${formatMoney(p.cost)}</td>
         <td data-label="Días" class="tmono hide-on-compact">${days} d</td>
-        <td data-label="Costo/Día" class="tcost hide-on-compact"><span class="cv">${formatMoney(cDay)}</span><span style="font-size:0.68rem; color:var(--text-dim); display:block;">meta ${formatMoney(p.goal)}</span></td>
-        <td data-label="Progreso" class="hide-on-compact">${htmlProgress}</td>
+        <td data-label="Costo/Día" class="tcost hide-on-compact"><span class="cv">${formatMoney(cDay)}</span></td>
+        <td data-label="Estado" class="hide-on-compact">${badge}</td>
         <td data-label="Acciones" style="text-align:right">
           <div class="acts" style="justify-content:flex-end;">
-            ${linkBtn}
             <button class="btn-a btn-edit" onclick="openEditModal('${p.id}')">✏️</button>
-            <button class="btn-a btn-cost" onclick="openExtraCostModal('${p.id}')">+ Cst</button>
-            <button class="btn-a btn-sold" onclick="openSoldModal('${p.id}')">Vender</button>
-            <button class="btn-a btn-desechar" onclick="trashProduct('${p.id}')">🗑️</button>
+            <button class="btn-a btn-desechar" onclick="toast('Lógica papelera')">🗑️</button>
           </div>
         </td>
       </tr>`;
     targetTable.innerHTML += rowHtml;
   });
 
-  // ACTUALIZACIÓN DE MÉTRICAS
   document.getElementById('hAmortized').innerText = formatMoney(valAmortizado);
   document.getElementById('hPending').innerText = formatMoney(valPending);
-  
   document.getElementById('mTotal').innerText = formatMoney(totalActivos); 
   document.getElementById('mGreen').innerText = cGreen; 
   document.getElementById('mPending').innerText = cPend; 
   document.getElementById('mDaily').innerText = formatMoney(actDaily);
-  
   document.getElementById('badge-pending').innerText = bPend.children.length; 
   document.getElementById('badge-green').innerText = bGreen.children.length;
-  
-  if(bPend.children.length === 0) bPend.innerHTML = `<tr><td colspan="7"><div class="empty">Ningún pendiente.</div></td></tr>`; 
-  if(bGreen.children.length === 0) bGreen.innerHTML = `<tr><td colspan="7"><div class="empty">Ningún amortizado.</div></td></tr>`;
 }
 
-// ═══════════════════ DESEOS, HISTORIAL Y PAPELERA ═══════════════════
-function addWish() { const n = document.getElementById('wNombre').value.trim(); const p = parseFloat(document.getElementById('wPrecio').value); const prio = document.getElementById('wPrio').value; const nota = document.getElementById('wNota').value.trim(); if(!n || isNaN(p)) return toast('⚠ Datos necesarios'); const wishes = loadWishes(); wishes.push({ id: 'w_'+Date.now(), name: n, price: p, priority: prio, note: nota }); saveWishes(wishes); closeModal(); toast('✓ Deseo guardado'); renderWishes(); }
-function buyWish(id) { const wishes = loadWishes(); const w = wishes.find(i => i.id === id); if(!w) return; openAddModal(); document.getElementById('aNombre').value = w.name; document.getElementById('aCosto').value = w.price; saveWishes(wishes.filter(i => i.id !== id)); switchTab('activos'); toast('✓ Datos de deseo listos, guarda el registro'); }
-function deleteWish(id) { saveWishes(loadWishes().filter(i => i.id !== id)); renderWishes(); }
-function renderWishes() { const container = document.getElementById('wish-list-container'); container.innerHTML = ''; const wishes = loadWishes(); if(wishes.length === 0) { container.style.display = 'block'; container.innerHTML = `<div class="empty">Lista vacía.</div>`; return; } container.style.display = 'grid'; wishes.forEach(w => { container.innerHTML += `<div class="wish-card"><div class="wc-name">${w.name}</div><div class="wc-precio">${formatMoney(w.price)}</div>${w.note ? `<div class="wc-nota">"${w.note}"</div>` : ''}<div class="wc-footer"><span class="prio-pill prio-${w.priority}">Prio ${w.priority}</span><div class="wc-acts"><button class="btn-wish-comprar" onclick="buyWish('${w.id}')">Adquirido</button><button class="btn-a btn-delete" onclick="deleteWish('${w.id}')">✕</button></div></div></div>`; }); }
-
-function renderHistory() { const hist = loadHist(); const tbody = document.getElementById('body-history'); tbody.innerHTML = ''; document.getElementById('badge-hist').innerText = hist.length; if(hist.length === 0) { tbody.innerHTML = `<tr><td colspan="8"><div class="empty">Historial vacío.</div></td></tr>`; return; } hist.forEach(h => { const days = Math.max(1, Math.ceil((new Date(h.endDate || todayStr()) - new Date(h.date || todayStr())) / 86400000)); const c = h.cost || 0; const sp = h.soldPrice || 0; const fcd = (c - sp) / days; const pct = Math.round((sp / c) * 100) || 0; let miniStatusHist = `<span style="color:var(--green-dim); font-weight: 500;">Recup. ${pct}%</span>`; tbody.innerHTML += `<tr onclick="toggleRow(this, event)"><td data-label="Artículo" class="tname"><div class="tname-content"><div style="font-size: 1rem; color: var(--text); font-weight: 600;">${h.name}</div><div class="mobile-mini-info"><span style="color: var(--text);">${formatMoney(fcd)}/d</span>${miniStatusHist}</div><div style="font-size:0.65rem; color:var(--text-dim); margin-top:4px;">Fin: ${h.endDate}</div></div></td><td data-label="Categoría" class="hide-on-compact"><span class="cat-pill">${h.category}</span></td><td data-label="Inversión Inicial" class="tmono hide-on-compact">${formatMoney(c)}</td><td data-label="Retorno" class="tmono hide-on-compact" style="color:var(--green-dim);">+ ${formatMoney(sp)}</td><td data-label="Días de Uso" class="tmono hide-on-compact">${days} d</td><td data-label="Costo Neto/Día" class="tcost hide-on-compact">${formatMoney(fcd)}</td><td data-label="Balance" class="hide-on-compact"><span class="reason-pill rp-sold">Recuperado ${pct}%</span></td><td data-label="Acción" style="text-align:right"><button class="btn-a btn-delete" onclick="saveHist(loadHist().filter(i=>i.id!=='${h.id}')); renderHistory();">Borrar</button></td></tr>`; }); }
-function renderTrash() { const trash = loadTrash(); const tbody = document.getElementById('body-trash'); tbody.innerHTML = ''; document.getElementById('trashCount').innerText = trash.length; if(trash.length === 0) { tbody.innerHTML = `<tr><td colspan="5"><div class="empty">Papelera limpia.</div></td></tr>`; return; } trash.forEach(t => { tbody.innerHTML += `<tr onclick="toggleRow(this, event)"><td data-label="Artículo" class="tname"><div class="tname-content"><div style="font-size: 1rem; color: var(--text); font-weight: 600;">${t.name}</div><div class="mobile-mini-info"><span style="color: var(--text-dim);">${t.date||''}</span><span style="color: var(--amber-dim);">${formatMoney(t.cost||0)}</span></div></div></td><td data-label="Categoría" class="hide-on-compact"><span class="cat-pill">${t.category}</span></td><td data-label="Inversión" class="tmono hide-on-compact">${formatMoney(t.cost||0)}</td><td data-label="Registro" class="tmono hide-on-compact">${t.date||''}</td><td data-label="Acciones" style="text-align:right"><div class="acts" style="justify-content:flex-end;"><button class="btn-a btn-restore" onclick="let tr=loadTrash(); let p=tr.find(i=>i.id==='${t.id}'); let pr=loadProds(); pr.push(p); saveProds(pr); saveTrash(tr.filter(i=>i.id!=='${t.id}')); toast('✓ Restaurado'); renderAll();">Restaurar</button><button class="btn-a btn-delete" style="background:var(--red-glow); color:var(--red-dim)" onclick="saveTrash(loadTrash().filter(i=>i.id!=='${t.id}')); renderTrash();">Eliminar</button></div></td></tr>`; }); }
-
-// ═══════════════════ BACKUP ═══════════════════
-function exportJSON() { const data = { products: loadProds(), wishes: loadWishes(), history: loadHist(), trash: loadTrash(), categories: loadCategories(), budgets: loadBudgets() }; const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })); a.download = `Backup_Compras_${todayStr()}.json`; a.click(); toast('✓ Descargado'); }
-function importJSON(e) { const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = ev => { try { const d = JSON.parse(ev.target.result); const ext = (o) => o ? (Array.isArray(o) ? o : Object.values(o)) : []; let np = Array.isArray(d) ? d : ext(d.products||d.c_prods||d); saveProds(mergeData(loadProds(), np)); saveWishes(mergeData(loadWishes(), ext(d.wishes))); saveHist(mergeData(loadHist(), ext(d.history))); saveTrash(mergeData(loadTrash(), ext(d.trash))); if(d.categories) saveCategories(d.categories); if(d.budgets) { localStorage.setItem('c_budgets', JSON.stringify(d.budgets)); } renderAll(); toast('✓ Sincronizado'); closeModal(); switchTab('activos'); } catch(err){ toast('⚠ Error JSON'); } e.target.value=''; }; r.readAsText(f); }
-
-// ═══════════════════ INIT ═══════════════════
 initCloud();
 </script>
 </body>
