@@ -506,11 +506,13 @@ function buildPlanUI(planId) {
     
     let misiones = []; let habitos = [];
     w.tasks.forEach((t, ti) => {
-      // LÓGICA DE TRUJILLO EXACTA
-      const isWeekendTask = t.includes('[SÁBADO]') || t.includes('[DOMINGO]');
-      if (isTrujilloMode && isWeekendTask) return; // Si es Trujillo, estas líneas desaparecen
-        
+      // CORRECCIÓN MODO TRUJILLO:
       const isChecked = ts[i+'-'+ti];
+      const isWeekendTask = t.includes('[SÁBADO]') || t.includes('[DOMINGO]');
+      
+      // Ocultar solo si es fin de semana, el modo Trujillo está activo, Y la tarea NO ha sido completada
+      if (isTrujilloMode && isWeekendTask && !isChecked) return; 
+        
       const cleanTask = t.replace(/\[H\]/gi, '').trim();
       const html = `<div id="task-${planId}-${i}-${ti}" class="task-card ${isChecked?'checked':''}" onclick="toggleTask('${planId}',${i},${ti})">
                       <div class="task-check">✓</div><div class="t-text">${cleanTask}</div>
@@ -599,6 +601,85 @@ function buildPlanUI(planId) {
   plan.weeks.forEach((_, i) => refreshScore(planId, i));
 }
 
+function refreshScore(p, wi) {
+  const w = PLANS[p].weeks[wi]; if(!w) return;
+  
+  let d=0; let total=0;
+  for(let i=0; i<w.tasks.length; i++) {
+    const t = w.tasks[i];
+    
+    // CORRECCIÓN MODO TRUJILLO:
+    const isChecked = taskStates[p] && taskStates[p][wi+'-'+i];
+    const isWeekendTask = t.includes('[SÁBADO]') || t.includes('[DOMINGO]');
+    
+    // Si es Trujillo y fin de semana, ignorar la tarea SOLO si no ha sido completada
+    if (isTrujilloMode && isWeekendTask && !isChecked) continue; 
+    
+    total++;
+    if(isChecked) d++;
+  }
+  
+  if(total === 0) total = 1;
+  const pct = Math.round((d/total)*100);
+  
+  let expectedPct = 0;
+  let ghostText = "";
+  let wIndex = Number(wi);
+  let currIndex = Number(detectCurrentWeek()); 
+
+  if (wIndex < currIndex) {
+      expectedPct = 85;
+      ghostText = `Meta: 85%`;
+  } else if (wIndex > currIndex) {
+      expectedPct = 0;
+      ghostText = `Próximamente`;
+  } else {
+      let dayIndex = new Date().getDay() || 7; 
+      let effectiveDays = isTrujilloMode ? 5 : 7;
+      let limit = Math.min(dayIndex, effectiveDays);
+      expectedPct = Math.round((limit / effectiveDays) * 85);
+      ghostText = `Ideal hoy: ${expectedPct}%`;
+  }
+  
+  const ghostEl = document.getElementById(`ghost-${p}-${wi}`);
+  if(ghostEl) {
+      ghostEl.textContent = ghostText;
+      ghostEl.style.color = (pct < expectedPct) ? 'var(--rust)' : 'var(--muted)';
+  }
+
+  const radius = 26; const circum = 2 * Math.PI * radius;
+  const offset = circum - (pct / 100) * circum;
+  const circle = document.getElementById(`pr-circle-${p}-${wi}`);
+  if(circle) circle.style.strokeDashoffset = offset;
+  
+  const text = document.getElementById(`pr-text-${p}-${wi}`);
+  if(text) text.textContent = pct + '%';
+  
+  const cont = document.getElementById(`pr-cont-${p}-${wi}`);
+  if(cont) cont.classList.toggle('winner', pct >= 85);
+
+  const cell = document.getElementById(`hm-cell-${p}-${wi}`);
+  const hmPct = document.getElementById(`hm-pct-${p}-${wi}`);
+  if(cell && hmPct) {
+      hmPct.textContent = pct + '%';
+      cell.className = 'hm-cell'; 
+      if(wi === currentWkIdxGlobal) cell.classList.add('hm-current');
+      if (pct >= 85) cell.classList.add('lvl-3');
+      else if (pct >= 50) cell.classList.add('lvl-2');
+      else if (pct > 0) cell.classList.add('lvl-1');
+      else cell.classList.add('lvl-0');
+  }
+
+  if (wi === 3 || wi === 7 || wi === 11) {
+      const rw = document.getElementById(`reward-${p}-${wi}`);
+      if(rw) {
+        rw.textContent = pct >= 85 ? '🏆' : '🔒';
+        if (pct >= 85) { rw.style.background = 'var(--gold)'; rw.style.color = 'var(--navy)'; rw.style.borderColor = 'var(--gold)';}
+        else { rw.style.background = 'var(--surface)'; rw.style.color = 'var(--muted)'; rw.style.borderColor = 'var(--border)';}
+      }
+  }
+}
+
 function rebuildBottomNav() {
   const nav = document.getElementById('bottomNav'); nav.innerHTML = '';
   const todayDay = new Date().getDay();
@@ -664,80 +745,6 @@ function toggleTask(p, wi, ti) {
   ls_set(KEYS[p].tasks, taskStates[p]);
   document.getElementById(`task-${p}-${wi}-${ti}`).classList.toggle('checked', taskStates[p][key]);
   refreshScore(p, wi);
-}
-
-function refreshScore(p, wi) {
-  const w = PLANS[p].weeks[wi]; if(!w) return;
-  
-  let d=0; let total=0;
-  for(let i=0; i<w.tasks.length; i++) {
-    const t = w.tasks[i];
-    const isWeekendTask = t.includes('[SÁBADO]') || t.includes('[DOMINGO]');
-    if (isTrujilloMode && isWeekendTask) continue; 
-    
-    total++;
-    if(taskStates[p] && taskStates[p][wi+'-'+i]) d++;
-  }
-  
-  if(total === 0) total = 1;
-  const pct = Math.round((d/total)*100);
-  
-  let expectedPct = 0;
-  let ghostText = "";
-  let wIndex = Number(wi);
-  let currIndex = Number(detectCurrentWeek()); 
-
-  if (wIndex < currIndex) {
-      expectedPct = 85;
-      ghostText = `Meta: 85%`;
-  } else if (wIndex > currIndex) {
-      expectedPct = 0;
-      ghostText = `Próximamente`;
-  } else {
-      let dayIndex = new Date().getDay() || 7; 
-      let effectiveDays = isTrujilloMode ? 5 : 7;
-      let limit = Math.min(dayIndex, effectiveDays);
-      expectedPct = Math.round((limit / effectiveDays) * 85);
-      ghostText = `Ideal hoy: ${expectedPct}%`;
-  }
-  
-  const ghostEl = document.getElementById(`ghost-${p}-${wi}`);
-  if(ghostEl) {
-      ghostEl.textContent = ghostText;
-      ghostEl.style.color = (pct < expectedPct) ? 'var(--rust)' : 'var(--muted)';
-  }
-
-  const radius = 26; const circum = 2 * Math.PI * radius;
-  const offset = circum - (pct / 100) * circum;
-  const circle = document.getElementById(`pr-circle-${p}-${wi}`);
-  if(circle) circle.style.strokeDashoffset = offset;
-  
-  const text = document.getElementById(`pr-text-${p}-${wi}`);
-  if(text) text.textContent = pct + '%';
-  
-  const cont = document.getElementById(`pr-cont-${p}-${wi}`);
-  if(cont) cont.classList.toggle('winner', pct >= 85);
-
-  const cell = document.getElementById(`hm-cell-${p}-${wi}`);
-  const hmPct = document.getElementById(`hm-pct-${p}-${wi}`);
-  if(cell && hmPct) {
-      hmPct.textContent = pct + '%';
-      cell.className = 'hm-cell'; 
-      if(wi === currentWkIdxGlobal) cell.classList.add('hm-current');
-      if (pct >= 85) cell.classList.add('lvl-3');
-      else if (pct >= 50) cell.classList.add('lvl-2');
-      else if (pct > 0) cell.classList.add('lvl-1');
-      else cell.classList.add('lvl-0');
-  }
-
-  if (wi === 3 || wi === 7 || wi === 11) {
-      const rw = document.getElementById(`reward-${p}-${wi}`);
-      if(rw) {
-        rw.textContent = pct >= 85 ? '🏆' : '🔒';
-        if (pct >= 85) { rw.style.background = 'var(--gold)'; rw.style.color = 'var(--navy)'; rw.style.borderColor = 'var(--gold)';}
-        else { rw.style.background = 'var(--surface)'; rw.style.color = 'var(--muted)'; rw.style.borderColor = 'var(--border)';}
-      }
-  }
 }
 
 // ═══════════════════ MODALES Y CONFIGURACIÓN ═══════════════════

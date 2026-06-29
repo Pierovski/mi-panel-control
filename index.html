@@ -375,12 +375,15 @@ function renderWeekTracker() {
         planesData.forEach(data => {
             if(data.plan.weeks && data.plan.weeks[currentWeek]) {
                 data.plan.weeks[currentWeek].tasks.forEach((task, tIdx) => {
+                    const isChecked = data.states[`${currentWeek}-${tIdx}`] === true;
                     const isWeekendTask = task.includes('[SÁBADO]') || task.includes('[DOMINGO]');
-                    if (isTrujilloMode && isWeekendTask) return;
+                    
+                    // CORRECCIÓN EXACTA: Ocultar solo si es Trujillo, es fin de semana y NO está completada
+                    if (isTrujilloMode && isWeekendTask && !isChecked) return;
 
                     if(task.includes(currentDayName) || task.includes('[DIARIO]')) {
                         totalDayTasks++;
-                        if(data.states[`${currentWeek}-${tIdx}`] === true) {
+                        if(isChecked) {
                             doneDayTasks++;
                         }
                     }
@@ -418,6 +421,7 @@ function renderWeekTracker() {
     
     tracker.innerHTML = html;
 }
+
 
 function toggleAlerts() {
   document.getElementById('urgencyAlert').classList.toggle('active');
