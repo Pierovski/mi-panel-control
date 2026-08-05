@@ -2,11 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="view-transition" content="same-origin">
 <title>Tarjetas | COTA100</title>
 
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0d1b2a">
+<meta name="theme-color" content="#0f172a">
 <link rel="apple-touch-icon" href="icon-192x192.png">
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -15,148 +16,200 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <style>
-/* CONFIGURACIÓN DE COLORES */
 :root {
   color-scheme: light;
-  --bg: #f4f5f7; --surface: #ffffff; --surface2: #f8f9fa; --surface3: #eef0f2;
-  --border: #e2e4e8; --border2: #d1d5db; --amber: #d97706; --amber-dim: #b45309;
-  --amber-glow: rgba(217,119,6,0.1); --green: #10b981; --green-dim: #059669;
-  --green-glow: rgba(16,185,129,0.1); --red: #ef4444; --red-dim: #dc2626;
-  --red-glow: rgba(239,68,68,0.1); --blue: #3b82f6; --blue-dim: #2563eb;
-  --purple: #8b5cf6; --text: #1e293b; --text-muted: #64748b; --text-dim: #94a3b8;
-  --r: 10px; --r-sm: 6px;
-  
-  /* Marcas de Tarjetas */
-  --bbva: #004481; --bcp: #ff7800; --bcp-blue: #002a8d; --ripley: #6a1b9a; --oh: #171717; --cmr: #059669;
+  --bg: #f4f6f9; 
+  --surface: #ffffff; 
+  --surface2: #f8f9fa; 
+  --surface3: #eef0f2;
+  --border: #e2e4e8; 
+  --border2: #d1d5db; 
+  --amber: #d97706; 
+  --amber-dim: #b45309;
+  --amber-glow: rgba(217,119,6,0.1); 
+  --green: #059669; 
+  --green-dim: #047857;
+  --green-glow: rgba(5,150,105,0.1); 
+  --red: #dc2626; 
+  --red-dim: #b91c1c;
+  --red-glow: rgba(220,38,38,0.1); 
+  --blue: #2563eb; 
+  --purple: #7c3aed; 
+  --text: #0f172a; 
+  --text-muted: #475569; 
+  --text-dim: #64748b;
+  --r: 18px; 
+  --r-sm: 10px; 
+  --shadow: 0 10px 30px rgba(0,0,0,0.04);
 }
 
 body.dark-theme {
   color-scheme: dark;
-  --bg: #0f172a; --surface: #1e293b; --surface2: #0f172a; --surface3: #334155;
-  --border: #334155; --border2: #475569; --text: #f8fafc;
-  --text-muted: #cbd5e1; --text-dim: #64748b;
-  --amber-glow: rgba(217,119,6,0.2); --green-glow: rgba(16,185,129,0.2); 
-  --red-glow: rgba(239,68,68,0.2);
+  --bg: #0b1121; 
+  --surface: #151e32; 
+  --surface2: #1e293b; 
+  --surface3: #334155;
+  --border: #1e293b; 
+  --border2: #334155; 
+  --text: #f8fafc;
+  --text-muted: #cbd5e1; 
+  --text-dim: #94a3b8;
+  --amber-glow: rgba(217,119,6,0.2); 
+  --green-glow: rgba(5,150,105,0.2); 
+  --red-glow: rgba(220,38,38,0.2); 
+  --shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; padding-bottom: 80px; transition: background 0.3s, color 0.3s; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body { 
+    background-color: var(--bg); 
+    background-image: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+    color: var(--text); 
+    font-family: 'DM Sans', sans-serif; 
+    min-height: 100vh; 
+    padding-bottom: 100px; 
+    transition: background 0.3s, color 0.3s; 
+}
 
-/* HEADER */
-header { border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; padding: 0 36px; transition: background 0.3s;}
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 20px 0 20px; flex-wrap: wrap; gap: 15px;}
-.logo h1 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.4rem; color: var(--text); letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center; }
-.logo .sub { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--red); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; display: block; margin-top: 4px; }
-
-.cloud-status { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; display: inline-block; margin-left: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+/* CABECERA PREMIUM REESTRUCTURADA */
+header { border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 100; padding: 0 24px; transition: background 0.3s;}
+body.dark-theme header { background: rgba(21, 30, 50, 0.7); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; flex-wrap: wrap; gap: 10px;}
+.logo-container { display: flex; align-items: center; gap: 12px; }
+.logo h1 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.5rem; color: var(--text); letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center; gap: 8px; margin: 0;}
+.cloud-status { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); display: inline-block;}
 .cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
-.cloud-syncing { background: var(--amber); animation: pulse-cloud 1s infinite; }
-@keyframes pulse-cloud { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-.header-actions { display: flex; gap: 10px; align-items: center; }
-.btn-back-dash { font-size: 0.8rem; text-decoration: none; color: var(--text-muted); font-weight: 500; display: flex; align-items: center; gap: 4px; transition: color 0.2s; border: 1px solid var(--border2); padding: 7px 12px; border-radius: 4px; font-family: 'DM Mono', monospace;}
-.btn-back-dash:hover { color: var(--red); background: var(--surface2); }
-.btn-add-main { font-size: 0.8rem; font-family: 'DM Mono', monospace; background: var(--text); color: var(--bg); border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; transition: 0.2s; font-weight: 600; }
-.btn-add-main:hover { transform: scale(0.97); opacity: 0.9;}
+.header-actions { display: flex; gap: 8px; align-items: center; }
 
-main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
+/* NUEVOS BOTONES DE CABECERA Y FLECHA */
+.btn-icon-tool { background: transparent; border: 1px solid var(--border2); color: var(--text-muted); border-radius: 50%; width: 36px; height: 36px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+.btn-icon-tool:active { transform: scale(0.92); }
+.btn-icon-tool:hover { background: var(--surface2); color: var(--text); border-color: var(--text-dim); }
+.btn-icon-tool.active { color: var(--amber); border-color: var(--amber); background: var(--amber-glow); }
 
-/* MÉTRICAS */
-.metrics-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
-.mcard { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: var(--r); text-align: center; border-top: 4px solid var(--border); transition: background 0.3s, border 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.02);}
-.mcard.mc-red { border-top-color: var(--red); }
-.mcard.mc-green { border-top-color: var(--green); }
-.m-title { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600;}
-.m-val { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; color: var(--text); }
+.btn-add-main { background: var(--text); color: var(--bg); border: none; padding: 8px 16px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 4px; }
+.btn-add-main:active { transform: scale(0.95); }
 
-/* ALERTA DE MEMBRESÍA GLOBAL */
-.anniv-alert-box { background: var(--red-glow); border: 1px solid rgba(239,68,68,0.3); padding: 12px 16px; border-radius: var(--r-sm); margin-bottom: 24px; display: none; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--red-dim); font-weight: 500;}
-.anniv-alert-box.show { display: flex; }
+.btn-back-arrow { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--surface2); border-radius: 50%; color: var(--text-muted); transition: 0.2s; text-decoration: none; border: 1px solid var(--border2); flex-shrink: 0;}
+.btn-back-arrow:hover { background: var(--surface3); color: var(--text); transform: scale(0.95); border-color: var(--text-dim); }
 
-/* GRID DE TARJETAS */
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-.cc-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s, background 0.3s; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.03);}
-.cc-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: var(--border2);}
-.cc-header { padding: 20px; color: #fff; display: flex; justify-content: space-between; align-items: flex-start; }
-.cc-name { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; letter-spacing: 0.02em;}
-.cc-cat { font-family: 'DM Mono', monospace; font-size: 0.65rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
-.cc-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+main { max-width: 800px; margin: 0 auto; padding: 30px 20px 0; }
 
-/* ALERTA EN LA TARJETA */
-.cc-line { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: rgba(0,0,0,0.2); padding: 4px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; gap: 4px;}
-.cc-line.alert-on { background: #ef4444; color: white; animation: pulse-alert 2s infinite; border: 1px solid #f87171;}
-@keyframes pulse-alert { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+/* DASHBOARD FINTECH (MURO DE LA VERDAD) */
+.dashboard-panel { margin-bottom: 30px; }
+.kpi-ribbon { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;}
+.kpi-item { display: flex; flex-direction: column; padding: 18px; border-radius: var(--r); border: 1px solid var(--border); background: var(--surface); position: relative; overflow: hidden; box-shadow: var(--shadow);}
+.kpi-item::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; border-radius: 4px 0 0 4px;}
+.kpi-lbl { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; z-index: 2;}
+.kpi-val { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; line-height: 1; color: var(--text); z-index: 2;}
 
-.cc-crud-actions { display: flex; gap: 8px; }
-.btn-crud-small { background: rgba(255,255,255,0.2); border: none; color: white; width: 26px; height: 26px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; transition: 0.2s; display: flex; align-items: center; justify-content: center;}
-.btn-crud-small:hover { background: rgba(255,255,255,0.4); transform: scale(1.1);}
+#kpi-pendientes::before { background: var(--amber); }
+#kpi-pagadas::before { background: var(--text-dim); }
+#kpi-pago::before { background: var(--green); }
+#kpi-fuga::before { background: var(--red); }
+#kpi-fuga { border-color: rgba(220,38,38,0.2); background: linear-gradient(180deg, var(--surface) 0%, var(--red-glow) 100%); }
+#kpi-fuga .kpi-val { color: var(--red); }
 
-.cc-body { padding: 20px; }
-.cc-dates { display: flex; justify-content: space-between; margin-bottom: 16px; border-bottom: 1px solid var(--surface3); padding-bottom: 16px; }
-.date-box { text-align: center; }
-.date-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-weight: 600;}
-.date-val { font-size: 1.1rem; font-weight: 700; color: var(--text); display: flex; flex-direction: column; align-items: center;}
-.date-val.urg { color: var(--red); }
-.days-left { font-size: 0.65rem; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-top: 4px; font-family: 'DM Mono', monospace; }
-.days-left.danger { background: var(--red-glow); color: var(--red-dim); border: 1px solid rgba(239,68,68,0.3);}
-.days-left.safe { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border2);}
+/* ALERTA ANIVERSARIO */
+.anniv-alert-box { background: linear-gradient(90deg, var(--red-glow), transparent); border-left: 4px solid var(--red); padding: 14px 18px; border-radius: 0 var(--r-sm) var(--r-sm) 0; margin-bottom: 24px; display: none; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--red-dim); font-weight: 600;}
+.anniv-alert-box.show { display: flex; animation: fadeUpTab 0.3s ease forwards;}
 
-/* SEMÁFORO DE LIQUIDEZ (CORREGIDO) */
-.liquidity-badge {
-  font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700;
-  padding: 8px 12px; border-radius: var(--r-sm); text-align: center; margin-bottom: 16px;
-  display: flex; align-items: center; justify-content: center; gap: 8px; letter-spacing: 0.05em; text-transform: uppercase;
-}
-.liq-good { background: var(--green-glow); color: var(--green-dim); border: 1px solid rgba(16,185,129,0.5); }
-.liq-bad { background: var(--red-glow); color: var(--red-dim); border: 1px solid rgba(239,68,68,0.5); }
-.liq-warn { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border2); }
+/* TARJETAS BILLETERA (ACORDEÓN PREMIUM) */
+.list-container { display: flex; flex-direction: column; gap: 20px; }
+.card-item { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: var(--shadow); position: relative;}
 
-/* ANIMACIÓN POP */
-@keyframes popIn { 0% { transform: scale(0.95); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+/* ESTILOS DE CABECERA TIPO TARJETA FÍSICA */
+.card-header { padding: 22px 24px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; user-select: none; min-height: 130px; position: relative;}
+.card-header:active { transform: scale(0.99); }
+.card-header::after { content: ''; position: absolute; right: -20px; top: -20px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%; pointer-events: none;}
 
-.cc-action { width: 100%; border: none; padding: 12px; font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: var(--r-sm); cursor: pointer; transition: all 0.2s; }
-.btn-pay { background: var(--surface2); color: var(--text); border: 1px solid var(--border2); }
-.btn-pay:hover { background: var(--surface3); border-color: var(--text-dim);}
-.btn-paid { 
-  background: var(--green-glow); color: var(--green-dim); border: 1px solid #86efac; 
-  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-.btn-paid::before { content: '✓ '; }
+.ch-top { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; z-index: 2;}
+.card-name { font-weight: 700; font-size: 1.2rem; color: #ffffff; letter-spacing: 0.5px; font-family: 'DM Sans', sans-serif; text-shadow: 0 1px 3px rgba(0,0,0,0.3);}
+.card-sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: rgba(255,255,255,0.9); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;}
 
-/* MODAL FORMULARIO PREMIUM */
-.backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 1000; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease; opacity: 0; pointer-events: none; transition: 0.3s;}
-.backdrop.active { opacity: 1; pointer-events: auto; }
-.modal { background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r); padding: 28px 32px; max-width: 450px; width: 92%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: scaleIn 0.22s cubic-bezier(.34,1.56,.64,1); }
-.modal h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; color: var(--text); }
-.modal .desc { color: var(--text-muted); font-size: 0.8rem; line-height: 1.5; margin-bottom: 22px; }
+.ch-bottom { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; z-index: 2; margin-top: auto;}
+.card-badge { font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 6px 12px; border-radius: 20px; font-weight: 700; display: inline-flex; align-items: center; border: 1px solid; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);}
+.badge-red { background: rgba(220,38,38,0.8); color: #ffffff; border-color: rgba(255,255,255,0.2); box-shadow: 0 4px 10px rgba(220,38,38,0.3);}
+.badge-green { background: rgba(0,0,0,0.3); color: #ffffff; border-color: rgba(255,255,255,0.2); }
 
-.edit-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 22px; }
-.field label { display: block; font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px; font-weight: 600; }
-.field input, .field select { width: 100%; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--r-sm); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 10px 14px; outline: none; transition: border-color 0.2s; }
-.field input:focus, .field select:focus { border-color: var(--red); }
+/* CONTENIDO EXPANDIDO */
+.card-details { display: none; padding: 24px; background: var(--surface); animation: slideDown 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);}
+.card-details.open { display: block; }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-.modal-btns { display: flex; gap: 10px; justify-content: flex-end; }
-.mbtn { border: none; border-radius: var(--r-sm); padding: 10px 18px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; cursor: pointer; font-weight: 600; transition: 0.2s;}
-.mbtn-cancel  { background: var(--surface2); border: 1px solid var(--border2); color: var(--text-muted); }
-.mbtn-cancel:hover { background: var(--border); }
+/* SIMULADOR DÍAS GRACIA */
+.gracia-box { background: var(--surface2); border: 1px dashed var(--border2); padding: 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
+.gracia-lbl { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text-dim);}
+.gracia-val { font-family: 'DM Mono', monospace; font-size: 1.2rem; font-weight: 700; color: var(--green);}
+
+/* HISTORIAL MINIMALISTA */
+.hist-title { font-family:'DM Mono', monospace; font-size:0.7rem; color:var(--text-dim); text-transform:uppercase; margin-bottom:12px; font-weight:700; letter-spacing:1px; }
+.history-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; max-height: 140px; overflow-y: auto; padding-right: 4px; scrollbar-width: thin;}
+.history-item { display: flex; justify-content: space-between; align-items: center; background: var(--surface2); padding: 12px 16px; border-radius: 10px; font-size: 0.85rem; font-family: 'DM Mono', monospace;}
+.hi-date { color: var(--text-muted); font-weight: 600;}
+.hi-amt { color: var(--text); font-weight: 700; font-size: 0.95rem;}
+.hi-desg { font-size: 0.7rem; color: var(--red); margin-left: 8px; background: var(--red-glow); padding: 2px 6px; border-radius: 4px;}
+.history-empty { font-size: 0.85rem; color: var(--text-dim); font-style: italic; text-align: center; padding: 16px 0; background: var(--surface2); border-radius: 10px;}
+
+.card-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap;}
+.card-btn { padding: 12px 20px; border-radius: 30px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px;}
+.card-btn:active { transform: scale(0.95); }
+.card-btn.pay { background: var(--text); color: var(--bg); box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
+.card-btn.edit { background: var(--surface2); color: var(--text); border: 1px solid var(--border2); }
+
+/* MODALES GLOBALES */
+.backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease; }
+.modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 24px; padding: 32px; max-width: 420px; width: 92%; box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: scaleIn 0.2s cubic-bezier(.34,1.56,.64,1); max-height: 90vh; overflow-y: auto;}
+.modal h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.modal .desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 24px; font-weight: 500;}
+.modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px;}
+.mbtn { border: none; border-radius: 30px; min-height: 48px; padding: 0 24px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; font-weight: 700; transition: all 0.2s;}
+.mbtn:active { transform: scale(0.95); }
+.mbtn-cancel  { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border2);}
 .mbtn-save { background: var(--text); color: var(--bg); }
-.mbtn-save:hover { transform: scale(0.97); }
 
-/* COLORES DINÁMICOS */
-.color-azul-bbva { background: var(--bbva); }
-.color-naranja { background: var(--bcp); }
-.color-azul-bcp { background: var(--bcp-blue); }
-.color-morado { background: var(--ripley); }
-.color-negro { background: var(--oh); }
-.color-verde { background: var(--cmr); }
+.field label { display: block; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 8px; font-weight: 700; }
+.field input, .field select { width: 100%; min-height: 50px; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; padding: 0 16px; outline: none; transition: 0.2s; font-weight: 500;}
+.field input:focus, .field select:focus { border-color: var(--amber); background: var(--surface); box-shadow: 0 0 0 3px var(--amber-glow); }
+.edit-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
 
-@keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
-@keyframes scaleIn { from { opacity:0; transform:scale(0.9) } to { opacity:1; transform:scale(1) } }
+#toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace; font-size: 0.85rem; font-weight: 700; padding: 14px 28px; border-radius: 30px; opacity: 0; transition: opacity 0.3s, transform 0.3s; z-index: 300; pointer-events: none; box-shadow: 0 10px 25px rgba(0,0,0,0.2);}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-@media (max-width: 600px) { 
-  header .header-inner { flex-direction: column; align-items: flex-start; gap: 16px; padding: 10px 0;}
-  .header-actions { width: 100%; justify-content: space-between; flex-direction: row-reverse;}
-  .metrics-row { grid-template-columns: 1fr; } 
+@keyframes fadeUpTab { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn  { from { opacity:0 } to { opacity:1 } } 
+@keyframes scaleIn { from { opacity:0; transform:scale(0.95) } to { opacity:1; transform:scale(1) } }
+
+/* COMPATIBILIDAD CON DATOS ANTIGUOS Y NUEVOS GRADIENTES */
+.color-azul-bbva, .color-bbva, .bg-bbva { background: linear-gradient(135deg, #004481 0%, #0c2340 100%); }
+.color-naranja, .color-bcp, .bg-bcp { background: linear-gradient(135deg, #ff7800 0%, #d85c00 100%); }
+.color-azul-bcp, .bg-bcp-blue { background: linear-gradient(135deg, #002a8d 0%, #00154a 100%); }
+.color-morado, .color-ripley, .bg-ripley { background: linear-gradient(135deg, #6a1b9a 0%, #38006b 100%); }
+.color-negro, .color-oh, .bg-oh { background: linear-gradient(135deg, #262626 0%, #000000 100%); }
+.color-verde, .color-cmr, .bg-cmr { background: linear-gradient(135deg, #059669 0%, #024b34 100%); }
+.color-default, .bg-default { background: linear-gradient(135deg, #475569 0%, #1e293b 100%); }
+
+/* TOOLTIPS CONTEXTUALES OSCUROS */
+[data-tooltip] { position: relative; cursor: help; }
+[data-tooltip]::after { content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(4px); background: #0f172a; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 0.7rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.2s; z-index: 10; font-family: 'DM Mono', monospace;}
+body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #000; }
+[data-tooltip]:hover::after { opacity: 1; transform: translateX(-50%) translateY(-8px); }
+
+/* BOTTOM SHEETS OPTIMIZADOS PARA MÓVIL */
+@media (max-width: 600px) {
+  .kpi-ribbon { grid-template-columns: repeat(2, 1fr); gap: 12px; } 
+  .kpi-item { padding: 14px; }
+  .kpi-val { font-size: 1.3rem; }
+  
+  .modal { position: absolute; bottom: 0; left: 0; right: 0; max-width: 100%; width: 100%; border-radius: 28px 28px 0 0; padding: 0; margin: 0; animation: slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); overflow: hidden; display: flex; flex-direction: column;}
+  .modal > div:not(.modal-btns) { padding: 32px 24px 0; }
+  .modal .modal-btns { padding: 24px; flex-direction: column; gap: 12px; background: var(--surface); border-top: 1px solid var(--border);}
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .mbtn { width: 100%; justify-content: center;}
+  .mbtn-cancel { order: 2; background: transparent; border: 1px solid var(--border);}
+  header { padding: 0 16px; }
 }
 </style>
 </head>
@@ -164,405 +217,430 @@ main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
 
 <header>
   <div class="header-inner">
-    <div class="logo">
-      <div>
-        <h1>Tarjetas <span id="cloudStatus" class="cloud-status"></span></h1>
-        <span class="sub">Gestión Financiera</span>
+    <div class="logo-container">
+      <a href="index.html" class="btn-back-arrow" title="Volver al Panel">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <div class="logo">
+        <h1>Tarjetas <span class="cloud-status" id="cloudStatus"></span></h1>
       </div>
     </div>
     <div class="header-actions">
-      <button class="btn-add-main" onclick="openModal()">+ Agregar Tarjeta</button>
-      <a href="index.html" class="btn-back-dash">← Panel</a>
+      <button class="btn-icon-tool" id="privacyToggleBtn" onclick="togglePrivacy()" title="Modo Privacidad">👁️</button>
+      <button class="btn-add-main" onclick="openCardModal()">+ Tarjeta</button>
     </div>
   </div>
 </header>
 
 <main>
   <div class="anniv-alert-box" id="globalAnnivAlert">
-    <span>⚠️</span> <span>Tienes tarjetas próximas a cobrar membresía. Llama al banco para exonerarlas.</span>
+    <span>⚠️</span> <span>Hay tarjetas próximas a cobrar membresía. Negocia la exoneración.</span>
   </div>
 
-  <div class="metrics-row">
-    <div class="mcard mc-red">
-      <div class="m-title">Tarjetas por Pagar</div>
-      <div class="m-val" id="tarjetasPendientes" style="color: var(--red);">0</div>
+  <section class="dashboard-panel">
+    <div class="kpi-ribbon">
+      <div class="kpi-item" id="kpi-pendientes">
+        <div class="kpi-lbl">Pendientes</div>
+        <div class="kpi-val" id="val-pendientes">0</div>
+      </div>
+      <div class="kpi-item" id="kpi-pagadas">
+        <div class="kpi-lbl">Pagadas</div>
+        <div class="kpi-val" id="val-pagadas">0</div>
+      </div>
+      <div class="kpi-item" id="kpi-pago">
+        <div class="kpi-lbl">Pagado este Mes</div>
+        <div class="kpi-val" id="val-total-mes">S/ 0</div>
+      </div>
+      <div class="kpi-item" id="kpi-fuga">
+        <div class="kpi-lbl">Fuga Seguros (Año)</div>
+        <div class="kpi-val" id="val-total-desg">S/ 0</div>
+      </div>
     </div>
-    <div class="mcard mc-green">
-      <div class="m-title">Tarjetas Pagadas</div>
-      <div class="m-val" id="tarjetasPagadas" style="color: var(--green);">0</div>
-    </div>
-  </div>
-  
-  <div class="cards-grid" id="cardsContainer"></div>
+  </section>
+
+  <!-- EVENT DELEGATION: Se escucha el clic en el contenedor principal -->
+  <div class="list-container" id="cardsContainer" onclick="handleCardClick(event)"></div>
 </main>
 
-<div class="backdrop" id="cardModal">
-  <div class="modal">
-    <h3 id="modalTitle">Nueva Tarjeta</h3>
-    <p class="desc">Registra los datos de facturación de tu crédito</p>
-    
-    <form id="cardForm" onsubmit="saveCard(event)">
-      <input type="hidden" id="cardId">
-      
-      <div class="edit-grid">
-        <div class="field">
-          <label for="cardName">Nombre Entidad / Tarjeta</label>
-          <input type="text" id="cardName" placeholder="Ej. BBVA Visa Signature" required>
-        </div>
-        <div class="field">
-          <label for="cardCategory">Categoría / Tipo</label>
-          <input type="text" id="cardCategory" placeholder="Ej. Crédito VIP" required>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-          <div class="field">
-            <label for="cardClosing">Día de Corte</label>
-            <input type="number" id="cardClosing" min="1" max="31" placeholder="Ej. 20" required>
-          </div>
-          <div class="field">
-            <label for="cardPayment">Día de Pago</label>
-            <input type="number" id="cardPayment" min="1" max="31" placeholder="Ej. 15" required>
-          </div>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-            <div class="field">
-              <label for="cardColor">Color Visual</label>
-              <select id="cardColor" required>
-                <option value="color-azul-bbva">Azul BBVA</option>
-                <option value="color-naranja">Naranja BCP</option>
-                <option value="color-azul-bcp">Azul BCP</option>
-                <option value="color-morado">Morado Ripley</option>
-                <option value="color-negro">Negro Oh!</option>
-                <option value="color-verde">Verde CMR</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="cardAnniversary">Mes Aniversario</label>
-              <input type="text" id="cardAnniversary" placeholder="Ej. SET o 09">
-            </div>
-        </div>
-      </div>
-      
-      <div class="modal-btns">
-        <button type="button" class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
-        <button type="submit" class="mbtn mbtn-save">Guardar Tarjeta</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div id="toast" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--text); color:var(--bg); padding:10px 20px; border-radius:30px; font-family:'DM Mono', monospace; font-size:12px; opacity:0; transition:0.3s; pointer-events:none; z-index: 1000; box-shadow: var(--shadow); font-weight: 600;"></div>
+<div id="modalContainer"></div>
+<div id="toast">Notificación</div>
 
 <script>
-/* FIREBASE CONFIG */
-const firebaseConfig = { apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g", authDomain: "pierovski-center.firebaseapp.com", databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com", projectId: "pierovski-center" };
-if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+// CONFIGURACIÓN FIREBASE
+const firebaseConfig = { databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com/" };
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-const SK = 'tarjetasPremiumV3';
-let tarjetas = [];
+const SK_CARDS = 'tarjetasPremiumV3';
+const SK_PAGOS = 'pagosTarjetasV1';
 
-// ═══════════════════ LECTURA DE MODO NOCHE GLOBAL ═══════════════════
-window.addEventListener('DOMContentLoaded', () => { 
-  if (localStorage.getItem('compras_theme') === 'dark') {
-    document.body.classList.add('dark-theme');
+let tarjetas = [];
+let pagos = [];
+let isOnline = navigator.onLine;
+let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
+
+// MOTOR HÁPTICO
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playTactileSound() {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.type = 'sine'; osc.frequency.setValueAtTime(400, audioCtx.currentTime); 
+  osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.05); 
+  gain.gain.setValueAtTime(0.2, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05); 
+  osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+  if(navigator.vibrate) navigator.vibrate(20);
+}
+
+// SINCRONIZACIÓN
+function initCloud() {
+  db.ref('pierovski').once('value').then(snap => {
+    isOnline = true; 
+    document.getElementById('cloudStatus').className = 'cloud-status cloud-online';
+    if (snap.exists()) {
+      const data = snap.val();
+      if(data[SK_CARDS]) { tarjetas = data[SK_CARDS]; localStorage.setItem(SK_CARDS, JSON.stringify(tarjetas)); }
+      if(data[SK_PAGOS]) { pagos = data[SK_PAGOS]; localStorage.setItem(SK_PAGOS, JSON.stringify(pagos)); }
+      autoResetCards(); renderAll();
+    } else { syncCloud(); renderAll(); }
+  }).catch(() => { 
+    isOnline = false; 
+    tarjetas = JSON.parse(localStorage.getItem(SK_CARDS)) || [];
+    pagos = JSON.parse(localStorage.getItem(SK_PAGOS)) || [];
+    autoResetCards(); renderAll(); 
+  });
+}
+
+function syncCloud() {
+  localStorage.setItem(SK_CARDS, JSON.stringify(tarjetas));
+  localStorage.setItem(SK_PAGOS, JSON.stringify(pagos));
+  if(isOnline) {
+    db.ref(`pierovski/${SK_CARDS}`).set(tarjetas);
+    db.ref(`pierovski/${SK_PAGOS}`).set(pagos);
   }
+}
+
+// INICIALIZACIÓN
+window.addEventListener('DOMContentLoaded', () => { 
+    if (localStorage.getItem('compras_theme') === 'dark') document.body.classList.add('dark-theme'); 
+    if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
+    initCloud(); 
 });
 
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.style.opacity = '1';
-  setTimeout(() => t.style.opacity = '0', 2000);
+// UTILIDADES
+function todayStr() { return new Date().toISOString().split('T')[0]; } 
+function toast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+function formatMoney(num) { 
+    if (isPrivacyMode) return 'S/ ***.**';
+    return 'S/ ' + (Number(num) || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
 }
 
-// MOTOR DE SONIDO
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
-
-function playSuccessSound() {
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.connect(gain); gain.connect(audioCtx.destination);
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
-  osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1); 
-  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); 
-  osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
+function togglePrivacy() { 
+    isPrivacyMode = !isPrivacyMode; 
+    localStorage.setItem('pierovski_privacy', isPrivacyMode); 
+    document.getElementById('privacyToggleBtn').classList.toggle('active', isPrivacyMode); 
+    renderAll(); 
 }
 
-function autoResetCards(data) {
-  const hoy = new Date();
-  let changed = false;
-
-  data.forEach(t => {
-    if (t.paid && t.closing) {
-      if (t.lastPaymentDate) {
-        const fechaPago = new Date(t.lastPaymentDate);
-        let mesCorte = fechaPago.getMonth();
-        let anioCorte = fechaPago.getFullYear();
-
-        if (fechaPago.getDate() >= t.closing) {
-          mesCorte++;
-          if (mesCorte > 11) { mesCorte = 0; anioCorte++; }
-        }
-
-        const proximaFechaCorte = new Date(anioCorte, mesCorte, t.closing);
-        if (hoy >= proximaFechaCorte) { t.paid = false; changed = true; }
-      } 
-      else {
-        const currentMonth = hoy.getMonth();
-        const currentDay = hoy.getDate();
-        if (currentDay >= t.closing && t.lastResetMonth !== currentMonth) {
-          t.paid = false; t.lastResetMonth = currentMonth; changed = true;
-        }
-      }
-    }
-  });
-  return changed;
+// LÓGICA DE DÍAS Y RESETEO
+function getFreeCreditDays(closingDay, paymentDay) {
+    const now = new Date();
+    let nextClosing = new Date(now.getFullYear(), now.getMonth(), closingDay);
+    if (now.getDate() >= closingDay) nextClosing.setMonth(nextClosing.getMonth() + 1);
+    
+    let nextPayment = new Date(nextClosing.getFullYear(), nextClosing.getMonth(), paymentDay);
+    if (paymentDay <= closingDay) nextPayment.setMonth(nextPayment.getMonth() + 1);
+    
+    const diff = (nextPayment.getTime() - now.getTime()) / (1000 * 3600 * 24);
+    return Math.floor(diff);
 }
 
-function syncToCloud() {
-  localStorage.setItem(SK, JSON.stringify(tarjetas));
-  if (navigator.onLine) {
-    const ind = document.getElementById('cloudStatus');
-    if(ind) ind.className = 'cloud-status cloud-syncing';
-    db.ref('pierovski/' + SK).set(tarjetas).then(() => { 
-        if(ind) ind.className = 'cloud-status cloud-online'; 
-    });
-  }
-}
-
-function init() {
-  const localData = JSON.parse(localStorage.getItem(SK));
-  if (localData) {
-    tarjetas = localData;
-    if (autoResetCards(tarjetas)) syncToCloud();
-    render();
-  }
-
-  if (navigator.onLine) {
-    db.ref('pierovski/' + SK).once('value').then(snap => {
-      if (snap.exists()) {
-        tarjetas = snap.val() || [];
-        if (autoResetCards(tarjetas)) syncToCloud(); else localStorage.setItem(SK, JSON.stringify(tarjetas));
-        render();
-        const ind = document.getElementById('cloudStatus');
-        if(ind) ind.className = 'cloud-status cloud-online';
-      }
-    });
-  }
-}
-
-function togglePaid(id) {
-  const t = tarjetas.find(x => x.id === id);
-  if (t) {
-    t.paid = !t.paid;
-    if (t.paid) {
-      playSuccessSound();
-      if(navigator.vibrate) navigator.vibrate(30);
-      toast('Tarjeta pagada');
-      t.lastPaymentDate = new Date().toISOString(); 
-    } else {
-      t.lastPaymentDate = null; 
-    }
-    syncToCloud(); 
-    render(); 
-  }
-}
-
-/* === MOTOR CRUD INTERNO === */
-function openModal(id = null) {
-  const modal = document.getElementById('cardModal');
-  const form = document.getElementById('cardForm');
-  form.reset();
-  
-  if (id) {
-    document.getElementById('modalTitle').textContent = 'Editar Tarjeta';
-    const t = tarjetas.find(x => x.id === id);
-    if (!t) return;
-    document.getElementById('cardId').value = t.id;
-    document.getElementById('cardName').value = t.name;
-    document.getElementById('cardCategory').value = t.category;
-    document.getElementById('cardClosing').value = t.closing;
-    document.getElementById('cardPayment').value = t.payment;
-    document.getElementById('cardColor').value = t.color;
-    document.getElementById('cardAnniversary').value = t.anniversary || '';
-  } else {
-    document.getElementById('modalTitle').textContent = 'Nueva Tarjeta';
-    document.getElementById('cardId').value = '';
-  }
-  modal.classList.add('active');
-}
-
-function closeModal() {
-  document.getElementById('cardModal').classList.remove('active');
-}
-
-function saveCard(e) {
-  e.preventDefault();
-  
-  const id = document.getElementById('cardId').value;
-  const name = document.getElementById('cardName').value;
-  const category = document.getElementById('cardCategory').value;
-  const closing = parseInt(document.getElementById('cardClosing').value);
-  const payment = parseInt(document.getElementById('cardPayment').value);
-  const color = document.getElementById('cardColor').value;
-  const anniversary = document.getElementById('cardAnniversary').value.trim();
-
-  if (id) {
-    const idx = tarjetas.findIndex(x => x.id == id);
-    if (idx !== -1) {
-      tarjetas[idx] = { ...tarjetas[idx], name, category, closing, payment, color, anniversary };
-      toast('Tarjeta actualizada.');
-    }
-  } else {
-    const newCard = {
-      id: Date.now(),
-      name, category, closing, payment, color, anniversary,
-      paid: false,
-      lastResetMonth: new Date().getMonth()
-    };
-    tarjetas.push(newCard);
-    toast('Nueva tarjeta añadida con éxito.');
-  }
-
-  syncToCloud();
-  render();
-  closeModal();
-}
-
-function deleteCard(id) {
-  if (confirm('¿Estás seguro de eliminar esta tarjeta definitivamente?')) {
-    tarjetas = tarjetas.filter(x => x.id !== id);
-    syncToCloud();
-    render();
-    toast('Tarjeta eliminada.');
-  }
-}
-
-/* ════════════════════════════════════════════════════════════
-   SEMÁFORO DE LIQUIDEZ (Algoritmo Preciso de Fechas)
-════════════════════════════════════════════════════════════ */
 function checkAnniversaryAlert(annivStr) {
     if(!annivStr) return false;
     const meses = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
     let str = annivStr.toLowerCase().substring(0,3);
     let targetMonth = meses.indexOf(str);
-    
-    if(targetMonth === -1 && !isNaN(parseInt(str))) {
-        targetMonth = parseInt(str) - 1; 
-    }
+    if(targetMonth === -1 && !isNaN(parseInt(str))) targetMonth = parseInt(str) - 1; 
     if(targetMonth < 0 || targetMonth > 11) return false;
     
     const currentMonth = new Date().getMonth();
     let diff = targetMonth - currentMonth;
     if(diff < 0) diff += 12; 
-    
     return diff === 0 || diff === 1; 
 }
 
-function getLiquidityStatus(closingDay) {
-    const hoy = new Date();
-    const currentDay = hoy.getDate();
-    const daysInMonth = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0).getDate();
-    
-    // Regla de Acero 1: Si es el mismo día del corte, NO COMPRAR
-    if (closingDay === currentDay) {
-        return { text: "🔴 HOY CORTA (NO COMPRAR)", class: "liq-bad" };
+function autoResetCards() {
+  const hoy = new Date();
+  let changed = false;
+  tarjetas.forEach(t => {
+    if (t.paid && t.closing && t.lastPaymentDate) {
+      const fp = new Date(t.lastPaymentDate);
+      let mCorte = fp.getMonth(); let aCorte = fp.getFullYear();
+      if (fp.getDate() >= t.closing) { mCorte++; if (mCorte > 11) { mCorte = 0; aCorte++; } }
+      const proxCorte = new Date(aCorte, mCorte, t.closing);
+      if (hoy >= proxCorte) { t.paid = false; changed = true; }
     }
-
-    // Regla de Acero 2: Ventana Ideal (1 a 7 días DESPUÉS del corte)
-    let daysSinceCut = currentDay - closingDay;
-    if (daysSinceCut < 0) daysSinceCut += daysInMonth;
-
-    if (daysSinceCut >= 1 && daysSinceCut <= 7) {
-        return { text: "🟢 MEJOR MOMENTO (IDEAL)", class: "liq-good" };
-    } 
-    
-    // Regla de Acero 3: Espera al corte (1 a 5 días ANTES del corte)
-    let daysToCut = closingDay - currentDay;
-    if (daysToCut < 0) daysToCut += daysInMonth;
-    
-    if (daysToCut >= 1 && daysToCut <= 5) {
-        return { text: "🔴 ESPERA AL CORTE", class: "liq-bad" };
-    }
-
-    // Si no está ni en la ventana ideal ni en la de espera, es un día regular
-    return { text: "🟡 VENTANA REGULAR", class: "liq-warn" };
+  });
+  if(changed) syncCloud();
 }
 
-function render() {
+// EVENT DELEGATION PARA INTERFAZ Y BOTONES
+function handleCardClick(e) {
+    const btnPay = e.target.closest('.btn-pay-action');
+    if (btnPay) { openPayModal(btnPay.dataset.id); return; }
+    
+    const btnEdit = e.target.closest('.btn-edit-action');
+    if (btnEdit) { openCardModal(btnEdit.dataset.id); return; }
+    
+    const btnDel = e.target.closest('.btn-del-action');
+    if (btnDel) { openDeleteModal(btnDel.dataset.id); return; }
+
+    const header = e.target.closest('.card-header');
+    if (header) {
+        const id = header.dataset.id;
+        const details = document.getElementById('details-' + id);
+        if (!details) return;
+        const wasOpen = details.classList.contains('open');
+        document.querySelectorAll('.card-details.open').forEach(el => el.classList.remove('open'));
+        if (!wasOpen) details.classList.add('open');
+    }
+}
+
+// MODALES CRUD TARJETAS Y ELIMINACIÓN CUSTOM
+function openDeleteModal(id) {
+    document.getElementById('modalContainer').innerHTML = `
+    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
+        <div>
+            <div class="modal">
+                <h3 style="color: var(--red);">⚠️ Eliminar Tarjeta</h3>
+                <p class="desc">¿Estás seguro de eliminar esta tarjeta? Esta acción borrará todo su historial de pagos y es irreversible.</p>
+                <div class="modal-btns">
+                    <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
+                    <button class="mbtn" style="background: var(--red); color: white;" onclick="confirmDelete('${id}')">Sí, eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function confirmDelete(id) {
+    tarjetas = tarjetas.filter(x => String(x.id) !== String(id));
+    pagos = pagos.filter(p => String(p.cardId) !== String(id));
+    syncCloud(); renderAll(); closeModal(); toast('🗑️ Eliminada exitosamente');
+}
+
+function openCardModal(id = null) {
+  let title = 'Nueva Tarjeta', btnText = 'Guardar';
+  let cName='', cCat='', cClose='', cPay='', cCol='bg-default', cAnn='';
+  
+  if (id) {
+    const t = tarjetas.find(x => String(x.id) === String(id)); if(!t) return;
+    title = 'Editar Tarjeta'; btnText = 'Actualizar';
+    cName = t.name; cCat = t.category; cClose = t.closing; cPay = t.payment; cCol = t.color; cAnn = t.anniversary||'';
+  }
+  
+  document.getElementById('modalContainer').innerHTML = `
+  <div class="backdrop active" onclick="if(event.target===this) closeModal()">
+    <div>
+      <div class="modal">
+        <h3>${title}</h3>
+        <p class="desc">Registra los datos de facturación de tu crédito.</p>
+        <div class="edit-grid">
+          <div class="field"><label>Nombre Entidad / Tarjeta</label><input type="text" id="cardName" value="${cName}" required></div>
+          <div class="field"><label>Categoría (Ej. Crédito, Línea)</label><input type="text" id="cardCat" value="${cCat}" required></div>
+          <div style="display:flex; gap:12px;">
+            <div class="field" style="flex:1;"><label>Día Corte</label><input type="number" id="cardClose" min="1" max="31" value="${cClose}" required></div>
+            <div class="field" style="flex:1;"><label>Día Pago</label><input type="number" id="cardPay" min="1" max="31" value="${cPay}" required></div>
+          </div>
+          <div style="display:flex; gap:12px;">
+            <div class="field" style="flex:1;">
+              <label>Color Base</label>
+              <select id="cardCol">
+                <option value="bg-default" ${cCol==='color-default'||cCol==='bg-default'?'selected':''}>Gris Neutral</option>
+                <option value="bg-bbva" ${cCol==='color-azul-bbva'||cCol==='color-bbva'||cCol==='bg-bbva'?'selected':''}>Azul BBVA</option>
+                <option value="bg-bcp" ${cCol==='color-naranja'||cCol==='color-bcp'||cCol==='bg-bcp'?'selected':''}>Naranja BCP</option>
+                <option value="bg-bcp-blue" ${cCol==='color-azul-bcp'||cCol==='bg-bcp-blue'?'selected':''}>Azul BCP</option>
+                <option value="bg-ripley" ${cCol==='color-morado'||cCol==='color-ripley'||cCol==='bg-ripley'?'selected':''}>Morado Ripley</option>
+                <option value="bg-oh" ${cCol==='color-negro'||cCol==='color-oh'||cCol==='bg-oh'?'selected':''}>Negro Oh!</option>
+                <option value="bg-cmr" ${cCol==='color-verde'||cCol==='color-cmr'||cCol==='bg-cmr'?'selected':''}>Verde CMR</option>
+              </select>
+            </div>
+            <div class="field" style="flex:1;"><label>Mes Aniv.</label><input type="text" id="cardAnn" value="${cAnn}" placeholder="Ej. SEP"></div>
+          </div>
+        </div>
+        <div class="modal-btns">
+          <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
+          <button class="mbtn mbtn-save" onclick="saveCard(${id ? `'${id}'` : 'null'})">${btnText}</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function saveCard(id) {
+  const name = document.getElementById('cardName').value;
+  const category = document.getElementById('cardCat').value;
+  const closing = parseInt(document.getElementById('cardClose').value);
+  const payment = parseInt(document.getElementById('cardPay').value);
+  const color = document.getElementById('cardCol').value;
+  const anniversary = document.getElementById('cardAnn').value.trim();
+
+  if(!name || !closing || !payment) return toast('⚠ Completa los datos obligatorios.');
+
+  if (id) {
+    const idx = tarjetas.findIndex(x => String(x.id) === String(id));
+    if (idx !== -1) tarjetas[idx] = { ...tarjetas[idx], name, category, closing, payment, color, anniversary };
+  } else {
+    tarjetas.push({ id: Date.now().toString(), name, category, closing, payment, color, anniversary, paid: false });
+  }
+  syncCloud(); renderAll(); closeModal(); toast('✓ Tarjeta guardada');
+}
+
+// MODAL REGISTRAR PAGO Y DESGRAVAMEN
+function openPayModal(cardId) {
+  const t = tarjetas.find(x => String(x.id) === String(cardId)); if(!t) return;
+  document.getElementById('modalContainer').innerHTML = `
+  <div class="backdrop active" onclick="if(event.target===this) closeModal()">
+    <div>
+      <div class="modal">
+        <h3>Auditoría de Pago</h3>
+        <p class="desc">Registra el pago de <b>${t.name}</b> para el historial.</p>
+        <div class="edit-grid">
+          <div class="field"><label>Monto Total a Pagar (S/)</label><input type="number" step="0.01" id="payAmount" required></div>
+          <div class="field"><label>Seguro de Desgravamen (S/)</label><input type="number" step="0.01" id="payDesg" value="0.00" required></div>
+          <div class="field"><label>Fecha de Pago</label><input type="date" id="payDate" value="${todayStr()}"></div>
+        </div>
+        <div class="modal-btns">
+          <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
+          <button class="mbtn mbtn-save" onclick="executePayment('${cardId}')">Confirmar Pago</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function executePayment(cardId) {
+    const amt = parseFloat(document.getElementById('payAmount').value);
+    const desg = parseFloat(document.getElementById('payDesg').value) || 0;
+    const dStr = document.getElementById('payDate').value;
+    
+    if(isNaN(amt) || amt <= 0) return toast('⚠ Ingresa un monto válido.');
+
+    const dObj = new Date(dStr + 'T12:00:00');
+    
+    // Guardar historial
+    pagos.push({
+        id: Date.now().toString(), cardId: cardId, amount: amt, desgravamen: desg, date: dStr,
+        month: dObj.getMonth(), year: dObj.getFullYear()
+    });
+
+    // Actualizar estado de la tarjeta
+    const tIdx = tarjetas.findIndex(x => String(x.id) === String(cardId));
+    if(tIdx !== -1) {
+        tarjetas[tIdx].paid = true;
+        tarjetas[tIdx].lastPaymentDate = dStr;
+    }
+
+    syncCloud(); closeModal(); playTactileSound(); toast('✓ Pago Registrado'); renderAll();
+}
+
+function renderAll() {
   const container = document.getElementById('cardsContainer');
   let cardsHTML = ''; 
-  let pagadas = 0, pendientes = 0;
+  let cPagadas = 0, cPendientes = 0;
+  let tMes = 0, tDesgAno = 0;
   let globalAlert = false;
-  const hoy = new Date().getDate();
+  
+  const hoy = new Date();
+  const hoyD = hoy.getDate();
+  const currMonth = hoy.getMonth();
+  const currYear = hoy.getFullYear();
 
+  // Calcular KPIs de pagos
+  pagos.forEach(p => {
+      if(p.month === currMonth && p.year === currYear) tMes += p.amount;
+      if(p.year === currYear) tDesgAno += (p.desgravamen || 0);
+  });
+
+  document.getElementById('val-total-mes').innerText = formatMoney(tMes);
+  document.getElementById('val-total-desg').innerText = formatMoney(tDesgAno);
+
+  // Ordenar tarjetas: Pendientes primero, luego por proximidad de pago
   const sorted = [...tarjetas].sort((a,b) => {
     if (a.paid !== b.paid) return a.paid ? 1 : -1;
-    let faltaA = a.payment - hoy; if (faltaA < 0) faltaA += 30;
-    let faltaB = b.payment - hoy; if (faltaB < 0) faltaB += 30;
-    return faltaA - faltaB;
+    let fA = a.payment - hoyD; if (fA < 0) fA += 30;
+    let fB = b.payment - hoyD; if (fB < 0) fB += 30;
+    return fA - fB;
   });
 
   sorted.forEach(t => {
-    if (t.paid) pagadas++; else pendientes++;
+    if (t.paid) cPagadas++; else cPendientes++;
     
-    let faltaPago = t.payment - hoy; if (faltaPago < 0) faltaPago += 30;
-    let urgClass = (!t.paid && faltaPago <= 5) ? 'urg' : '';
-    let badgeClass = (!t.paid && faltaPago <= 5) ? 'danger' : 'safe';
-    let badgeText = t.paid ? 'Limpio' : `Faltan ${faltaPago} d`;
+    let faltaPago = t.payment - hoyD; if (faltaPago < 0) faltaPago += 30;
+    let isUrg = (!t.paid && faltaPago <= 5);
+    let badgeClass = t.paid ? 'badge-green' : (isUrg ? 'badge-red' : '');
+    let badgeText = t.paid ? '✓ AL DÍA' : `PAGO EN ${faltaPago} D`;
+    if (!t.paid && !isUrg) { badgeClass = ''; badgeText = `PAGO EN ${faltaPago} D`; } // Neutral
     
-    let faltaCorte = t.closing - hoy; if (faltaCorte < 0) faltaCorte += 30;
-    
-    const liq = getLiquidityStatus(t.closing);
-    
-    const isAnnivNear = checkAnniversaryAlert(t.anniversary);
+    let isAnnivNear = checkAnniversaryAlert(t.anniversary);
     if(isAnnivNear) globalAlert = true;
 
+    const freeDays = getFreeCreditDays(t.closing, t.payment);
+
+    // Historial de la tarjeta específica
+    const cardPagos = pagos.filter(p => String(p.cardId) === String(t.id)).sort((a,b) => new Date(b.date) - new Date(a.date));
+    let histHTML = '';
+    if(cardPagos.length === 0) {
+        histHTML = `<div class="history-empty">No hay registros de pago previos.</div>`;
+    } else {
+        histHTML = cardPagos.slice(0, 5).map(p => {
+            const dp = new Date(p.date + 'T12:00:00').toLocaleDateString('es-PE', {day:'2-digit', month:'short'});
+            return `<div class="history-item"><span class="hi-date">${dp}</span><span><span class="hi-amt">${formatMoney(p.amount)}</span>${p.desgravamen>0 ? `<span class="hi-desg" data-tooltip="Fuga en Seguro">-${formatMoney(p.desgravamen)}</span>` : ''}</span></div>`;
+        }).join('');
+    }
+
     cardsHTML += `
-      <div class="cc-card">
-        <div class="cc-header ${t.color}">
-          <div>
-            <div class="cc-name">${t.name}</div>
-            <div class="cc-cat">${t.category}</div>
-          </div>
-          <div class="cc-header-right">
-            <div class="cc-line ${isAnnivNear ? 'alert-on' : ''}">ANIV: ${t.anniversary || '---'}</div>
-            <div class="cc-crud-actions">
-              <button class="btn-crud-small" onclick="openModal(${t.id})" title="Editar">✏️</button>
-              <button class="btn-crud-small" onclick="deleteCard(${t.id})" title="Eliminar">✕</button>
+      <div class="card-item">
+        <div class="card-header ${t.color}" data-id="${t.id}">
+          <div class="ch-top">
+            <div>
+              <div class="card-name">${t.name}</div>
+              <div class="card-sub">${t.category}</div>
             </div>
+            <div class="card-badge ${badgeClass}" style="${!t.paid && !isUrg ? 'color:white; border-color:rgba(255,255,255,0.3); background:rgba(0,0,0,0.1);' : ''}">${badgeText}</div>
+          </div>
+          <div class="ch-bottom">
+            <div class="card-sub">${t.anniversary ? `ANIV: ${t.anniversary}` : ''}</div>
+            <div class="card-sub" style="font-size: 0.85rem; color:#ffffff;">Día ${t.payment}</div>
           </div>
         </div>
-        <div class="cc-body">
-          <div class="cc-dates">
-            <div class="date-box"><div class="date-lbl">Corte</div><div class="date-val">Día ${t.closing} <span class="days-left safe">En ${faltaCorte} d</span></div></div>
-            <div class="date-box"><div class="date-lbl">Pago</div><div class="date-val ${urgClass}">Día ${t.payment} <span class="days-left ${badgeClass}">${badgeText}</span></div></div>
+        
+        <div class="card-details" id="details-${t.id}">
+          <div class="gracia-box">
+            <span class="gracia-lbl">Crédito si compras hoy:</span>
+            <span class="gracia-val">${freeDays} días</span>
           </div>
           
-          <div class="liquidity-badge ${liq.class}">${liq.text}</div>
-          
-          <button class="cc-action ${t.paid ? 'btn-paid' : 'btn-pay'}" onclick="togglePaid(${t.id})">
-            ${t.paid ? 'Facturación Pagada' : 'Marcar como Pagado'}
-          </button>
+          <div class="hist-title">Últimos Pagos</div>
+          <div class="history-list">${histHTML}</div>
+
+          <div class="card-actions">
+            ${!t.paid ? `<button class="card-btn pay btn-pay-action" data-id="${t.id}">💳 Registrar Pago</button>` : ''}
+            <button class="card-btn edit btn-edit-action" data-id="${t.id}">✏️ Editar</button>
+            <button class="card-btn edit btn-del-action" style="color:var(--red);" data-id="${t.id}">🗑️</button>
+          </div>
         </div>
       </div>
     `;
   });
 
   container.innerHTML = cardsHTML;
-  document.getElementById('tarjetasPendientes').textContent = pendientes;
-  document.getElementById('tarjetasPagadas').textContent = pagadas;
+  document.getElementById('val-pendientes').textContent = cPendientes;
+  document.getElementById('val-pagadas').textContent = cPagadas;
   
-  if(globalAlert) {
-      document.getElementById('globalAnnivAlert').classList.add('show');
-  } else {
-      document.getElementById('globalAnnivAlert').classList.remove('show');
-  }
+  if(globalAlert) document.getElementById('globalAnnivAlert').classList.add('show');
+  else document.getElementById('globalAnnivAlert').classList.remove('show');
 }
-
-init();
 </script>
 
 </body>
