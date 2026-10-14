@@ -4,170 +4,204 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="view-transition" content="same-origin">
-<title>Comando | COTA100</title>
+<title>Comando | Pierovski</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f172a">
 <link rel="apple-touch-icon" href="icon.jpg">
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <style>
 :root {
   color-scheme: light;
-  --bg: #f4f5f7; --surface: rgba(255,255,255,0.7); --surface-solid: #ffffff; --surface2: #f8f9fa;
-  --border: rgba(203,213,225,0.6); --border-solid: #cbd5e1;
-  --amber: #d97706; --green: #059669; --red: #dc2626; --blue: #3b82f6; --purple: #8b5cf6;
-  --text: #0f172a; --text-muted: #475569; --text-dim: #94a3b8;
-  --r: 20px; --r-sm: 12px; --shadow: 0 8px 24px rgba(0,0,0,0.04);
-  --tiltX: 0px; --tiltY: 0px; 
+  --bg: #f4f5f7;
+  --surface: rgba(255,255,255,0.85);
+  --surface-solid: #ffffff;
+  --surface2: #f8f9fa;
+  --surface3: #e2e8f0;
+  --border: rgba(203,213,225,0.7);
+  --border-solid: #cbd5e1;
+  --amber: #d97706;
+  --amber-dim: #b45309;
+  --amber-glow: rgba(217,119,6,0.12);
+  --green: #059669;
+  --green-dim: #047857;
+  --green-glow: rgba(5,150,105,0.15);
+  --red: #dc2626;
+  --red-dim: #b91c1c;
+  --red-glow: rgba(220,38,38,0.12);
+  --blue: #2563eb;
+  --purple: #7c3aed;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+  --r: 20px;
+  --r-sm: 12px;
+  --shadow: 0 8px 24px rgba(0,0,0,0.04);
+  --tiltX: 0px;
+  --tiltY: 0px;
 }
 
 body.dark-theme {
   color-scheme: dark;
-  --bg: #090e17; --surface: rgba(30,41,59,0.6); --surface-solid: #1e293b; --surface2: #0f172a;
-  --border: rgba(51,65,85,0.6); --border-solid: #334155;
-  --text: #f8fafc; --text-muted: #cbd5e1; --text-dim: #64748b;
-  --shadow: 0 10px 40px rgba(0,0,0,0.4);
+  --bg: #0f172a;
+  --surface: rgba(30,41,59,0.8);
+  --surface-solid: #1e293b;
+  --surface2: #0b1121;
+  --surface3: #334155;
+  --border: rgba(51,65,85,0.8);
+  --border-solid: #334155;
+  --text: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-dim: #94a3b8;
+  --amber-glow: rgba(217,119,6,0.2);
+  --green-glow: rgba(5,150,105,0.25);
+  --red-glow: rgba(220,38,38,0.2);
+  --shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 body.e-ink-mode {
-  --bg: #ffffff; --surface: #ffffff; --surface-solid: #ffffff; --surface2: #f0f0f0;
-  --text: #000000; --text-muted: #333333; --text-dim: #666666;
+  --bg: #ffffff; --surface: #ffffff; --surface-solid: #ffffff; --surface2: #f0f0f0; --surface3: #e0e0e0;
+  --text: #000000; --text-muted: #222222; --text-dim: #555555;
   --border: #000000; --border-solid: #000000;
   --amber: #000000; --green: #000000; --red: #000000; --blue: #000000; --purple: #000000;
   --shadow: none;
 }
-body.e-ink-mode * { transition: none !important; animation: none !important; backdrop-filter: none !important; box-shadow: none !important;}
+body.e-ink-mode * { transition: none !important; animation: none !important; backdrop-filter: none !important; box-shadow: none !important; }
 body.e-ink-mode .mod-card, body.e-ink-mode .vital-box, body.e-ink-mode .heatmap-box, body.e-ink-mode .next-action-card { border: 2px solid #000; }
 body.e-ink-mode .pulse-ring { display: none; }
 body.e-ink-mode .quarter-seg.active { background: #000; }
 body.e-ink-mode .ring-fill { stroke: #000 !important; }
 body.e-ink-mode .l-bar-fill { background: #000 !important; }
 
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent;}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 50px; transition: background 0.3s, color 0.3s; overflow-x: hidden;}
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 60px; transition: background 0.3s, color 0.3s; overflow-x: hidden; }
 
 /* BARRA TRIMESTRE SEGMENTADA */
-.quarter-grid { position: fixed; top: 0; left: 0; width: 100%; height: 4px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 2px; z-index: 200;}
-.quarter-seg { background: var(--surface2); height: 100%; transition: 0.3s; }
-.quarter-seg.active { background: var(--red); box-shadow: 0 0 8px var(--red); }
-.quarter-seg.done { background: var(--text-dim); opacity: 0.5;}
+.quarter-grid { position: fixed; top: 0; left: 0; width: 100%; height: 4px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 2px; z-index: 200; }
+.quarter-seg { background: var(--surface3); height: 100%; transition: 0.3s; }
+.quarter-seg.active { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+.quarter-seg.done { background: var(--green); opacity: 0.7; }
 
-/* CABECERA GLASSMORPHISM */
-header { padding: 24px 24px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 100; margin-top: 4px;}
-.sys-status { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-family: 'DM Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 700;}
-.streak-box { display: flex; align-items: center; gap: 4px; color: var(--amber); background: rgba(217,119,6,0.1); padding: 2px 8px; border-radius: 6px; font-size: 0.75rem;}
-.greeting-area h1 { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--text); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em;}
+/* CABECERA UNIFICADA PIEROVSKI */
+header { border-bottom: 1px solid var(--border); background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 100; padding: 18px 24px; margin-top: 4px; transition: background 0.3s; }
+.header-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.brand-group { display: flex; flex-direction: column; gap: 4px; }
+.sys-status { display: flex; align-items: center; gap: 10px; font-family: 'DM Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 700; }
+.cloud-status { width: 8px; height: 8px; border-radius: 50%; background: var(--border-solid); display: inline-block; transition: 0.3s; }
+.cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.streak-box { display: inline-flex; align-items: center; gap: 4px; color: var(--amber); background: var(--amber-glow); padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; }
+.greeting-area h1 { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--text); line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; }
 
 .header-actions { display: flex; gap: 8px; align-items: center; }
-.btn-icon-tool { background: var(--surface-solid); border: 1px solid var(--border-solid); color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px; font-size: 0.95rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; font-weight: 600;}
+.btn-icon-tool { background: var(--surface-solid); border: 1px solid var(--border-solid); color: var(--text-muted); border-radius: 50%; width: 40px; height: 40px; font-size: 1rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+.btn-icon-tool:hover { border-color: var(--amber); color: var(--text); }
 .btn-icon-tool:active { transform: scale(0.92); }
-.btn-icon-tool.active { color: var(--text); border-color: var(--text); }
+.btn-icon-tool.active { color: var(--amber); border-color: var(--amber); background: var(--amber-glow); }
 
 main { max-width: 800px; margin: 0 auto; padding: 24px 20px; }
 
-/* ANIMACIONES EN CASCADA COMPUESTAS */
-.stagger-1 { animation: fadeUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.05s;}
-.stagger-2 { animation: fadeUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.1s;}
-.stagger-3 { animation: fadeUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.15s;}
-.stagger-4 { animation: fadeUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.2s;}
-@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+/* ANIMACIONES EN CASCADA */
+.stagger-1 { animation: fadeUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.04s; }
+.stagger-2 { animation: fadeUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.08s; }
+.stagger-3 { animation: fadeUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.12s; }
+.stagger-4 { animation: fadeUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.16s; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
 /* PÍLDORA MENTAL ROTATIVA */
-.quote-box { text-align: center; margin-bottom: 24px; padding: 0 10px; min-height: 40px; display: flex; align-items: center; justify-content: center;}
-.quote-text { font-family: 'Fraunces', serif; font-size: 0.9rem; font-style: italic; color: var(--text-muted); line-height: 1.5; transition: opacity 0.5s ease;}
+.quote-box { text-align: center; margin-bottom: 20px; padding: 0 10px; min-height: 36px; display: flex; align-items: center; justify-content: center; }
+.quote-text { font-family: 'Fraunces', serif; font-size: 0.9rem; font-style: italic; color: var(--text-muted); line-height: 1.5; transition: opacity 0.4s ease; }
 
 /* WIDGET ACCIÓN INMEDIATA */
-.next-action-card { touch-action: manipulation; background: var(--surface-solid); border: 1px solid var(--border-solid); padding: 20px; border-radius: var(--r); margin-bottom: 24px; position: relative; overflow: hidden; cursor: pointer; user-select: none; transition: 0.2s; box-shadow: var(--shadow);}
-.next-action-card:active { transform: scale(0.98); }
+.next-action-card { touch-action: manipulation; background: var(--surface-solid); border: 1px solid var(--border-solid); padding: 20px; border-radius: var(--r); margin-bottom: 24px; position: relative; overflow: hidden; cursor: pointer; user-select: none; transition: 0.2s; box-shadow: var(--shadow); }
+.next-action-card:hover { border-color: var(--amber); }
+.next-action-card:active { transform: scale(0.99); }
 .next-action-card::before { content: ''; position: absolute; left: 0; top: 0; width: 4px; height: 100%; background: var(--amber); }
-.na-header { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--amber); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;}
-.na-task { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 12px;}
-.na-hint { font-size: 0.7rem; color: var(--text-dim); font-weight: 500; font-style: italic; display: flex; justify-content: space-between;}
+.na-header { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--amber); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+.na-task { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 12px; }
+.na-hint { font-size: 0.72rem; color: var(--text-dim); font-weight: 500; display: flex; justify-content: space-between; align-items: center; font-family: 'DM Mono', monospace; }
 
-/* GRÁFICOS: ANILLOS Y LÍNEAS COMBINADOS */
-.data-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; margin-bottom: 32px;}
-.vital-box, .heatmap-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; display: flex; flex-direction: column; box-shadow: var(--shadow); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);}
-.section-lbl { font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px; width: 100%; text-align: center;}
+/* GRÁFICOS: ANILLOS Y LÍNEA DE TIEMPO */
+.data-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 16px; margin-bottom: 32px; }
+.vital-box, .heatmap-box { background: var(--surface-solid); border: 1px solid var(--border-solid); border-radius: var(--r); padding: 20px; display: flex; flex-direction: column; box-shadow: var(--shadow); }
+.section-lbl { font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; width: 100%; display: flex; justify-content: space-between; align-items: center; }
 
-/* ANILLOS CONCÉNTRICOS Y BARRAS (HÍBRIDO) */
-.vital-content { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%;}
-.concentric-wrapper { position: relative; width: 100px; height: 100px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;}
-.vital-svg { width: 100px; height: 100px; transform: rotate(-90deg); transform-origin: 50% 50%; overflow: visible;}
-.ring-bg { fill: none; stroke: var(--border-solid); stroke-width: 6; opacity: 0.3;}
-.ring-fill { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);}
+.vital-content { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; }
+.concentric-wrapper { position: relative; width: 100px; height: 100px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.vital-svg { width: 100px; height: 100px; transform: rotate(-90deg); transform-origin: 50% 50%; overflow: visible; }
+.ring-bg { fill: none; stroke: var(--surface3); stroke-width: 6; }
+.ring-fill { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .ring-topo { stroke: var(--blue); }
 .ring-fin { stroke: var(--amber); }
 .ring-gym { stroke: var(--green); }
 
-.linear-wrapper { flex: 1; display: flex; flex-direction: column; gap: 12px; width: 100%;}
-.l-bar-item { display: flex; flex-direction: column; gap: 4px;}
-.l-bar-info { display: flex; justify-content: space-between; align-items: flex-end;}
-.l-bar-lbl { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;}
-.l-bar-val { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text); line-height: 1;}
-.l-bar-bg { width: 100%; height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; border: 1px solid var(--border-solid);}
-.l-bar-fill { height: 100%; border-radius: 2px; transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);}
+.linear-wrapper { flex: 1; display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.l-bar-item { display: flex; flex-direction: column; gap: 4px; }
+.l-bar-info { display: flex; justify-content: space-between; align-items: flex-end; }
+.l-bar-lbl { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.l-bar-val { font-family: 'DM Mono', monospace; font-size: 0.85rem; font-weight: 700; color: var(--text); line-height: 1; }
+.l-bar-bg { width: 100%; height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
+.l-bar-fill { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
-/* LÍNEA DE TIEMPO TÁCTICA */
-.heatmap-box { justify-content: flex-start; overflow: hidden; }
-.heatmap-scroll { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: none; width: 100%;}
-.heatmap-scroll::-webkit-scrollbar { display: none; }
-.hm-cell { min-width: 38px; height: 48px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border-solid); flex-shrink: 0; transition: background 0.3s, border 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; scroll-snap-align: center; position: relative;}
-.hm-day { font-family: 'DM Mono', monospace; font-size: 0.5rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 2px;}
-.hm-date { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1;}
-.hm-cell.is-today::after { content:''; position: absolute; bottom: -4px; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); }
+/* LÍNEA DE TIEMPO REAL 30D */
+.heatmap-box { justify-content: space-between; overflow: hidden; }
+.heatmap-scroll { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 0 10px; scrollbar-width: thin; width: 100%; }
+.heatmap-scroll::-webkit-scrollbar { height: 4px; }
+.heatmap-scroll::-webkit-scrollbar-thumb { background: var(--border-solid); border-radius: 4px; }
+.hm-cell { min-width: 40px; height: 52px; border-radius: 10px; background: var(--surface2); border: 1px solid var(--border-solid); flex-shrink: 0; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; scroll-snap-align: center; position: relative; }
+.hm-day { font-family: 'DM Mono', monospace; font-size: 0.55rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 2px; }
+.hm-date { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1; }
+.hm-cell.is-today { border: 2px solid var(--amber); }
 
-.hm-cell.lvl-1 { background: rgba(5,150,105,0.15); border-color: rgba(5,150,105,0.3); }
-.hm-cell.lvl-1 .hm-date, .hm-cell.lvl-1 .hm-day { color: var(--green-dim); }
-.hm-cell.lvl-2 { background: rgba(5,150,105,0.4); border-color: rgba(5,150,105,0.6); }
-.hm-cell.lvl-2 .hm-date, .hm-cell.lvl-2 .hm-day { color: var(--green-dim); }
-.hm-cell.lvl-3 { background: var(--green); border-color: var(--green-dim); box-shadow: 0 0 8px var(--green-glow);}
+.hm-cell.lvl-1 { background: var(--green-glow); border-color: rgba(5,150,105,0.4); }
+.hm-cell.lvl-1 .hm-date, .hm-cell.lvl-1 .hm-day { color: var(--green); }
+.hm-cell.lvl-2 { background: rgba(5,150,105,0.35); border-color: var(--green); }
+.hm-cell.lvl-2 .hm-date, .hm-cell.lvl-2 .hm-day { color: var(--text); }
+.hm-cell.lvl-3 { background: var(--green); border-color: var(--green-dim); box-shadow: 0 2px 8px var(--green-glow); }
 .hm-cell.lvl-3 .hm-date, .hm-cell.lvl-3 .hm-day { color: #ffffff; }
 
-/* MÓDULOS CON PARALLAX (LERP) Y SKELETON */
-.section-title { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 700;}
-.grid-modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px;}
-.mod-card { background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); padding: 20px; border-radius: var(--r); text-decoration: none; display: flex; align-items: flex-start; gap: 14px; transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: var(--shadow); position: relative; overflow: hidden;}
-.mod-card:active { transform: scale(0.96); }
+.hm-legend { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); display: flex; justify-content: space-between; align-items: center; padding-top: 4px; }
 
-.pulse-ring { position: absolute; inset: 0; border-radius: var(--r); box-shadow: 0 0 0 0 rgba(5,150,105,0.4); pointer-events: none; opacity: 0; transition: 0.3s;}
-.mod-card.is-100 .pulse-ring { opacity: 1; animation: pulseGlow 2.5s infinite; border: 1px solid var(--green);}
-@keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(5,150,105,0.3); } 70% { box-shadow: 0 0 0 10px rgba(5,150,105,0); } 100% { box-shadow: 0 0 0 0 rgba(5,150,105,0); } }
+/* MÓDULOS OPERATIVOS */
+.section-title { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 700; }
+.grid-modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+.mod-card { background: var(--surface-solid); border: 1px solid var(--border-solid); padding: 20px; border-radius: var(--r); text-decoration: none; display: flex; align-items: flex-start; gap: 14px; transition: 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.mod-card:hover { border-color: var(--amber); transform: translateY(-2px); }
+.mod-card:active { transform: scale(0.97); }
 
-.mod-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; background: var(--surface2); border: 1px solid var(--border-solid);}
+.pulse-ring { position: absolute; inset: 0; border-radius: var(--r); pointer-events: none; opacity: 0; transition: 0.3s; }
+.mod-card.is-100 .pulse-ring { opacity: 1; border: 1.5px solid var(--green); }
 
-.mod-info { display: flex; flex-direction: column; width: 100%;}
-.mod-title { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px;}
-.mod-val { font-family: 'DM Mono', monospace; font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; color: var(--text); transform: translate(var(--tiltX), var(--tiltY)); will-change: transform;}
-.mod-desc { font-size: 0.7rem; color: var(--text-dim); font-weight: 500;}
+.mod-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; background: var(--surface2); border: 1px solid var(--border-solid); }
+.mod-info { display: flex; flex-direction: column; width: 100%; overflow: hidden; }
+.mod-title { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.mod-val { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; color: var(--text); transform: translate(var(--tiltX), var(--tiltY)); will-change: transform; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mod-desc { font-size: 0.72rem; color: var(--text-dim); font-weight: 500; font-family: 'DM Mono', monospace; }
 
-.loading { position: relative; overflow: hidden; color: transparent !important; background: var(--surface2) !important; border-radius: 6px; display: inline-block; min-width: 60px; min-height: 20px;}
-.loading::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); animation: loadingSweep 1.2s infinite;}
-body.dark-theme .loading::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); }
-@keyframes loadingSweep { 100% { left: 200%; } }
+.loading { position: relative; overflow: hidden; color: transparent !important; background: var(--surface2) !important; border-radius: 6px; display: inline-block; min-width: 60px; min-height: 20px; }
 
-/* HOLD-TO-CONFIRM EN DEEP WORK */
-.dw-overlay { position: fixed; inset: 0; background: #050505; z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center;}
-.dw-overlay.open { display: flex; animation: fadeIn 0.3s; }
-.dw-timer { font-family: 'DM Mono', monospace; font-size: 5rem; font-weight: 700; margin-bottom: 60px; letter-spacing: -2px;}
+/* OVERLAY DEEP WORK DELTA-TIME */
+.dw-overlay { position: fixed; inset: 0; background: #070a12; z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 24px; }
+.dw-overlay.open { display: flex; }
+.dw-timer { font-family: 'DM Mono', monospace; font-size: 5rem; font-weight: 700; margin-bottom: 50px; letter-spacing: -2px; color: #f8fafc; }
 
-.hold-btn { position: relative; padding: 18px 40px; border-radius: 30px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; background: transparent; border: 2px solid #ef4444; cursor: pointer; overflow: hidden; user-select: none; -webkit-touch-callout: none; transition: transform 0.1s;}
+.hold-btn { position: relative; padding: 16px 36px; border-radius: 30px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.95rem; color: #fff; background: transparent; border: 2px solid var(--red); cursor: pointer; overflow: hidden; user-select: none; -webkit-touch-callout: none; transition: transform 0.1s; }
 .hold-btn.shaking { transform: scale(0.95); }
-.hold-fill { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: #ef4444; z-index: 1;}
-.hold-text { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px;}
+.hold-fill { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: var(--red); z-index: 1; }
+.hold-text { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; }
 
-@media (max-width: 600px) { 
-  .grid-modules { grid-template-columns: 1fr; } 
+@media (max-width: 720px) {
+  .grid-modules { grid-template-columns: 1fr; }
   .data-grid { grid-template-columns: 1fr; }
-  .vital-box, .heatmap-box { padding: 16px; }
-  .vital-content { justify-content: space-around; }
+  header { padding: 14px 16px; }
 }
 </style>
 </head>
 <body>
 
-<!-- BARRA TRIMESTRE SEGMENTADA -->
 <div class="quarter-grid" id="qBarGrid">
   <div class="quarter-seg"></div><div class="quarter-seg"></div><div class="quarter-seg"></div>
   <div class="quarter-seg"></div><div class="quarter-seg"></div><div class="quarter-seg"></div>
@@ -176,58 +210,59 @@ body.dark-theme .loading::after { background: linear-gradient(90deg, transparent
 </div>
 
 <header>
-  <div style="width: 100%;">
-    <div class="sys-status">
-      <div style="display:flex; align-items:center; gap:6px;">
-        <div class="status-dot online"></div> <span id="sysMsg">En línea</span>
+  <div class="header-inner">
+    <div class="brand-group">
+      <div class="sys-status">
+        <span><span class="cloud-status" id="cloudStatus"></span> <span id="sysMsg">PIEROVSKI OS</span></span>
+        <span class="streak-box" id="streakBox">🔥 0 DÍAS</span>
       </div>
-      <div class="streak-box" id="streakBox">🔥 0 DÍAS</div>
+      <div class="greeting-area"><h1 id="greetText">Hola, Piero</h1></div>
     </div>
-    <div class="greeting-area"><h1 id="greetText" class="loading">Cargando...</h1></div>
-  </div>
-  <div class="header-actions" style="margin-top: 12px; width: 100%; justify-content: flex-end;">
-    <button class="btn-icon-tool" id="privacyToggleBtn" onclick="togglePrivacy()">👁️</button>
-    <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()">🌙</button>
-    <button class="btn-icon-tool" id="terrenoToggleBtn" onclick="toggleTerrenoMode()">🔋</button>
+    <div class="header-actions">
+      <button class="btn-icon-tool" id="privacyToggleBtn" onclick="togglePrivacy()" title="Modo Privacidad">👁️</button>
+      <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema Oscuro / Claro">🌙</button>
+      <button class="btn-icon-tool" id="terrenoToggleBtn" onclick="toggleTerrenoMode()" title="Modo Terreno (Ahorro E-Ink)">🔋</button>
+    </div>
   </div>
 </header>
 
 <main>
-  <!-- PÍLDORAS ROTATIVAS -->
   <div class="quote-box stagger-1">
     <div class="quote-text" id="dailyQuote">"La disciplina te mantiene en el camino."</div>
   </div>
 
-  <!-- WIDGET ACCIÓN INMEDIATA -->
   <div class="next-action-card stagger-2" id="nextActionZone">
-    <div class="na-header">🔥 OBJETIVO TÁCTICO DE HOY</div>
-    <div class="na-task loading" id="naTask">Analizando directivas...</div>
-    <div class="na-hint"><span>[Módulo Plan]</span> <span>Doble toque: Inmersión</span></div>
+    <div class="na-header">
+      <span>🎯 FOCO TÁCTICO DE HOY</span>
+      <span id="naWeekBadge">SEMANA 1</span>
+    </div>
+    <div class="na-task" id="naTask">Analizando directivas...</div>
+    <div class="na-hint">
+      <span>Un toque: Ir al Plan</span>
+      <span>Doble toque: Inmersión 90m</span>
+    </div>
   </div>
 
   <div class="data-grid stagger-3">
-    <!-- NUEVO: ANILLOS Y BARRAS HÍBRIDO -->
     <div class="vital-box">
-      <div class="section-lbl">Equilibrio Operativo</div>
+      <div class="section-lbl">
+        <span>Equilibrio Trimestral</span>
+        <span id="globalPctLbl">0%</span>
+      </div>
       <div class="vital-content">
-        <!-- Anillos Concéntricos -->
         <div class="concentric-wrapper">
           <svg class="vital-svg" viewBox="0 0 100 100">
-            <!-- Circunferencias: C = 2 * PI * R -->
-            <!-- R=40 -> 251.2 | R=28 -> 175.9 | R=16 -> 100.5 -->
             <circle cx="50" cy="50" r="40" class="ring-bg"/>
             <circle cx="50" cy="50" r="28" class="ring-bg"/>
             <circle cx="50" cy="50" r="16" class="ring-bg"/>
-            
             <circle cx="50" cy="50" r="40" class="ring-fill ring-topo" id="c-ring-topo" stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
             <circle cx="50" cy="50" r="28" class="ring-fill ring-fin" id="c-ring-fin" stroke-dasharray="175.9" stroke-dashoffset="175.9"/>
             <circle cx="50" cy="50" r="16" class="ring-fill ring-gym" id="c-ring-gym" stroke-dasharray="100.5" stroke-dashoffset="100.5"/>
           </svg>
         </div>
-        <!-- Barras Lineales de Exactitud -->
         <div class="linear-wrapper">
           <div class="l-bar-item">
-            <div class="l-bar-info"><span class="l-bar-lbl" style="color:var(--blue);">TOPO</span><span class="l-bar-val" id="lb-val-topo">0%</span></div>
+            <div class="l-bar-info"><span class="l-bar-lbl" style="color:var(--blue);">TOPOGRAFÍA</span><span class="l-bar-val" id="lb-val-topo">0%</span></div>
             <div class="l-bar-bg"><div class="l-bar-fill" id="lb-fill-topo" style="background:var(--blue); width:0%;"></div></div>
           </div>
           <div class="l-bar-item">
@@ -242,372 +277,494 @@ body.dark-theme .loading::after { background: linear-gradient(90deg, transparent
       </div>
     </div>
 
-    <!-- LÍNEA DE TIEMPO TÁCTICA -->
     <div class="heatmap-box">
-      <div class="section-lbl">Consistencia (30D)</div>
-      <div class="heatmap-scroll" id="heatmapGrid">
-        <!-- JS generará tarjetas con fechas -->
+      <div class="section-lbl">
+        <span>Consistencia Real (30D)</span>
+        <span id="activeDaysCount">0/30 d</span>
+      </div>
+      <div class="heatmap-scroll" id="heatmapGrid"></div>
+      <div class="hm-legend">
+        <span>Historial real sincronizado</span>
+        <span>Hoy ●</span>
       </div>
     </div>
   </div>
 
-  <!-- MÓDULOS -->
-  <div class="section-title stagger-4">Terminales Operativos</div>
+  <div class="section-title stagger-4">Módulos del Sistema</div>
   <div class="grid-modules stagger-4">
-    <a href="compras.html" class="mod-card mod-compras" id="mc-compras">
+    <a href="compras.html" class="mod-card" id="mc-compras">
       <div class="pulse-ring"></div>
       <div class="mod-icon">📦</div>
       <div class="mod-info">
-        <div class="mod-title">Compras</div>
-        <div class="mod-val loading" id="stat-money-compras">---</div>
-        <div class="mod-desc">Gasto activo del mes</div>
-      </div>
-    </a>
-    
-    <a href="tarjetas.html" class="mod-card mod-tarjetas" id="mc-tarjetas">
-      <div class="pulse-ring"></div>
-      <div class="mod-icon">💳</div>
-      <div class="mod-info">
-        <div class="mod-title">Tarjetas</div>
-        <div class="mod-val loading" id="stat-money-tarjetas">---</div>
-        <div class="mod-desc" id="stat-tarjetas">Verificando deudas...</div>
+        <div class="mod-title">Compras y Activos</div>
+        <div class="mod-val" id="stat-money-compras">S/ 0.00</div>
+        <div class="mod-desc" id="stat-desc-compras">Inversión este mes</div>
       </div>
     </a>
 
-    <a href="plan.html" class="mod-card mod-plan" id="mc-plan">
+    <a href="tarjetas.html" class="mod-card" id="mc-tarjetas">
       <div class="pulse-ring"></div>
-      <div class="mod-icon">📈</div>
+      <div class="mod-icon">💳</div>
       <div class="mod-info">
-        <div class="mod-title">Plan 12S</div>
-        <div class="mod-val" style="color:var(--blue);">Matriz</div>
-        <div class="mod-desc">Auditoría Táctica</div>
+        <div class="mod-title">Tarjetas y Deuda</div>
+        <div class="mod-val" id="stat-money-tarjetas">0</div>
+        <div class="mod-desc" id="stat-tarjetas">Verificando cortes...</div>
+      </div>
+    </a>
+
+    <a href="plan.html" class="mod-card" id="mc-plan">
+      <div class="pulse-ring"></div>
+      <div class="mod-icon">🧭</div>
+      <div class="mod-info">
+        <div class="mod-title">Plan 12 Semanas</div>
+        <div class="mod-val" id="stat-val-plan" style="color:var(--blue);">Semana 1</div>
+        <div class="mod-desc" id="stat-desc-plan">Ejecución táctica</div>
       </div>
     </a>
   </div>
 </main>
 
-<!-- DEEP WORK Y HOLD TO CONFIRM HÁPTICO -->
 <div class="dw-overlay" id="dwOverlay">
-  <div style="font-family:'DM Mono', monospace; color:#64748b; margin-bottom:20px; letter-spacing:2px;">INMERSIÓN TÁCTICA</div>
+  <div style="font-family:'DM Mono', monospace; color:var(--amber); margin-bottom:12px; letter-spacing:2px; font-size:0.8rem;">BLOQUE DE INMERSIÓN ACTIVO</div>
   <div class="dw-timer" id="dwTimer">90:00</div>
-  
   <button class="hold-btn" id="holdAbortBtn">
     <div class="hold-fill" id="holdFill"></div>
-    <div class="hold-text">Mantén para Abortar</div>
+    <div class="hold-text">Mantén 1.5s para Abortar</div>
   </button>
 </div>
 
 <script>
+// REGISTRO PWA SERVICE WORKER
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+
+// CONFIGURACIÓN FIREBASE UNIFICADA
+const firebaseConfig = {
+  apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
+  authDomain: "pierovski-center.firebaseapp.com",
+  databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com",
+  projectId: "pierovski-center"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
 let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
 let isTerrenoMode = localStorage.getItem('terreno_mode') === 'true';
 
-// LERP PARALLAX (MOVIMIENTO MANTEQUILLA)
-let tiltTargetX = 0, tiltTargetY = 0;
-let tiltCurrX = 0, tiltCurrY = 0;
-let parallaxReq;
-
+// PARALLAX SUAVE
+let tiltTargetX = 0, tiltTargetY = 0, tiltCurrX = 0, tiltCurrY = 0, parallaxReq;
 function lerpParallax() {
-    tiltCurrX += (tiltTargetX - tiltCurrX) * 0.1;
-    tiltCurrY += (tiltTargetY - tiltCurrY) * 0.1;
-    document.documentElement.style.setProperty('--tiltX', `${tiltCurrX}px`);
-    document.documentElement.style.setProperty('--tiltY', `${tiltCurrY}px`);
-    parallaxReq = requestAnimationFrame(lerpParallax);
+  tiltCurrX += (tiltTargetX - tiltCurrX) * 0.1;
+  tiltCurrY += (tiltTargetY - tiltCurrY) * 0.1;
+  document.documentElement.style.setProperty('--tiltX', `${tiltCurrX.toFixed(2)}px`);
+  document.documentElement.style.setProperty('--tiltY', `${tiltCurrY.toFixed(2)}px`);
+  parallaxReq = requestAnimationFrame(lerpParallax);
 }
-
 window.addEventListener('deviceorientation', (e) => {
-    if(isTerrenoMode) return;
-    tiltTargetX = Math.max(-10, Math.min(10, e.gamma || 0)) / 2;
-    tiltTargetY = Math.max(-10, Math.min(10, e.beta || 0)) / 2;
+  if (isTerrenoMode) return;
+  tiltTargetX = Math.max(-10, Math.min(10, e.gamma || 0)) / 2;
+  tiltTargetY = Math.max(-10, Math.min(10, e.beta || 0)) / 2;
 });
 
-// MODOS E INICIO
+function todayStr() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function cleanDateStr(raw) {
+  if (!raw) return '2026-03-30';
+  return String(raw).replace(/"/g, '').split('T')[0];
+}
+
 function initGlobals() {
   if (localStorage.getItem('compras_theme') === 'dark') document.body.classList.add('dark-theme');
   if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
   applyTerrenoMode();
 
   const h = new Date().getHours();
-  let greet = "Buenas noches";
-  if(h >= 5 && h < 12) greet = "Buenos días";
-  else if(h >= 12 && h < 19) greet = "Buenas tardes";
-  
-  const greetEl = document.getElementById('greetText');
-  greetEl.classList.remove('loading');
-  greetEl.textContent = `${greet}, Piero`;
-
-  if(!isTerrenoMode) parallaxReq = requestAnimationFrame(lerpParallax);
+  const greet = h >= 5 && h < 12 ? "Buenos días" : (h >= 12 && h < 19 ? "Buenas tardes" : "Buenas noches");
+  document.getElementById('greetText').textContent = `${greet}, Piero`;
 }
 
 function togglePrivacy() {
   isPrivacyMode = !isPrivacyMode;
   localStorage.setItem('pierovski_privacy', isPrivacyMode);
   document.getElementById('privacyToggleBtn').classList.toggle('active', isPrivacyMode);
-  loadMiniStats(); 
+  loadMiniStats();
 }
 
 function toggleDarkMode() {
-  document.body.classList.toggle('dark-theme');
-  localStorage.setItem('compras_theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+  const isDark = document.body.classList.toggle('dark-theme');
+  localStorage.setItem('compras_theme', isDark ? 'dark' : 'light');
 }
 
 function toggleTerrenoMode() {
-    isTerrenoMode = !isTerrenoMode;
-    localStorage.setItem('terreno_mode', isTerrenoMode);
-    applyTerrenoMode();
+  isTerrenoMode = !isTerrenoMode;
+  localStorage.setItem('terreno_mode', isTerrenoMode);
+  applyTerrenoMode();
 }
 
 function applyTerrenoMode() {
-    const btn = document.getElementById('terrenoToggleBtn');
-    if(isTerrenoMode) {
-        document.body.classList.add('e-ink-mode');
-        btn.classList.add('active'); 
-        cancelAnimationFrame(parallaxReq);
-        document.documentElement.style.setProperty('--tiltX', `0px`);
-        document.documentElement.style.setProperty('--tiltY', `0px`);
-    } else {
-        document.body.classList.remove('e-ink-mode');
-        btn.classList.remove('active'); 
-        parallaxReq = requestAnimationFrame(lerpParallax);
-    }
+  const btn = document.getElementById('terrenoToggleBtn');
+  if (isTerrenoMode) {
+    document.body.classList.add('e-ink-mode');
+    btn.classList.add('active');
+    cancelAnimationFrame(parallaxReq);
+    document.documentElement.style.setProperty('--tiltX', '0px');
+    document.documentElement.style.setProperty('--tiltY', '0px');
+  } else {
+    document.body.classList.remove('e-ink-mode');
+    btn.classList.remove('active');
+    cancelAnimationFrame(parallaxReq);
+    parallaxReq = requestAnimationFrame(lerpParallax);
+  }
 }
 
 function formatMoney(val) {
-  if (isPrivacyMode) return 'S/ ***.**';
+  if (isPrivacyMode) return 'S/ ***';
   return 'S/ ' + (Number(val) || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-// CARGA DE DATOS Y ESTADÍSTICAS
+// SINCRONIZACIÓN MULTI-DISPOSITIVO EN SEGUNDO PLANO
+async function syncFromCloud() {
+  if (!navigator.onLine) return;
+  try {
+    // 1. Asegurar caché de archivos JSON de planes
+    const planFiles = { topo: 'plan_topografia.json', fin: 'plan_finanzas.json', gym: 'plan_gimnasio.json' };
+    for (const [pid, file] of Object.entries(planFiles)) {
+      if (!localStorage.getItem(`cache_${pid}`)) {
+        const res = await fetch(file);
+        if (res.ok) localStorage.setItem(`cache_${pid}`, JSON.stringify(await res.json()));
+      }
+    }
+
+    // 2. Sincronizar nodo principal 'pierovski' y 'compras'
+    const [pierovskiSnap, comprasSnap] = await Promise.all([
+      db.ref('pierovski').once('value'),
+      db.ref('compras').once('value')
+    ]);
+
+    document.getElementById('cloudStatus').className = 'cloud-status cloud-online';
+
+    if (pierovskiSnap.exists()) {
+      const pData = pierovskiSnap.val();
+      // Tarjetas
+      const cloudCardsTs = pData.tarjetasLastUpdated || 0;
+      const localCardsTs = parseInt(localStorage.getItem('t_last_update')) || 0;
+      if (cloudCardsTs >= localCardsTs) {
+        if (pData.tarjetasPremiumV3) localStorage.setItem('tarjetasPremiumV3', JSON.stringify(pData.tarjetasPremiumV3));
+        if (pData.pagosTarjetasV1) localStorage.setItem('pagosTarjetasV1', JSON.stringify(pData.pagosTarjetasV1));
+      }
+      // Plan 12 Semanas
+      if (pData.plan) {
+        const cloudPlanTs = pData.plan.lastUpdated || 0;
+        const localPlanTs = parseInt(localStorage.getItem('plan_last_update')) || 0;
+        if (cloudPlanTs >= localPlanTs) {
+          if (pData.plan.tasks) {
+            ['topo', 'fin', 'gym'].forEach(k => {
+              if (pData.plan.tasks[k]) localStorage.setItem(`${k}_tasks_v1`, JSON.stringify(pData.plan.tasks[k]));
+            });
+          }
+          if (pData.plan.startDate) localStorage.setItem('topo_start_date_v1', JSON.stringify(pData.plan.startDate));
+          if (pData.plan.dailyLog) localStorage.setItem('pierovski_daily_log', JSON.stringify(pData.plan.dailyLog));
+        }
+      }
+    }
+
+    if (comprasSnap.exists()) {
+      const cData = comprasSnap.val();
+      const cloudCompTs = cData.lastUpdated || 0;
+      const localCompTs = parseInt(localStorage.getItem('c_last_update')) || 0;
+      if (cloudCompTs >= localCompTs && cData.products) {
+        localStorage.setItem('c_prods', JSON.stringify(cData.products));
+      }
+    }
+
+    loadMiniStats();
+    processPlanData();
+  } catch (e) {}
+}
+
 function loadMiniStats() {
   try {
     const tjs = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
     const pend = tjs.filter(t => !t.paid).length;
-    
-    const mt = document.getElementById('stat-money-tarjetas');
-    mt.classList.remove('loading');
-    mt.innerText = isPrivacyMode ? '***' : pend;
-    
-    document.getElementById('stat-tarjetas').innerHTML = pend > 0 ? `<span style="color:var(--red);">Por pagar</span>` : `Todo al día ✓`;
-    if(pend === 0) document.getElementById('mc-tarjetas').classList.add('is-100');
+    const totalDebt = tjs.reduce((acc, t) => acc + (parseFloat(t.debtTotal) || 0), 0);
 
-    const prods = JSON.parse(localStorage.getItem('c_prods')) || [];
-    let gMes = 0; const hoy = new Date();
-    (Array.isArray(prods) ? prods : Object.values(prods)).forEach(p => {
-      if(p && typeof p === 'object') {
-        const pd = new Date((p.date || new Date()) + 'T12:00:00');
-        if(pd.getMonth() === hoy.getMonth() && pd.getFullYear() === hoy.getFullYear()) gMes += parseFloat(p.cost || p.baseCost || 0);
+    const mt = document.getElementById('stat-money-tarjetas');
+    mt.innerText = isPrivacyMode ? '***' : `${pend} pend.`;
+
+    const descT = document.getElementById('stat-tarjetas');
+    if (totalDebt > 0) {
+      descT.innerHTML = `Deuda: <b>${formatMoney(totalDebt)}</b>`;
+    } else {
+      descT.innerHTML = pend > 0 ? `<span style="color:var(--red);">${pend} por pagar este mes</span>` : `Todo al día ✓`;
+    }
+    document.getElementById('mc-tarjetas').classList.toggle('is-100', pend === 0 && tjs.length > 0);
+
+    const prodsRaw = JSON.parse(localStorage.getItem('c_prods')) || [];
+    const prods = Array.isArray(prodsRaw) ? prodsRaw : Object.values(prodsRaw);
+    let gMes = 0, enAmort = 0;
+    const hoy = new Date();
+
+    prods.forEach(p => {
+      if (p && typeof p === 'object') {
+        const cost = parseFloat(p.cost || p.baseCost || 0);
+        const goal = parseFloat(p.goal || 1);
+        const pd = new Date(cleanDateStr(p.date) + 'T12:00:00');
+        if (pd.getMonth() === hoy.getMonth() && pd.getFullYear() === hoy.getFullYear()) gMes += cost;
+        const days = Math.max(1, Math.ceil(Math.abs(hoy - pd) / 86400000));
+        if ((cost / days) > goal) enAmort++;
       }
     });
-    
-    const mc = document.getElementById('stat-money-compras');
-    mc.classList.remove('loading');
-    mc.innerText = formatMoney(gMes);
-  } catch(e) {}
+
+    document.getElementById('stat-money-compras').innerText = formatMoney(gMes);
+    document.getElementById('stat-desc-compras').innerText = `${enAmort} activos amortizándose`;
+  } catch (e) {}
 }
 
 function getQuarterProgress() {
-    const sStr = localStorage.getItem('topo_start_date_v1') || '2026-03-30';
-    const diff = Math.floor((new Date().setHours(0,0,0,0) - new Date(sStr + 'T00:00:00')) / 86400000);
-    return { days: diff, wk: Math.min(Math.max(0, Math.floor(diff / 7)), 11) };
+  const sStr = cleanDateStr(localStorage.getItem('topo_start_date_v1'));
+  const parts = sStr.split('-');
+  const startDate = new Date(parts[0], parts[1] - 1, parts[2]);
+  const today = new Date();
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const diffDays = Math.floor((todayMidnight - startDate) / 86400000);
+  const wk = diffDays < 0 ? 0 : Math.min(Math.floor(diffDays / 7), 11);
+  return { days: diffDays, wk };
 }
 
-// LÓGICA PRINCIPAL: ANILLOS, BARRAS Y TRACKER MENSAL
 function processPlanData() {
-  const { days, wk } = getQuarterProgress();
-  
-  // Renderizado Barra Trimestre (12 Segmentos)
+  const { wk } = getQuarterProgress();
+  document.getElementById('naWeekBadge').innerText = `SEMANA ${wk + 1}`;
+  document.getElementById('stat-val-plan').innerText = `Semana ${wk + 1}/12`;
+
   const qGrid = document.getElementById('qBarGrid').children;
-  for(let i=0; i<12; i++) {
-      if(i < wk) qGrid[i].classList.add('done');
-      else if(i === wk) qGrid[i].classList.add('active');
+  for (let i = 0; i < 12; i++) {
+    qGrid[i].className = 'quarter-seg';
+    if (i < wk) qGrid[i].classList.add('done');
+    else if (i === wk) qGrid[i].classList.add('active');
   }
 
-  const tName = ["[DOMINGO]", "[LUNES]", "[MARTES]", "[MIÉRCOLES]", "[JUEVES]", "[VIERNES]", "[SÁBADO]"][new Date().getDay()];
+  const dayNames = ["[DOMINGO]", "[LUNES]", "[MARTES]", "[MIÉRCOLES]", "[JUEVES]", "[VIERNES]", "[SÁBADO]"];
+  const tName = dayNames[new Date().getDay()];
   let naFound = null;
   const radar = { topo: 0, fin: 0, gym: 0 };
   let totalDonesToday = 0;
 
   ['topo', 'fin', 'gym'].forEach(p => {
     try {
-      let tTot = 1, tDone = 0;
       const plan = JSON.parse(localStorage.getItem(`cache_${p}`));
       const states = JSON.parse(localStorage.getItem(`${p}_tasks_v1`) || '{}');
-      
       if (plan && plan.weeks) {
-          tTot = plan.weeks.reduce((a, w) => a + (w.tasks ? w.tasks.length : 0), 0) || 1;
-          tDone = Object.values(states).filter(v => v === true).length;
-          
-          if(plan.weeks[wk]) {
-              plan.weeks[wk].tasks.forEach((t, tIdx) => {
-                  const chk = states[`${wk}-${tIdx}`] === true;
-                  if((t.includes(tName) || t.includes('[DIARIO]'))) {
-                      if(!chk && !naFound) naFound = t.replace(/\[.*?\]/g, '').trim();
-                      if(chk) totalDonesToday++;
-                  }
-              });
-          }
+        const tTot = plan.weeks.reduce((a, w) => a + (w.tasks ? w.tasks.length : 0), 0) || 1;
+        const tDone = Object.values(states).filter(v => v === true).length;
+        radar[p] = Math.min(tDone / tTot, 1);
+
+        if (plan.weeks[wk] && plan.weeks[wk].tasks) {
+          plan.weeks[wk].tasks.forEach((t, tIdx) => {
+            const chk = states[`${wk}-${tIdx}`] === true;
+            if (t.includes(tName) || t.includes('[DIARIO]')) {
+              if (!chk && !naFound) naFound = t.replace(/\[.*?\]/g, '').trim();
+              if (chk) totalDonesToday++;
+            }
+          });
+        }
       }
-      radar[p] = Math.min((tDone / tTot), 1);
     } catch (e) {}
   });
 
   const naEl = document.getElementById('naTask');
-  naEl.classList.remove('loading');
-  naEl.innerText = naFound || "Misión diaria completada. 100% operativo.";
-  if(!naFound) {
-      document.getElementById('mc-plan').classList.add('is-100');
-      document.getElementById('sysMsg').innerText = "Rendimiento Óptimo";
+  naEl.innerText = naFound || "Objetivos del día completados. Sistema al 100%.";
+  document.getElementById('mc-plan').classList.toggle('is-100', !naFound);
+  document.getElementById('stat-desc-plan').innerText = !naFound ? "Día completado ✓" : `${totalDonesToday} hechas hoy`;
+
+  // REGISTRO DIARIO REAL Y CÁLCULO DE RACHA SIN DUPLICADOS
+  const dailyLog = JSON.parse(localStorage.getItem('pierovski_daily_log') || '{}');
+  const todayKey = todayStr();
+  if (totalDonesToday > 0) {
+    dailyLog[todayKey] = Math.max(dailyLog[todayKey] || 0, totalDonesToday);
+    localStorage.setItem('pierovski_daily_log', JSON.stringify(dailyLog));
   }
 
-  const streak = totalDonesToday > 0 ? (parseInt(localStorage.getItem('streak_v1')) || 0) + 1 : (parseInt(localStorage.getItem('streak_v1')) || 0);
-  localStorage.setItem('streak_v1', streak);
-  document.getElementById('streakBox').innerText = `🔥 ${streak} DÍAS`;
+  const streak = calcRealStreak(dailyLog);
+  document.getElementById('streakBox').innerText = `🔥 ${streak} ${streak === 1 ? 'DÍA' : 'DÍAS'}`;
 
   drawVitalBalance(radar.topo, radar.fin, radar.gym);
-  drawRealTimeline(streak);
+  drawRealTimeline(dailyLog);
 }
 
-// 1. NUEVO: DIBUJO DE ANILLOS Y BARRAS
-function drawVitalBalance(t, f, g) {
-    // Topo (R=40 -> C=251.2) | Fin (R=28 -> C=175.9) | Gym (R=16 -> C=100.5)
-    setTimeout(() => { 
-        // Anillos
-        document.getElementById('c-ring-topo').style.strokeDashoffset = 251.2 * (1 - (t||0.05));
-        document.getElementById('c-ring-fin').style.strokeDashoffset = 175.9 * (1 - (f||0.05));
-        document.getElementById('c-ring-gym').style.strokeDashoffset = 100.5 * (1 - (g||0.05));
-        
-        // Barras
-        const tPct = Math.round((t||0)*100); const fPct = Math.round((f||0)*100); const gPct = Math.round((g||0)*100);
-        document.getElementById('lb-fill-topo').style.width = `${tPct}%`; document.getElementById('lb-val-topo').innerText = `${tPct}%`;
-        document.getElementById('lb-fill-fin').style.width = `${fPct}%`; document.getElementById('lb-val-fin').innerText = `${fPct}%`;
-        document.getElementById('lb-fill-gym').style.width = `${gPct}%`; document.getElementById('lb-val-gym').innerText = `${gPct}%`;
-    }, 300);
-}
-
-// LÍNEA DE TIEMPO TÁCTICA (Fechas y Días reales)
-function drawRealTimeline(streakCount) {
-    const hm = document.getElementById('heatmapGrid');
-    let html = '';
-    const today = new Date();
-    const daysArr = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
-    
-    // Generar últimos 30 días
-    for(let i = 29; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(today.getDate() - i);
-        const dayName = daysArr[d.getDay()];
-        const dateNum = d.getDate();
-        const isToday = i === 0;
-        
-        let lvl = 0;
-        // Los días de la racha actual se pintan al máximo
-        if (i < streakCount) { lvl = 3; } 
-        else {
-           // Simulación orgánica de datos anteriores para visualización
-           const noise = Math.random();
-           lvl = noise > 0.6 ? 2 : noise > 0.3 ? 1 : 0;
-        }
-        
-        html += `
-        <div class="hm-cell lvl-${lvl} ${isToday ? 'is-today' : ''}">
-            <span class="hm-day">${dayName}</span>
-            <span class="hm-date">${dateNum}</span>
-        </div>`;
+function calcRealStreak(dailyLog) {
+  let count = 0;
+  const cursor = new Date();
+  // Si hoy aún no tiene tareas registradas, verificamos desde ayer para no romper la racha a primera hora de la mañana
+  const todayKey = todayStr();
+  if (!dailyLog[todayKey]) {
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  while (true) {
+    const y = cursor.getFullYear();
+    const m = String(cursor.getMonth() + 1).padStart(2, '0');
+    const d = String(cursor.getDate()).padStart(2, '0');
+    const key = `${y}-${m}-${d}`;
+    if (dailyLog[key] && dailyLog[key] > 0) {
+      count++;
+      cursor.setDate(cursor.getDate() - 1);
+    } else {
+      break;
     }
-    
-    hm.innerHTML = html;
-    // Auto-scroll para que el "Hoy" (último día) sea visible
-    setTimeout(() => { hm.scrollLeft = hm.scrollWidth; }, 100);
+  }
+  return count;
 }
 
-// PÍLDORAS ROTATIVAS
+function drawVitalBalance(t, f, g) {
+  const globalPct = Math.round(((t + f + g) / 3) * 100);
+  document.getElementById('globalPctLbl').innerText = `${globalPct}% Total`;
+
+  setTimeout(() => {
+    document.getElementById('c-ring-topo').style.strokeDashoffset = 251.2 * (1 - Math.max(t, 0.03));
+    document.getElementById('c-ring-fin').style.strokeDashoffset = 175.9 * (1 - Math.max(f, 0.03));
+    document.getElementById('c-ring-gym').style.strokeDashoffset = 100.5 * (1 - Math.max(g, 0.03));
+
+    const tPct = Math.round(t * 100), fPct = Math.round(f * 100), gPct = Math.round(g * 100);
+    document.getElementById('lb-fill-topo').style.width = `${tPct}%`; document.getElementById('lb-val-topo').innerText = `${tPct}%`;
+    document.getElementById('lb-fill-fin').style.width = `${fPct}%`; document.getElementById('lb-val-fin').innerText = `${fPct}%`;
+    document.getElementById('lb-fill-gym').style.width = `${gPct}%`; document.getElementById('lb-val-gym').innerText = `${gPct}%`;
+  }, 150);
+}
+
+function drawRealTimeline(dailyLog) {
+  const hm = document.getElementById('heatmapGrid');
+  let html = '';
+  let activeDays = 0;
+  const today = new Date();
+  const daysArr = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
+
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const count = dailyLog[key] || 0;
+    if (count > 0) activeDays++;
+
+    const lvl = count >= 3 ? 3 : (count === 2 ? 2 : (count === 1 ? 1 : 0));
+    html += `
+      <div class="hm-cell lvl-${lvl} ${i === 0 ? 'is-today' : ''}" title="${key}: ${count} tareas">
+        <span class="hm-day">${daysArr[d.getDay()]}</span>
+        <span class="hm-date">${d.getDate()}</span>
+      </div>`;
+  }
+
+  hm.innerHTML = html;
+  document.getElementById('activeDaysCount').innerText = `${activeDays}/30 d`;
+  setTimeout(() => { hm.scrollLeft = hm.scrollWidth; }, 80);
+}
+
+// FRASES ROTATIVAS
 const quotes = [
-    "La disciplina te mantiene en el camino.",
-    "El sistema que construyes es tu verdadera libertad.",
-    "La asimetría cede cuando el lado débil dicta el límite.",
-    "Un profesional confía en sus sistemas, no en su memoria.",
-    "El interés compuesto físico y mental es una realidad."
+  "La disciplina te mantiene en el camino.",
+  "El sistema que construyes es tu verdadera libertad.",
+  "La asimetría cede cuando el lado débil dicta el límite.",
+  "Un profesional confía en sus sistemas, no en su memoria.",
+  "El interés compuesto físico y mental es una realidad."
 ];
 let qIdx = 0;
 setInterval(() => {
-    const qEl = document.getElementById('dailyQuote');
-    qEl.style.opacity = 0;
-    setTimeout(() => {
-        qIdx = (qIdx + 1) % quotes.length;
-        qEl.innerText = `"${quotes[qIdx]}"`;
-        qEl.style.opacity = 1;
-    }, 500);
-}, 6000);
+  const qEl = document.getElementById('dailyQuote');
+  qEl.style.opacity = 0;
+  setTimeout(() => {
+    qIdx = (qIdx + 1) % quotes.length;
+    qEl.innerText = `"${quotes[qIdx]}"`;
+    qEl.style.opacity = 1;
+  }, 400);
+}, 7000);
 
-// DOBLE TOQUE INMERSIÓN
-let lastTap = 0;
+// NAVEGACIÓN Y DOBLE TOQUE PARA INMERSIÓN DELTA-TIME
+let tapTimer = null;
 document.getElementById('nextActionZone').addEventListener('click', () => {
-    const now = Date.now();
-    if(now - lastTap < 300) launchDeepWork();
-    lastTap = now;
+  if (tapTimer === null) {
+    tapTimer = setTimeout(() => {
+      tapTimer = null;
+      window.location.href = 'plan.html';
+    }, 260);
+  } else {
+    clearTimeout(tapTimer);
+    tapTimer = null;
+    launchDeepWork(90);
+  }
 });
 
-let dwInt; let dwSecs = 90 * 60;
-function launchDeepWork() {
-    if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
-    document.getElementById('dwOverlay').classList.add('open');
-    if(!dwInt) {
-        dwInt = setInterval(() => {
-            dwSecs--;
-            let m = Math.floor(dwSecs / 60).toString().padStart(2, '0');
-            let s = (dwSecs % 60).toString().padStart(2, '0');
-            document.getElementById('dwTimer').textContent = `${m}:${s}`;
-            if(dwSecs <= 0) abortDW();
-        }, 1000);
-    }
+let dwInt = null;
+function launchDeepWork(minutes = 90) {
+  let endTime = parseInt(localStorage.getItem('pierovski_dw_end')) || 0;
+  if (endTime <= Date.now()) {
+    endTime = Date.now() + minutes * 60 * 1000;
+    localStorage.setItem('pierovski_dw_end', endTime);
+  }
+  if (navigator.vibrate) navigator.vibrate([80, 40, 80]);
+  document.getElementById('dwOverlay').classList.add('open');
+  updateDwDisplay();
+  clearInterval(dwInt);
+  dwInt = setInterval(updateDwDisplay, 1000);
 }
 
-// OPTIMIZACIÓN DE HOLD-TO-CONFIRM CON FEEDBACK HÁPTICO
+function updateDwDisplay() {
+  const endTime = parseInt(localStorage.getItem('pierovski_dw_end')) || 0;
+  const remSecs = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
+  const m = String(Math.floor(remSecs / 60)).padStart(2, '0');
+  const s = String(remSecs % 60).padStart(2, '0');
+  document.getElementById('dwTimer').textContent = `${m}:${s}`;
+  if (remSecs <= 0) {
+    abortDW();
+    alert("🔥 Bloque de inmersión completado.");
+  }
+}
+
+// HOLD-TO-CONFIRM PARA ABORTAR INMERSIÓN
 const holdBtn = document.getElementById('holdAbortBtn');
 const holdFill = document.getElementById('holdFill');
 let holdReq, holdStart = 0;
-let vibratePhase1 = false, vibratePhase2 = false;
 
 function updateHold() {
-    const prog = Math.min((Date.now() - holdStart) / 1500, 1);
-    holdFill.style.width = `${prog * 100}%`;
-    holdBtn.classList.add('shaking');
-    
-    // Feedback háptico incremental
-    if(prog > 0.3 && !vibratePhase1) { if(navigator.vibrate) navigator.vibrate(30); vibratePhase1 = true; }
-    if(prog > 0.7 && !vibratePhase2) { if(navigator.vibrate) navigator.vibrate(50); vibratePhase2 = true; }
-    
-    if(prog >= 1) { abortDW(); return; }
-    holdReq = requestAnimationFrame(updateHold);
+  const prog = Math.min((Date.now() - holdStart) / 1500, 1);
+  holdFill.style.width = `${prog * 100}%`;
+  holdBtn.classList.add('shaking');
+  if (prog >= 1) { abortDW(); return; }
+  holdReq = requestAnimationFrame(updateHold);
 }
-
-const startHold = (e) => { 
-    e.preventDefault(); 
-    holdStart = Date.now(); 
-    vibratePhase1 = false; vibratePhase2 = false;
-    holdReq = requestAnimationFrame(updateHold); 
-};
-const stopHold = () => { 
-    cancelAnimationFrame(holdReq); 
-    holdFill.style.width = '0%'; 
-    holdBtn.classList.remove('shaking');
-};
+const startHold = (e) => { e.preventDefault(); holdStart = Date.now(); holdReq = requestAnimationFrame(updateHold); };
+const stopHold = () => { cancelAnimationFrame(holdReq); holdFill.style.width = '0%'; holdBtn.classList.remove('shaking'); };
 
 holdBtn.addEventListener('mousedown', startHold);
-holdBtn.addEventListener('touchstart', startHold);
+holdBtn.addEventListener('touchstart', startHold, { passive: false });
 holdBtn.addEventListener('mouseup', stopHold);
 holdBtn.addEventListener('mouseleave', stopHold);
 holdBtn.addEventListener('touchend', stopHold);
 
 function abortDW() {
-    stopHold(); clearInterval(dwInt); dwInt = null; dwSecs = 90 * 60;
-    document.getElementById('dwTimer').textContent = `90:00`;
-    document.getElementById('dwOverlay').classList.remove('open');
-    if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
+  stopHold();
+  clearInterval(dwInt);
+  dwInt = null;
+  localStorage.removeItem('pierovski_dw_end');
+  document.getElementById('dwOverlay').classList.remove('open');
 }
 
-window.onload = () => {
-  initGlobals(); loadMiniStats(); processPlanData();
-};
+window.addEventListener('DOMContentLoaded', () => {
+  initGlobals();
+  loadMiniStats();
+  processPlanData();
+  syncFromCloud();
+  // Si había un bloque de inmersión corriendo antes de recargar, lo retoma automáticamente
+  if ((parseInt(localStorage.getItem('pierovski_dw_end')) || 0) > Date.now()) {
+    launchDeepWork();
+  }
+});
 </script>
 </body>
 </html>

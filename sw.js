@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pierovski-v7'; // Sube este número cada vez que modifiques tu código
+const CACHE_NAME = 'pierovski-v8.1';
 
 const ASSETS = [
   './',
@@ -14,11 +14,9 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (e) => {
-  self.skipWaiting(); // Fuerza a que el nuevo Service Worker se instale de inmediato
+  self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
 });
 
@@ -27,9 +25,7 @@ self.addEventListener('activate', (e) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache); // Elimina la basura de versiones pasadas
-          }
+          if (cache !== CACHE_NAME) return caches.delete(cache);
         })
       );
     })
@@ -37,29 +33,30 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
-// ESTRATEGIA: NETWORK FIRST (Red primero, luego caché)
 self.addEventListener('fetch', (e) => {
-  // Solo aplicamos Network First a los archivos HTML para que siempre veas la última versión de tu código
-  if (e.request.mode === 'navigate' || e.request.headers.get('accept').includes('text/html')) {
+  const url = new URL(e.request.url);
+
+  // Ignorar peticiones a Firebase o APIs externas para no romper la sincronización en tiempo real
+  if (url.origin !== location.origin) return;
+
+  const acceptHeader = e.request.headers.get('accept') || '';
+
+  // Network First para HTML y JSON de planes
+  if (e.request.mode === 'navigate' || acceptHeader.includes('text/html') || url.pathname.endsWith('.json')) {
     e.respondWith(
-      fetch(e.request).then(response => {
-        return caches.open(CACHE_NAME).then(cache => {
-          cache.put(e.request, response.clone());
-          return response;
-        });
-      }).catch(() => {
-        // Si no hay internet, saca la versión guardada del caché
-        return caches.match(e.request);
-      })
+      fetch(e.request).then((response) => {
+        const resClone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(e.request, resClone));
+        return response;
+      }).catch(() => caches.match(e.request))
     );
   } else {
-    // Para imágenes y otros archivos, usamos Stale-While-Revalidate
+    // Stale-While-Revalidate para íconos y recursos locales
     e.respondWith(
       caches.match(e.request).then((cachedResponse) => {
         const fetchPromise = fetch(e.request).then((networkResponse) => {
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(e.request, networkResponse.clone());
-          });
+          const resClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, resClone));
           return networkResponse;
         }).catch(() => {});
         return cachedResponse || fetchPromise;
