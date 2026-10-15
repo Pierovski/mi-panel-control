@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pierovski-v8.1';
+const CACHE_NAME = 'pierovski-v9';
 
 const ASSETS = [
   './',
@@ -10,7 +10,8 @@ const ASSETS = [
   'icon.jpg',
   'plan_finanzas.json',
   'plan_gimnasio.json',
-  'plan_topografia.json'
+  'plan_topografia.json',
+  'plan_pueblo.json'
 ];
 
 self.addEventListener('install', (e) => {

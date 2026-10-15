@@ -1,126 +1,66 @@
 {
-  "vision": "Tengo liquidez blindada, un historial crediticio limpio y mis deudas consolidadas a la tasa más baja del mercado.",
-  "meta": "Ahorrar S/ 1,800 netos (S/ 150 por semana exactos), ejecutar una compra de deuda para bajar mi tasa de interés y pedir aumento de línea.",
-  "compromiso": "El ahorro de S/ 150 sale de mi cuenta apenas cobro. Las negociaciones bancarias las hago haciendo competir a los bancos sin apego.",
+  "vision": "Ahorro como mínimo S/ 600 cada mes sin fallar y manejo mis tarjetas con precisión quirúrgica para que los bancos compitan por subirme de categoría y línea de crédito.",
+  "meta": "Acumular S/ 1,800 en el trimestre (S/ 300 por quincena), mantener mi utilización de línea bajo el 25% al día de cierre y mejorar mis condiciones crediticias.",
+  "compromiso": "Mis S/ 300 quincenales salen el mismo día que cobro. Uso el crédito a mi favor pagando antes del cierre para dominar mi score en la SBS.",
   "weeks": [
     {
-      "title": "Semana 1: Operación Fricción Cero",
-      "theme": "SISTEMA BLINDADO",
+      "title": "Nivel 1: Bóveda Quincenal y Radiografía SBS",
+      "theme": "QUINCENA 1 · CONTROL DE BASE",
       "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir manualmente S/ 150 a la cuenta intocable.",
-        "[MIÉRCOLES] 📊 Auditoría: Mapear deudas actuales y Tasa de Interés (TEA) en el panel.",
-        "[DOMINGO] 🛡️ Revisión: Verificar saldo acumulado y planificar la semana.",
-        "[DIARIO] 📱 Hábito: Registrar cada sol gastado antes de dormir (Regla de 2 minutos)."
+        "[QUINCENA] 💰 Bóveda (Q1): Transferir S/ 300 a mi cuenta de ahorro intocable apenas reciba mi pago quincenal. || 💰 Micro-acción (2m): Abrir la app del banco y transferir aunque sea los primeros S/ 50 hoy mismo para abrir la quincena.",
+        "[MISIÓN 2] 📊 Auditoría en Módulo Tarjetas: Registrar todas mis tarjetas activas con su fecha exacta de Cierre, fecha de Pago, TEA y Línea Total en el módulo Tarjetas. || 📊 Micro-acción (2m): Verificar en el módulo Tarjetas que las fechas de cierre estén al día.",
+        "[MISIÓN 3] 🛡️ Reporte SBS / Sentinel: Revisar mi calificación actual en el Reporte de Deudas de la SBS (100% Normal) y cuánto figura como deuda total reportada. || 🛡️ Micro-acción (2m): Entrar a la web de la SBS o app de mi banco para ver mi score crediticio actual.",
+        "[DIARIO] 📱 Hábito: Registrar gastos del día y revisar mis fechas de cierre en menos de 2 minutos."
       ]
     },
     {
-      "title": "Semana 2: La Subasta de Bancos",
-      "theme": "COMPRA DE DEUDA",
+      "title": "Nivel 2: El Truco de la Fecha de Cierre (Score +++)",
+      "theme": "QUINCENA 2 · RATIO DE UTILIZACIÓN",
       "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir S/ 150 al ahorro automático sin excusas.",
-        "[MARTES] 📞 Gestión: Llamar a banco 1 para solicitar simulación de Compra de Deuda.",
-        "[JUEVES] 📞 Gestión: Llamar a banco 2 para contraofertar y pedir TEA por correo formal.",
-        "[DIARIO] 📱 Hábito: Registrar gastos de obra diarios."
+        "[QUINCENA] 💰 Bóveda (Q2): Transferir S/ 300 a la bóveda (Meta del Mes 1 alcanzada: S/ 600 ahorrados). || 💰 Micro-acción (2m): Separar el monto quincenal en mi cuenta de ahorros antes de pagar cualquier gusto.",
+        "[MISIÓN 2] 🎯 Regla del 25% al Cierre: Pagar mis consumos de tarjeta 2 días ANTES de la fecha de cierre para que el banco reporte a la SBS menos del 25% de mi línea ocupada. || 🎯 Micro-acción (2m): Mirar en el módulo Tarjetas cuál es la próxima tarjeta en cerrar este mes.",
+        "[MISIÓN 3] 🚫 Cero Fuga en Desgravamen: Identificar qué tarjeta puedo dejar con saldo S/ 0.00 antes de su fecha de cierre para ahorrarme el cobro de seguro de desgravamen este mes. || 🚫 Micro-acción (2m): Revisar en el módulo Tarjetas cuánto he perdido en desgravamen este año.",
+        "[DIARIO] 📱 Hábito: Registrar gastos del día y revisar mis fechas de cierre en menos de 2 minutos."
       ]
     },
     {
-      "title": "Semana 3: El Jaque Mate",
-      "theme": "CONSOLIDACIÓN",
+      "title": "Nivel 3: Optimización de Tasas y Compra de Deuda",
+      "theme": "QUINCENA 3 · BAJAR INTERESES",
       "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir S/ 150 al ahorro automático.",
-        "[MIÉRCOLES] 🤝 Cierre: Llamar al banco ganador y exigir mejora del 1% final.",
-        "[VIERNES] 📝 Firma: Consolidar las tarjetas en una sola cuota manejable.",
-        "[DIARIO] 📱 Hábito: Cero micro-gastos no registrados."
+        "[QUINCENA] 💰 Bóveda (Q3): Transferir S/ 300 a la bóveda (Acumulado: S/ 900). || 💰 Micro-acción (2m): Ejecutar la transferencia automática de la quincena.",
+        "[MISIÓN 2] 📞 Sondeo de Campañas: Revisar en las apps de mis bancos (sección 'Para ti' / Campañas) qué tasa de Compra de Deuda o efectivo preferencial me ofrecen hoy. || 📞 Micro-acción (2m): Entrar a la app de mi banco principal y mirar las ofertas pre-aprobadas.",
+        "[MISIÓN 3] ✂️ Poda de Gastos Hormiga: Cortar o renegociar 1 gasto fijo mensual o suscripción que no esté aportando retorno a mi vida. || ✂️ Micro-acción (2m): Revisar los últimos 5 cargos automáticos de mi tarjeta.",
+        "[DIARIO] 📱 Hábito: Registrar gastos del día y revisar mis fechas de cierre en menos de 2 minutos."
       ]
     },
     {
-      "title": "Semana 4: Fricción Inversa",
-      "theme": "CORTAR FUGAS",
+      "title": "Nivel 4: Tracción Bancaria y Flujo Formal",
+      "theme": "QUINCENA 4 · SEGUNDO MES (S/ 1,200)",
       "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir S/ 150 al ahorro automático.",
-        "[MARTES] 🚫 Defensa: Aplicar 'Fricción Inversa' a todo viático emocional.",
-        "[DOMINGO] 🏦 Hito: Verificar que el fondo tocó los primeros S/ 600.",
-        "[DIARIO] 📱 Hábito: Registro estricto nocturno."
+        "[QUINCENA] 💰 Bóveda (Q4): Transferir S/ 300 a la bóveda (Meta del Mes 2 alcanzada: S/ 1,200 ahorrados). || 💰 Micro-acción (2m): Transferir el ahorro quincenal y verificar el saldo en la bóveda.",
+        "[MISIÓN 2] 💳 Centralización Inteligente: Concentrar mis gastos fijos (pagos al contado / directo) en la tarjeta donde busco subir de categoría (ej. Oro/Platinum/Signature) y pagarlos antes del cierre. || 💳 Micro-acción (2m): Elegir cuál es mi tarjeta #1 objetivo para subir de categoría este año.",
+        "[MISIÓN 3] 📈 Actualización de Ingresos: Actualizar mis datos laborales/ingresos en la web o app del banco para desbloquear evaluaciones automáticas de línea. || 📈 Micro-acción (2m): Revisar en la configuración de mi app bancaria si mis datos están actualizados.",
+        "[DIARIO] 📱 Hábito: Registrar gastos del día y revisar mis fechas de cierre en menos de 2 minutos."
       ]
     },
     {
-      "title": "Semana 5: Defensa del Gasto Viático",
-      "theme": "CORTAR FUGAS",
+      "title": "Nivel 5: Expansión de Línea y Categoría",
+      "theme": "QUINCENA 5 · ESCALANDO CRÉDITO",
       "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir S/ 150 al ahorro automático.",
-        "[MIÉRCOLES] 🚫 Auditoría: Eliminar definitivamente 2 gastos hormiga recurrentes.",
-        "[VIERNES] 💳 Pago: Liquidar la primera cuota de la deuda consolidada.",
-        "[DIARIO] 📱 Hábito: Cero omisiones en el panel de compras."
+        "[QUINCENA] 💰 Bóveda (Q5): Transferir S/ 300 a la bóveda (Acumulado: S/ 1,500). || 💰 Micro-acción (2m): Ejecutar la transferencia quincenal sin excusas.",
+        "[MISIÓN 2] 🚀 Solicitud / Upgrade: Evaluar o solicitar aumento de línea de crédito y/o upgrade de categoría de tarjeta aprovechando los meses previos de pago impecable. || 🚀 Micro-acción (2m): Consultar por WhatsApp o app del banco si tengo campaña de incremento de línea activa.",
+        "[MISIÓN 3] 🎂 Defensa de Membresía: Verificar el mes de aniversario de mis tarjetas y asegurar el consumo mínimo mensual para exonerar el cobro de membresía anual. || 🎂 Micro-acción (2m): Mirar en el módulo Tarjetas si hay alguna alerta de aniversario próxima.",
+        "[DIARIO] 📱 Hábito: Registrar gastos del día y revisar mis fechas de cierre en menos de 2 minutos."
       ]
     },
     {
-      "title": "Semana 6: Blindaje de Tarjeta Activa",
-      "theme": "CRÉDITO TÁCTICO",
+      "title": "Nivel 6: Cumbre de Liquidez (S/ 1,800) y Blindaje",
+      "theme": "QUINCENA 6 · META CUMPLIDA",
       "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir S/ 150 al ahorro automático.",
-        "[JUEVES] 💳 Táctica: Cambiar uso de tarjeta (solo al contado, pago inmediato).",
-        "[SÁBADO] ⚙️ Configuración: Revisar facturación para evitar membresías ocultas.",
-        "[DIARIO] 📱 Hábito: Registro estricto."
-      ]
-    },
-    {
-      "title": "Semana 7: Preparando Ampliación",
-      "theme": "SCORE CREDITICIO",
-      "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir S/ 150 al ahorro.",
-        "[MARTES] 📈 Portal: Actualizar ingresos formales en la app del banco.",
-        "[VIERNES] 🎯 Simulación: Revisar campañas pre-aprobadas de aumento de línea.",
-        "[DIARIO] 📱 Hábito: Fricción inversa en campo."
-      ]
-    },
-    {
-      "title": "Semana 8: Hito del Segundo Mes",
-      "theme": "CRUZANDO 1,200",
-      "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir S/ 150 al ahorro.",
-        "[JUEVES] 💳 Pago: Asegurar segunda cuota de deuda consolidada.",
-        "[DOMINGO] 🏦 Hito: Confirmar que la bóveda tocó los S/ 1,200.",
-        "[DIARIO] 📱 Hábito: Registro de gastos."
-      ]
-    },
-    {
-      "title": "Semana 9: Solicitud Formal",
-      "theme": "EXPANSIÓN LÍNEA",
-      "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir S/ 150 al ahorro.",
-        "[MIÉRCOLES] 📝 Solicitud: Pedir aumento formal de línea vía web o sectorista.",
-        "[VIERNES] 🗣️ Argumento: Reclamar perfil de bajo riesgo por deuda consolidada.",
-        "[DIARIO] 📱 Hábito: Cero compras emocionales."
-      ]
-    },
-    {
-      "title": "Semana 10: Inquebrantable",
-      "theme": "DISCIPLINA PURA",
-      "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir S/ 150 al ahorro.",
-        "[MARTES] 🔒 Defensa: Bloqueo total. Cero gastos fuera de presupuesto base.",
-        "[VIERNES] 📉 Monitoreo: Revisar respuesta del banco sobre línea.",
-        "[DIARIO] 📱 Hábito: Mantener el sistema operando."
-      ]
-    },
-    {
-      "title": "Semana 11: El Último Empujón",
-      "theme": "RECTA FINAL",
-      "tasks": [
-        "[LUNES] 💰 Bóveda: Transferir penúltima cuota (S/ 1,650).",
-        "[JUEVES] 💳 Pago: Tercera cuota de consolidación, cero días de retraso.",
-        "[DOMINGO] ⚙️ Auditoría: Revisión de flujo de caja para cierre.",
-        "[DIARIO] 📱 Hábito: Ejecución silenciosa y automática."
-      ]
-    },
-    {
-      "title": "Semana 12: La Cumbre de los 1,800",
-      "theme": "CIERRE DE MISIÓN",
-      "tasks": [
-        "[LUNES] 💰 Bóveda: Última transferencia. Meta de S/ 1,800 alcanzada.",
-        "[MIÉRCOLES] 🏆 Verificación: Confirmar TCEA final y línea de crédito nueva.",
-        "[DOMINGO] 📖 WAM Final: Evaluar el trimestre financiero.",
-        "[DIARIO] 📱 Hábito: El sistema ya es parte de tu ADN."
+        "[QUINCENA] 💰 Bóveda (Q6): Transferir los últimos S/ 300 del ciclo (Meta trimestral de S/ 1,800 completada al 100%). || 💰 Micro-acción (2m): Hacer la transferencia final y celebrar el hito.",
+        "[MISIÓN 2] 🏦 Rentabilizar la Bóveda: Colocar el fondo acumulado en una cuenta de alto rendimiento (4.5% - 6% TREA) con disponibilidad inmediata para que gane intereses. || 🏦 Micro-acción (2m): Verificar qué tasa TREA me está pagando hoy la cuenta donde guardo mi bóveda.",
+        "[MISIÓN 3] 🏆 Cierre Financiero Trimestral: Comparar mi deuda total y mi línea de crédito disponible hoy versus el Nivel 1. || 🏆 Micro-acción (2m): Abrir el módulo Tarjetas y revisar el indicador global de Uso de Línea.",
+        "[DIARIO] 📱 Hábito: Registrar gastos del día y revisar mis fechas de cierre en menos de 2 minutos."
       ]
     }
   ]

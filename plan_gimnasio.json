@@ -1,138 +1,66 @@
 {
-  "vision": "Forjo fuerza bruta y estructural en gimnasio real. Entreno como profesional, con pesos libres y máquinas.",
-  "meta": "Ejecutar 3 días innegociables (L, M, V) en zona de hipertrofia (RIR 1-2). Ciclado táctico de carbohidratos.",
-  "compromiso": "El gimnasio no se negocia. Salgo de obra directo a entrenar. Recuperación inteligente el fin de semana.",
+  "vision": "Construyo un físico fuerte, simétrico y definido apoyándome en Symmetry para mis entrenamientos y asegurando mi nutrición y creatina todos los días, esté en obra o en Trujillo.",
+  "meta": "Cumplir mis sesiones semanales en Symmetry registrando cada serie y mantener más del 85% de consistencia en creatina, proteína y control de medidas.",
+  "compromiso": "Symmetry dirige mis pesas; Pierovski blinda mi nutrición, mi descanso y mi constancia. Nunca paso más de 3 días sin estimular el músculo.",
   "weeks": [
     {
-      "title": "Semana 1: Adaptación al Acero",
-      "theme": "RUTINA L/M/V",
+      "title": "Nivel 1: Calibración con Symmetry y Base",
+      "theme": "QUINCENA 1 · ARRANQUE SÓLIDO",
       "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Full Body - Cargas iniciales y Fuerza Base.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Full Body - Ajuste biomecánico.",
-        "[VIERNES] 🏋️ Gym (18:00): Full Body - Tensión y calibración RIR.",
-        "[DOMINGO] 🥩 Nutrición: Prep de suplementos. Registro de medidas físicas opcional.",
-        "[DIARIO] 🥩 Hábito: 150g proteína, creatina en ayunas y ciclado de carbos."
+        "[MISIÓN 1] 📱 Bloque Symmetry 1: Completar mis primeras 3 sesiones de la quincena siguiendo exactamente los ejercicios y tiempos de descanso de Symmetry. || 📱 Micro-acción (2m): Abrir Symmetry hoy y revisar qué músculos me tocan en la sesión.",
+        "[MISIÓN 2] 🔥 Bloque Symmetry 2: Completar las siguientes 3 sesiones de la quincena enfocándome en técnica limpia y rango completo de movimiento. || 🔥 Micro-acción (2m): Dejar mi ropa de entrenar y mi shaker listos desde la noche anterior.",
+        "[MISIÓN 3] 📏 Punto Cero en Matriz: Registrar mi peso y medidas iniciales (pecho, abdomen, brazos y piernas) en el botón de Auditoría Física abajo. || 📏 Micro-acción (2m): Anotar al menos mi peso y medida de abdomen actual en el panel.",
+        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
       ]
     },
     {
-      "title": "Semana 2: Tensión Máxima",
-      "theme": "RIR 1-2",
+      "title": "Nivel 2: Sobrecarga Progresiva Real",
+      "theme": "QUINCENA 2 · CERRANDO MES 1",
       "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Full Body - Al límite de repeticiones.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Full Body - Sufrir la última repetición.",
-        "[VIERNES] 🏋️ Gym (18:00): Full Body - Cerrar semana rompiendo fibras.",
-        "[DOMINGO] 🥩 Nutrición: Recuperación.",
-        "[DIARIO] 🥩 Hábito: Ciclado de carbohidratos para recuperar glucógeno."
+        "[MISIÓN 1] 📈 Superar Marca en Symmetry: Completar las 3 sesiones de la primera semana logrando subir 1 repetición o 2kg en al menos 2 ejercicios principales. || 📈 Micro-acción (2m): Mirar mi historial de la semana pasada en Symmetry antes de empezar la primera serie.",
+        "[MISIÓN 2] ⚖️ Control de Simetría: Completar las 3 sesiones de la segunda semana empezando siempre los ejercicios unilaterales con mi lado menos fuerte. || ⚖️ Micro-acción (2m): Hacer al menos 3 series efectivas del grupo muscular que me toca hoy.",
+        "[MISIÓN 3] 📏 Control de Cierre de Mes 1: Subir mis medidas de la Semana 4 en la Matriz de Auditoría Física para ver la evolución de abdomen y brazos. || 📏 Micro-acción (2m): Medirme el perímetro abdominal en ayunas y guardarlo en la app.",
+        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
       ]
     },
     {
-      "title": "Semana 3: Consolidación Postural",
-      "theme": "TÉCNICA SOBRE EGO",
+      "title": "Nivel 3: Defensa Física en Días de Obra",
+      "theme": "QUINCENA 3 · CERO EXCUSAS",
       "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Full Body - Excéntrica controlada (bajar en 3s).",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Full Body - Pausa de 1s en máxima contracción.",
-        "[VIERNES] 🏋️ Gym (18:00): Full Body - Mantener técnica bajo fatiga extrema.",
-        "[DOMINGO] 🥩 Nutrición: Auditar dieta.",
-        "[DIARIO] 🥩 Hábito: Creatina y proteína al 100%."
+        "[MISIÓN 1] 🏋️ Bloque Symmetry 1: Cumplir las 3 sesiones semanales en el gimnasio (o activar rutina rápida de 25 min si salí tarde de campo). || 🏋️ Micro-acción (2m): Hacer 3 series de flexiones o sentadillas al llegar al cuarto para no quedar en cero.",
+        "[MISIÓN 2] ⚡ Bloque Symmetry 2: Mantener la intensidad cercana al fallo (RIR 1-2) en las 3 sesiones de cierre de quincena. || ⚡ Micro-acción (2m): Ir al gimnasio aunque sea a cumplir los 2 primeros ejercicios compuestos de Symmetry.",
+        "[MISIÓN 3] 🛡️ Estrategia de Viáticos / Comidas: Asegurar que mis comidas en campo tengan siempre una fuente clara de proteína (huevos, pollo, atún o batido Whey) evitando excesos nocturnos. || 🛡️ Micro-acción (2m): Verificar cuánto stock de proteína y creatina me queda para la quincena.",
+        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
       ]
     },
     {
-      "title": "Semana 4: Auditoría Física",
-      "theme": "MEDICIÓN",
+      "title": "Nivel 4: Conexión Mente-Músculo y Segunda Medición",
+      "theme": "QUINCENA 4 · CERRANDO MES 2",
       "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Full Body - Buscar subir de peso en principales.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Full Body - RIR 1.",
-        "[VIERNES] 🏋️ Gym (18:00): Full Body - Cierre de bloque de hipertrofia.",
-        "[DOMINGO] 📏 Panel: Subir datos a la matriz de Mediciones (Abdomen).",
-        "[DIARIO] 🥩 Hábito: Defensa del déficit en obra."
+        "[MISIÓN 1] 🎯 Bloque Symmetry 1: Ejecutar las 3 sesiones de la semana controlando la bajada del peso (2-3 segundos de fase excéntrica). || 🎯 Micro-acción (2m): Abrir Symmetry al entrar al gym y activar el Modo No Molestar en el celular.",
+        "[MISIÓN 2] 💪 Bloque Symmetry 2: Completar las 3 sesiones de la quincena mejorando mi puntaje de simetría corporal dentro de Symmetry. || 💪 Micro-acción (2m): Revisar el gráfico de balance muscular en Symmetry para ver qué músculo está rezagado.",
+        "[MISIÓN 3] 📏 Segunda Auditoría Física: Registrar mis medidas del Mes 2 (Semana 8) en la matriz física y comparar el diferencial (Δ). || 📏 Micro-acción (2m): Registrar mi peso y cintura actuales en la tabla física.",
+        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
       ]
     },
     {
-      "title": "Semana 5: El Muro del Cansancio",
-      "theme": "ROMPER BARRERAS",
+      "title": "Nivel 5: Fase de Fuerza y Densidad",
+      "theme": "QUINCENA 5 · RECTA FINAL",
       "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Entrenamiento agresivo a pesar del agotamiento.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Foco y cero distracciones.",
-        "[VIERNES] 🏋️ Gym (18:00): Ejecutar como profesional, no como aficionado.",
-        "[DOMINGO] 🥩 Nutrición: Recuperación total.",
-        "[DIARIO] 🥩 Hábito: Alimentar el cerebro post-entreno."
+        "[MISIÓN 1] 🔥 Bloque Symmetry 1: Completar las 3 sesiones semanales buscando récords personales limpios en ejercicios compuestos. || 🔥 Micro-acción (2m): Calentar articulaciones 3 minutos y arrancar la primera serie en Symmetry.",
+        "[MISIÓN 2] 🧱 Bloque Symmetry 2: Cumplir las 3 sesiones de la segunda semana sin saltarme los ejercicios accesorios (hombro posterior, pantorrillas, core). || 🧱 Micro-acción (2m): Hacer 2 series intensas de abdominales/plancha al terminar de entrenar.",
+        "[MISIÓN 3] 💤 Optimización de Recuperación: Asegurar al menos 7 horas de sueño reparador en los días de entrenamiento pesado para permitir la hipertrofia. || 💤 Micro-acción (2m): Dejar el celular cargando lejos de la cama 15 minutos antes de dormir.",
+        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
       ]
     },
     {
-      "title": "Semana 6: Sobrecarga Agresiva",
-      "theme": "LÍMITES",
+      "title": "Nivel 6: Consolidación y Medición Final",
+      "theme": "QUINCENA 6 · TRANSFORMACIÓN",
       "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Obligatorio sacar +1 rep o subir 2.5kg.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Ataque al fallo muscular real.",
-        "[VIERNES] 🏋️ Gym (18:00): Sobrecarga final del microciclo.",
-        "[DOMINGO] 🥩 Nutrición: Descanso.",
-        "[DIARIO] 🥩 Hábito: Ciclado táctico innegociable."
-      ]
-    },
-    {
-      "title": "Semana 7: Ajuste de Asimetría",
-      "theme": "LADO DÉBIL",
-      "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Trabajo unilateral pesado con mancuernas.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): El lado izquierdo dicta el final de la serie.",
-        "[VIERNES] 🏋️ Gym (18:00): Igualar motores y proteger articulaciones.",
-        "[DOMINGO] 🥩 Nutrición: Prep de comidas para la semana.",
-        "[DIARIO] 🥩 Hábito: Mantener proteína en 150g."
-      ]
-    },
-    {
-      "title": "Semana 8: Segunda Auditoría",
-      "theme": "CORTE SEVERO",
-      "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Entrenamiento de sostenimiento de fuerza.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Foco en máquinas guiadas profundas.",
-        "[VIERNES] 🏋️ Gym (18:00): Cerrar la semana intacto.",
-        "[DOMINGO] 📏 Panel: Subir datos de medición física (Mes 2).",
-        "[DIARIO] 🥩 Hábito: Confiar en el déficit y el horno calórico nocturno."
-      ]
-    },
-    {
-      "title": "Semana 9: Resistencia Psicológica",
-      "theme": "FASE OSCURA",
-      "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Aceptar la monotonía. Mover el mismo peso.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Ejecución aburrida pero perfecta.",
-        "[VIERNES] 🏋️ Gym (18:00): Romper el tedio con conexión mente-músculo.",
-        "[DOMINGO] 🥩 Nutrición: Descanso mental.",
-        "[DIARIO] 🥩 Hábito: Hábito ciego y automático."
-      ]
-    },
-    {
-      "title": "Semana 10: Tensión Mecánica",
-      "theme": "RANGO COMPLETO",
-      "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Rango de Movimiento (ROM) al límite en cada máquina.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Cero ego, máxima elongación de fibra.",
-        "[VIERNES] 🏋️ Gym (18:00): Elongación bajo carga.",
-        "[DOMINGO] 🥩 Nutrición: Carga de calorías limpias.",
-        "[DIARIO] 🥩 Hábito: Recuperación post-trabajo."
-      ]
-    },
-    {
-      "title": "Semana 11: Modo Récord Personal",
-      "theme": "PR SPRINT",
-      "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Buscar 1RM o récord de repeticiones en Press/Prensa.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Récord en tracciones/jalones.",
-        "[VIERNES] 🏋️ Gym (18:00): Vaciar el tanque por completo (RIR 0).",
-        "[DOMINGO] 🥩 Nutrición: Supercompensación.",
-        "[DIARIO] 🥩 Hábito: Dieta intacta para soportar el castigo."
-      ]
-    },
-    {
-      "title": "Semana 12: Transformación Estructural",
-      "theme": "CIERRE DE MISIÓN",
-      "tasks": [
-        "[LUNES] 🏋️ Gym (18:00): Entrenamiento de descarga y bombeo.",
-        "[MIÉRCOLES] 🏋️ Gym (18:00): Rutina final con técnica depurada.",
-        "[VIERNES] 🏋️ Gym (18:00): Celebración de la consistencia.",
-        "[DOMINGO] 📏 Panel: Medición final de abdomen (Cruce meta 91cm).",
-        "[DIARIO] 🥩 Hábito: El interés compuesto físico es una realidad."
+        "[MISIÓN 1] 🏆 Bloque Symmetry 1: Completar las 3 sesiones de la semana con dominio técnico total. || 🏆 Micro-acción (2m): Cumplir el entrenamiento del día registrando cada serie en Symmetry.",
+        "[MISIÓN 2] ⚡ Bloque Symmetry Final: Cerrar las últimas 3 sesiones del trimestre y revisar el progreso global de cargas en Symmetry. || ⚡ Micro-acción (2m): Comparar los pesos que muevo hoy versus el Nivel 1.",
+        "[MISIÓN 3] 📏 Auditoría Física Final (S12): Registrar todas las medidas finales del ciclo en la Matriz Física y evaluar el cambio corporal neto. || 📏 Micro-acción (2m): Completar la columna S12 en el panel de Auditoría Física.",
+        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
       ]
     }
   ]

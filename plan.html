@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="view-transition" content="same-origin">
-<title>Plan 12 Semanas | Pierovski</title>
+<title>Plan por Niveles | Pierovski</title>
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f172a">
@@ -20,7 +20,7 @@
   color-scheme: light;
   --bg: #f4f5f7;
   --surface: #ffffff;
-  --surface-glass: rgba(255,255,255,0.85);
+  --surface-glass: rgba(255,255,255,0.88);
   --surface2: #f8f9fa;
   --surface3: #e2e8f0;
   --border: #e2e4e8;
@@ -35,7 +35,9 @@
   --red-dim: #b91c1c;
   --red-glow: rgba(220,38,38,0.12);
   --blue: #2563eb;
+  --blue-glow: rgba(37,99,235,0.12);
   --purple: #7c3aed;
+  --purple-glow: rgba(124,58,237,0.12);
   --text: #0f172a;
   --text-muted: #475569;
   --text-dim: #64748b;
@@ -49,7 +51,7 @@ body.dark-theme {
   color-scheme: dark;
   --bg: #0f172a;
   --surface: #1e293b;
-  --surface-glass: rgba(30,41,59,0.85);
+  --surface-glass: rgba(30,41,59,0.88);
   --surface2: #0b1121;
   --surface3: #334155;
   --border: #334155;
@@ -60,6 +62,8 @@ body.dark-theme {
   --amber-glow: rgba(217,119,6,0.22);
   --green-glow: rgba(5,150,105,0.22);
   --red-glow: rgba(220,38,38,0.22);
+  --blue-glow: rgba(37,99,235,0.22);
+  --purple-glow: rgba(124,58,237,0.22);
   --shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
@@ -74,7 +78,7 @@ body.e-ink-mode * { transition: none !important; animation: none !important; bac
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; transition: background 0.3s, color 0.3s; padding-bottom: 105px; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; transition: background 0.3s, color 0.3s; padding-bottom: 110px; }
 
 #offlineBanner { display: none; background: var(--amber); color: #ffffff; text-align: center; padding: 6px 12px; font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; position: sticky; top: 0; z-index: 200; }
 
@@ -82,56 +86,59 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
 header {
   position: sticky; top: 0; z-index: 100;
   background: var(--surface-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border); padding: 0 24px 14px; transition: background 0.3s;
+  border-bottom: 1px solid var(--border); padding: 0 20px 14px; transition: background 0.3s;
 }
-.header-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 16px 0 12px; flex-wrap: wrap; gap: 10px; }
-.logo-container { display: flex; align-items: center; gap: 12px; }
+.header-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0 12px; flex-wrap: wrap; gap: 10px; }
+.logo-container { display: flex; align-items: center; gap: 10px; }
 .btn-back-arrow { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--surface); border-radius: 50%; color: var(--text-muted); transition: 0.2s; text-decoration: none; border: 1px solid var(--border2); flex-shrink: 0; }
 .btn-back-arrow:hover { border-color: var(--amber); color: var(--text); transform: scale(0.96); }
-.logo h1 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.35rem; color: var(--text); letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center; gap: 8px; }
+.logo h1 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.3rem; color: var(--text); letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center; gap: 8px; }
 
 .cloud-status { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); display: inline-block; transition: 0.3s; }
 .cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
 .cloud-syncing { background: var(--amber); animation: pulse-cloud 1s infinite; }
 @keyframes pulse-cloud { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-.header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.btn-pill { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text); background: var(--surface); border: 1px solid var(--border2); font-weight: 700; height: 38px; padding: 0 14px; border-radius: 20px; transition: 0.2s; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.header-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.btn-pill { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text); background: var(--surface); border: 1px solid var(--border2); font-weight: 700; height: 36px; padding: 0 12px; border-radius: 18px; transition: 0.2s; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .btn-pill:hover { border-color: var(--amber); }
-.btn-pill.active-trujillo { background: var(--amber); color: #ffffff; border-color: var(--amber); }
+.btn-pill.active-survival { background: var(--purple); color: #ffffff; border-color: var(--purple); box-shadow: 0 0 12px var(--purple-glow); }
 .btn-pill.btn-dw { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-.btn-icon-tool { background: var(--surface); border: 1px solid var(--border2); color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+.btn-icon-tool { background: var(--surface); border: 1px solid var(--border2); color: var(--text-muted); border-radius: 50%; width: 36px; height: 36px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
 .btn-icon-tool:hover { border-color: var(--amber); color: var(--text); }
 .btn-icon-tool:active { transform: scale(0.92); }
 
-/* SELECTOR DE PLANES */
-.plan-selector { max-width: 800px; margin: 0 auto; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
-.plan-selector::-webkit-scrollbar { display: none; }
-.plan-btn { flex: 1; min-width: 105px; padding: 10px 12px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); cursor: pointer; color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.82rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; box-shadow: var(--shadow); }
-.plan-btn .pb-icon { font-size: 1.15rem; }
+/* SELECTOR DE 4 PILARES */
+.plan-selector { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.plan-btn { padding: 10px 8px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); cursor: pointer; color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; box-shadow: var(--shadow); white-space: nowrap; }
+.plan-btn .pb-icon { font-size: 1.05rem; }
 .plan-btn.active { background: var(--amber-glow); color: var(--amber); border-color: var(--amber); transform: translateY(-1px); }
 
 main { max-width: 800px; margin: 0 auto; }
-.plan-section { display: none; padding: 24px 20px; animation: fadeIn 0.25s ease; }
+.plan-section { display: none; padding: 22px 20px; animation: fadeIn 0.25s ease; }
 .plan-section.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* TARJETA VISIÓN Y BÓVEDA FINANCIERA */
-.vision-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 16px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+/* TARJETA VISIÓN Y BÓVEDA QUINCENAL */
+.vision-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 15px 18px; margin-bottom: 16px; box-shadow: var(--shadow); }
 .vault-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: var(--r); padding: 16px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
-.vault-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.vault-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
 .vault-lbl { font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.8px; }
 .vault-val { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 700; color: var(--text); }
-.vault-bar-bg { width: 100%; height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
-.vault-bar-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.5s ease; }
-.vault-sub { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-dim); display: flex; justify-content: space-between; }
+.vault-bar-bg { width: 100%; height: 7px; background: var(--surface3); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+.vault-bar-fill { height: 100%; background: var(--green); border-radius: 4px; transition: width 0.5s ease; }
+.vault-sub { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-dim); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
 
-/* CABECERA DE SEMANA */
-.week-header-card { display: flex; justify-content: space-between; align-items: center; background: var(--surface); padding: 20px; border-radius: var(--r); border: 1px solid var(--border); margin-bottom: 20px; box-shadow: var(--shadow); gap: 12px; }
-.wh-info h2 { font-family: 'Fraunces', serif; font-size: 1.35rem; color: var(--text); margin-bottom: 4px; font-weight: 700; }
-.wh-info .wh-dates { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-.wh-info .wh-theme { display: inline-block; margin-top: 8px; padding: 4px 10px; background: var(--amber-glow); border: 1px solid rgba(217,119,6,0.3); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700; color: var(--amber); }
+/* BANNER DE MODO SUPERVIVENCIA 2 MINUTOS */
+.survival-banner { display: none; background: var(--purple-glow); border: 1px solid rgba(124,58,237,0.35); border-left: 4px solid var(--purple); padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 0.82rem; color: var(--text); font-weight: 600; align-items: center; justify-content: space-between; gap: 10px; }
+body.survival-mode .survival-banner { display: flex; }
+
+/* CABECERA DE NIVEL / QUINCENA */
+.week-header-card { display: flex; justify-content: space-between; align-items: center; background: var(--surface); padding: 20px; border-radius: var(--r); border: 1px solid var(--border); margin-bottom: 18px; box-shadow: var(--shadow); gap: 12px; }
+.wh-info h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; color: var(--text); margin-bottom: 4px; font-weight: 700; line-height: 1.2; }
+.wh-info .wh-dates { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--amber); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 4px; }
+.wh-info .wh-theme { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 4px 10px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; color: var(--text-muted); }
 
 .progress-ring-container { position: relative; width: 64px; height: 64px; display: flex; justify-content: center; align-items: center; }
 .progress-ring { transform: rotate(-90deg); }
@@ -139,75 +146,86 @@ main { max-width: 800px; margin: 0 auto; }
 .progress-ring__circle { stroke: var(--amber); transition: stroke-dashoffset 0.5s ease-out, stroke 0.5s; }
 .progress-ring-container.winner .progress-ring__circle { stroke: var(--green); }
 .pr-text { position: absolute; font-family: 'DM Mono', monospace; font-size: 0.88rem; font-weight: 700; color: var(--text); }
-.ghost-target { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; text-align: center; margin-top: 6px; letter-spacing: 0.5px; }
+.ghost-target { font-family: 'DM Mono', monospace; font-size: 0.64rem; font-weight: 700; text-align: center; margin-top: 6px; color: var(--text-dim); }
 
-/* BANNERS WAM */
-.active-wam-banner { background: var(--amber-glow); border-left: 4px solid var(--amber); padding: 12px 16px; border-radius: 8px; margin-bottom: 18px; font-size: 0.85rem; color: var(--text); line-height: 1.5; }
-.active-wam-banner strong { color: var(--amber); font-family: 'DM Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; }
+/* FOCO CORRECTIVO WAM */
+.active-wam-banner { background: var(--amber-glow); border-left: 4px solid var(--amber); padding: 12px 16px; border-radius: 8px; margin-bottom: 18px; font-size: 0.84rem; color: var(--text); line-height: 1.45; }
+.active-wam-banner strong { color: var(--amber); font-family: 'DM Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.8px; }
 
-.wam-lock-banner { background: var(--red-glow); border: 1px solid var(--red); color: var(--red); padding: 14px 16px; border-radius: 12px; font-size: 0.85rem; margin-bottom: 20px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.locked-tasks { pointer-events: none; opacity: 0.45; filter: grayscale(1); }
+/* MISIONES CON PISO Y TECHO */
+.task-group-title { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); letter-spacing: 1px; margin: 18px 0 10px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; }
+.tasks-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 22px; }
 
-/* TAREAS Y HÁBITOS */
-.task-group-title { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); letter-spacing: 1px; margin: 20px 0 10px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
-.tasks-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 24px; }
-.habits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px; }
-
-.task-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 15px 16px; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow); user-select: none; }
-.task-card:hover { border-color: var(--border2); }
+.task-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow); user-select: none; position: relative; }
+.task-card:hover { border-color: var(--amber); }
 .task-card:active { transform: scale(0.99); }
-.task-card .t-text { font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.45; transition: color 0.2s; }
-.task-check { width: 22px; height: 22px; border: 2px solid var(--border2); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: transparent; flex-shrink: 0; transition: all 0.2s; margin-top: 1px; font-weight: 700; }
+.task-body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.task-card .t-text { font-size: 0.92rem; font-weight: 600; color: var(--text); line-height: 1.45; transition: color 0.2s; }
+.task-card .t-micro-badge { display: none; font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--purple); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+body.survival-mode .task-card .t-micro-badge { display: inline-block; }
+body.survival-mode .task-card:not(.checked) { border-color: rgba(124,58,237,0.4); }
+
+.task-check { width: 24px; height: 24px; border: 2px solid var(--border2); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: transparent; flex-shrink: 0; transition: all 0.2s; margin-top: 1px; font-weight: 700; }
 
 @keyframes checkPop { 0% { transform: scale(0.8); } 50% { transform: scale(1.18); } 100% { transform: scale(1); } }
 .task-card.checked { border-color: var(--green); background: var(--green-glow); }
 .task-card.checked .t-text { color: var(--text-muted); text-decoration: line-through; }
 .task-card.checked .task-check { background: var(--green); border-color: var(--green); color: var(--white-fixed); animation: checkPop 0.25s ease forwards; }
 
-.habits-grid .task-card { padding: 14px; flex-direction: column; gap: 8px; align-items: center; text-align: center; }
-.habits-grid .task-check { margin-top: 0; }
-.habits-grid .t-text { font-size: 0.82rem; }
+/* HÁBITOS CON 7 BOTONES DIARIOS (L M M J V S D) */
+.habit-weekly-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; box-shadow: var(--shadow); margin-bottom: 22px; }
+.hw-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; }
+.hw-title { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+.hw-count { font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 700; color: var(--amber); background: var(--amber-glow); padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
+.hw-days-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.hw-day-btn { height: 42px; border-radius: 10px; background: var(--surface2); border: 1px solid var(--border2); font-family: 'DM Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; transition: all 0.2s; user-select: none; }
+.hw-day-btn:hover { border-color: var(--amber); }
+.hw-day-btn:active { transform: scale(0.93); }
+.hw-day-btn.is-today { border: 2px solid var(--amber); color: var(--text); }
+.hw-day-btn.done { background: var(--green); border-color: var(--green-dim); color: #ffffff; box-shadow: 0 3px 10px var(--green-glow); }
+.hw-day-btn .d-dot { font-size: 0.6rem; line-height: 1; }
 
-/* SCORECARD TRIMESTRAL */
-.heatmap-container { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; box-shadow: var(--shadow); margin-top: 28px; }
-.hm-title { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 14px; font-weight: 700; letter-spacing: 1px; }
-.heatmap-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
-.hm-cell { aspect-ratio: 1.15; border-radius: 10px; background: var(--surface2); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; position: relative; cursor: pointer; transition: 0.2s; }
-.hm-cell:hover { border-color: var(--amber); }
-.hm-cell .hm-num { font-size: 0.65rem; font-weight: 700; color: var(--text-dim); margin-bottom: 2px; }
-.hm-cell .hm-pct { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+/* MAPA DE PROGRESO DE LOS 6 NIVELES */
+.heatmap-container { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; box-shadow: var(--shadow); margin-top: 24px; }
+.hm-title { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 14px; font-weight: 700; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
+.heatmap-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+.hm-cell { aspect-ratio: 1.1; border-radius: 12px; background: var(--surface2); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; position: relative; cursor: pointer; transition: 0.2s; }
+.hm-cell:hover { border-color: var(--amber); transform: translateY(-2px); }
+.hm-cell .hm-num { font-size: 0.65rem; font-weight: 700; color: var(--text-dim); margin-bottom: 3px; }
+.hm-cell .hm-pct { font-size: 0.85rem; font-weight: 700; color: var(--text); }
 .hm-cell.lvl-0 { background: var(--surface2); }
-.hm-cell.lvl-1 { background: var(--red-glow); border-color: rgba(220,38,38,0.35); }
-.hm-cell.lvl-2 { background: var(--amber-glow); border-color: rgba(217,119,6,0.45); }
+.hm-cell.lvl-1 { background: var(--amber-glow); border-color: rgba(217,119,6,0.35); }
+.hm-cell.lvl-2 { background: rgba(217,119,6,0.28); border-color: var(--amber); }
 .hm-cell.lvl-3 { background: var(--green); border-color: var(--green-dim); }
 .hm-cell.lvl-3 .hm-num, .hm-cell.lvl-3 .hm-pct { color: var(--white-fixed); }
 .hm-current { border: 2px solid var(--amber) !important; transform: scale(1.04); z-index: 2; }
-.hm-reward { position: absolute; top: -6px; right: -6px; font-size: 0.8rem; background: var(--surface); border-radius: 50%; box-shadow: var(--shadow); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
+.hm-reward { position: absolute; top: -6px; right: -6px; font-size: 0.78rem; background: var(--surface); border-radius: 50%; box-shadow: var(--shadow); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
 
-/* BARRA INFERIOR DE SEMANAS */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--border); display: flex; align-items: center; padding: 12px 16px 20px; overflow-x: auto; gap: 8px; z-index: 150; scrollbar-width: none; }
+/* NAVEGACIÓN INFERIOR DE NIVELES */
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--border); display: flex; align-items: center; padding: 12px 16px 18px; overflow-x: auto; gap: 8px; z-index: 150; scrollbar-width: none; }
 .bottom-nav::-webkit-scrollbar { display: none; }
-.bn-tab { flex: 0 0 auto; padding: 9px 16px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border2); font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); transition: 0.2s; cursor: pointer; }
+.bn-tab { flex: 0 0 auto; padding: 9px 16px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border2); font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); transition: 0.2s; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 .bn-tab.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-.bn-tab.locked { opacity: 0.45; background: transparent; border-color: var(--border); }
+.bn-tab.done-lvl { border-color: var(--green); color: var(--green); }
+.bn-tab.active.done-lvl { background: var(--green); color: #ffffff; }
 .bn-tab.current-week { border: 2px solid var(--amber); }
 
-.bn-wam-btn { flex: 0 0 auto; padding: 9px 16px; border-radius: 20px; background: var(--surface2); border: 1px solid var(--border2); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 6px; margin-left: auto; cursor: pointer; }
-@keyframes pulse-alert { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
-.bn-wam-btn.alert { background: var(--red); color: var(--white-fixed); border-color: var(--red); animation: pulse-alert 1.8s infinite; }
+.bn-wam-btn { flex: 0 0 auto; padding: 9px 16px; border-radius: 20px; background: var(--surface2); border: 1px solid var(--border2); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 6px; margin-left: auto; cursor: pointer; }
+.bn-wam-btn:hover { border-color: var(--amber); }
 
 /* MODALES */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 300; display: none; align-items: center; justify-content: center; }
 .modal-overlay.open { display: flex; animation: fadeIn 0.2s; }
 .modal-content { position: relative; background: var(--surface); width: 92%; max-width: 520px; border-radius: 24px; border: 1px solid var(--border2); padding: 28px 24px; max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
 .modal-close { position: absolute; top: 20px; right: 20px; background: var(--surface2); border: 1px solid var(--border); width: 34px; height: 34px; border-radius: 50%; font-size: 0.95rem; color: var(--text-muted); cursor: pointer; }
-.modal-content h2 { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--text); margin-bottom: 20px; font-weight: 700; }
+.modal-content h2 { font-family: 'Fraunces', serif; font-size: 1.35rem; color: var(--text); margin-bottom: 18px; font-weight: 700; }
 
-.wam-input { width: 100%; min-height: 80px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 12px; border-radius: 10px; border: 1px solid var(--border2); background: var(--surface2); color: var(--text); outline: none; margin-top: 6px; margin-bottom: 16px; resize: vertical; }
+.wam-input { width: 100%; min-height: 76px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 12px; border-radius: 10px; border: 1px solid var(--border2); background: var(--surface2); color: var(--text); outline: none; margin-top: 6px; margin-bottom: 14px; resize: vertical; }
 .wam-input:focus { border-color: var(--amber); background: var(--surface); }
-.mbtn-save { width: 100%; background: var(--text); color: var(--bg); border: none; padding: 14px; border-radius: 22px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; margin-top: 8px; }
+.mbtn-save { width: 100%; background: var(--text); color: var(--bg); border: none; padding: 14px; border-radius: 22px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.92rem; cursor: pointer; margin-top: 8px; transition: 0.2s; }
+.mbtn-save:active { transform: scale(0.98); }
 
-/* INMERSIÓN DELTA-TIME */
+/* CRONÓMETRO DE INMERSIÓN CON MODO 2 MINUTOS INTEGRADO */
 .dw-overlay { position: fixed; inset: 0; background: #070a12; z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; color: #fff; padding: 20px; text-align: center; }
 .dw-overlay.open { display: flex; animation: fadeIn 0.25s; }
 .dw-title { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--amber); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
@@ -215,7 +233,7 @@ main { max-width: 800px; margin: 0 auto; }
 .dw-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
 .dw-btn { background: #fff; color: #000; border: none; border-radius: 30px; padding: 14px 32px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: 0.2s; }
 .dw-btn-danger { background: var(--red); color: #fff; }
-.dw-btn-small { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); padding: 9px 16px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 0.78rem; cursor: pointer; transition: 0.2s; font-weight: 600; }
+.dw-btn-small { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); padding: 9px 14px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 0.75rem; cursor: pointer; transition: 0.2s; font-weight: 600; }
 .dw-btn-small.active { background: var(--amber); color: #fff; border-color: var(--amber); font-weight: 700; }
 
 .wh-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 12px; text-align: left; }
@@ -227,11 +245,11 @@ main { max-width: 800px; margin: 0 auto; }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media (max-width: 680px) {
-  .heatmap-grid { grid-template-columns: repeat(4, 1fr); }
-  .habits-grid { grid-template-columns: 1fr; }
+  .plan-selector { grid-template-columns: repeat(2, 1fr); }
+  .heatmap-grid { grid-template-columns: repeat(3, 1fr); }
   .modal-overlay { align-items: flex-end; }
   .modal-content { width: 100%; max-width: 100%; border-radius: 24px 24px 0 0; }
-  header { padding: 0 16px 12px; }
+  header { padding: 0 14px 12px; }
 }
 </style>
 </head>
@@ -246,84 +264,94 @@ main { max-width: 800px; margin: 0 auto; }
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </a>
       <div class="logo">
-        <h1>Plan 12S <span id="cloud-indicator" class="cloud-status" title="Sincronización"></span></h1>
+        <h1>Ruta Maestría <span id="cloud-indicator" class="cloud-status" title="Sincronización"></span></h1>
       </div>
     </div>
     <div class="header-actions">
-      <button class="btn-pill" id="btn-trujillo" onclick="toggleTrujilloMode()">📍 Trujillo: OFF</button>
-      <button class="btn-pill btn-dw" onclick="openDeepWork()">⏱️ Inmersión</button>
+      <button class="btn-pill" id="btn-survival" onclick="toggleSurvivalMode()" title="Transforma misiones pesadas en micro-acciones de 2 minutos">⚡ Energía: Normal</button>
+      <button class="btn-pill btn-dw" onclick="openDeepWork()">⏱️ Enfoque</button>
       <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema Oscuro / Claro">🌙</button>
-      <button class="btn-icon-tool" onclick="openSettings()" title="Configuración">⚙️</button>
+      <button class="btn-icon-tool" onclick="openSettings()" title="Configuración y Alarma">⚙️</button>
     </div>
   </div>
   <div class="plan-selector">
-    <button class="plan-btn active" data-plan="topo" onclick="switchPlan('topo')"><span class="pb-icon">🗺️</span>Topografía</button>
+    <button class="plan-btn active" data-plan="topo" onclick="switchPlan('topo')"><span class="pb-icon">🗺️</span>Topo + IA</button>
+    <button class="plan-btn" data-plan="pueblo" onclick="switchPlan('pueblo')"><span class="pb-icon">🏛️</span>Mi Pueblo</button>
     <button class="plan-btn" data-plan="fin" onclick="switchPlan('fin')"><span class="pb-icon">💰</span>Finanzas</button>
-    <button class="plan-btn" data-plan="gym" onclick="switchPlan('gym')"><span class="pb-icon">🏋️</span>Gimnasio</button>
+    <button class="plan-btn" data-plan="gym" onclick="switchPlan('gym')"><span class="pb-icon">🏋️</span>Symmetry</button>
   </div>
 </header>
 
 <main>
   <div class="plan-section active" data-plan="topo" id="section-topo"></div>
-  <div class="plan-section" data-plan="fin"  id="section-fin"></div>
-  <div class="plan-section" data-plan="gym"  id="section-gym"></div>
+  <div class="plan-section" data-plan="pueblo" id="section-pueblo"></div>
+  <div class="plan-section" data-plan="fin" id="section-fin"></div>
+  <div class="plan-section" data-plan="gym" id="section-gym"></div>
 </main>
 
 <div class="bottom-nav" id="bottomNav"></div>
 
-<!-- MODAL CONFIGURACIÓN -->
+<!-- MODAL CONFIGURACIÓN Y RECORDATORIO -->
 <div class="modal-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
   <div class="modal-content">
     <button class="modal-close" onclick="closeSettings()">✕</button>
-    <h2>⚙️ Configuración del Ciclo</h2>
-    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:-12px; margin-bottom:20px;">Calibra el inicio de tus 12 semanas y tu punto de partida físico.</p>
+    <h2>⚙️ Calibración del Sistema</h2>
+    <p style="font-size:0.84rem; color:var(--text-muted); margin-top:-10px; margin-bottom:18px;">Tu avance ahora es por Niveles Desbloqueables (sin fechas que te atrasen).</p>
 
-    <label style="font-weight:700; font-size:0.75rem; font-family:'DM Mono', monospace; text-transform:uppercase; color:var(--text-muted);">📅 Lunes de Inicio (Semana 1)</label>
-    <input type="date" id="cfg-start-date" class="wam-input" style="min-height:46px; font-family: 'DM Mono', monospace;">
+    <div style="background:var(--surface2); padding:14px; border-radius:14px; border:1px solid var(--border); margin-bottom:18px;">
+      <label style="font-weight:700; font-size:0.72rem; font-family:'DM Mono', monospace; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:6px;">🔔 Hora de Recordatorio Diario (Anti-Olvido)</label>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <input type="time" id="cfg-reminder-time" class="wam-input" style="min-height:42px; margin:0; flex:1; font-family:'DM Mono', monospace;">
+        <button onclick="requestNotifPermission()" class="btn-pill" style="height:42px;">Activar Aviso</button>
+      </div>
+    </div>
 
-    <h3 style="font-family:'Fraunces', serif; font-size: 1.05rem; color: var(--text); margin-top: 8px; margin-bottom: 12px;">Medidas Base (Día Cero)</h3>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
-      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Peso (kg)</label><input type="number" step="0.1" id="cfg-peso" class="wam-input" style="min-height:42px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Pecho (cm)</label><input type="number" step="0.1" id="cfg-pecho" class="wam-input" style="min-height:42px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Barriga (cm)</label><input type="number" step="0.1" id="cfg-barriga" class="wam-input" style="min-height:42px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Brazo Izq (cm)</label><input type="number" step="0.1" id="cfg-brazo-izq" class="wam-input" style="min-height:42px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Brazo Der (cm)</label><input type="number" step="0.1" id="cfg-brazo-der" class="wam-input" style="min-height:42px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Pierna Izq (cm)</label><input type="number" step="0.1" id="cfg-pierna-izq" class="wam-input" style="min-height:42px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Pierna Der (cm)</label><input type="number" step="0.1" id="cfg-pierna-der" class="wam-input" style="min-height:42px; margin:4px 0 0; padding:8px 12px;"></div>
+    <label style="font-weight:700; font-size:0.72rem; font-family:'DM Mono', monospace; text-transform:uppercase; color:var(--text-muted);">📅 Fecha Referencial de Inicio del Ciclo</label>
+    <input type="date" id="cfg-start-date" class="wam-input" style="min-height:44px; font-family: 'DM Mono', monospace;">
+
+    <h3 style="font-family:'Fraunces', serif; font-size: 1.05rem; color: var(--text); margin-top: 6px; margin-bottom: 10px;">Medidas Base Físicas (Punto Cero)</h3>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px;">
+      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Peso (kg)</label><input type="number" step="0.1" id="cfg-peso" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
+      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Pecho (cm)</label><input type="number" step="0.1" id="cfg-pecho" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
+      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Barriga (cm)</label><input type="number" step="0.1" id="cfg-barriga" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
+      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Brazo Izq (cm)</label><input type="number" step="0.1" id="cfg-brazo-izq" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
+      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Brazo Der (cm)</label><input type="number" step="0.1" id="cfg-brazo-der" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
+      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Pierna Izq (cm)</label><input type="number" step="0.1" id="cfg-pierna-izq" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
+      <div><label style="font-size:0.7rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Pierna Der (cm)</label><input type="number" step="0.1" id="cfg-pierna-der" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
     </div>
 
     <button onclick="saveSettings()" class="mbtn-save">Guardar y Sincronizar</button>
 
-    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border);">
-      <button onclick="resetCycle()" style="width: 100%; background: var(--red-glow); color: var(--red); border: 1px solid rgba(220,38,38,0.35); padding: 12px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer;">⚠️ Reiniciar Ciclo de 12 Semanas</button>
+    <div style="margin-top: 22px; padding-top: 14px; border-top: 1px dashed var(--border);">
+      <button onclick="resetCycle()" style="width: 100%; background: var(--red-glow); color: var(--red); border: 1px solid rgba(220,38,38,0.35); padding: 12px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.84rem; cursor: pointer;">⚠️ Reiniciar Progreso de Todos los Niveles</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL DIARIO DE GUERRA WAM -->
+<!-- MODAL NOTAS / RETROSPECTIVA DE NIVEL (WAM SIN CASTIGO) -->
 <div class="modal-overlay" id="wamOverlay" onclick="if(event.target===this)closeWam()">
   <div class="modal-content">
     <button class="modal-close" onclick="closeWam()">✕</button>
-    <h2>Diario de Guerra (S<span id="wam-week-num"></span>)</h2>
-    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:-12px; margin-bottom:20px;">Evalúa antes de ejecutar. Sé directo y sin excusas.</p>
-    <label style="font-weight:700; font-size:0.82rem; color:var(--text);">1. ¿Qué frenó tu ejecución esta semana?</label>
-    <textarea id="wam-q1" class="wam-input" placeholder="Identifica la fricción o distracción real..."></textarea>
-    <label style="font-weight:700; font-size:0.82rem; color:var(--text);">2. ¿Qué acción exacta harás la próxima semana para corregirlo?</label>
-    <textarea id="wam-q2" class="wam-input" placeholder="Esta directriz aparecerá anclada en tu siguiente semana..."></textarea>
-    <label style="font-weight:700; font-size:0.82rem; color:var(--text);">3. Califica tu Disciplina (1 al 10)</label>
-    <input type="number" id="wam-q3" min="1" max="10" class="wam-input" style="min-height:46px; font-size:1.1rem; text-align:center; width:110px; display:block;">
-    <button onclick="saveWam()" class="mbtn-save">Cerrar Semana y Desbloquear</button>
+    <h2>Bitácora de Nivel <span id="wam-week-num"></span></h2>
+    <p style="font-size:0.84rem; color:var(--text-muted); margin-top:-10px; margin-bottom:18px;">Anota tu aprendizaje o el ajuste que aplicarás en el siguiente Nivel.</p>
+    <label style="font-weight:700; font-size:0.82rem; color:var(--text);">1. ¿Qué obstáculo encontraste o qué aprendiste en este Nivel?</label>
+    <textarea id="wam-q1" class="wam-input" placeholder="Ej. Me faltó tiempo entre semana, pero el script LISP me ahorró 1 hora..."></textarea>
+    <label style="font-weight:700; font-size:0.82rem; color:var(--text);">2. ¿Cuál es tu enfoque clave para el siguiente Nivel?</label>
+    <textarea id="wam-q2" class="wam-input" placeholder="Esta nota aparecerá arriba como recordatorio táctico..."></textarea>
+    <label style="font-weight:700; font-size:0.82rem; color:var(--text);">3. Nivel de Satisfacción / Avance (1 al 10)</label>
+    <input type="number" id="wam-q3" min="1" max="10" class="wam-input" style="min-height:44px; font-size:1.1rem; text-align:center; width:110px; display:block;">
+    <button onclick="saveWam()" class="mbtn-save">Guardar Nota Táctica</button>
   </div>
 </div>
 
-<!-- MODAL BITÁCORA WAM -->
+<!-- MODAL HISTORIAL BITÁCORA -->
 <div class="modal-overlay" id="wamHistoryOverlay" onclick="if(event.target===this)closeWamHistory()">
   <div class="modal-content">
     <button class="modal-close" onclick="closeWamHistory()">✕</button>
-    <h2>📖 Bitácora WAM</h2>
-    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:-12px; margin-bottom:20px;">Tu registro de auditorías semanales.</p>
+    <h2>📖 Bitácora de Avance</h2>
+    <p style="font-size:0.84rem; color:var(--text-muted); margin-top:-10px; margin-bottom:18px;">Tus notas estratégicas por cada Nivel superado.</p>
     <div id="wamHistoryContent"></div>
-    <button onclick="openWam(currentPlan, currentWkIdxGlobal); closeWamHistory();" class="mbtn-save" style="margin-top:12px;">✍️ Evaluar Semana Actual (S<span id="wam-curr-btn-lbl">1</span>)</button>
+    <button onclick="openWam(currentPlan, activeLevelByPlan[currentPlan] || 0); closeWamHistory();" class="mbtn-save" style="margin-top:12px;">✍️ Registrar Nota del Nivel Actual</button>
   </div>
 </div>
 
@@ -332,22 +360,23 @@ main { max-width: 800px; margin: 0 auto; }
   <div class="modal-content" id="measContent"></div>
 </div>
 
-<!-- CRONÓMETRO INMERSIÓN DELTA-TIME -->
+<!-- CRONÓMETRO DE ENFOQUE CON BOTÓN DE 2 MINUTOS -->
 <div class="dw-overlay" id="dwOverlay">
-  <div class="dw-title">Modo Inmersión Táctica</div>
+  <div class="dw-title">Cronómetro de Acción Inmediata</div>
 
-  <div id="dwSelector" style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; justify-content:center;">
-    <button class="dw-btn-small" id="btnDw25" onclick="setDwTime(25)">Sprint (25m)</button>
-    <button class="dw-btn-small" id="btnDw50" onclick="setDwTime(50)">Bloque (50m)</button>
-    <button class="dw-btn-small active" id="btnDw90" onclick="setDwTime(90)">Gabinete (90m)</button>
+  <div id="dwSelector" style="display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; justify-content:center;">
+    <button class="dw-btn-small active" id="btnDw2" onclick="setDwTime(2)">⚡ Arranque (2m)</button>
+    <button class="dw-btn-small" id="btnDw15" onclick="setDwTime(15)">Rápido (15m)</button>
+    <button class="dw-btn-small" id="btnDw45" onclick="setDwTime(45)">Foco (45m)</button>
+    <button class="dw-btn-small" id="btnDw90" onclick="setDwTime(90)">Gabinete (90m)</button>
   </div>
 
-  <div class="dw-timer" id="dwTimer">90:00</div>
+  <div class="dw-timer" id="dwTimer">02:00</div>
 
   <div class="dw-actions">
-    <button class="dw-btn" id="btnDwStart" onclick="startDeepWork()">Iniciar Bloque</button>
-    <button class="dw-btn dw-btn-danger" id="btnDwAbort" onclick="stopDeepWork()" style="display:none;">Abortar Bloque</button>
-    <button class="dw-btn" id="btnDwClose" onclick="closeDeepWork()" style="background:rgba(255,255,255,0.18); color:#fff;">Minimizar / Cerrar</button>
+    <button class="dw-btn" id="btnDwStart" onclick="startDeepWork()">Iniciar Ahora</button>
+    <button class="dw-btn dw-btn-danger" id="btnDwAbort" onclick="stopDeepWork()" style="display:none;">Detener</button>
+    <button class="dw-btn" id="btnDwClose" onclick="closeDeepWork()" style="background:rgba(255,255,255,0.18); color:#fff;">Cerrar</button>
   </div>
 </div>
 
@@ -370,15 +399,18 @@ const firebaseConfig = {
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+const PLAN_IDS = ['topo', 'pueblo', 'fin', 'gym'];
 const KEYS = {
-  topo: { tasks: 'topo_tasks_v1', notes: 'topo_notes_v1', vision: 'topo_vision_v1' },
-  fin:  { tasks: 'fin_tasks_v1',  notes: 'fin_notes_v1',  vision: 'fin_vision_v1' },
-  gym:  { tasks: 'gym_tasks_v1',  notes: 'gym_notes_v1',  vision: 'gym_vision_v1' },
+  topo:   { tasks: 'topo_tasks_v1' },
+  pueblo: { tasks: 'pueblo_tasks_v1' },
+  fin:    { tasks: 'fin_tasks_v1' },
+  gym:    { tasks: 'gym_tasks_v1' },
   startDate: 'topo_start_date_v1',
+  habitDays: 'pierovski_habit_days_v1',
+  reminderTime: 'pierovski_reminder_time'
 };
 const MEDS_KEY = 'gym_measurements_v1';
 const BASE_KEY = 'pierovski_baseline_v1';
-const LEGACY_BASE_KEY = 'cota100_baseline_v1';
 
 function ls_get(key, fallback = null) {
   try {
@@ -395,14 +427,13 @@ function ls_set(key, value) {
 }
 
 function getBaseline() {
-  const legacy = ls_get(LEGACY_BASE_KEY, null);
-  return ls_get(BASE_KEY, legacy || {
+  return ls_get(BASE_KEY, {
     peso: 75.0, pecho: 94.5, barriga: 91.0, brazoIzq: 33.0, brazoDer: 33.0, piernaIzq: 53.0, piernaDer: 55.0
   });
 }
 
 function cleanDateStr(raw) {
-  if (!raw) return '2026-03-30';
+  if (!raw) return '2026-10-15';
   return String(raw).replace(/"/g, '').split('T')[0];
 }
 
@@ -411,8 +442,35 @@ function todayStr() {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 }
 
-// MODO TRUJILLO Y TEMA OSCURO
-let isTrujilloMode = ls_get('trujillo_mode_v1', false);
+// Obtiene el lunes de la semana actual para los 7 botones diarios de hábitos (L a D)
+function getCurrentWeekMondayKey() {
+  const now = new Date();
+  const day = now.getDay() || 7; // 1 = Lunes ... 7 = Domingo
+  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - day + 1);
+  return `${monday.getFullYear()}-${String(monday.getMonth() + 1).padStart(2, '0')}-${String(monday.getDate()).padStart(2, '0')}`;
+}
+
+// MODO SUPERVIVENCIA 2 MINUTOS (ANTI-PEREZA)
+let isSurvivalMode = ls_get('survival_mode_v1', false);
+
+function toggleSurvivalMode() {
+  isSurvivalMode = !isSurvivalMode;
+  ls_set('survival_mode_v1', isSurvivalMode);
+  applySurvivalModeUI();
+  buildAllUI();
+  showToast(isSurvivalMode
+    ? '🔋 Modo 2 Minutos ON: Haz solo la micro-acción hoy'
+    : '⚡ Energía Normal ON: Misiones completas activas');
+}
+
+function applySurvivalModeUI() {
+  document.body.classList.toggle('survival-mode', isSurvivalMode);
+  const btn = document.getElementById('btn-survival');
+  if (btn) {
+    btn.innerHTML = isSurvivalMode ? '🔋 Modo 2m: ON' : '⚡ Energía: Normal';
+    btn.classList.toggle('active-survival', isSurvivalMode);
+  }
+}
 
 window.addEventListener('online', () => {
   document.getElementById('offlineBanner').style.display = 'none';
@@ -426,9 +484,9 @@ window.addEventListener('offline', () => {
 window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('compras_theme') === 'dark') document.body.classList.add('dark-theme');
   if (localStorage.getItem('terreno_mode') === 'true') document.body.classList.add('e-ink-mode');
-  updateTrujilloBtn();
+  applySurvivalModeUI();
   loadExternalPlans();
-  // Si hay un bloque de inmersión activo en segundo plano, reanudar el reloj visualmente
+  initDailyReminderCheck();
   if ((parseInt(localStorage.getItem('pierovski_dw_end')) || 0) > Date.now()) {
     resumeDeepWorkUI();
   }
@@ -439,30 +497,17 @@ function toggleDarkMode() {
   localStorage.setItem('compras_theme', isDark ? 'dark' : 'light');
 }
 
-function toggleTrujilloMode() {
-  isTrujilloMode = !isTrujilloMode;
-  ls_set('trujillo_mode_v1', isTrujilloMode);
-  updateTrujilloBtn();
-  buildAllUI();
-  showToast(isTrujilloMode ? '📍 Modo Trujillo ON: Fin de semana liberado' : '📍 Modo Campo ON: Semana completa activa');
-}
-
-function updateTrujilloBtn() {
-  const btn = document.getElementById('btn-trujillo');
-  if (!btn) return;
-  btn.innerHTML = isTrujilloMode ? '📍 Trujillo: ON' : '📍 Trujillo: OFF';
-  btn.classList.toggle('active-trujillo', isTrujilloMode);
-}
-
 let PLANS = {
-  topo: { id: 'topo', label: 'Topografía', icon: '🗺️', weeks: [] },
-  fin:  { id: 'fin',  label: 'Finanzas',   icon: '💰', weeks: [] },
-  gym:  { id: 'gym',  label: 'Gimnasio',   icon: '🏋️', weeks: [] }
+  topo:   { id: 'topo',   label: 'Topografía + IA', icon: '🗺️', weeks: [] },
+  pueblo: { id: 'pueblo', label: 'Mi Pueblo',       icon: '🏛️', weeks: [] },
+  fin:    { id: 'fin',    label: 'Finanzas',        icon: '💰', weeks: [] },
+  gym:    { id: 'gym',    label: 'Symmetry',        icon: '🏋️', weeks: [] }
 };
 let currentPlan = 'topo';
-let currentWkIdxGlobal = 0;
-let taskStates = { topo: {}, fin: {}, gym: {} };
-let wamStates = { topo: {}, fin: {}, gym: {} };
+let activeLevelByPlan = { topo: 0, pueblo: 0, fin: 0, gym: 0 };
+let taskStates = { topo: {}, pueblo: {}, fin: {}, gym: {} };
+let wamStates = { topo: {}, pueblo: {}, fin: {}, gym: {} };
+let habitDaysState = {};
 
 /* MOTOR SONORO Y NOTIFICACIONES */
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -488,25 +533,30 @@ function showToast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('show'), 2200);
+  t._t = setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-/* CARGA DE PLANES Y SINCRONIZACIÓN CON TIMESTAMP */
+/* CARGA DE LOS 4 PLANES Y SINCRONIZACIÓN */
 async function loadExternalPlans() {
-  // 1. Cargar estados locales inmediatamente para velocidad instantánea
-  ['topo', 'fin', 'gym'].forEach(p => {
+  PLAN_IDS.forEach(p => {
     taskStates[p] = ls_get(KEYS[p].tasks, {});
     const cached = localStorage.getItem('cache_' + p);
     if (cached) {
       try { PLANS[p] = { ...PLANS[p], ...JSON.parse(cached) }; } catch (e) {}
     }
   });
-  wamStates = ls_get('wam_states_v1', { topo: {}, fin: {}, gym: {} });
+  wamStates = ls_get('wam_states_v1', { topo: {}, pueblo: {}, fin: {}, gym: {} });
+  habitDaysState = ls_get(KEYS.habitDays, {});
 
   if (PLANS.topo.weeks.length > 0) buildAllUI();
 
-  // 2. Actualizar JSON de planes desde archivos locales
-  const files = { topo: 'plan_topografia.json', fin: 'plan_finanzas.json', gym: 'plan_gimnasio.json' };
+  const files = {
+    topo:   'plan_topografia.json',
+    pueblo: 'plan_pueblo.json',
+    fin:    'plan_finanzas.json',
+    gym:    'plan_gimnasio.json'
+  };
+
   for (const [pid, filename] of Object.entries(files)) {
     try {
       const res = await fetch(filename);
@@ -535,8 +585,9 @@ function syncPlanToCloud(ts = Date.now()) {
   db.ref('pierovski/plan').set({
     lastUpdated: ts,
     tasks: taskStates,
+    habitDays: habitDaysState,
     wamLogs: wamStates,
-    startDate: cleanDateStr(ls_get(KEYS.startDate, '2026-03-30')),
+    startDate: cleanDateStr(ls_get(KEYS.startDate, '2026-10-15')),
     measurements: ls_get(MEDS_KEY, {}),
     baseline: getBaseline(),
     dailyLog: ls_get('pierovski_daily_log', {})
@@ -559,15 +610,19 @@ function initCloud() {
 
       if (cloudTs >= localTs) {
         if (data.tasks) {
-          ['topo', 'fin', 'gym'].forEach(p => {
+          PLAN_IDS.forEach(p => {
             if (data.tasks[p]) {
               localStorage.setItem(KEYS[p].tasks, JSON.stringify(data.tasks[p]));
               taskStates[p] = data.tasks[p];
             }
           });
         }
+        if (data.habitDays) {
+          habitDaysState = data.habitDays;
+          localStorage.setItem(KEYS.habitDays, JSON.stringify(habitDaysState));
+        }
         if (data.wamLogs) {
-          wamStates = data.wamLogs;
+          wamStates = { topo: {}, pueblo: {}, fin: {}, gym: {}, ...data.wamLogs };
           localStorage.setItem('wam_states_v1', JSON.stringify(wamStates));
         }
         if (data.startDate) localStorage.setItem(KEYS.startDate, JSON.stringify(cleanDateStr(data.startDate)));
@@ -585,41 +640,37 @@ function initCloud() {
   }).catch(() => {});
 }
 
-function checkWamLock(p, idx) {
-  const today = new Date();
-  if (today.getDay() === 0 && parseInt(idx) === currentWkIdxGlobal) {
-    if (!wamStates[p] || !wamStates[p][idx]) return true;
-  }
-  return false;
-}
-
-function detectCurrentWeek() {
-  const startStr = cleanDateStr(ls_get(KEYS.startDate, '2026-03-30'));
-  const parts = startStr.split('-');
-  if (parts.length !== 3) return 0;
-  const s = new Date(parts[0], parts[1] - 1, parts[2]);
-  const now = new Date();
-  const nowMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const d = Math.floor((nowMidnight.getTime() - s.getTime()) / 86400000);
-  return d < 0 ? 0 : Math.min(Math.floor(d / 7), 11);
-}
-
-function recalcDates(rawStartStr) {
-  const startStr = cleanDateStr(rawStartStr);
-  const parts = startStr.split('-');
-  if (parts.length !== 3) return;
-  const s = new Date(parts[0], parts[1] - 1, parts[2]);
-  const f = d => d.toLocaleDateString('es-PE', { day: 'numeric', month: 'short' });
-  Object.values(PLANS).forEach(plan => {
-    if (!plan.weeks) return;
-    plan.weeks.forEach((w, i) => {
-      const d1 = new Date(s); d1.setDate(s.getDate() + i * 7);
-      const d2 = new Date(d1); d2.setDate(d1.getDate() + 6);
-      w.dates = f(d1) + ' – ' + f(d2);
-      const b = document.getElementById(`date-badge-${plan.id}-${i}`);
-      if (b) b.textContent = w.dates;
+// DETECTA AUTOMÁTICAMENTE EL PRIMER NIVEL INCOMPLETO (AVANCE POR MAESTRÍA, NO POR FECHA)
+function detectActiveLevelForPlan(planId) {
+  const weeks = PLANS[planId]?.weeks || [];
+  const ts = taskStates[planId] || {};
+  for (let i = 0; i < weeks.length; i++) {
+    const w = weeks[i];
+    const missionIndexes = [];
+    (w.tasks || []).forEach((t, ti) => {
+      if (!isHabitTask(t)) missionIndexes.push(ti);
     });
-  });
+    const allMissionsDone = missionIndexes.length > 0 && missionIndexes.every(ti => ts[`${i}-${ti}`] === true);
+    if (!allMissionsDone) return i;
+  }
+  return Math.max(0, weeks.length - 1);
+}
+
+function isHabitTask(tStr) {
+  const lower = String(tStr || '').toLowerCase();
+  return lower.includes('[diario]') || lower.includes('hábito');
+}
+
+function splitMacroMicro(rawTask) {
+  const clean = String(rawTask || '').replace(/[H]/gi, '').trim();
+  if (clean.includes('||')) {
+    const parts = clean.split('||');
+    return {
+      macro: parts[0].trim(),
+      micro: parts[1].trim()
+    };
+  }
+  return { macro: clean, micro: clean };
 }
 
 function toggleVision(pid) {
@@ -634,32 +685,31 @@ function toggleVision(pid) {
   }
 }
 
+// BÓVEDA QUINCENAL: CADA QUINCENA SUMA S/ 300 (MÍNIMO S/ 600 AL MES, S/ 1,800 EN 6 QUINCENAS)
 function calcVaultProgress() {
   const finWeeks = PLANS.fin.weeks || [];
   const finTasks = taskStates.fin || {};
-  let completedDeposits = 0;
+  let completedQuincenas = 0;
   finWeeks.forEach((w, wi) => {
     (w.tasks || []).forEach((t, ti) => {
       if (t.toLowerCase().includes('bóveda') && finTasks[`${wi}-${ti}`]) {
-        completedDeposits++;
+        completedQuincenas++;
       }
     });
   });
-  const savedAmount = completedDeposits * 150;
+  const savedAmount = completedQuincenas * 300;
   const goalAmount = 1800;
   const pct = Math.min(100, Math.round((savedAmount / goalAmount) * 100));
-  return { completedDeposits, savedAmount, goalAmount, pct };
+  return { completedQuincenas, savedAmount, goalAmount, pct };
 }
 
 function buildAllUI() {
-  currentWkIdxGlobal = detectCurrentWeek();
-  const wamBtnLbl = document.getElementById('wam-curr-btn-lbl');
-  if (wamBtnLbl) wamBtnLbl.textContent = currentWkIdxGlobal + 1;
-
-  Object.keys(PLANS).forEach(pid => {
-    if (PLANS[pid].weeks && PLANS[pid].weeks.length) buildPlanUI(pid);
+  PLAN_IDS.forEach(pid => {
+    if (PLANS[pid].weeks && PLANS[pid].weeks.length) {
+      activeLevelByPlan[pid] = detectActiveLevelForPlan(pid);
+      buildPlanUI(pid);
+    }
   });
-  recalcDates(ls_get(KEYS.startDate, '2026-03-30'));
   switchPlan(currentPlan);
 }
 
@@ -668,83 +718,117 @@ function buildPlanUI(planId) {
   const section = document.getElementById('section-' + planId);
   section.innerHTML = '';
 
+  // Banner Modo Supervivencia 2m
+  const survBanner = document.createElement('div');
+  survBanner.className = 'survival-banner';
+  survBanner.innerHTML = `
+    <span>🔋 <b>Modo 2 Minutos Activo:</b> Hoy solo necesitas cumplir la micro-acción para mantener el hábito vivo.</span>
+    <button class="btn-pill" onclick="openDeepWork(2)" style="height:30px; font-size:0.65rem;">⏱️ 2m</button>
+  `;
+  section.appendChild(survBanner);
+
   // Tarjeta de Visión
   const vb = document.createElement('div');
   vb.className = 'vision-card';
   vb.innerHTML = `
     <div onclick="toggleVision('${planId}')" style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none;">
-      <div style="font-family:'DM Mono', monospace; font-size:0.72rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:1px;">👁️ Directriz y Compromiso (${plan.label})</div>
+      <div style="font-family:'DM Mono', monospace; font-size:0.72rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:1px;">👁️ Propósito y Regla de Oro (${plan.label})</div>
       <span id="vi-icon-${planId}" style="color:var(--text-muted); font-size:1.2rem; font-weight:bold;">+</span>
     </div>
     <div id="vi-content-${planId}" style="display:none; margin-top:14px; padding-top:14px; border-top:1px dashed var(--border); font-size:0.85rem; line-height:1.5;">
-      <div style="margin-bottom:10px;"><strong style="color:var(--amber);">🎯 Visión:</strong> <span>${plan.vision || 'No definida'}</span></div>
-      <div style="margin-bottom:10px;"><strong style="color:var(--amber);">🗓️ Meta 12S:</strong> <span>${plan.meta || 'No definida'}</span></div>
-      <div><strong style="color:var(--amber);">⚡ Regla de Oro:</strong> <span>${plan.compromiso || 'No definido'}</span></div>
+      <div style="margin-bottom:10px;"><strong style="color:var(--amber);">🎯 Identidad:</strong> <span>${plan.vision || 'No definida'}</span></div>
+      <div style="margin-bottom:10px;"><strong style="color:var(--amber);">🏆 Resultado del Ciclo:</strong> <span>${plan.meta || 'No definida'}</span></div>
+      <div><strong style="color:var(--amber);">⚡ Sistema Anti-Fricción:</strong> <span>${plan.compromiso || 'No definido'}</span></div>
     </div>
   `;
   section.appendChild(vb);
 
-  // WIDGET DE BÓVEDA S/ 1,800 EXCLUSIVO PARA FINANZAS
+  // BÓVEDA QUINCENAL EN FINANZAS (S/ 300 POR QUINCENA = S/ 600 MENSUAL)
   if (planId === 'fin') {
     const vData = calcVaultProgress();
     const vaultEl = document.createElement('div');
     vaultEl.className = 'vault-card';
-    vaultEl.id = 'fin-vault-widget';
     vaultEl.innerHTML = `
       <div class="vault-top">
-        <span class="vault-lbl">🏦 Bóveda Blindada (Meta 12S)</span>
+        <span class="vault-lbl">🏦 Bóveda Quincenal (Meta: S/ 600/mes)</span>
         <span class="vault-val" id="vault-val-txt">S/ ${vData.savedAmount.toLocaleString('es-PE')} / S/ 1,800</span>
       </div>
       <div class="vault-bar-bg"><div class="vault-bar-fill" id="vault-bar-fill" style="width:${vData.pct}%;"></div></div>
       <div class="vault-sub">
-        <span id="vault-dep-txt">${vData.completedDeposits} de 12 aportes semanales (S/ 150 c/u)</span>
-        <span id="vault-pct-txt">${vData.pct}% completado</span>
+        <span id="vault-dep-txt">${vData.completedQuincenas} de 6 quincenas ahorradas (S/ 300 c/u)</span>
+        <span id="vault-pct-txt">${vData.pct}% del trimestre</span>
       </div>
     `;
     section.appendChild(vaultEl);
   }
 
   const ts = taskStates[planId] || {};
-  const habitKeywords = ['[h]', '[diario]', 'hábito', 'rutina', 'creatina', 'proteína', 'agua', 'diario'];
+  const mondayKey = getCurrentWeekMondayKey();
+  const todayDayIdx = (new Date().getDay() || 7) - 1; // 0 = Lunes ... 6 = Domingo
+  const dayLetters = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 
   plan.weeks.forEach((w, i) => {
-    const isWamLocked = checkWamLock(planId, i);
     const misiones = [];
-    const habitos = [];
+    let habitText = null;
 
     w.tasks.forEach((t, ti) => {
-      const isChecked = ts[i + '-' + ti];
-      const isWeekendTask = t.includes('[SÁBADO]') || t.includes('[DOMINGO]');
-      if (isTrujilloMode && isWeekendTask && !isChecked) return;
+      if (isHabitTask(t)) {
+        habitText = splitMacroMicro(t).macro.replace(/[DIARIO]/gi, '').trim();
+        return;
+      }
+      const isChecked = ts[`${i}-${ti}`] === true;
+      const { macro, micro } = splitMacroMicro(t);
+      const displayText = isSurvivalMode ? micro : macro;
 
-      const cleanTask = t.replace(/[H]/gi, '').trim();
-      const html = `
+      misiones.push(`
         <div id="task-${planId}-${i}-${ti}" class="task-card ${isChecked ? 'checked' : ''}" onclick="toggleTask('${planId}',${i},${ti})">
           <div class="task-check">✓</div>
-          <div class="t-text">${cleanTask}</div>
-        </div>`;
-      if (habitKeywords.some(kw => t.toLowerCase().includes(kw))) habitos.push(html);
-      else misiones.push(html);
+          <div class="task-body">
+            <span class="t-micro-badge">⚡ Versión 2 Minutos (Anti-Pereza)</span>
+            <div class="t-text">${displayText}</div>
+          </div>
+        </div>`);
     });
 
-    const lockHTML = isWamLocked
-      ? `<div class="wam-lock-banner">
-           <span>⚠️ Auditoría Dominical WAM pendiente para cerrar la semana.</span>
-           <button class="btn-pill" style="background:var(--red); color:#fff; border:none;" onclick="openWam('${planId}', ${i})">Evaluar Ahora</button>
-         </div>`
-      : '';
-    const taskStyles = isWamLocked ? `class="locked-tasks"` : '';
+    // Construir fila de 7 botones diarios (L-D) para el hábito del pilar
+    let habitHTML = '';
+    if (habitText) {
+      const pHabits = (habitDaysState[planId] && habitDaysState[planId][mondayKey]) || {};
+      let daysDoneCount = 0;
+      const dayButtons = dayLetters.map((letter, dIdx) => {
+        const isDone = pHabits[dIdx] === true;
+        if (isDone) daysDoneCount++;
+        return `
+          <button class="hw-day-btn ${isDone ? 'done' : ''} ${dIdx === todayDayIdx ? 'is-today' : ''}"
+                  onclick="toggleHabitDay('${planId}', ${dIdx}, ${i})"
+                  title="Marcar día ${letter}">
+            <span>${letter}</span>
+            <span class="d-dot">${isDone ? '✓' : '·'}</span>
+          </button>`;
+      }).join('');
 
+      habitHTML = `
+        <div class="task-group-title">
+          <span>🔁 Hábito Diario (Toca el día de hoy)</span>
+          <span>Semana Actual</span>
+        </div>
+        <div class="habit-weekly-card">
+          <div class="hw-header">
+            <div class="hw-title">${habitText}</div>
+            <div class="hw-count" id="hw-count-${planId}-${i}">${daysDoneCount}/7 días</div>
+          </div>
+          <div class="hw-days-row" id="hw-row-${planId}-${i}">${dayButtons}</div>
+        </div>`;
+    }
+
+    // Nota estratégica del nivel anterior si existe
     let activeWamHTML = '';
-    if (i === currentWkIdxGlobal && i > 0) {
-      const prevWam = wamStates[planId] && wamStates[planId][i - 1];
-      if (prevWam && prevWam.q2 && prevWam.q2.trim() !== '') {
-        activeWamHTML = `
-          <div class="active-wam-banner">
-            <strong>🔥 Ajuste Táctico (Semana ${i}):</strong><br>
-            "${prevWam.q2}"
-          </div>`;
-      }
+    if (i > 0 && wamStates[planId] && wamStates[planId][i - 1] && wamStates[planId][i - 1].q2) {
+      activeWamHTML = `
+        <div class="active-wam-banner">
+          <strong>🧭 Enfoque anotado en el Nivel ${i}:</strong><br>
+          "${wamStates[planId][i - 1].q2}"
+        </div>`;
     }
 
     const panel = document.createElement('div');
@@ -758,9 +842,9 @@ function buildPlanUI(planId) {
     panel.innerHTML = `
       <div class="week-header-card">
         <div class="wh-info">
-          <div class="wh-dates">SEMANA ${i + 1} — ${w.theme}</div>
+          <div class="wh-dates">${w.theme || `QUINCENA ${i + 1}`}</div>
           <h2>${w.title}</h2>
-          <div class="wh-theme" id="date-badge-${planId}-${i}">${w.dates || '---'}</div>
+          <div class="wh-theme" id="level-status-${planId}-${i}">🎯 Completa las 3 misiones para desbloquear el siguiente nivel</div>
         </div>
         <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
           <div class="progress-ring-container" id="pr-cont-${planId}-${i}">
@@ -770,35 +854,40 @@ function buildPlanUI(planId) {
             </svg>
             <div class="pr-text" id="pr-text-${planId}-${i}">0%</div>
           </div>
-          <div class="ghost-target" id="ghost-${planId}-${i}">Meta: 85%</div>
+          <div class="ghost-target" id="ghost-${planId}-${i}">0/3 listas</div>
         </div>
       </div>
 
       ${activeWamHTML}
-      ${lockHTML}
 
-      <div ${taskStyles}>
-        <div class="task-group-title">🎯 Misiones de la Semana</div>
+      <div>
+        <div class="task-group-title">
+          <span>🎯 Misiones del Nivel (${isSurvivalMode ? 'Modo 2 Minutos' : 'Modo Normal'})</span>
+          <span>+33% c/u</span>
+        </div>
         <div class="tasks-grid">${misiones.join('')}</div>
-        ${habitos.length > 0 ? `<div class="task-group-title">🔁 Hábitos Innegociables</div><div class="habits-grid">${habitos.join('')}</div>` : ''}
+        ${habitHTML}
       </div>
     `;
     section.appendChild(panel);
   });
 
-  // SCORECARD TRIMESTRAL
+  // MAPA DE LOS 6 NIVELES QUINCENALES
   const hmContainer = document.createElement('div');
   hmContainer.className = 'heatmap-container';
-  let hmHTML = '<div class="hm-title">📊 Scorecard de las 12 Semanas (Meta ≥ 85%)</div><div class="heatmap-grid">';
+  let hmHTML = `
+    <div class="hm-title">
+      <span>🏆 Mapa de Maestría (6 Quincenas)</span>
+      <span>Sin fechas límite</span>
+    </div>
+    <div class="heatmap-grid">`;
 
   plan.weeks.forEach((w, i) => {
-    const isReward = (i === 3 || i === 7 || i === 11);
-    const rewardIcon = isReward ? `<div class="hm-reward" id="reward-${planId}-${i}">🔒</div>` : '';
     hmHTML += `
       <div class="hm-cell" id="hm-cell-${planId}-${i}" onclick="switchWeekTo(${i})">
-        <div class="hm-num">S${i + 1}</div>
+        <div class="hm-num">NIVEL ${i + 1}</div>
         <div class="hm-pct" id="hm-pct-${planId}-${i}">0%</div>
-        ${rewardIcon}
+        <div class="hm-reward" id="reward-${planId}-${i}">🔒</div>
       </div>`;
   });
   hmHTML += '</div>';
@@ -825,50 +914,41 @@ function updateVaultUI() {
   const pctTxt = document.getElementById('vault-pct-txt');
   if (valTxt) valTxt.textContent = `S/ ${vData.savedAmount.toLocaleString('es-PE')} / S/ 1,800`;
   if (barFill) barFill.style.width = `${vData.pct}%`;
-  if (depTxt) depTxt.textContent = `${vData.completedDeposits} de 12 aportes semanales (S/ 150 c/u)`;
-  if (pctTxt) pctTxt.textContent = `${vData.pct}% completado`;
+  if (depTxt) depTxt.textContent = `${vData.completedQuincenas} de 6 quincenas ahorradas (S/ 300 c/u)`;
+  if (pctTxt) pctTxt.textContent = `${vData.pct}% del trimestre`;
 }
 
 function refreshScore(p, wi) {
   const w = PLANS[p].weeks[wi];
   if (!w) return;
 
-  let d = 0, total = 0;
-  for (let i = 0; i < w.tasks.length; i++) {
-    const t = w.tasks[i];
-    const isChecked = taskStates[p] && taskStates[p][wi + '-' + i];
-    const isWeekendTask = t.includes('[SÁBADO]') || t.includes('[DOMINGO]');
-    if (isTrujilloMode && isWeekendTask && !isChecked) continue;
-    total++;
-    if (isChecked) d++;
-  }
+  let missionsDone = 0, missionsTotal = 0;
+  w.tasks.forEach((t, ti) => {
+    if (isHabitTask(t)) return;
+    missionsTotal++;
+    if (taskStates[p] && taskStates[p][`${wi}-${ti}`]) missionsDone++;
+  });
 
-  if (total === 0) total = 1;
-  const pct = Math.round((d / total) * 100);
-
-  let expectedPct = 0;
-  let ghostText = "";
-  const wIndex = Number(wi);
-  const currIndex = Number(detectCurrentWeek());
-
-  if (wIndex < currIndex) {
-    expectedPct = 85;
-    ghostText = `Meta: 85%`;
-  } else if (wIndex > currIndex) {
-    expectedPct = 0;
-    ghostText = `Próximamente`;
-  } else {
-    const dayIndex = new Date().getDay() || 7;
-    const effectiveDays = isTrujilloMode ? 5 : 7;
-    const limit = Math.min(dayIndex, effectiveDays);
-    expectedPct = Math.round((limit / effectiveDays) * 85);
-    ghostText = `Ritmo hoy: ${expectedPct}%`;
-  }
+  if (missionsTotal === 0) missionsTotal = 1;
+  const pct = Math.round((missionsDone / missionsTotal) * 100);
 
   const ghostEl = document.getElementById(`ghost-${p}-${wi}`);
   if (ghostEl) {
-    ghostEl.textContent = ghostText;
-    ghostEl.style.color = (pct < expectedPct) ? 'var(--red)' : 'var(--text-dim)';
+    ghostEl.textContent = `${missionsDone}/${missionsTotal} misiones`;
+    ghostEl.style.color = pct === 100 ? 'var(--green)' : 'var(--text-dim)';
+  }
+
+  const statusBadge = document.getElementById(`level-status-${p}-${wi}`);
+  if (statusBadge) {
+    if (pct === 100) {
+      statusBadge.innerHTML = '🏆 ¡Nivel Dominado! Siguiente nivel desbloqueado';
+      statusBadge.style.color = 'var(--green)';
+      statusBadge.style.borderColor = 'var(--green)';
+    } else {
+      statusBadge.innerHTML = `🎯 Avance actual: ${missionsDone} de ${missionsTotal} misiones completadas`;
+      statusBadge.style.color = 'var(--text-muted)';
+      statusBadge.style.borderColor = 'var(--border2)';
+    }
   }
 
   const radius = 26;
@@ -881,27 +961,25 @@ function refreshScore(p, wi) {
   if (text) text.textContent = pct + '%';
 
   const cont = document.getElementById(`pr-cont-${p}-${wi}`);
-  if (cont) cont.classList.toggle('winner', pct >= 85);
+  if (cont) cont.classList.toggle('winner', pct === 100);
 
   const cell = document.getElementById(`hm-cell-${p}-${wi}`);
   const hmPct = document.getElementById(`hm-pct-${p}-${wi}`);
   if (cell && hmPct) {
     hmPct.textContent = pct + '%';
     cell.className = 'hm-cell';
-    if (wi === currentWkIdxGlobal) cell.classList.add('hm-current');
-    if (pct >= 85) cell.classList.add('lvl-3');
-    else if (pct >= 50) cell.classList.add('lvl-2');
+    if (wi === activeLevelByPlan[p]) cell.classList.add('hm-current');
+    if (pct === 100) cell.classList.add('lvl-3');
+    else if (pct >= 60) cell.classList.add('lvl-2');
     else if (pct > 0) cell.classList.add('lvl-1');
     else cell.classList.add('lvl-0');
   }
 
-  if (wi === 3 || wi === 7 || wi === 11) {
-    const rw = document.getElementById(`reward-${p}-${wi}`);
-    if (rw) {
-      rw.textContent = pct >= 85 ? '🏆' : '🔒';
-      rw.style.background = pct >= 85 ? 'var(--amber)' : 'var(--surface)';
-      rw.style.borderColor = pct >= 85 ? 'var(--amber)' : 'var(--border)';
-    }
+  const rw = document.getElementById(`reward-${p}-${wi}`);
+  if (rw) {
+    rw.textContent = pct === 100 ? '🏆' : (pct > 0 ? '⚡' : '🔒');
+    rw.style.background = pct === 100 ? 'var(--amber)' : 'var(--surface)';
+    rw.style.borderColor = pct === 100 ? 'var(--amber)' : 'var(--border)';
   }
 
   if (p === 'fin') updateVaultUI();
@@ -910,35 +988,30 @@ function refreshScore(p, wi) {
 function rebuildBottomNav() {
   const nav = document.getElementById('bottomNav');
   nav.innerHTML = '';
-  const todayDay = new Date().getDay();
-  const isPlanningDay = (todayDay === 6 || todayDay === 0);
+  const weeks = PLANS[currentPlan].weeks || [];
+  const ts = taskStates[currentPlan] || {};
 
-  PLANS[currentPlan].weeks.forEach((_, i) => {
-    const isFuture = (i > currentWkIdxGlobal);
-    const isLocked = isFuture && !isPlanningDay;
+  weeks.forEach((w, i) => {
+    let mDone = 0, mTot = 0;
+    (w.tasks || []).forEach((t, ti) => {
+      if (!isHabitTask(t)) {
+        mTot++;
+        if (ts[`${i}-${ti}`]) mDone++;
+      }
+    });
+    const isComplete = mTot > 0 && mDone === mTot;
 
     const tab = document.createElement('button');
-    tab.className = `bn-tab ${i === currentWkIdxGlobal ? 'current-week' : ''} ${isLocked ? 'locked' : ''}`;
-    tab.innerHTML = `S${i + 1}${isLocked ? '🔒' : ''}`;
-    tab.onclick = () => {
-      if (isLocked) return showToast('🔒 Semana futura bloqueada hasta el sábado');
-      switchWeekTo(i);
-    };
+    tab.className = `bn-tab ${i === activeLevelByPlan[currentPlan] ? 'current-week' : ''} ${isComplete ? 'done-lvl' : ''}`;
+    tab.innerHTML = `N${i + 1} ${isComplete ? '✓' : ''}`;
+    tab.onclick = () => switchWeekTo(i);
     nav.appendChild(tab);
   });
 
   const wamBtn = document.createElement('button');
-  const lockedNow = checkWamLock(currentPlan, currentWkIdxGlobal);
-
-  if (lockedNow) {
-    wamBtn.className = 'bn-wam-btn alert';
-    wamBtn.innerHTML = '🔥 Acción Dominical';
-    wamBtn.onclick = () => openWam(currentPlan, currentWkIdxGlobal);
-  } else {
-    wamBtn.className = 'bn-wam-btn';
-    wamBtn.innerHTML = '📖 Bitácora WAM';
-    wamBtn.onclick = () => openWamHistory(currentPlan);
-  }
+  wamBtn.className = 'bn-wam-btn';
+  wamBtn.innerHTML = '📖 Bitácora';
+  wamBtn.onclick = () => openWamHistory(currentPlan);
   nav.appendChild(wamBtn);
 }
 
@@ -947,7 +1020,7 @@ function switchPlan(p) {
   document.querySelectorAll('.plan-btn').forEach(b => b.classList.toggle('active', b.dataset.plan === p));
   document.querySelectorAll('.plan-section').forEach(s => s.classList.toggle('active', s.dataset.plan === p));
   rebuildBottomNav();
-  switchWeekTo(currentWkIdxGlobal);
+  switchWeekTo(activeLevelByPlan[p] || 0);
 }
 
 function switchWeekTo(idx) {
@@ -969,9 +1042,8 @@ function updateDailyConsistencyLog(delta) {
 }
 
 function toggleTask(p, wi, ti) {
-  if (checkWamLock(p, wi)) return showToast("⚠️ Completa tu evaluación dominical WAM primero");
   if (!taskStates[p]) taskStates[p] = {};
-  const key = wi + '-' + ti;
+  const key = `${wi}-${ti}`;
 
   taskStates[p][key] = !taskStates[p][key];
   if (taskStates[p][key]) {
@@ -984,12 +1056,101 @@ function toggleTask(p, wi, ti) {
 
   ls_set(KEYS[p].tasks, taskStates[p]);
   document.getElementById(`task-${p}-${wi}-${ti}`)?.classList.toggle('checked', taskStates[p][key]);
+
+  activeLevelByPlan[p] = detectActiveLevelForPlan(p);
   refreshScore(p, wi);
+  rebuildBottomNav();
+  document.querySelectorAll('#bottomNav .bn-tab').forEach((t, idx) => t.classList.toggle('active', idx === wi));
+
+  // Si acaba de completar el 100% del nivel, felicitar y ofrecer pasar al siguiente
+  const w = PLANS[p].weeks[wi];
+  const allDone = w.tasks.every((t, idx) => isHabitTask(t) || taskStates[p][`${wi}-${idx}`]);
+  if (allDone && taskStates[p][key]) {
+    showToast(`🏆 ¡Nivel ${wi + 1} completado al 100%!`);
+    if (wi + 1 < PLANS[p].weeks.length) {
+      setTimeout(() => switchWeekTo(wi + 1), 900);
+    }
+  }
 }
 
-/* CONFIGURACIÓN Y REINICIO DE CICLO */
+// CHECK INTERACTIVO PARA LOS 7 DÍAS DEL HÁBITO (L M M J V S D)
+function toggleHabitDay(planId, dayIdx, levelIdx) {
+  const mondayKey = getCurrentWeekMondayKey();
+  if (!habitDaysState[planId]) habitDaysState[planId] = {};
+  if (!habitDaysState[planId][mondayKey]) habitDaysState[planId][mondayKey] = {};
+
+  const currentVal = habitDaysState[planId][mondayKey][dayIdx] === true;
+  habitDaysState[planId][mondayKey][dayIdx] = !currentVal;
+
+  if (!currentVal) {
+    playSuccessSound();
+    if (navigator.vibrate) navigator.vibrate(25);
+    updateDailyConsistencyLog(1);
+    showToast('🔥 Hábito del día registrado');
+  } else {
+    updateDailyConsistencyLog(-1);
+  }
+
+  ls_set(KEYS.habitDays, habitDaysState);
+
+  // Actualizar todas las tarjetas de hábito de este pilar
+  const daysDoneCount = Object.values(habitDaysState[planId][mondayKey]).filter(v => v === true).length;
+  const planWeeks = PLANS[planId].weeks || [];
+  planWeeks.forEach((_, wi) => {
+    const countEl = document.getElementById(`hw-count-${planId}-${wi}`);
+    if (countEl) countEl.textContent = `${daysDoneCount}/7 días`;
+    const rowEl = document.getElementById(`hw-row-${planId}-${wi}`);
+    if (rowEl && rowEl.children[dayIdx]) {
+      const btn = rowEl.children[dayIdx];
+      btn.classList.toggle('done', !currentVal);
+      btn.querySelector('.d-dot').textContent = !currentVal ? '✓' : '·';
+    }
+  });
+}
+
+/* SISTEMA DE RECORDATORIO DIARIO (ANTI-OLVIDO) */
+function requestNotifPermission() {
+  const timeVal = document.getElementById('cfg-reminder-time').value;
+  if (timeVal) localStorage.setItem(KEYS.reminderTime, timeVal);
+  if ('Notification' in window) {
+    Notification.requestPermission().then(perm => {
+      if (perm === 'granted') {
+        showToast('🔔 Aviso diario activado');
+      } else {
+        showToast('✓ Hora guardada en la app');
+      }
+    });
+  } else {
+    showToast('✓ Hora de recordatorio guardada');
+  }
+}
+
+function initDailyReminderCheck() {
+  setInterval(() => {
+    const targetTime = localStorage.getItem(KEYS.reminderTime);
+    if (!targetTime) return;
+    const now = new Date();
+    const currHM = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    const lastFired = localStorage.getItem('pierovski_last_notif_date');
+    if (currHM === targetTime && lastFired !== todayStr()) {
+      localStorage.setItem('pierovski_last_notif_date', todayStr());
+      playSuccessSound();
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('⚡ Pierovski: Momento de tu Victoria de 2 Minutos', {
+          body: 'Abre tu ruta y marca al menos tu hábito diario o una micro-acción.',
+          icon: 'icon.jpg'
+        });
+      } else {
+        showToast('🔔 Hora de tu micro-acción diaria (2 min)');
+      }
+    }
+  }, 30000);
+}
+
+/* CONFIGURACIÓN Y REINICIO */
 function openSettings() {
-  document.getElementById('cfg-start-date').value = cleanDateStr(ls_get(KEYS.startDate, '2026-03-30'));
+  document.getElementById('cfg-start-date').value = cleanDateStr(ls_get(KEYS.startDate, '2026-10-15'));
+  document.getElementById('cfg-reminder-time').value = localStorage.getItem(KEYS.reminderTime) || '19:30';
   const bl = getBaseline();
   document.getElementById('cfg-peso').value = bl.peso;
   document.getElementById('cfg-pecho').value = bl.pecho;
@@ -1005,10 +1166,11 @@ function closeSettings() { document.getElementById('settingsOverlay').classList.
 
 function saveSettings() {
   const val = cleanDateStr(document.getElementById('cfg-start-date').value);
-  if (val) {
-    localStorage.setItem(KEYS.startDate, JSON.stringify(val));
-    recalcDates(val);
-  }
+  if (val) localStorage.setItem(KEYS.startDate, JSON.stringify(val));
+
+  const remTime = document.getElementById('cfg-reminder-time').value;
+  if (remTime) localStorage.setItem(KEYS.reminderTime, remTime);
+
   const newBase = {
     peso: parseFloat(document.getElementById('cfg-peso').value) || 0,
     pecho: parseFloat(document.getElementById('cfg-pecho').value) || 0,
@@ -1021,31 +1183,33 @@ function saveSettings() {
   ls_set(BASE_KEY, newBase);
   buildAllUI();
   closeSettings();
-  showToast('✓ Configuración sincronizada');
+  showToast('✓ Configuración guardada');
 }
 
 function resetCycle() {
-  if (confirm("¿Seguro que deseas iniciar un nuevo ciclo de 12 semanas? Esto reiniciará tus checks, WAM y mediciones.")) {
-    ['topo', 'fin', 'gym'].forEach(p => {
+  if (confirm("¿Seguro que deseas reiniciar todos los niveles a cero?")) {
+    PLAN_IDS.forEach(p => {
       localStorage.removeItem(KEYS[p].tasks);
       taskStates[p] = {};
     });
+    localStorage.removeItem(KEYS.habitDays);
+    habitDaysState = {};
     localStorage.removeItem('wam_states_v1');
-    wamStates = { topo: {}, fin: {}, gym: {} };
+    wamStates = { topo: {}, pueblo: {}, fin: {}, gym: {} };
     localStorage.removeItem(MEDS_KEY);
     ls_set(KEYS.startDate, todayStr());
     buildAllUI();
     closeSettings();
-    showToast("🔥 Ciclo reiniciado en Día Cero");
+    showToast("🔥 Niveles reiniciados");
   }
 }
 
-/* DIARIO DE GUERRA WAM */
+/* BITÁCORA POR NIVEL */
 function openWam(p, idx) {
   document.getElementById('wam-week-num').textContent = Number(idx) + 1;
   document.getElementById('wam-q1').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q1 : '';
   document.getElementById('wam-q2').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q2 : '';
-  document.getElementById('wam-q3').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q3 : '8';
+  document.getElementById('wam-q3').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q3 : '9';
   document.getElementById('wamOverlay').dataset.plan = p;
   document.getElementById('wamOverlay').dataset.idx = idx;
   document.getElementById('wamOverlay').classList.add('open');
@@ -1056,15 +1220,15 @@ function saveWam() {
   const idx = document.getElementById('wamOverlay').dataset.idx;
   const q1 = document.getElementById('wam-q1').value.trim();
   const q2 = document.getElementById('wam-q2').value.trim();
-  const q3 = document.getElementById('wam-q3').value.trim() || '8';
+  const q3 = document.getElementById('wam-q3').value.trim() || '9';
 
-  if (!q1 || !q2) return showToast('⚠️ Completa ambas respuestas antes de cerrar');
+  if (!q1 && !q2) return showToast('⚠️ Escribe al menos una nota');
 
   if (!wamStates[p]) wamStates[p] = {};
   wamStates[p][idx] = { q1, q2, q3, date: todayStr() };
   ls_set('wam_states_v1', wamStates);
   closeWam();
-  showToast('✓ Diario WAM guardado');
+  showToast('✓ Nota guardada en Bitácora');
   buildAllUI();
 }
 
@@ -1075,19 +1239,17 @@ function openWamHistory(p) {
   const keys = Object.keys(logs).sort((a, b) => Number(b) - Number(a));
 
   if (keys.length === 0) {
-    container.innerHTML = `<div style="text-align:center; color:var(--text-dim); font-style:italic; padding:32px 0;">Aún no tienes evaluaciones semanales en ${PLANS[p].label}.</div>`;
+    container.innerHTML = `<div style="text-align:center; color:var(--text-dim); font-style:italic; padding:28px 0;">Aún no tienes notas registradas en ${PLANS[p].label}.</div>`;
   } else {
     keys.forEach(k => {
       const entry = logs[k];
-      if (entry && entry.q1) {
-        const wLabel = isNaN(parseInt(k)) ? "HISTÓRICO" : (parseInt(k) + 1);
+      if (entry && (entry.q1 || entry.q2)) {
+        const wLabel = isNaN(parseInt(k)) ? "NOTA" : (parseInt(k) + 1);
         container.innerHTML += `
           <div class="wh-item">
-            <div class="wh-item-header">📅 SEMANA ${wLabel} — Disciplina: ${entry.q3}/10</div>
-            <div class="wh-q">Fricción detectada:</div>
-            <div class="wh-a">"${entry.q1}"</div>
-            <div class="wh-q">Acción correctiva:</div>
-            <div class="wh-a">"${entry.q2}"</div>
+            <div class="wh-item-header">📌 NIVEL ${wLabel} — Puntaje: ${entry.q3}/10</div>
+            ${entry.q1 ? `<div class="wh-q">Aprendizaje / Obstáculo:</div><div class="wh-a">"${entry.q1}"</div>` : ''}
+            ${entry.q2 ? `<div class="wh-q">Enfoque siguiente nivel:</div><div class="wh-a">"${entry.q2}"</div>` : ''}
           </div>`;
       }
     });
@@ -1096,9 +1258,9 @@ function openWamHistory(p) {
 }
 function closeWamHistory() { document.getElementById('wamHistoryOverlay').classList.remove('open'); }
 
-/* CRONÓMETRO INMERSIÓN DELTA-TIME (NO SE CONGELA EN SEGUNDO PLANO) */
+/* CRONÓMETRO DELTA-TIME CON OPCIÓN DE 2 MINUTOS */
 let dwTimerInt = null;
-let dwBaseMinutes = 90;
+let dwBaseMinutes = 2;
 
 function setDwTime(m) {
   if (dwTimerInt) return;
@@ -1108,7 +1270,8 @@ function setDwTime(m) {
   document.getElementById('dwTimer').textContent = `${String(m).padStart(2, '0')}:00`;
 }
 
-function openDeepWork() {
+function openDeepWork(customMin = null) {
+  if (customMin && !dwTimerInt) setDwTime(customMin);
   document.getElementById('dwOverlay').classList.add('open');
   if ((parseInt(localStorage.getItem('pierovski_dw_end')) || 0) > Date.now()) {
     resumeDeepWorkUI();
@@ -1148,12 +1311,12 @@ function tickDeepWork() {
     playSuccessSound();
     if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 100]);
     resetDwUI();
-    alert("🔥 Bloque de inmersión completado con éxito.");
+    showToast("🔥 ¡Tiempo cumplido! Marca tu misión como completada.");
+    closeDeepWork();
   }
 }
 
 function stopDeepWork() {
-  if (!confirm("¿Abortar el bloque de inmersión antes de tiempo?")) return;
   clearInterval(dwTimerInt);
   dwTimerInt = null;
   localStorage.removeItem('pierovski_dw_end');
@@ -1167,7 +1330,7 @@ function resetDwUI() {
   document.getElementById('btnDwAbort').style.display = 'none';
 }
 
-/* PANEL DE MEDICIONES FÍSICAS */
+/* MATRIZ DE MEDICIONES FÍSICAS */
 function buildMeasurementsPanel() {
   const bl = getBaseline();
   const medidasArray = [
@@ -1180,10 +1343,10 @@ function buildMeasurementsPanel() {
   ];
 
   const saved = ls_get(MEDS_KEY, {});
-  const weeks = ['Semana 1', 'Semana 4', 'Semana 8', 'Semana 12'];
+  const weeks = ['Base', 'Mes 1 (Q2)', 'Mes 2 (Q4)', 'Mes 3 (Q6)'];
 
   let headerCols = `<th style="padding:10px 8px;text-align:left; border-bottom: 1px solid var(--border);">Zona</th><th style="padding:10px 8px;text-align:center; border-bottom: 1px solid var(--border); color:var(--amber);">Base</th>`;
-  weeks.slice(1).forEach(w => headerCols += `<th style="padding:10px 8px;text-align:center; border-bottom: 1px solid var(--border);">${w.replace('Semana ', 'S')}</th>`);
+  weeks.slice(1).forEach(w => headerCols += `<th style="padding:10px 8px;text-align:center; border-bottom: 1px solid var(--border);">${w.split(' ')[0]} ${w.split(' ')[1]}</th>`);
   headerCols += `<th style="padding:10px 8px;text-align:center; border-bottom: 1px solid var(--border);">Δ</th>`;
 
   let bodyRows = '';
@@ -1218,7 +1381,7 @@ function buildMeasurementsPanel() {
 
   document.getElementById('measContent').innerHTML = `
     <button class="modal-close" onclick="closeMeas()">✕</button>
-    <h2>📏 Auditoría Física</h2>
+    <h2>📏 Evolución Física + Symmetry</h2>
     <div style="overflow-x:auto; margin-bottom:20px;">
       <table style="width:100%;border-collapse:collapse; min-width: 310px;">
         <thead><tr>${headerCols}</tr></thead>
