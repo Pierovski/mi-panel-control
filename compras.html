@@ -4,172 +4,293 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="view-transition" content="same-origin">
-<title>Compras y Activos | Pierovski</title>
+<title>Compras y Activos | Pierovski OS</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#090d16">
 <link rel="apple-touch-icon" href="icon.jpg">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,600;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <style>
 :root {
   color-scheme: light;
-  --bg: #f4f5f7;
+  --bg: #f1f5f9;
+  --bg-accent: radial-gradient(circle at 15% 0%, rgba(217,119,6,0.06), transparent 45%), radial-gradient(circle at 85% 10%, rgba(37,99,235,0.05), transparent 45%);
   --surface: #ffffff;
-  --surface-glass: rgba(255,255,255,0.88);
-  --surface2: #f8f9fa;
+  --surface-glass: rgba(255, 255, 255, 0.86);
+  --surface2: #f8fafc;
   --surface3: #e2e8f0;
-  --border: #e2e4e8;
-  --border2: #cbd5e1;
+  --border: rgba(148, 163, 184, 0.28);
+  --border-strong: rgba(100, 116, 139, 0.35);
   --amber: #d97706;
   --amber-dim: #b45309;
-  --amber-glow: rgba(217,119,6,0.12);
+  --amber-glow: rgba(217, 119, 6, 0.12);
   --green: #059669;
   --green-dim: #047857;
-  --green-glow: rgba(5,150,105,0.12);
+  --green-glow: rgba(5, 150, 105, 0.12);
   --red: #dc2626;
   --red-dim: #b91c1c;
-  --red-glow: rgba(220,38,38,0.12);
+  --red-glow: rgba(220, 38, 38, 0.12);
   --blue: #2563eb;
-  --blue-glow: rgba(37,99,235,0.12);
+  --blue-glow: rgba(37, 99, 235, 0.12);
   --purple: #7c3aed;
-  --purple-glow: rgba(124,58,237,0.12);
+  --purple-glow: rgba(124, 58, 237, 0.12);
   --text: #0f172a;
   --text-muted: #475569;
   --text-dim: #64748b;
-  --r: 18px;
-  --r-sm: 10px;
-  --shadow: 0 6px 24px rgba(0,0,0,0.04);
+  --r-lg: 22px;
+  --r-md: 16px;
+  --r-sm: 12px;
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body.dark-theme {
   color-scheme: dark;
-  --bg: #0f172a;
-  --surface: #1e293b;
-  --surface-glass: rgba(30,41,59,0.88);
-  --surface2: #0b1121;
-  --surface3: #334155;
-  --border: #334155;
-  --border2: #475569;
+  --bg: #090d16;
+  --bg-accent: radial-gradient(circle at 15% 0%, rgba(217,119,6,0.12), transparent 45%), radial-gradient(circle at 85% 10%, rgba(37,99,235,0.10), transparent 45%);
+  --surface: #131b2e;
+  --surface-glass: rgba(19, 27, 46, 0.84);
+  --surface2: #0d1322;
+  --surface3: #1e293b;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
   --text: #f8fafc;
   --text-muted: #cbd5e1;
   --text-dim: #94a3b8;
-  --amber-glow: rgba(217,119,6,0.22);
-  --green-glow: rgba(5,150,105,0.22);
-  --red-glow: rgba(220,38,38,0.22);
-  --blue-glow: rgba(37,99,235,0.22);
-  --purple-glow: rgba(124,58,237,0.22);
-  --shadow: 0 10px 30px rgba(0,0,0,0.35);
+  --amber-glow: rgba(217, 119, 6, 0.22);
+  --green-glow: rgba(5, 150, 105, 0.22);
+  --red-glow: rgba(220, 38, 38, 0.22);
+  --blue-glow: rgba(37, 99, 235, 0.22);
+  --purple-glow: rgba(124, 58, 237, 0.22);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 14px 36px -6px rgba(0, 0, 0, 0.45);
 }
-
-body.e-ink-mode {
-  --bg: #ffffff; --surface: #ffffff; --surface-glass: #ffffff; --surface2: #f0f0f0; --surface3: #e0e0e0;
-  --text: #000000; --text-muted: #222222; --text-dim: #555555;
-  --border: #000000; --border2: #000000;
-  --amber: #000000; --green: #000000; --red: #000000; --blue: #000000; --purple: #000000;
-  --shadow: none;
-}
-body.e-ink-mode * { transition: none !important; animation: none !important; backdrop-filter: none !important; box-shadow: none !important; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 110px; transition: background 0.3s, color 0.3s; }
+body {
+  background-color: var(--bg);
+  background-image: var(--bg-accent);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  padding-bottom: 120px;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+  font-variant-numeric: tabular-nums;
+}
 
-#offlineBanner { display: none; background: var(--amber); color: #ffffff; text-align: center; padding: 6px 12px; font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; position: sticky; top: 0; z-index: 200; }
+#offlineBanner {
+  display: none; background: var(--amber); color: #ffffff;
+  text-align: center; padding: 6px 12px;
+  font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.5px; position: sticky; top: 0; z-index: 200;
+}
 
 /* CABECERA UNIFICADA PIEROVSKI */
-header { border-bottom: 1px solid var(--border); background: var(--surface-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 100; padding: 0 20px; transition: background 0.3s; }
-.header-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0 10px; flex-wrap: wrap; gap: 10px; }
+header {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  position: sticky; top: 0; z-index: 100; padding: 0 20px;
+}
+.header-inner {
+  max-width: 840px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 0 10px; flex-wrap: wrap; gap: 10px;
+}
 .logo-container { display: flex; align-items: center; gap: 10px; }
-.btn-back-arrow { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--surface); border-radius: 50%; color: var(--text-muted); transition: 0.2s; text-decoration: none; border: 1px solid var(--border2); flex-shrink: 0; }
-.btn-back-arrow:hover { border-color: var(--amber); color: var(--text); transform: scale(0.96); }
-.logo h1 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.35rem; color: var(--text); letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center; gap: 8px; }
-.cloud-status { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); display: inline-block; transition: 0.3s; }
+.btn-back-arrow {
+  display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; background: var(--surface);
+  border-radius: 50%; color: var(--text-muted);
+  transition: all 0.2s var(--ease); text-decoration: none;
+  border: 1px solid var(--border-strong); flex-shrink: 0; box-shadow: var(--shadow-sm);
+}
+.btn-back-arrow:hover { border-color: var(--amber); color: var(--text); transform: translateX(-2px); }
+.logo h1 {
+  font-family: 'Fraunces', serif; font-weight: 700; font-size: clamp(1.2rem, 3vw, 1.4rem);
+  color: var(--text); letter-spacing: -0.02em; line-height: 1;
+  display: flex; align-items: center; gap: 8px;
+}
+.cloud-status { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); display: inline-block; transition: 0.3s; }
 .cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
 
 .header-tools { display: flex; gap: 8px; align-items: center; }
-.btn-pill-vault { background: var(--amber-glow); color: var(--amber); border: 1px solid rgba(217,119,6,0.35); border-radius: 20px; height: 38px; padding: 0 14px; font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; }
-.btn-pill-vault:hover { background: var(--amber); color: #ffffff; }
+.btn-pill-vault {
+  background: var(--amber-glow); color: var(--amber);
+  border: 1px solid rgba(217, 119, 6, 0.35); border-radius: 20px;
+  height: 38px; padding: 0 14px;
+  font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  transition: all 0.2s var(--ease);
+}
+.btn-pill-vault:hover { background: var(--amber); color: #ffffff; transform: translateY(-1px); }
 .btn-pill-vault:active { transform: scale(0.95); }
 
-.btn-icon-tool { background: var(--surface); border: 1px solid var(--border2); color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
-.btn-icon-tool:hover { border-color: var(--amber); color: var(--text); }
+.btn-icon-tool {
+  background: var(--surface); border: 1px solid var(--border-strong);
+  color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px;
+  font-size: 0.95rem; cursor: pointer; transition: all 0.2s var(--ease);
+  display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm);
+}
+.btn-icon-tool:hover { border-color: var(--amber); color: var(--text); transform: translateY(-1px); }
 .btn-icon-tool:active { transform: scale(0.92); }
 .btn-icon-tool.active { color: var(--amber); border-color: var(--amber); background: var(--amber-glow); }
 
+.btn-add-header {
+  background: var(--text); color: var(--bg);
+  border: none; border-radius: 20px; height: 38px; padding: 0 15px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 700;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+  transition: all 0.2s var(--ease); box-shadow: var(--shadow-sm);
+}
+.btn-add-header:hover { opacity: 0.92; transform: translateY(-1px); }
+
 /* PESTAÑAS DE NAVEGACIÓN */
-.tabs { max-width: 800px; margin: 0 auto; display: flex; gap: 6px; padding-bottom: 10px; overflow-x: auto; scrollbar-width: none; }
+.tabs {
+  max-width: 840px; margin: 0 auto; display: flex; gap: 6px;
+  padding-bottom: 10px; overflow-x: auto; scrollbar-width: none;
+}
 .tabs::-webkit-scrollbar { display: none; }
-.tab-btn { background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 0.74rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; cursor: pointer; transition: all 0.2s; font-weight: 700; white-space: nowrap; }
+.tab-btn {
+  background: none; border: none; border-bottom: 2px solid transparent;
+  color: var(--text-dim); font-family: 'DM Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 8px 14px; cursor: pointer; transition: all 0.2s var(--ease);
+  font-weight: 700; white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text); }
 .tab-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
 
-main { max-width: 800px; margin: 0 auto; padding: 22px 20px 0; }
+main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .tab-pane { display: none; opacity: 0; }
-.tab-pane.active { display: block; animation: fadeUpTab 0.3s ease forwards; }
+.tab-pane.active { display: block; animation: fadeUpTab 0.3s var(--ease) forwards; }
 @keyframes fadeUpTab { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* TOOLTIPS */
-[data-tooltip] { position: relative; }
-[data-tooltip]::after { content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(4px); background: #0f172a; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 0.68rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.2s; z-index: 20; font-family: 'DM Mono', monospace; }
-body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #0f172a; }
-[data-tooltip]:hover::after { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+/* BARRA DE SINERGIA FINANCIERA (CONEXIÓN CON TARJETAS Y BÓVEDA) */
+.synergy-bar {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  margin-bottom: 16px;
+}
+.syn-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  box-shadow: var(--shadow-sm); text-decoration: none; color: inherit;
+  transition: all 0.2s var(--ease);
+}
+.syn-box:hover { border-color: var(--amber); transform: translateY(-1px); }
+.sb-left { display: flex; flex-direction: column; gap: 2px; }
+.sb-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.05em; }
+.sb-val { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+.sb-badge {
+  font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 12px; white-space: nowrap;
+}
 
 /* PANEL DE PATRIMONIO Y DISTRIBUCIÓN */
-.dashboard-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; margin-bottom: 22px; box-shadow: var(--shadow); }
+.dashboard-panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 20px; margin-bottom: 20px;
+  box-shadow: var(--shadow-md);
+}
 .kpi-ribbon { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
-.kpi-item { display: flex; flex-direction: column; cursor: pointer; padding: 14px; border-radius: 14px; transition: 0.2s; border: 1px solid var(--border); background: var(--surface2); }
-.kpi-item:hover { border-color: var(--border2); }
-.kpi-item.active-filter { background: var(--surface); border-color: var(--amber); box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); }
-.kpi-lbl { font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-bottom: 6px; }
-.kpi-val { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 700; line-height: 1.1; color: var(--text); }
-.kpi-sub { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text-muted); margin-top: 4px; font-weight: 600; }
+.kpi-item {
+  display: flex; flex-direction: column; cursor: pointer;
+  padding: 14px; border-radius: var(--r-md); transition: all 0.2s var(--ease);
+  border: 1px solid var(--border); background: var(--surface2);
+}
+.kpi-item:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+.kpi-item.active-filter {
+  background: var(--surface); border-color: var(--amber);
+  box-shadow: var(--shadow-sm); transform: translateY(-2px);
+}
+.kpi-lbl { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; margin-bottom: 6px; }
+.kpi-val { font-family: 'Fraunces', serif; font-size: 1.32rem; font-weight: 700; line-height: 1.1; color: var(--text); }
+.kpi-sub { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text-muted); margin-top: 5px; font-weight: 600; }
 .kpi-item.active-filter#kpi-total .kpi-val { color: var(--blue); }
 .kpi-item.active-filter#kpi-green .kpi-val { color: var(--green); }
 .kpi-item.active-filter#kpi-pending .kpi-val { color: var(--amber); }
 .kpi-item.active-filter#kpi-daily .kpi-val { color: var(--red); }
 
 /* BARRA DE COMPOSICIÓN PATRIMONIAL */
-.alloc-bar-wrap { margin-bottom: 14px; }
-.alloc-header { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; font-weight: 700; }
+.alloc-bar-wrap { margin-bottom: 16px; }
+.alloc-header { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; font-weight: 700; }
 .alloc-bar { width: 100%; height: 8px; border-radius: 4px; background: var(--surface3); display: flex; overflow: hidden; gap: 2px; }
-.alloc-seg { height: 100%; transition: width 0.5s ease; }
+.alloc-seg { height: 100%; transition: width 0.5s var(--ease); }
 
 /* CATEGORÍAS Y PRESUPUESTOS */
-.cat-summary { display: flex; gap: 12px; overflow-x: auto; padding: 6px 0 4px; scrollbar-width: thin; }
+.cat-summary { display: flex; gap: 12px; overflow-x: auto; padding: 4px 0; scrollbar-width: thin; }
 .cat-summary::-webkit-scrollbar { height: 4px; }
-.cat-summary::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
-.cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; flex: 0 0 auto; min-width: 195px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
-.cat-card:hover, .cat-card.active-filter { border-color: var(--amber); background: var(--surface2); }
-.cat-sparkline { position: absolute; bottom: 0; left: 0; right: 0; height: 28px; opacity: 0.08; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30' preserveAspectRatio='none'%3E%3Cpath d='M0,30 L10,25 L30,15 L50,28 L70,10 L100,5 L100,30 Z' fill='%23d97706'/%3E%3C/svg%3E"); background-size: 100% 100%; pointer-events: none; }
-.cc-name { position: relative; z-index: 2; font-size: 0.7rem; font-family: 'DM Mono', monospace; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
-.cc-edit-btn { background: var(--surface2); border: 1px solid var(--border2); border-radius: 6px; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; cursor: pointer; transition: 0.2s; color: var(--text-muted); }
+.cat-summary::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+.cat-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px; flex: 0 0 auto; min-width: 195px;
+  cursor: pointer; transition: all 0.2s var(--ease); position: relative; overflow: hidden;
+}
+.cat-card:hover, .cat-card.active-filter { border-color: var(--amber); background: var(--surface); box-shadow: var(--shadow-sm); }
+.cc-name {
+  font-size: 0.68rem; font-family: 'DM Mono', monospace; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; gap: 6px;
+}
+.cc-edit-btn {
+  background: var(--surface); border: 1px solid var(--border-strong);
+  border-radius: 6px; width: 24px; height: 24px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.68rem; cursor: pointer; transition: 0.2s; color: var(--text-muted);
+}
 .cc-edit-btn:hover { border-color: var(--amber); color: var(--text); transform: scale(1.08); }
-.cc-inv { position: relative; z-index: 2; font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--amber); margin-bottom: 10px; }
-.budget-wrap { position: relative; z-index: 2; width: 100%; height: 5px; background: var(--surface3); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
-.budget-fill { height: 100%; border-radius: 3px; background: var(--green); transition: width 0.4s ease; }
+.cc-inv { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.budget-wrap { width: 100%; height: 5px; background: var(--surface3); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+.budget-fill { height: 100%; border-radius: 3px; background: var(--green); transition: width 0.4s var(--ease); }
 .budget-fill.warn { background: var(--amber); }
 .budget-fill.danger { background: var(--red); }
-.budget-text { position: relative; z-index: 2; font-size: 0.65rem; color: var(--text-dim); font-family: 'DM Mono', monospace; display: flex; justify-content: space-between; font-weight: 600; }
+.budget-text { font-size: 0.64rem; color: var(--text-dim); font-family: 'DM Mono', monospace; display: flex; justify-content: space-between; font-weight: 600; }
 
 /* BÚSQUEDA Y FILTROS */
-.filter-bar { display: flex; gap: 10px; margin-bottom: 14px; position: sticky; top: 102px; z-index: 85; background: var(--bg); padding: 8px 0; }
-.filter-bar input[type="text"] { flex: 1; min-height: 44px; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 0 20px; outline: none; transition: 0.2s; box-shadow: var(--shadow); }
-.filter-bar input:focus { border-color: var(--amber); }
-.custom-select-btn { min-width: 165px; min-height: 44px; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.84rem; padding: 0 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; font-weight: 600; box-shadow: var(--shadow); }
+.filter-bar { display: flex; gap: 10px; margin-bottom: 12px; }
+.filter-bar input[type="text"] {
+  flex: 1; min-height: 44px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 22px;
+  color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  padding: 0 20px; outline: none; transition: 0.2s; box-shadow: var(--shadow-sm);
+}
+.filter-bar input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px var(--amber-glow); }
+.custom-select-btn {
+  min-width: 165px; min-height: 44px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 22px; color: var(--text);
+  font-family: 'DM Sans', sans-serif; font-size: 0.84rem; padding: 0 16px;
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  transition: all 0.2s; font-weight: 600; box-shadow: var(--shadow-sm);
+}
+.custom-select-btn:hover { border-color: var(--amber); }
 
 .quick-pills { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-bottom: 20px; }
 .quick-pills::-webkit-scrollbar { display: none; }
-.q-pill { background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 14px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.2s; }
+.q-pill {
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text-muted); padding: 7px 14px; border-radius: 20px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; white-space: nowrap; transition: 0.2s;
+}
 .q-pill:hover, .q-pill.active { border-color: var(--amber); color: var(--amber); background: var(--amber-glow); }
 
-/* SECCIONES Y TARJETAS DE ACTIVOS CON BARRA DE AMORTIZACIÓN */
-.section { margin-bottom: 32px; }
+/* SECCIONES Y TARJETAS DE ACTIVOS */
+.section { margin-bottom: 30px; }
 .sec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; cursor: pointer; user-select: none; padding: 6px 0; }
 .sec-title-group { display: flex; align-items: center; gap: 10px; }
 .sec-header h2 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--text); }
-.sec-header .badge { background: var(--surface2); border: 1px solid var(--border2); border-radius: 12px; font-family: 'DM Mono', monospace; font-size: 0.72rem; padding: 2px 9px; color: var(--text-muted); font-weight: 700; }
+.sec-header .badge {
+  background: var(--surface); border: 1px solid var(--border-strong);
+  border-radius: 12px; font-family: 'DM Mono', monospace; font-size: 0.7rem;
+  padding: 2px 9px; color: var(--text-muted); font-weight: 700;
+}
 .sec-chevron { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--text-dim); transition: transform 0.25s; }
 .section.is-collapsed .sec-chevron { transform: rotate(-90deg); }
 .section.green .sec-header h2 { color: var(--green); }
@@ -178,117 +299,177 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #0f172a; }
 .list-container { display: flex; flex-direction: column; gap: 12px; }
 .list-container.collapsed { display: none; }
 
-.prod-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: 0.2s; box-shadow: var(--shadow); position: relative; }
-.prod-card:hover { border-color: var(--border2); }
+.prod-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); overflow: hidden;
+  transition: all 0.2s var(--ease); box-shadow: var(--shadow-sm); position: relative;
+}
+.prod-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
 .prod-card.premium { border-left: 4px solid var(--amber); }
 
-.pc-header { padding: 16px 16px 13px; display: flex; justify-content: space-between; align-items: center; gap: 10px; cursor: pointer; }
+.pc-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; cursor: pointer; }
 .pc-main { display: flex; flex-direction: column; gap: 5px; flex: 1; overflow: hidden; }
 .pc-name { font-weight: 700; font-size: 0.96rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
-.pc-cat { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.4px; }
+.pc-cat { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.04em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.paid-via-tag {
+  background: var(--blue-glow); color: var(--blue);
+  padding: 1px 6px; border-radius: 4px; font-size: 0.6rem; font-weight: 700;
+}
 
 .pc-stats { text-align: right; display: flex; flex-direction: column; gap: 5px; align-items: flex-end; flex-shrink: 0; }
-.pc-cday { font-family: 'DM Mono', monospace; font-weight: 700; font-size: 1.02rem; color: var(--text); }
+.pc-cday { font-family: 'DM Mono', monospace; font-weight: 700; font-size: 1rem; color: var(--text); }
 .section.green .pc-cday { color: var(--green); }
 .section.pending .pc-cday { color: var(--amber); }
 
-/* MICROBARRA INFERIOR DE PROGRESO DE AMORTIZACIÓN */
 .pc-prog-track { width: 100%; height: 4px; background: var(--surface3); overflow: hidden; }
-.pc-prog-fill { height: 100%; transition: width 0.5s ease; }
+.pc-prog-fill { height: 100%; transition: width 0.5s var(--ease); }
 
 .cat-pill { font-family: 'DM Mono', monospace; font-size: 0.62rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; white-space: nowrap; border: 1px solid; }
-.pill-green { background: var(--green-glow); color: var(--green); border-color: rgba(5,150,105,0.3); }
-.pill-amber { background: var(--amber-glow); color: var(--amber); border-color: rgba(217,119,6,0.3); }
+.pill-green { background: var(--green-glow); color: var(--green); border-color: rgba(5, 150, 105, 0.3); }
+.pill-amber { background: var(--amber-glow); color: var(--amber); border-color: rgba(217, 119, 6, 0.3); }
 
-/* DETALLES DESPLEGABLES DE AUDITORÍA DE ACTIVO */
-.pc-details { display: none; padding: 16px; border-top: 1px dashed var(--border); background: var(--surface2); animation: slideDown 0.2s ease; }
+/* DETALLES DESPLEGABLES */
+.pc-details { display: none; padding: 16px; border-top: 1px dashed var(--border); background: var(--surface2); animation: slideDown 0.2s var(--ease); }
 .pc-details.open { display: block; }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
-.pc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; background: var(--surface); padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); }
+.pc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; background: var(--surface); padding: 12px 14px; border-radius: var(--r-sm); border: 1px solid var(--border); }
 .pc-grid div { display: flex; flex-direction: column; gap: 3px; }
-.pc-grid span { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
-.pc-grid strong { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--text); font-weight: 700; }
+.pc-grid span { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+.pc-grid strong { font-size: 0.88rem; color: var(--text); font-weight: 700; }
 
 .pc-note-box { font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-bottom: 14px; padding: 8px 12px; background: var(--surface); border-left: 3px solid var(--amber); border-radius: 6px; }
 
 .pc-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
 .pc-btn { padding: 8px 14px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 700; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: 0.2s; }
 .pc-btn:active { transform: scale(0.95); }
-.pc-btn.sell { background: var(--green-glow); color: var(--green); border: 1px solid rgba(5,150,105,0.35); }
-.pc-btn.rebuy { background: var(--blue-glow); color: var(--blue); border: 1px solid rgba(37,99,235,0.35); }
-.pc-btn.edit { background: var(--surface); color: var(--text); border: 1px solid var(--border2); }
-.pc-btn.del { background: var(--red-glow); color: var(--red); border: 1px solid rgba(220,38,38,0.35); }
+.pc-btn.sell { background: var(--green-glow); color: var(--green); border: 1px solid rgba(5, 150, 105, 0.35); }
+.pc-btn.rebuy { background: var(--blue-glow); color: var(--blue); border: 1px solid rgba(37, 99, 235, 0.35); }
+.pc-btn.edit { background: var(--surface); color: var(--text); border: 1px solid var(--border-strong); }
+.pc-btn.del { background: var(--red-glow); color: var(--red); border: 1px solid rgba(220, 38, 38, 0.35); }
 
-/* CATÁLOGO RÁPIDO DE COMPRAS PREVIAS */
-.preset-list { display: flex; flex-direction: column; gap: 8px; max-height: 52vh; overflow-y: auto; padding-right: 4px; margin-bottom: 16px; }
-.preset-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; gap: 10px; }
-.preset-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-.preset-title { font-weight: 700; font-size: 0.88rem; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.preset-sub { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-dim); }
-.preset-btn { padding: 7px 12px; border-radius: 16px; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 700; cursor: pointer; border: 1px solid var(--amber); background: var(--amber-glow); color: var(--amber); white-space: nowrap; transition: 0.2s; }
-.preset-btn:hover { background: var(--amber); color: #fff; }
-.preset-btn.added { background: var(--surface3); border-color: var(--border2); color: var(--text-dim); cursor: default; }
-
-/* LISTA DE DESEOS */
-.wish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-.wish-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
+/* LISTA DE DESEOS CON INTELIGENCIA FINANCIERA INTEGRADA */
+.wish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+.wish-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-md);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 12px;
+}
 .wish-card .wc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
 .wish-card .wc-name { font-weight: 700; font-size: 1.02rem; color: var(--text); }
-.wish-card .wc-precio { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.25rem; color: var(--purple); }
-.wish-card .wc-nota { font-size: 0.82rem; color: var(--text-muted); font-style: italic; line-height: 1.45; background: var(--surface2); padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--purple); }
-.wish-card .wc-meta { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-dim); }
-.wish-card .wc-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
-.prio-pill { font-family: 'DM Mono', monospace; font-size: 0.65rem; padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid; }
-.prio-Alta { background: var(--red-glow); color: var(--red); border-color: rgba(220,38,38,0.3); }
-.prio-Media { background: var(--amber-glow); color: var(--amber); border-color: rgba(217,119,6,0.3); }
-.prio-Baja { background: var(--green-glow); color: var(--green); border-color: rgba(5,150,105,0.3); }
+.wish-card .wc-precio { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.3rem; color: var(--purple); margin-top: 2px; }
+.wish-card .wc-nota { font-size: 0.8rem; color: var(--text-muted); font-style: italic; line-height: 1.45; background: var(--surface2); padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--purple); }
+.wish-card .wc-meta { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--text-dim); margin-top: 4px; }
+.wc-synergy-box {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 9px 11px;
+  font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-muted);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.wish-card .wc-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 10px; border-top: 1px dashed var(--border); }
+.prio-pill { font-family: 'DM Mono', monospace; font-size: 0.64rem; padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid; }
+.prio-Alta { background: var(--red-glow); color: var(--red); border-color: rgba(220, 38, 38, 0.3); }
+.prio-Media { background: var(--amber-glow); color: var(--amber); border-color: rgba(217, 119, 6, 0.3); }
+.prio-Baja { background: var(--green-glow); color: var(--green); border-color: rgba(5, 150, 105, 0.3); }
 
-.fab-add { position: fixed; bottom: 28px; right: 28px; width: 58px; height: 58px; background: var(--amber); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 400; box-shadow: 0 6px 20px rgba(217, 119, 6, 0.4); cursor: pointer; z-index: 150; border: none; transition: 0.2s; }
-.fab-add:hover { transform: scale(1.05); }
-.fab-add:active { transform: scale(0.92); }
+.empty-state { text-align: center; padding: 44px 24px; color: var(--text-dim); background: var(--surface); border-radius: var(--r-lg); border: 1.5px dashed var(--border-strong); }
+.empty-state .es-icon { font-size: 2.2rem; margin-bottom: 10px; opacity: 0.7; display: block; }
 
-.empty-state { text-align: center; padding: 48px 24px; color: var(--text-dim); background: var(--surface); border-radius: var(--r); border: 1.5px dashed var(--border2); }
-.empty-state .es-icon { font-size: 2.4rem; margin-bottom: 10px; opacity: 0.7; display: block; }
-
-/* MODALES */
-.duplicate-warn { display: none; color: var(--amber); font-size: 0.75rem; font-weight: 600; margin-top: 6px; font-family: 'DM Mono', monospace; }
-.backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease; }
-.modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 22px; padding: 26px; max-width: 480px; width: 92%; box-shadow: 0 12px 40px rgba(0,0,0,0.25); animation: scaleIn 0.2s cubic-bezier(.34,1.56,.64,1); max-height: 90vh; overflow-y: auto; }
+/* MODALES PREMIUM UNIFICADOS */
+.duplicate-warn { display: none; color: var(--amber); font-size: 0.72rem; font-weight: 600; margin-top: 6px; font-family: 'DM Mono', monospace; }
+.backdrop {
+  position: fixed; inset: 0; background: rgba(9, 13, 22, 0.65);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  z-index: 300; display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.2s var(--ease);
+}
+.modal {
+  background: var(--surface); border: 1px solid var(--border-strong);
+  border-radius: 24px; padding: 26px; max-width: 490px; width: 92%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  animation: scaleIn 0.22s var(--ease); max-height: 90vh; overflow-y: auto;
+}
 .modal h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
 .modal .desc { color: var(--text-muted); font-size: 0.84rem; line-height: 1.5; margin-bottom: 18px; font-weight: 500; }
 .modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; flex-wrap: wrap; }
-.mbtn { border: none; border-radius: 22px; min-height: 44px; padding: 0 18px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; cursor: pointer; font-weight: 700; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.mbtn {
+  border: none; border-radius: 22px; min-height: 44px; padding: 0 18px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.86rem; cursor: pointer;
+  font-weight: 700; transition: all 0.2s var(--ease);
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+}
 .mbtn:active { transform: scale(0.95); }
-.mbtn-cancel { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border2); }
+.mbtn-cancel { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border-strong); }
 .mbtn-green { background: var(--green); color: white; }
 .mbtn-blue { background: var(--text); color: var(--bg); }
 .mbtn-amber { background: var(--amber); color: white; }
 
-.field label { display: block; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px; font-weight: 700; }
-.field input, .field select { width: 100%; min-height: 44px; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.92rem; padding: 0 14px; outline: none; transition: 0.2s; font-weight: 500; }
-.field input:focus, .field select:focus { border-color: var(--amber); background: var(--surface); box-shadow: 0 0 0 3px var(--amber-glow); }
+.field label { display: block; font-size: 0.64rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px; font-weight: 700; }
+.field input, .field select, .field textarea {
+  width: 100%; min-height: 44px; background: var(--surface2);
+  border: 1px solid var(--border-strong); border-radius: 12px;
+  color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  padding: 0 14px; outline: none; transition: 0.2s; font-weight: 500;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--amber); background: var(--surface); box-shadow: 0 0 0 3px var(--amber-glow);
+}
 .edit-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
 
-.sort-item { padding: 15px 18px; border-bottom: 1px solid var(--border); font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--text); cursor: pointer; transition: background 0.2s; display: flex; justify-content: space-between; align-items: center; }
+.card-bridge-box {
+  background: var(--surface2); border: 1px solid var(--border-strong);
+  border-left: 3px solid var(--blue); border-radius: 12px; padding: 12px;
+}
+.cb-hint { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-muted); margin-top: 6px; }
+
+.sort-item { padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 0.9rem; font-weight: 600; color: var(--text); cursor: pointer; transition: background 0.2s; display: flex; justify-content: space-between; align-items: center; border-radius: 10px; }
 .sort-item:last-child { border-bottom: none; }
 .sort-item.active-sort { color: var(--amber); font-weight: 700; background: var(--amber-glow); }
 
-#toast { position: fixed; bottom: 36px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 700; padding: 12px 24px; border-radius: 30px; opacity: 0; transition: opacity 0.3s, transform 0.3s; z-index: 300; pointer-events: none; box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+/* GLOBAL DOCK DE NAVEGACIÓN UNIFICADA */
+.global-dock {
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+  background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-strong); border-radius: 30px;
+  padding: 6px 8px; display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); z-index: 200;
+}
+.dock-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px; border-radius: 24px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
+  color: var(--text-muted); text-decoration: none; transition: all 0.2s var(--ease);
+  white-space: nowrap;
+}
+.dock-link:hover { color: var(--text); background: var(--surface2); }
+.dock-link.active { background: var(--text); color: var(--bg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+
+#toast {
+  position: fixed; bottom: 82px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace;
+  font-size: 0.78rem; font-weight: 700; padding: 11px 22px; border-radius: 30px;
+  opacity: 0; transition: 0.3s var(--ease); z-index: 400; pointer-events: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
-@keyframes scaleIn { from { opacity:0; transform:scale(0.95) } to { opacity:1; transform:scale(1) } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
 .impact-bar-bg { width: 100%; height: 6px; background: var(--surface3); border-radius: 3px; margin-top: 8px; overflow: hidden; display: none; }
-.impact-bar-fill { height: 100%; background: var(--red); border-radius: 3px; transition: width 0.3s ease; }
+.impact-bar-fill { height: 100%; background: var(--red); border-radius: 3px; transition: width 0.3s var(--ease); }
 
-@media (max-width: 650px) {
-  .kpi-ribbon { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 680px) {
+  .kpi-ribbon, .synergy-bar { grid-template-columns: repeat(2, 1fr); }
   .pc-grid { grid-template-columns: repeat(2, 1fr); }
-  .modal { position: absolute; bottom: 0; left: 0; right: 0; max-width: 100%; width: 100%; border-radius: 24px 24px 0 0; padding: 24px 18px; margin: 0; animation: slideUp 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .modal { position: absolute; bottom: 0; left: 0; right: 0; max-width: 100%; width: 100%; border-radius: 24px 24px 0 0; padding: 24px 18px; margin: 0; animation: slideUp 0.25s var(--ease); }
   @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
   header { padding: 0 14px; }
+  .dock-link span.dl-txt { display: none; }
+  .dock-link.active span.dl-txt { display: inline; }
+}
+@media (max-width: 520px) {
+  .synergy-bar { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -300,16 +481,17 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #0f172a; }
   <div class="header-inner">
     <div class="logo-container">
       <a href="index.html" class="btn-back-arrow" title="Volver al Comando">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </a>
       <div class="logo"><h1>Compras <span id="cloudStatus" class="cloud-status" title="Estado de Nube"></span></h1></div>
     </div>
 
     <div class="header-tools">
-      <button class="btn-pill-vault" onclick="openPresetsModal()" title="Cargar mis adquisiciones y equipos previos">✨ Mis Compras</button>
+      <button class="btn-pill-vault" onclick="openPresetsModal()" title="Cargar adquisiciones por lote">✨ Lote</button>
       <button class="btn-icon-tool" id="privacyToggleBtn" onclick="togglePrivacy()" title="Modo Privacidad">👁️</button>
       <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema Oscuro / Claro">🌙</button>
       <button class="btn-icon-tool" onclick="openBackupModal()" title="Exportar e Importar Datos">⚙️</button>
+      <button class="btn-add-header" onclick="handleFabClick()">+ Registrar</button>
     </div>
   </div>
   <div class="tabs">
@@ -321,32 +503,50 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #0f172a; }
 </header>
 
 <main>
+  <!-- PUENTE DE SINERGIA CON TARJETAS Y BÓVEDA (PLAN) -->
+  <div class="synergy-bar">
+    <a href="tarjetas.html" class="syn-box" title="Tarjeta con mayor cantidad de días libres si realizas una compra hoy">
+      <div class="sb-left">
+        <span class="sb-lbl">💳 Mejor tarjeta para comprar hoy</span>
+        <span class="sb-val" id="bridgeBestCard">Verificando tarjetas...</span>
+      </div>
+      <span class="sb-badge pill-green" id="bridgeBestDays">0 d libres</span>
+    </a>
+
+    <a href="plan.html" class="syn-box" title="Liquidez acumulada en tu Bóveda Quincenal de Finanzas">
+      <div class="sb-left">
+        <span class="sb-lbl">🏦 Respaldo en Bóveda Quincenal</span>
+        <span class="sb-val" id="bridgeVaultVal">S/ 0.00 ahorrados</span>
+      </div>
+      <span class="sb-badge pill-amber" id="bridgeVaultPct">Meta S/ 1.8k</span>
+    </a>
+  </div>
+
   <div id="tab-activos" class="tab-pane active">
     <section class="dashboard-panel">
       <div class="kpi-ribbon">
-        <div class="kpi-item active-filter" id="kpi-total" onclick="setDashboardFilter('all', this)" data-tooltip="Valor total de tu equipamiento e inventario activo">
+        <div class="kpi-item active-filter" id="kpi-total" onclick="setDashboardFilter('all', this)">
           <div class="kpi-lbl">Patrimonio Activo</div>
           <div class="kpi-val" id="mTotal">S/ 0</div>
-          <div class="kpi-sub" id="mSubResale">Reventa est.: S/ 0</div>
+          <div class="kpi-sub" id="mSubResale">Liquidez est.: S/ 0</div>
         </div>
-        <div class="kpi-item" id="kpi-green" onclick="setDashboardFilter('green', this)" data-tooltip="Equipos y compras que ya pagaron su inversión">
+        <div class="kpi-item" id="kpi-green" onclick="setDashboardFilter('green', this)">
           <div class="kpi-lbl">Zona Verde</div>
           <div class="kpi-val" id="mGreen">0</div>
           <div class="kpi-sub" id="mSubGreenPct">0 % del inventario</div>
         </div>
-        <div class="kpi-item" id="kpi-pending" onclick="setDashboardFilter('pending', this)" data-tooltip="Activos que continúan amortizándose">
+        <div class="kpi-item" id="kpi-pending" onclick="setDashboardFilter('pending', this)">
           <div class="kpi-lbl">Amortizando</div>
           <div class="kpi-val" id="mPending">0</div>
           <div class="kpi-sub">En uso activo</div>
         </div>
-        <div class="kpi-item" id="kpi-daily" onclick="setDashboardFilter('costly', this)" data-tooltip="Impacto diario combinado de tus compras aún no amortizadas">
+        <div class="kpi-item" id="kpi-daily" onclick="setDashboardFilter('costly', this)">
           <div class="kpi-lbl">Costo Diario</div>
           <div class="kpi-val" id="mDaily">S/ 0</div>
           <div class="kpi-sub">Toca para filtrar > S/ 5/d</div>
         </div>
       </div>
 
-      <!-- BARRA DE DISTRIBUCIÓN PATRIMONIAL -->
       <div class="alloc-bar-wrap">
         <div class="alloc-header">
           <span>Distribución del Patrimonio por Categoría</span>
@@ -359,7 +559,7 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #0f172a; }
     </section>
 
     <div class="filter-bar">
-      <input type="text" id="searchBar" placeholder="Buscar equipo, compra, nota o categoría..." oninput="handleSearchDebounce()">
+      <input type="text" id="searchBar" placeholder="Buscar equipo, compra, tarjeta o categoría..." oninput="handleSearchDebounce()">
       <div class="custom-select-btn" onclick="openSortModal()" id="currentSortLabel">A-Z Categorías ▼</div>
     </div>
 
@@ -395,9 +595,12 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #0f172a; }
   </div>
 
   <div id="tab-deseos" class="tab-pane">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-      <h2 style="font-family:'Fraunces', serif; font-size:1.3rem; font-weight:700; color:var(--purple);">Filtro de Deseos y Próximas Inversiones</h2>
-      <span class="badge" id="wishCountBadge" style="font-family:'DM Mono', monospace; font-size:0.75rem; padding:4px 10px; border-radius:12px; background:var(--purple-glow); color:var(--purple); font-weight:700;">0</span>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
+      <div>
+        <h2 style="font-family:'Fraunces', serif; font-size:1.3rem; font-weight:700; color:var(--purple);">Filtro de Deseos y Próximas Inversiones</h2>
+        <p style="font-size:0.8rem; color:var(--text-muted);">Cada deseo evalúa automáticamente tu Bóveda Quincenal y tu mejor tarjeta para financiarlo.</p>
+      </div>
+      <button class="mbtn mbtn-amber" style="background:var(--purple); height:38px;" onclick="openAddWishModal()">+ Añadir Deseo</button>
     </div>
     <div id="wish-list-container" class="wish-grid"></div>
   </div>
@@ -422,7 +625,14 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #0f172a; }
   </div>
 </main>
 
-<button class="fab-add" onclick="handleFabClick()" title="Registrar Compra o Deseo">+</button>
+<!-- DOCK DE NAVEGACIÓN GLOBAL -->
+<nav class="global-dock" aria-label="Navegación Principal">
+  <a href="index.html" class="dock-link"><span>⚡</span><span class="dl-txt">Comando</span></a>
+  <a href="compras.html" class="dock-link active"><span>📦</span><span class="dl-txt">Compras</span></a>
+  <a href="tarjetas.html" class="dock-link"><span>💳</span><span class="dl-txt">Tarjetas</span></a>
+  <a href="plan.html" class="dock-link"><span>🧭</span><span class="dl-txt">Maestría</span></a>
+</nav>
+
 <div id="modalContainer"></div>
 <div id="toast">Notificación</div>
 
@@ -433,7 +643,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// CONFIGURACIÓN FIREBASE UNIFICADA
 const firebaseConfig = {
   apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
   authDomain: "pierovski-center.firebaseapp.com",
@@ -451,7 +660,6 @@ let currentCategoryFilter = 'all';
 window.currentSortBy = 'category';
 let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
 
-// MOTOR HÁPTICO Y SONORO
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 const audioCtx = AudioCtx ? new AudioCtx() : null;
 function playTactileSound() {
@@ -461,16 +669,15 @@ function playTactileSound() {
     const gain = audioCtx.createGain();
     osc.connect(gain); gain.connect(audioCtx.destination);
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(420, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(640, audioCtx.currentTime + 0.06);
-    gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(660, audioCtx.currentTime + 0.06);
+    gain.gain.setValueAtTime(0.16, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
     osc.start(); osc.stop(audioCtx.currentTime + 0.06);
   }
   if (navigator.vibrate) navigator.vibrate(20);
 }
 
-// SINCRONIZACIÓN BIDIRECCIONAL PC / MÓVIL
 function initCloud() {
   if (!navigator.onLine) {
     document.getElementById('offlineBanner').style.display = 'block';
@@ -526,21 +733,18 @@ function syncCloud(ts) {
   }).catch(() => {});
 }
 
+window.addEventListener('storage', () => renderAll());
+
 window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('compras_theme') === 'dark') document.body.classList.add('dark-theme');
-  if (localStorage.getItem('terreno_mode') === 'true') document.body.classList.add('e-ink-mode');
   if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
   renderAll();
   initCloud();
 });
 
-// UTILIDADES CON HORA LOCAL PERÚ
 function todayStr() {
   const now = new Date();
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2, '0');
-  const d = String(now.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 }
 
 function calcDays(dStr) {
@@ -587,9 +791,11 @@ function loadProds() {
     goal: parseFloat(p.goal) || 1,
     rating: parseInt(p.rating) || 0,
     date: p.date || todayStr(),
-    note: p.note || ''
+    note: p.note || '',
+    paidWithCardName: p.paidWithCardName || ''
   }));
 }
+
 function loadBudgets() {
   const def = { "Topografía": 15000, "Gabinete": 2500, "Herramientas": 1000, "Personal": 800, "Entretenimiento": 500, "Otros": 500 };
   try {
@@ -608,11 +814,77 @@ function loadCategories() {
   } catch (e) { return def; }
 }
 
+// FUNCIONES PUENTE CON TARJETAS Y PLAN (BÓVEDA)
+function loadSyncedCards() {
+  return getSafeArray('tarjetasPremiumV3');
+}
+
+function getFreeCreditDays(closingDay, paymentDay) {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const cDay = parseInt(closingDay) || 1;
+  const pDay = parseInt(paymentDay) || 1;
+  let cycleClose = new Date(today.getFullYear(), today.getMonth(), cDay);
+  if (today.getDate() > cDay) cycleClose = new Date(today.getFullYear(), today.getMonth() + 1, cDay);
+  let cyclePay = new Date(cycleClose.getFullYear(), cycleClose.getMonth(), pDay);
+  if (pDay <= cDay) cyclePay = new Date(cycleClose.getFullYear(), cycleClose.getMonth() + 1, pDay);
+  return Math.max(0, Math.round((cyclePay.getTime() - today.getTime()) / 86400000));
+}
+
+function getBestCardToday() {
+  const cards = loadSyncedCards();
+  let best = null;
+  let maxDays = -1;
+  cards.forEach(c => {
+    const fd = getFreeCreditDays(c.closing, c.payment);
+    if (fd > maxDays) { maxDays = fd; best = c; }
+  });
+  return best ? { card: best, freeDays: maxDays } : null;
+}
+
+function getVaultSavedAmount() {
+  try {
+    const finPlan = JSON.parse(localStorage.getItem('cache_fin'));
+    const finStates = JSON.parse(localStorage.getItem('fin_tasks_v1') || '{}');
+    let qDone = 0;
+    if (finPlan && finPlan.weeks) {
+      finPlan.weeks.forEach((w, wi) => {
+        (w.tasks || []).forEach((t, ti) => {
+          if (String(t).toLowerCase().includes('bóveda') && finStates[`${wi}-${ti}`] === true) qDone++;
+        });
+      });
+    } else {
+      qDone = Object.entries(finStates).filter(([k, v]) => k.endsWith('-0') && v === true).length;
+    }
+    return qDone * 300;
+  } catch (e) { return 0; }
+}
+
+function chargeCardInBridge(cardId, amountToCharge) {
+  if (!cardId || cardId === 'CASH' || amountToCharge <= 0) return null;
+  const cards = loadSyncedCards();
+  const target = cards.find(c => String(c.id) === String(cardId));
+  if (!target) return null;
+
+  target.debtTotal = parseFloat(((parseFloat(target.debtTotal) || 0) + amountToCharge).toFixed(2));
+  const ts = Date.now();
+  localStorage.setItem('tarjetasPremiumV3', JSON.stringify(cards));
+  localStorage.setItem('t_last_update', ts);
+
+  if (navigator.onLine) {
+    db.ref('pierovski').update({
+      tarjetasLastUpdated: ts,
+      tarjetasPremiumV3: cards
+    }).catch(() => {});
+  }
+  return target.name;
+}
+
 function toast(msg) {
   const t = document.getElementById('toast');
   t.innerText = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
 function formatMoney(num) {
   const val = Number(num) || 0;
@@ -647,7 +919,6 @@ function renderStars(rating) {
   return `<span style="color:var(--amber); font-size:0.8rem; letter-spacing:-1px;">${'★'.repeat(rating)}</span>`;
 }
 
-// CONTROLES DE INTERFAZ Y NAVEGACIÓN
 function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
 function togglePrivacy() {
   isPrivacyMode = !isPrivacyMode;
@@ -704,7 +975,7 @@ function setCategoryFilter(cat) {
 }
 function handleSearchDebounce() {
   clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(renderAll, 180);
+  searchTimeout = setTimeout(renderAll, 150);
 }
 function toggleSection(secId) {
   const sec = document.getElementById(secId);
@@ -714,40 +985,37 @@ function toggleSection(secId) {
   }
 }
 
-// REGISTRADOR DE INVENTARIO PREVIO (SIN DATOS PRECARGADOS)
+// REGISTRADOR DE INVENTARIO POR LOTE
 function openPresetsModal() {
-  const catOptions = loadCategories()
-    .map(c => `<option value="${c}">${getCatIcon(c)} ${c}</option>`)
-    .join('');
-
+  const catOptions = loadCategories().map(c => `<option value="${c}">${getCatIcon(c)} ${c}</option>`).join('');
   document.getElementById('modalContainer').innerHTML = `
-    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
-      <div class="modal" style="max-width: 500px;">
-        <h3>📦 Registrar Compras Anteriores</h3>
-        <p class="desc">Ingresa las cosas que ya tenías antes de crear la app. Puedes agregar una por línea usando el formato:<br>
-        <code style="color:var(--amber); font-family:'DM Mono', monospace; font-size:0.78rem;">Nombre | Costo | Meta diaria (opcional)</code></p>
+    <div class="backdrop" onclick="if(event.target===this) closeModal()">
+      <div class="modal">
+        <h3>📦 Registro Rápido por Lote</h3>
+        <p class="desc">Ingresa varios equipos o compras previas (una por línea) usando el formato:<br>
+        <code style="color:var(--amber); font-family:'DM Mono', monospace; font-size:0.76rem;">Nombre | Costo | Meta diaria (opcional)</code></p>
 
         <div class="edit-grid">
           <div style="display:flex; gap:10px;">
             <div class="field" style="flex:1.2;">
-              <label>Categoría para este grupo</label>
+              <label>Categoría del grupo</label>
               <select id="bulkCat">${catOptions}</select>
             </div>
             <div class="field" style="flex:1;">
-              <label>Fecha aprox. de compra</label>
-              <input type="date" id="bulkDate" value="2026-01-01">
+              <label>Fecha de compra</label>
+              <input type="date" id="bulkDate" value="${todayStr()}">
             </div>
           </div>
 
           <div class="field">
-            <label>Tus compras previas (una por línea)</label>
-            <textarea id="bulkText" rows="6" style="width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:12px; color:var(--text); font-family:'DM Mono', monospace; font-size:0.85rem; padding:12px; outline:none; resize:vertical; line-height:1.5;" placeholder="Ejemplo:\nEscritorio de gabinete | 450 | 1.50\nSilla ergonómica | 380\nCasaca térmica | 180"></textarea>
+            <label>Artículos (uno por línea)</label>
+            <textarea id="bulkText" rows="5" style="padding:12px; font-family:'DM Mono', monospace; font-size:0.84rem;" placeholder="Trípode de aluminio | 450 | 1.50&#10;Batería adicional | 380&#10;Chaleco geodésico | 120"></textarea>
           </div>
         </div>
 
-        <div class="modal-btns" style="justify-content: space-between;">
+        <div class="modal-btns">
           <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
-          <button class="mbtn mbtn-amber" onclick="saveBulkLegacyItems()">⚡ Guardar en mi Inventario</button>
+          <button class="mbtn mbtn-amber" onclick="saveBulkLegacyItems()">⚡ Guardar Lote</button>
         </div>
       </div>
     </div>`;
@@ -765,7 +1033,6 @@ function saveBulkLegacyItems() {
   let added = 0;
 
   lines.forEach((line, idx) => {
-    // Permite separar por barra "|", por coma "," o por guion "-"
     const parts = line.includes('|') ? line.split('|') : (line.includes(',') ? line.split(',') : line.split('-'));
     const name = (parts[0] || '').trim();
     const cost = parseFloat((parts[1] || '0').replace(/[^0-9.]/g, '')) || 0;
@@ -774,31 +1041,22 @@ function saveBulkLegacyItems() {
     if (name && cost > 0) {
       prods.push({
         id: 'p_prev_' + Date.now() + '_' + idx,
-        name: name,
-        category: category,
-        cost: cost,
-        baseCost: cost,
-        goal: goal,
-        rating: 5,
-        date: dateStr,
-        note: 'Adquisición previa'
+        name, category, cost, baseCost: cost, goal,
+        rating: 5, date: dateStr, note: 'Registro por lote'
       });
       added++;
     }
   });
 
-  if (added === 0) {
-    return toast('⚠ Formato inválido. Usa: Nombre | Costo');
-  }
+  if (added === 0) return toast('⚠ Formato inválido. Usa: Nombre | Costo');
 
   localStorage.setItem('c_prods', JSON.stringify(prods));
   triggerSync();
   playTactileSound();
   closeModal();
   renderAll();
-  toast(`✓ ${added} ${added === 1 ? 'compra anterior agregada' : 'compras anteriores agregadas'}`);
+  toast(`✓ ${added} ${added === 1 ? 'activo agregado' : 'activos agregados'}`);
 }
-
 
 // ORDENAMIENTO AVANZADO
 const sortOpts = {
@@ -813,9 +1071,9 @@ function openSortModal() {
     `<div class="sort-item ${window.currentSortBy === k ? 'active-sort' : ''}" onclick="applySort('${k}')"><span>${v}</span>${window.currentSortBy === k ? '<span>✓</span>' : ''}</div>`
   ).join('');
   document.getElementById('modalContainer').innerHTML = `
-    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
-      <div class="modal">
-        <div style="padding-bottom:14px; margin-bottom:10px; border-bottom:1px solid var(--border);"><h3 style="margin:0;">Ordenar inventario por</h3></div>
+    <div class="backdrop" onclick="if(event.target===this) closeModal()">
+      <div class="modal" style="max-width:380px;">
+        <h3 style="margin-bottom:12px;">Ordenar inventario por</h3>
         <div>${html}</div>
         <div class="modal-btns"><button class="mbtn mbtn-cancel" onclick="closeModal()">Cerrar</button></div>
       </div>
@@ -834,10 +1092,10 @@ function applySort(val, btnEl) {
 // RESPALDO JSON Y EXPORTACIÓN A EXCEL (CSV)
 function openBackupModal() {
   document.getElementById('modalContainer').innerHTML = `
-    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
+    <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal" style="max-width: 430px;">
         <h3>Gestión y Exportación de Datos</h3>
-        <p class="desc">Descarga tu inventario en formato Excel (CSV) para análisis o guarda una copia de seguridad completa en formato JSON.</p>
+        <p class="desc">Descarga tu inventario en formato Excel (.CSV) o guarda una copia de seguridad completa en formato JSON.</p>
         <div style="display:flex; flex-direction:column; gap:10px; margin-top: 18px;">
           <button class="mbtn mbtn-green" onclick="exportCSVReport()" style="width:100%;">📊 Descargar Reporte en Excel (.CSV)</button>
           <div style="display:flex; gap:10px;">
@@ -854,7 +1112,7 @@ function exportCSVReport() {
   const prods = loadProds();
   if (prods.length === 0) return toast('⚠ No hay activos para exportar');
 
-  const headers = ["Nombre", "Categoria", "Fecha Compra", "Costo Inicial (S/)", "Dias de Uso", "Costo por Dia (S/)", "Meta Diaria (S/)", "Porcentaje Amortizado", "Estado", "Calificacion", "Notas"];
+  const headers = ["Nombre", "Categoria", "Fecha Compra", "Costo Inicial (S/)", "Dias de Uso", "Costo por Dia (S/)", "Meta Diaria (S/)", "Porcentaje Amortizado", "Estado", "Medio de Pago", "Calificacion", "Notas"];
   const rows = prods.map(p => {
     const days = calcDays(p.date);
     const cDay = (p.cost / days).toFixed(2);
@@ -863,7 +1121,8 @@ function exportCSVReport() {
     const estado = (p.cost / days) <= p.goal ? "AMORTIZADO" : "EN AMORTIZACION";
     const cleanName = `"${String(p.name).replace(/"/g, '""')}"`;
     const cleanNote = `"${String(p.note || '').replace(/"/g, '""')}"`;
-    return [cleanName, p.category, p.date, p.cost.toFixed(2), days, cDay, p.goal.toFixed(2), `${pct}%`, estado, p.rating || 0, cleanNote].join(',');
+    const cleanPay = `"${String(p.paidWithCardName || 'Contado').replace(/"/g, '""')}"`;
+    return [cleanName, p.category, p.date, p.cost.toFixed(2), days, cDay, p.goal.toFixed(2), `${pct}%`, estado, cleanPay, p.rating || 0, cleanNote].join(',');
   });
 
   const csvContent = "\uFEFF" + [headers.join(','), ...rows].join('\n');
@@ -924,10 +1183,10 @@ function importBackupData(event) {
 function editBudgetModal(cat, ev) {
   if (ev) ev.stopPropagation();
   document.getElementById('modalContainer').innerHTML = `
-    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
+    <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal" style="max-width:360px;">
         <h3>${getCatIcon(cat)} ${cat}</h3>
-        <p class="desc">Define tu tope de gasto mensual para esta categoría.</p>
+        <p class="desc">Define tu tope de inversión mensual para esta categoría.</p>
         <div class="edit-grid">
           <div class="field">
             <label>Tope Mensual (S/)</label>
@@ -938,7 +1197,7 @@ function editBudgetModal(cat, ev) {
           <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
           <button class="mbtn mbtn-green" onclick="saveBudget('${cat}')">Guardar</button>
         </div>
-        <hr style="border: 0; border-top: 1px dashed var(--border); margin: 22px 0 14px;">
+        <hr style="border: 0; border-top: 1px dashed var(--border); margin: 20px 0 14px;">
         <button class="pc-btn del" onclick="deleteCategory('${cat}')" style="width: 100%; justify-content:center;">🗑️ Eliminar Categoría</button>
       </div>
     </div>`;
@@ -972,7 +1231,7 @@ function deleteCategory(cat) {
   }
 }
 
-// CRUD ACTIVOS, RECOMPRA DE CONSUMIBLES Y CONVERSIÓN DESDE DESEOS
+// CRUD ACTIVOS CON PUENTE DIRECTO A TARJETAS DE CRÉDITO
 function openAddModal(prefill = null) {
   const defName = prefill ? prefill.name : '';
   const defCost = prefill && prefill.cost ? prefill.cost : '';
@@ -980,10 +1239,19 @@ function openAddModal(prefill = null) {
   const defNote = prefill && prefill.note ? prefill.note : '';
   const fromWishId = prefill && prefill.wishId ? prefill.wishId : '';
 
+  const syncedCards = loadSyncedCards();
+  const bestToday = getBestCardToday();
+  const cardOptionsHTML = `<option value="CASH">💵 Contado / Débito (No suma deuda a tarjetas)</option>` +
+    syncedCards.map(c => {
+      const fd = getFreeCreditDays(c.closing, c.payment);
+      const isBest = bestToday && String(bestToday.card.id) === String(c.id);
+      return `<option value="${c.id}" ${fromWishId && isBest ? 'selected' : ''}>💳 ${c.name} (${fd} d libres${isBest ? ' · ★ Recomendada hoy' : ''})</option>`;
+    }).join('');
+
   document.getElementById('modalContainer').innerHTML = `
-    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
+    <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal">
-        <h3>${fromWishId ? 'Convertir Deseo en Activo' : 'Registrar Compra o Activo'}</h3>
+        <h3>${fromWishId ? '✨ Convertir Deseo en Activo' : '📦 Registrar Compra o Activo'}</h3>
         <div class="edit-grid">
           <div class="field">
             <label>Artículo / Equipo</label>
@@ -991,9 +1259,19 @@ function openAddModal(prefill = null) {
             <div id="aDupWarn" class="duplicate-warn">⚠️ Ya tienes un activo registrado con este nombre exacto.</div>
           </div>
           <div style="display:flex; gap:10px;">
-            <div class="field" style="flex:1;"><label>Costo Total (S/)</label><input type="number" step="0.01" id="aCosto" value="${defCost}"></div>
+            <div class="field" style="flex:1;"><label>Costo Total (S/)</label><input type="number" step="0.01" id="aCosto" value="${defCost}" oninput="previewCardImpact()"></div>
             <div class="field" style="flex:1;"><label>Meta Diaria (S/)</label><input type="number" step="0.01" id="aMeta" value="${defGoal}"></div>
           </div>
+
+          <!-- PUENTE CON MÓDULO DE TARJETAS -->
+          <div class="card-bridge-box">
+            <div class="field">
+              <label style="color:var(--blue);">💳 Método de Pago (Sincronizado con Tarjetas)</label>
+              <select id="aPayMethod" onchange="previewCardImpact()">${cardOptionsHTML}</select>
+            </div>
+            <div class="cb-hint" id="cardImpactHint">Selecciona una tarjeta si deseas sumar esta compra a tu saldo utilizado en Tarjetas.</div>
+          </div>
+
           <div style="display:flex; gap:10px;">
             <div class="field" style="flex:1;">
               <label>Categoría</label>
@@ -1024,6 +1302,33 @@ function openAddModal(prefill = null) {
     </div>`;
   populateSelects('a');
   if (prefill && prefill.category) document.getElementById('aCat').value = prefill.category;
+  previewCardImpact();
+}
+
+function previewCardImpact() {
+  const sel = document.getElementById('aPayMethod');
+  const hint = document.getElementById('cardImpactHint');
+  const cost = parseFloat(document.getElementById('aCosto')?.value) || 0;
+  if (!sel || !hint) return;
+
+  if (sel.value === 'CASH') {
+    hint.innerHTML = `Pago al contado: no incrementa la deuda de tus tarjetas de crédito.`;
+    hint.style.color = 'var(--text-muted)';
+    return;
+  }
+
+  const card = loadSyncedCards().find(c => String(c.id) === String(sel.value));
+  if (!card) return;
+  const newDebt = (parseFloat(card.debtTotal) || 0) + cost;
+  const limit = parseFloat(card.creditLimit) || 0;
+  if (limit > 0) {
+    const newPct = Math.round((newDebt / limit) * 100);
+    hint.innerHTML = `Nuevo saldo en <b>${card.name}</b>: ${formatMoney(newDebt)} (Uso SBS proyectado: <b>${newPct}%</b> ${newPct <= 25 ? '✓ Óptimo' : '⚠️ Supera el 25%'})`;
+    hint.style.color = newPct <= 25 ? 'var(--green)' : 'var(--amber)';
+  } else {
+    hint.innerHTML = `Se sumarán ${formatMoney(cost)} a la deuda actual de <b>${card.name}</b>.`;
+    hint.style.color = 'var(--blue)';
+  }
 }
 
 function handleNewCatSelect(selEl, prefix) {
@@ -1055,7 +1360,13 @@ function checkDuplicate(inputEl, warnId) {
 function addProduct(fromWishId = '') {
   const n = document.getElementById('aNombre').value.trim();
   const c = parseFloat(document.getElementById('aCosto').value);
+  const payMethod = document.getElementById('aPayMethod')?.value || 'CASH';
   if (!n || isNaN(c) || c <= 0) return toast('⚠ Ingresa nombre y costo válido');
+
+  let chargedCardName = '';
+  if (payMethod !== 'CASH') {
+    chargedCardName = chargeCardInBridge(payMethod, c) || '';
+  }
 
   const prods = loadProds();
   prods.push({
@@ -1067,7 +1378,8 @@ function addProduct(fromWishId = '') {
     date: document.getElementById('aFecha').value || todayStr(),
     category: document.getElementById('aCat').value,
     rating: parseInt(document.getElementById('aRating').value) || 0,
-    note: document.getElementById('aNota').value.trim()
+    note: document.getElementById('aNota').value.trim(),
+    paidWithCardName: chargedCardName
   });
   localStorage.setItem('c_prods', JSON.stringify(prods));
 
@@ -1080,11 +1392,10 @@ function addProduct(fromWishId = '') {
   triggerSync();
   closeModal();
   playTactileSound();
-  toast('✓ Activo registrado');
+  toast(chargedCardName ? `✓ Activo guardado y cargado a ${chargedCardName}` : '✓ Activo registrado');
   renderAll();
 }
 
-// FUNCIÓN DE RECOMPRA RÁPIDA PARA CONSUMIBLES (PROTECTOR SOLAR, SUPLEMENTOS, PERFUMES)
 function rebuyConsumable(id) {
   const p = loadProds().find(i => i.id === id);
   if (!p) return;
@@ -1107,9 +1418,9 @@ function openEditModal(id) {
   const p = loadProds().find(i => i.id === id);
   if (!p) return;
   document.getElementById('modalContainer').innerHTML = `
-    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
+    <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal">
-        <h3>Editar Activo</h3>
+        <h3>✏️ Editar Activo</h3>
         <div class="edit-grid">
           <div class="field"><label>Artículo</label><input type="text" id="eNombre" value="${p.name}"></div>
           <div style="display:flex; gap:10px;">
@@ -1172,7 +1483,9 @@ function calcWishImpact() {
   const fillBar = document.getElementById('wishImpactFill');
   if (c > 0 && r > 0) {
     const days = Math.ceil(c / r);
-    impactEl.innerText = `A S/ ${r.toFixed(2)}/día, tardarás ${days} días en amortizarlo.`;
+    const vaultAmt = getVaultSavedAmount();
+    const vaultMsg = vaultAmt >= c ? `✓ Cubierto al 100% por tu Bóveda (S/ ${vaultAmt})` : `Tu Bóveda actual cubre el ${Math.min(100, Math.round((vaultAmt / c) * 100))}%`;
+    impactEl.innerText = `⏳ Se amortiza en ${days} días (S/ ${r.toFixed(2)}/d) · ${vaultMsg}`;
     bgBar.style.display = 'block';
     const pct = Math.min((c / 3000) * 100, 100);
     fillBar.style.width = pct + '%';
@@ -1185,20 +1498,20 @@ function calcWishImpact() {
 
 function openAddWishModal() {
   document.getElementById('modalContainer').innerHTML = `
-    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
+    <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal">
-        <h3>Añadir a Lista de Deseos</h3>
+        <h3>✨ Añadir a Filtro de Deseos</h3>
         <div class="edit-grid">
-          <div class="field"><label>Artículo deseado</label><input type="text" id="wNombre" required></div>
+          <div class="field"><label>Artículo o Inversión Deseada</label><input type="text" id="wNombre" required></div>
           <div style="display:flex; gap:10px;">
             <div class="field" style="flex:1;"><label>Costo Estimado (S/)</label><input type="number" step="0.01" id="wCosto" oninput="calcWishImpact()"></div>
             <div class="field" style="flex:1;">
               <label>Meta Diaria (S/)</label>
-              <input type="number" step="0.01" id="wRetorno" value="1.00" oninput="calcWishImpact()">
+              <input type="number" step="0.01" id="wRetorno" value="1.50" oninput="calcWishImpact()">
             </div>
           </div>
           <div>
-            <div id="wImpact" style="font-size: 0.75rem; color: var(--amber); font-weight: 700; font-family:'DM Mono', monospace;"></div>
+            <div id="wImpact" style="font-size: 0.72rem; color: var(--amber); font-weight: 700; font-family:'DM Mono', monospace;"></div>
             <div id="wishImpactBg" class="impact-bar-bg"><div id="wishImpactFill" class="impact-bar-fill"></div></div>
           </div>
           <div style="display:flex; gap:10px;">
@@ -1208,7 +1521,7 @@ function openAddWishModal() {
             </div>
             <div class="field" style="flex:2;">
               <label>Justificación / Retorno</label>
-              <input type="text" id="wNota" placeholder="¿Qué beneficio o retorno te dará?">
+              <input type="text" id="wNota" placeholder="¿Cómo impulsará tu trabajo o bienestar?">
             </div>
           </div>
         </div>
@@ -1263,12 +1576,12 @@ function openSellModal(id) {
   const days = calcDays(p.date);
   const sug = calcSuggestedResale(p.cost, days);
   document.getElementById('modalContainer').innerHTML = `
-    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
-      <div class="modal" style="max-width:360px;">
-        <h3>Vender Activo</h3>
-        <div class="desc" style="background:var(--surface2); padding:14px; border-radius:10px; border:1px solid var(--border);">
+    <div class="backdrop" onclick="if(event.target===this) closeModal()">
+      <div class="modal" style="max-width:380px;">
+        <h3>💰 Liquidar / Vender Activo</h3>
+        <div class="desc" style="background:var(--surface2); padding:14px; border-radius:12px; border:1px solid var(--border);">
           Valor sugerido de reventa: <b>${formatMoney(sug)}</b><br>
-          <span style="font-size:0.75rem; font-family:'DM Mono', monospace;">Depreciación calculada sobre ${days} días de uso</span>
+          <span style="font-size:0.72rem; font-family:'DM Mono', monospace;">Depreciación calculada sobre ${days} días de uso</span>
         </div>
         <div class="field" style="margin-top:16px;">
           <label>Precio Final de Venta (S/)</label>
@@ -1310,7 +1623,7 @@ function executeSell(id) {
   triggerSync();
   closeModal();
   playTactileSound();
-  toast('✓ Venta registrada');
+  toast('✓ Venta registrada en el historial');
   renderAll();
 }
 
@@ -1351,7 +1664,7 @@ function deletePermanent(id) {
     const trash = loadTrash().filter(i => i.id !== id);
     localStorage.setItem('c_trash', JSON.stringify(trash));
     triggerSync();
-    toast('Eliminado');
+    toast('Eliminado definitivamente');
     renderAll();
   }
 }
@@ -1366,10 +1679,13 @@ function genCardHTML(p, isAmort) {
   const estResale = calcSuggestedResale(p.cost, days);
 
   const badge = isAmort
-    ? `<span class="cat-pill pill-green">✓ AMORTIZADO (100 %)</span>`
-    : `<span class="cat-pill pill-amber">⏳ Faltan ${dNeed} d (${pctAmort} %)</span>`;
+    ? `<span class="cat-pill pill-green">✓ AMORTIZADO (100%)</span>`
+    : `<span class="cat-pill pill-amber">⏳ Faltan ${dNeed} d (${pctAmort}%)</span>`;
 
   const barColor = isAmort ? 'var(--green)' : (pctAmort >= 65 ? 'var(--blue)' : 'var(--amber)');
+  const cardUsedBadge = p.paidWithCardName
+    ? `<span class="paid-via-tag">💳 ${p.paidWithCardName}</span>`
+    : '';
 
   return `
     <div class="prod-card ${p.cost >= 3000 ? 'premium' : ''}">
@@ -1380,7 +1696,10 @@ function genCardHTML(p, isAmort) {
             ${renderStars(p.rating)}
             ${p.rebuyCount > 1 ? `<span class="cat-pill pill-green" style="font-size:0.55rem;">#${p.rebuyCount}</span>` : ''}
           </div>
-          <div class="pc-cat">${getCatIcon(p.category)} ${p.category} · Compra: ${p.date}</div>
+          <div class="pc-cat">
+            <span>${getCatIcon(p.category)} ${p.category} · ${p.date}</span>
+            ${cardUsedBadge}
+          </div>
         </div>
         <div class="pc-stats">
           <div class="pc-cday">${formatMoney(cDay)}/d</div>
@@ -1394,7 +1713,7 @@ function genCardHTML(p, isAmort) {
         ${p.note ? `<div class="pc-note-box">📌 ${p.note}</div>` : ''}
         <div class="pc-grid">
           <div><span>Inversión Inicial</span><strong>${formatMoney(p.cost)}</strong></div>
-          <div><span>Tiempo de Uso</span><strong>${days} días</strong></div>
+          <div><span>Tiempo en Uso</span><strong>${days} días</strong></div>
           <div><span>Meta Diaria</span><strong>${formatMoney(p.goal)}/día</strong></div>
           <div><span>Plazo Meta</span><strong>${dGoal} días</strong></div>
           <div><span>Fecha Amortización</span><strong>${breakEvenStr}</strong></div>
@@ -1411,6 +1730,22 @@ function genCardHTML(p, isAmort) {
 }
 
 function renderAll() {
+  // Actualizar barra de sinergia superior
+  const bestCardObj = getBestCardToday();
+  const bridgeBestCard = document.getElementById('bridgeBestCard');
+  const bridgeBestDays = document.getElementById('bridgeBestDays');
+  if (bestCardObj) {
+    bridgeBestCard.textContent = `${bestCardObj.card.name} (Cierra día ${bestCardObj.card.closing})`;
+    bridgeBestDays.textContent = `${bestCardObj.freeDays} d libres`;
+  } else {
+    bridgeBestCard.textContent = 'Configura tus tarjetas en el módulo';
+    bridgeBestDays.textContent = 'Ir a Tarjetas →';
+  }
+
+  const savedVault = getVaultSavedAmount();
+  document.getElementById('bridgeVaultVal').textContent = `${formatMoney(savedVault)} disponibles`;
+  document.getElementById('bridgeVaultPct').textContent = `${Math.min(100, Math.round((savedVault / 1800) * 100))}% de S/ 1.8k`;
+
   const prods = loadProds();
   const query = String(document.getElementById('searchBar').value || "").toLowerCase().trim();
   const sortBy = window.currentSortBy;
@@ -1433,7 +1768,6 @@ function renderAll() {
     else { cPnd++; aDay += cd; }
   });
 
-  // Renderizar barra de composición patrimonial
   const allocBar = document.getElementById('allocBar');
   const allocTopCat = document.getElementById('allocTopCat');
   if (allocBar) {
@@ -1441,7 +1775,7 @@ function renderAll() {
       const sortedCats = Object.entries(cTot).sort((a, b) => b[1] - a[1]);
       const topName = sortedCats[0][0];
       const topPct = Math.round((sortedCats[0][1] / tAct) * 100);
-      allocTopCat.innerText = `Mayor concentración: ${topName} (${topPct} %)`;
+      allocTopCat.innerText = `Mayor concentración: ${topName} (${topPct}%)`;
       allocBar.innerHTML = sortedCats.map(([catName, val]) => {
         const wPct = Math.max(2, (val / tAct) * 100);
         return `<div class="alloc-seg" style="width:${wPct}%; background:${getCatColor(catName)};" title="${catName}: ${formatMoney(val)}"></div>`;
@@ -1463,7 +1797,6 @@ function renderAll() {
       const col = pct > 90 ? 'danger' : pct > 70 ? 'warn' : '';
       return `
         <div class="cat-card ${currentCategoryFilter === c ? 'active-filter' : ''}" onclick="setCategoryFilter('${c}')">
-          <div class="cat-sparkline"></div>
           <div class="cc-name">
             <span>${getCatIcon(c)} ${c}</span>
             <button class="cc-edit-btn" onclick="editBudgetModal('${c}', event)" title="Ajustar Tope Mensual">⚙️</button>
@@ -1475,7 +1808,6 @@ function renderAll() {
     }).join('');
   }
 
-  // FILTRO COMBINADO
   const filt = prods.filter(p => {
     if (currentCategoryFilter !== 'all' && p.category !== currentCategoryFilter) return false;
     const cd = p.cost / calcDays(p.date);
@@ -1486,7 +1818,8 @@ function renderAll() {
       const matchName = String(p.name).toLowerCase().includes(query);
       const matchCat = String(p.category).toLowerCase().includes(query);
       const matchNote = String(p.note || '').toLowerCase().includes(query);
-      if (!matchName && !matchCat && !matchNote) return false;
+      const matchCard = String(p.paidWithCardName || '').toLowerCase().includes(query);
+      if (!matchName && !matchCat && !matchNote && !matchCard) return false;
     }
     return true;
   });
@@ -1513,14 +1846,14 @@ function renderAll() {
 
   const renderList = (el, items, isA) => {
     if (items.length === 0) {
-      el.innerHTML = `<div class="empty-state" style="padding:28px;"><div class="es-text">No hay activos en esta sección. Usa el botón <b>✨ Mis Compras</b> arriba o el botón <b>+</b> para agregar.</div></div>`;
+      el.innerHTML = `<div class="empty-state" style="padding:28px;"><div class="es-text">No hay activos en esta vista. Usa <b>+ Registrar</b> o <b>✨ Lote</b> en la barra superior.</div></div>`;
       return;
     }
     if (sortBy === 'category') {
       items.sort((a, b) => a.category.localeCompare(b.category));
       const g = items.reduce((acc, i) => { (acc[i.category] = acc[i.category] || []).push(i); return acc; }, {});
       el.innerHTML = Object.entries(g).map(([c, prds]) =>
-        `<div style="font-family:'DM Mono', monospace; font-size:0.74rem; font-weight:700; color:var(--text-dim); text-transform:uppercase; margin:14px 0 6px;">${getCatIcon(c)} ${c} (${prds.length})</div>` +
+        `<div style="font-family:'DM Mono', monospace; font-size:0.72rem; font-weight:700; color:var(--text-dim); text-transform:uppercase; margin:14px 0 6px;">${getCatIcon(c)} ${c} (${prds.length})</div>` +
         prds.map(p => genCardHTML(p, isA)).join('')
       ).join('');
     } else {
@@ -1535,23 +1868,29 @@ function renderAll() {
   document.getElementById('mSubResale').innerText = `Liquidez est.: ${formatMoneyK(tResale)}`;
   document.getElementById('mGreen').innerText = cGrn;
   const grnPct = prods.length > 0 ? Math.round((cGrn / prods.length) * 100) : 0;
-  document.getElementById('mSubGreenPct').innerText = `${grnPct} % del inventario`;
+  document.getElementById('mSubGreenPct').innerText = `${grnPct}% del inventario`;
   document.getElementById('mPending').innerText = cPnd;
   document.getElementById('mDaily').innerText = formatMoney(aDay);
   document.getElementById('badge-pending').innerText = lP.length;
   document.getElementById('badge-green').innerText = lG.length;
-  document.title = cPnd > 0 ? `(${cPnd}) Compras | Pierovski` : 'Compras | Pierovski';
 
-  // LISTA DE DESEOS
+  // LISTA DE DESEOS CON PUENTE A BÓVEDA Y TARJETAS
   const w = loadWishes();
-  document.getElementById('wishCountBadge').innerText = `${w.length} deseos`;
   const wc = document.getElementById('wish-list-container');
   if (wc) {
     wc.innerHTML = w.length === 0
-      ? `<div class="empty-state" style="grid-column: 1 / -1;"><span class="es-icon">✨</span><div class="es-text">Tu lista de deseos está vacía.</div></div>`
+      ? `<div class="empty-state" style="grid-column: 1 / -1;"><span class="es-icon">✨</span><div class="es-text">Tu filtro de deseos está vacío. Agrega aquí tus próximas metas antes de comprarlas por impulso.</div></div>`
       : w.map(i => {
           const goalVal = parseFloat(i.goal) || 1;
           const estDays = i.cost > 0 ? Math.ceil(i.cost / goalVal) : 0;
+          const coveredByVault = savedVault >= i.cost && i.cost > 0;
+          const vaultStatusTxt = i.cost > 0
+            ? (coveredByVault ? `<span style="color:var(--green);">🏦 Bóveda cubre el 100% al contado</span>` : `<span>🏦 Bóveda cubre ${Math.min(100, Math.round((savedVault / i.cost) * 100))}% (${formatMoney(savedVault)})</span>`)
+            : '';
+          const cardAdviceTxt = bestCardObj
+            ? `<span>💳 Mejor tarjeta hoy: <b>${bestCardObj.card.name}</b> (${bestCardObj.freeDays} d libres)</span>`
+            : '';
+
           return `
             <div class="wish-card">
               <div>
@@ -1562,9 +1901,10 @@ function renderAll() {
                 <div class="wc-precio">${formatMoney(i.cost)}</div>
                 ${estDays > 0 ? `<div class="wc-meta">⏳ Amortización proyectada: ${estDays} días (${formatMoney(goalVal)}/d)</div>` : ''}
               </div>
+              ${(vaultStatusTxt || cardAdviceTxt) ? `<div class="wc-synergy-box">${vaultStatusTxt}${cardAdviceTxt}</div>` : ''}
               ${i.note ? `<div class="wc-nota">"${i.note}"</div>` : ''}
               <div class="wc-footer">
-                <button class="pc-btn sell" onclick="buyWish('${i.id}')">✅ Comprar</button>
+                <button class="pc-btn sell" onclick="buyWish('${i.id}')">✅ Adquirir Ahora</button>
                 <button class="pc-btn del" onclick="deleteWish('${i.id}')">🗑️</button>
               </div>
             </div>`;

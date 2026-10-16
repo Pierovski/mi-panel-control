@@ -4,220 +4,440 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="view-transition" content="same-origin">
-<title>Comando | Pierovski</title>
+<title>Comando | Pierovski OS</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#090d16">
 <link rel="apple-touch-icon" href="icon.jpg">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <style>
 :root {
   color-scheme: light;
-  --bg: #f4f5f7;
-  --surface: rgba(255,255,255,0.88);
-  --surface-solid: #ffffff;
-  --surface2: #f8f9fa;
+  --bg: #f1f5f9;
+  --bg-accent: radial-gradient(circle at 15% 0%, rgba(217,119,6,0.06), transparent 45%), radial-gradient(circle at 85% 10%, rgba(37,99,235,0.05), transparent 45%);
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.86);
+  --surface2: #f8fafc;
   --surface3: #e2e8f0;
-  --border: rgba(203,213,225,0.7);
-  --border-solid: #cbd5e1;
+  --border: rgba(148, 163, 184, 0.28);
+  --border-strong: rgba(100, 116, 139, 0.35);
   --amber: #d97706;
   --amber-dim: #b45309;
-  --amber-glow: rgba(217,119,6,0.12);
+  --amber-glow: rgba(217, 119, 6, 0.12);
   --green: #059669;
   --green-dim: #047857;
-  --green-glow: rgba(5,150,105,0.15);
+  --green-glow: rgba(5, 150, 105, 0.12);
   --red: #dc2626;
   --red-dim: #b91c1c;
-  --red-glow: rgba(220,38,38,0.12);
+  --red-glow: rgba(220, 38, 38, 0.12);
   --blue: #2563eb;
-  --blue-glow: rgba(37,99,235,0.12);
+  --blue-glow: rgba(37, 99, 235, 0.12);
   --purple: #7c3aed;
-  --purple-glow: rgba(124,58,237,0.12);
+  --purple-glow: rgba(124, 58, 237, 0.12);
   --text: #0f172a;
   --text-muted: #475569;
   --text-dim: #64748b;
-  --r: 20px;
+  --r-lg: 22px;
+  --r-md: 16px;
   --r-sm: 12px;
-  --shadow: 0 8px 24px rgba(0,0,0,0.04);
-  --tiltX: 0px;
-  --tiltY: 0px;
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body.dark-theme {
   color-scheme: dark;
-  --bg: #0f172a;
-  --surface: rgba(30,41,59,0.85);
-  --surface-solid: #1e293b;
-  --surface2: #0b1121;
-  --surface3: #334155;
-  --border: rgba(51,65,85,0.8);
-  --border-solid: #334155;
+  --bg: #090d16;
+  --bg-accent: radial-gradient(circle at 15% 0%, rgba(217,119,6,0.12), transparent 45%), radial-gradient(circle at 85% 10%, rgba(37,99,235,0.10), transparent 45%);
+  --surface: #131b2e;
+  --surface-glass: rgba(19, 27, 46, 0.84);
+  --surface2: #0d1322;
+  --surface3: #1e293b;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
   --text: #f8fafc;
   --text-muted: #cbd5e1;
   --text-dim: #94a3b8;
-  --amber-glow: rgba(217,119,6,0.22);
-  --green-glow: rgba(5,150,105,0.25);
-  --red-glow: rgba(220,38,38,0.22);
-  --blue-glow: rgba(37,99,235,0.22);
-  --purple-glow: rgba(124,58,237,0.22);
-  --shadow: 0 10px 30px rgba(0,0,0,0.35);
+  --amber-glow: rgba(217, 119, 6, 0.22);
+  --green-glow: rgba(5, 150, 105, 0.22);
+  --red-glow: rgba(220, 38, 38, 0.22);
+  --blue-glow: rgba(37, 99, 235, 0.22);
+  --purple-glow: rgba(124, 58, 237, 0.22);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 14px 36px -6px rgba(0, 0, 0, 0.45);
 }
-
-body.e-ink-mode {
-  --bg: #ffffff; --surface: #ffffff; --surface-solid: #ffffff; --surface2: #f0f0f0; --surface3: #e0e0e0;
-  --text: #000000; --text-muted: #222222; --text-dim: #555555;
-  --border: #000000; --border-solid: #000000;
-  --amber: #000000; --green: #000000; --red: #000000; --blue: #000000; --purple: #000000;
-  --shadow: none;
-}
-body.e-ink-mode * { transition: none !important; animation: none !important; backdrop-filter: none !important; box-shadow: none !important; }
-body.e-ink-mode .mod-card, body.e-ink-mode .vital-box, body.e-ink-mode .heatmap-box, body.e-ink-mode .next-action-card { border: 2px solid #000; }
-body.e-ink-mode .pulse-ring { display: none; }
-body.e-ink-mode .quarter-seg.active { background: #000; }
-body.e-ink-mode .ring-fill { stroke: #000 !important; }
-body.e-ink-mode .l-bar-fill { background: #000 !important; }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 60px; transition: background 0.3s, color 0.3s; overflow-x: hidden; }
+body {
+  background-color: var(--bg);
+  background-image: var(--bg-accent);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  padding-bottom: 105px;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+  overflow-x: hidden;
+  font-variant-numeric: tabular-nums;
+}
 
-/* BARRA SUPERIOR DE 6 QUINCENAS (NIVELES) */
-.quarter-grid { position: fixed; top: 0; left: 0; width: 100%; height: 4px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; z-index: 200; }
-.quarter-seg { background: var(--surface3); height: 100%; transition: 0.3s; }
-.quarter-seg.active { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
-.quarter-seg.done { background: var(--green); opacity: 0.85; }
+/* BARRA SUPERIOR DE PROGRESO DE LAS 6 QUINCENAS */
+.quarter-grid {
+  position: fixed; top: 0; left: 0; width: 100%; height: 4px;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; z-index: 250;
+  background: var(--surface2);
+}
+.quarter-seg { background: var(--surface3); height: 100%; transition: 0.4s var(--ease); }
+.quarter-seg.active { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
+.quarter-seg.done { background: var(--green); }
 
-/* CABECERA UNIFICADA PIEROVSKI */
-header { border-bottom: 1px solid var(--border); background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 100; padding: 16px 20px; margin-top: 4px; transition: background 0.3s; }
-.header-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+/* CABECERA EJECUTIVA PREMIUM */
+header {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  position: sticky; top: 0; z-index: 100;
+  padding: 16px 20px; margin-top: 4px;
+}
+.header-inner {
+  max-width: 840px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+}
 .brand-group { display: flex; flex-direction: column; gap: 4px; }
-.sys-status { display: flex; align-items: center; gap: 10px; font-family: 'DM Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 700; }
-.cloud-status { width: 8px; height: 8px; border-radius: 50%; background: var(--border-solid); display: inline-block; transition: 0.3s; }
+.sys-status {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'DM Mono', monospace; font-size: 0.66rem;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); font-weight: 700;
+}
+.cloud-status { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); display: inline-block; transition: 0.3s; }
 .cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
-.streak-box { display: inline-flex; align-items: center; gap: 4px; color: var(--amber); background: var(--amber-glow); padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; }
-.greeting-area h1 { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--text); line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; }
+.streak-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--amber); background: var(--amber-glow);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 700;
+}
+.greeting-area h1 {
+  font-family: 'Fraunces', serif; font-size: clamp(1.25rem, 3vw, 1.5rem);
+  color: var(--text); line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;
+}
 
 .header-actions { display: flex; gap: 8px; align-items: center; }
-.btn-pill-energy { font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; height: 38px; padding: 0 12px; border-radius: 19px; border: 1px solid var(--border-solid); background: var(--surface-solid); color: var(--text-muted); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: 0.2s; }
-.btn-pill-energy:hover { border-color: var(--amber); color: var(--text); }
-.btn-pill-energy.survival { background: var(--purple); color: #ffffff; border-color: var(--purple); box-shadow: 0 0 12px var(--purple-glow); }
+.btn-pill-mode {
+  font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700;
+  height: 38px; padding: 0 14px; border-radius: 20px;
+  border: 1px solid var(--border-strong); background: var(--surface);
+  color: var(--text-muted); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: all 0.2s var(--ease); box-shadow: var(--shadow-sm);
+}
+.btn-pill-mode:hover { border-color: var(--amber); color: var(--text); transform: translateY(-1px); }
+.btn-pill-mode:active { transform: scale(0.96); }
+.btn-pill-mode.survival {
+  background: var(--purple); color: #ffffff; border-color: var(--purple);
+  box-shadow: 0 4px 14px var(--purple-glow);
+}
 
-.btn-icon-tool { background: var(--surface-solid); border: 1px solid var(--border-solid); color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px; font-size: 0.95rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
-.btn-icon-tool:hover { border-color: var(--amber); color: var(--text); }
+.btn-icon-tool {
+  background: var(--surface); border: 1px solid var(--border-strong);
+  color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px;
+  font-size: 0.95rem; cursor: pointer; transition: all 0.2s var(--ease);
+  display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm);
+}
+.btn-icon-tool:hover { border-color: var(--amber); color: var(--text); transform: translateY(-1px); }
 .btn-icon-tool:active { transform: scale(0.92); }
 .btn-icon-tool.active { color: var(--amber); border-color: var(--amber); background: var(--amber-glow); }
 
-main { max-width: 800px; margin: 0 auto; padding: 22px 20px; }
+main { max-width: 840px; margin: 0 auto; padding: 22px 20px 0; }
 
-/* ANIMACIONES EN CASCADA */
-.stagger-1 { animation: fadeUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.04s; }
-.stagger-2 { animation: fadeUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.08s; }
-.stagger-3 { animation: fadeUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.12s; }
-.stagger-4 { animation: fadeUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; animation-delay: 0.16s; }
+/* ANIMACIONES ESCALONADAS */
+.stagger-1 { animation: fadeUp 0.45s var(--ease) forwards; opacity: 0; animation-delay: 0.03s; }
+.stagger-2 { animation: fadeUp 0.45s var(--ease) forwards; opacity: 0; animation-delay: 0.08s; }
+.stagger-3 { animation: fadeUp 0.45s var(--ease) forwards; opacity: 0; animation-delay: 0.13s; }
+.stagger-4 { animation: fadeUp 0.45s var(--ease) forwards; opacity: 0; animation-delay: 0.18s; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-/* PÍLDORA MENTAL ROTATIVA */
-.quote-box { text-align: center; margin-bottom: 18px; padding: 0 10px; min-height: 34px; display: flex; align-items: center; justify-content: center; }
-.quote-text { font-family: 'Fraunces', serif; font-size: 0.9rem; font-style: italic; color: var(--text-muted); line-height: 1.5; transition: opacity 0.4s ease; }
+/* 1. CENTRO DE ACCIÓN DIARIA (MISIÓN + HÁBITOS EN 1 TOQUE) */
+.hero-command-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s var(--ease);
+}
+.hero-command-card::before {
+  content: ''; position: absolute; left: 0; top: 0; width: 5px; height: 100%;
+  background: linear-gradient(180deg, var(--amber), var(--amber-dim));
+}
+body.survival-mode .hero-command-card::before {
+  background: linear-gradient(180deg, var(--purple), #5b21b6);
+}
 
-/* WIDGET DE ACCIÓN INMEDIATA Y HÁBITOS DE HOY */
-.next-action-card { background: var(--surface-solid); border: 1px solid var(--border-solid); padding: 20px; border-radius: var(--r); margin-bottom: 22px; position: relative; overflow: hidden; transition: 0.2s; box-shadow: var(--shadow); }
-.next-action-card::before { content: ''; position: absolute; left: 0; top: 0; width: 4px; height: 100%; background: var(--amber); }
-body.survival-mode .next-action-card::before { background: var(--purple); }
-.na-clickable { cursor: pointer; user-select: none; }
-.na-header { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--amber); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-body.survival-mode .na-header { color: var(--purple); }
-.na-task { font-family: 'DM Sans', sans-serif; font-size: 1.02rem; font-weight: 600; color: var(--text); line-height: 1.45; margin-bottom: 12px; }
-.na-hint { font-size: 0.7rem; color: var(--text-dim); font-weight: 600; display: flex; justify-content: space-between; align-items: center; font-family: 'DM Mono', monospace; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
+.hc-top {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  margin-bottom: 10px; flex-wrap: wrap;
+}
+.hc-badge-group { display: flex; align-items: center; gap: 8px; }
+.hc-tag {
+  font-family: 'DM Mono', monospace; font-size: 0.66rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--amber); background: var(--amber-glow);
+  padding: 4px 10px; border-radius: 8px;
+}
+body.survival-mode .hc-tag { color: var(--purple); background: var(--purple-glow); }
+.hc-lvl {
+  font-family: 'DM Mono', monospace; font-size: 0.66rem; font-weight: 700;
+  color: var(--text-dim); background: var(--surface2);
+  border: 1px solid var(--border); padding: 4px 10px; border-radius: 8px;
+}
 
-/* FILA DE CHECK RÁPIDO DE HÁBITOS DEL DÍA */
-.quick-habits-bar { padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
-.qh-lbl { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; display: flex; justify-content: space-between; }
+.hc-mission-body {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding-bottom: 18px; border-bottom: 1px dashed var(--border);
+}
+.hc-task-text {
+  font-size: 1.02rem; font-weight: 600; color: var(--text); line-height: 1.48; flex: 1;
+}
+.hc-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.btn-hero-action {
+  height: 40px; padding: 0 15px; border-radius: 12px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--border-strong); background: var(--surface2); color: var(--text);
+  text-decoration: none; transition: all 0.2s var(--ease); white-space: nowrap;
+}
+.btn-hero-action:hover { border-color: var(--amber); transform: translateY(-1px); }
+.btn-hero-action.primary {
+  background: var(--text); color: var(--bg); border-color: var(--text);
+}
+.btn-hero-action.primary:hover { opacity: 0.92; }
+
+/* HÁBITOS RÁPIDOS INTEGRADOS */
+.quick-habits-bar { padding-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+.qh-header {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'DM Mono', monospace; font-size: 0.65rem;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;
+}
 .qh-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.qh-chip { background: var(--surface2); border: 1px solid var(--border-solid); border-radius: 10px; padding: 8px 6px; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.2s; user-select: none; white-space: nowrap; }
-.qh-chip:hover { border-color: var(--amber); color: var(--text); }
+.qh-chip {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 10px 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 700;
+  color: var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all 0.2s var(--ease); user-select: none; white-space: nowrap;
+}
+.qh-chip:hover { border-color: var(--amber); color: var(--text); transform: translateY(-1px); }
 .qh-chip:active { transform: scale(0.95); }
-.qh-chip.done { background: var(--green-glow); border-color: var(--green); color: var(--green); }
+.qh-chip.done {
+  background: var(--green-glow); border-color: var(--green); color: var(--green);
+  box-shadow: 0 2px 10px var(--green-glow);
+}
 
-/* GRÁFICOS: 4 ANILLOS CONCÉNTRICOS Y LÍNEA DE TIEMPO */
-.data-grid { display: grid; grid-template-columns: 1.18fr 1fr; gap: 16px; margin-bottom: 28px; }
-.vital-box, .heatmap-box { background: var(--surface-solid); border: 1px solid var(--border-solid); border-radius: var(--r); padding: 20px; display: flex; flex-direction: column; box-shadow: var(--shadow); }
-.section-lbl { font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+/* 2. CINTA DE SINERGIA ENTRE ÁREAS (PUENTE DE INTELIGENCIA CRUZADA) */
+.synergy-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  margin-bottom: 18px;
+}
+.syn-pill {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 4px;
+  text-decoration: none; color: inherit;
+  box-shadow: var(--shadow-sm); transition: all 0.2s var(--ease);
+  position: relative; overflow: hidden;
+}
+.syn-pill:hover { border-color: var(--amber); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.syn-lbl {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.syn-val {
+  font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--text);
+}
+.syn-sub {
+  font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-muted); font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 
-.vital-content { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; }
-.concentric-wrapper { position: relative; width: 108px; height: 108px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.vital-svg { width: 108px; height: 108px; transform: rotate(-90deg); transform-origin: 50% 50%; overflow: visible; }
-.ring-bg { fill: none; stroke: var(--surface3); stroke-width: 5.5; }
-.ring-fill { fill: none; stroke-width: 5.5; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
-.ring-topo { stroke: var(--blue); }
-.ring-pueblo { stroke: var(--purple); }
-.ring-fin { stroke: var(--amber); }
-.ring-gym { stroke: var(--green); }
+/* 3. TARJETAS DE LAS 3 ÁREAS PRINCIPALES */
+.section-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'DM Mono', monospace; font-size: 0.72rem;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+}
+.quote-inline {
+  font-family: 'Fraunces', serif; font-size: 0.8rem; font-style: italic;
+  color: var(--text-muted);
+}
 
-.linear-wrapper { flex: 1; display: flex; flex-direction: column; gap: 9px; width: 100%; }
-.l-bar-item { display: flex; flex-direction: column; gap: 3px; }
-.l-bar-info { display: flex; justify-content: space-between; align-items: flex-end; }
-.l-bar-lbl { font-family: 'DM Mono', monospace; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
-.l-bar-val { font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 700; color: var(--text); line-height: 1; }
-.l-bar-bg { width: 100%; height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
-.l-bar-fill { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.grid-modules {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  margin-bottom: 22px;
+}
+.mod-card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 20px; border-radius: var(--r-lg); text-decoration: none;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
+  transition: all 0.25s var(--ease); box-shadow: var(--shadow-md);
+  position: relative; overflow: hidden;
+}
+.mod-card:hover { border-color: var(--amber); transform: translateY(-3px); }
+.mod-card:active { transform: scale(0.98); }
+.mod-card.is-optimal { border-color: rgba(5, 150, 105, 0.45); }
 
-/* LÍNEA DE TIEMPO REAL 30D */
-.heatmap-box { justify-content: space-between; overflow: hidden; }
-.heatmap-scroll { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 0 10px; scrollbar-width: thin; width: 100%; }
-.heatmap-scroll::-webkit-scrollbar { height: 4px; }
-.heatmap-scroll::-webkit-scrollbar-thumb { background: var(--border-solid); border-radius: 4px; }
-.hm-cell { min-width: 40px; height: 52px; border-radius: 10px; background: var(--surface2); border: 1px solid var(--border-solid); flex-shrink: 0; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; scroll-snap-align: center; position: relative; }
-.hm-day { font-family: 'DM Mono', monospace; font-size: 0.55rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 2px; }
-.hm-date { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1; }
+.mod-top { display: flex; justify-content: space-between; align-items: center; }
+.mod-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; background: var(--surface2); border: 1px solid var(--border);
+}
+.mod-arrow {
+  font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--text-dim);
+  transition: transform 0.2s var(--ease);
+}
+.mod-card:hover .mod-arrow { transform: translateX(3px); color: var(--amber); }
+
+.mod-info { display: flex; flex-direction: column; gap: 4px; }
+.mod-title { font-size: 0.92rem; font-weight: 700; color: var(--text-muted); }
+.mod-val {
+  font-family: 'Fraunces', serif; font-size: 1.38rem; font-weight: 700;
+  color: var(--text); line-height: 1.1;
+}
+.mod-desc {
+  font-family: 'DM Mono', monospace; font-size: 0.68rem;
+  color: var(--text-dim); font-weight: 600; line-height: 1.35; margin-top: 2px;
+}
+
+/* 4. PANEL COMPACTO DE MAESTRÍA (4 PILARES) Y CONSISTENCIA 14D */
+.analytics-grid {
+  display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px;
+  margin-bottom: 24px;
+}
+.panel-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 20px;
+  box-shadow: var(--shadow-md); display: flex; flex-direction: column; justify-content: space-between;
+}
+.panel-head {
+  font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;
+}
+
+.pillars-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.pillar-item {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.pi-top { display: flex; justify-content: space-between; align-items: center; }
+.pi-name { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
+.pi-pct { font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 700; color: var(--text); }
+.pi-bar-bg { width: 100%; height: 5px; background: var(--surface3); border-radius: 3px; overflow: hidden; }
+.pi-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s var(--ease); }
+
+/* LÍNEA DE TIEMPO LIMPIA (ÚLTIMOS 14 DÍAS VISIBLES SIN SATURAR) */
+.heatmap-scroll {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+}
+.hm-cell {
+  height: 44px; border-radius: 10px;
+  background: var(--surface2); border: 1px solid var(--border);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: 0.2s;
+}
+.hm-day { font-family: 'DM Mono', monospace; font-size: 0.52rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; }
+.hm-date { font-size: 0.84rem; font-weight: 700; color: var(--text); line-height: 1.1; }
 .hm-cell.is-today { border: 2px solid var(--amber); }
-
-.hm-cell.lvl-1 { background: var(--green-glow); border-color: rgba(5,150,105,0.4); }
+.hm-cell.lvl-1 { background: var(--green-glow); border-color: rgba(5, 150, 105, 0.35); }
 .hm-cell.lvl-1 .hm-date, .hm-cell.lvl-1 .hm-day { color: var(--green); }
-.hm-cell.lvl-2 { background: rgba(5,150,105,0.35); border-color: var(--green); }
-.hm-cell.lvl-2 .hm-date, .hm-cell.lvl-2 .hm-day { color: var(--text); }
-.hm-cell.lvl-3 { background: var(--green); border-color: var(--green-dim); box-shadow: 0 2px 8px var(--green-glow); }
+.hm-cell.lvl-2 { background: rgba(5, 150, 105, 0.32); border-color: var(--green); }
+.hm-cell.lvl-3 { background: var(--green); border-color: var(--green-dim); }
 .hm-cell.lvl-3 .hm-date, .hm-cell.lvl-3 .hm-day { color: #ffffff; }
 
-.hm-legend { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); display: flex; justify-content: space-between; align-items: center; padding-top: 4px; }
+.hm-footer {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text-dim);
+  display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
+}
 
-/* MÓDULOS OPERATIVOS */
-.section-title { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; font-weight: 700; }
-.grid-modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-.mod-card { background: var(--surface-solid); border: 1px solid var(--border-solid); padding: 20px; border-radius: var(--r); text-decoration: none; display: flex; align-items: flex-start; gap: 14px; transition: 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: var(--shadow); position: relative; overflow: hidden; }
-.mod-card:hover { border-color: var(--amber); transform: translateY(-2px); }
-.mod-card:active { transform: scale(0.97); }
-
-.pulse-ring { position: absolute; inset: 0; border-radius: var(--r); pointer-events: none; opacity: 0; transition: 0.3s; }
-.mod-card.is-100 .pulse-ring { opacity: 1; border: 1.5px solid var(--green); }
-
-.mod-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; background: var(--surface2); border: 1px solid var(--border-solid); }
-.mod-info { display: flex; flex-direction: column; width: 100%; overflow: hidden; }
-.mod-title { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-.mod-val { font-family: 'Fraunces', serif; font-size: 1.22rem; font-weight: 700; margin-bottom: 4px; color: var(--text); transform: translate(var(--tiltX), var(--tiltY)); will-change: transform; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mod-desc { font-size: 0.7rem; color: var(--text-dim); font-weight: 600; font-family: 'DM Mono', monospace; line-height: 1.35; }
+/* GLOBAL DOCK DE NAVEGACIÓN UNIFICADA */
+.global-dock {
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+  background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-strong); border-radius: 30px;
+  padding: 6px 8px; display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); z-index: 200;
+}
+.dock-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px; border-radius: 24px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
+  color: var(--text-muted); text-decoration: none; transition: all 0.2s var(--ease);
+  white-space: nowrap;
+}
+.dock-link:hover { color: var(--text); background: var(--surface2); }
+.dock-link.active {
+  background: var(--text); color: var(--bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
 /* OVERLAY DEEP WORK DELTA-TIME */
-.dw-overlay { position: fixed; inset: 0; background: #070a12; z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 24px; }
+.dw-overlay {
+  position: fixed; inset: 0; background: rgba(9, 13, 22, 0.96);
+  backdrop-filter: blur(16px); z-index: 1000;
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  color: #fff; text-align: center; padding: 24px;
+}
 .dw-overlay.open { display: flex; }
-.dw-timer { font-family: 'DM Mono', monospace; font-size: 5rem; font-weight: 700; margin-bottom: 50px; letter-spacing: -2px; color: #f8fafc; }
-
-.hold-btn { position: relative; padding: 16px 36px; border-radius: 30px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.95rem; color: #fff; background: transparent; border: 2px solid var(--red); cursor: pointer; overflow: hidden; user-select: none; -webkit-touch-callout: none; transition: transform 0.1s; }
-.hold-btn.shaking { transform: scale(0.95); }
+.dw-timer {
+  font-family: 'DM Mono', monospace; font-size: clamp(3.8rem, 12vw, 5.5rem);
+  font-weight: 700; margin-bottom: 40px; letter-spacing: -2px; color: #f8fafc;
+}
+.hold-btn {
+  position: relative; padding: 15px 34px; border-radius: 30px;
+  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.92rem;
+  color: #fff; background: rgba(220, 38, 38, 0.15); border: 1.5px solid var(--red);
+  cursor: pointer; overflow: hidden; user-select: none; -webkit-touch-callout: none;
+  transition: transform 0.1s;
+}
+.hold-btn.shaking { transform: scale(0.96); }
 .hold-fill { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: var(--red); z-index: 1; }
 .hold-text { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; }
 
-#toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 700; padding: 12px 24px; border-radius: 30px; opacity: 0; transition: 0.3s; z-index: 9999; pointer-events: none; box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+#toast {
+  position: fixed; bottom: 82px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--text); color: var(--bg);
+  font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 700;
+  padding: 11px 22px; border-radius: 30px; opacity: 0;
+  transition: 0.3s var(--ease); z-index: 9999; pointer-events: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-@media (max-width: 720px) {
-  .grid-modules { grid-template-columns: 1fr; }
-  .data-grid { grid-template-columns: 1fr; }
+@media (max-width: 740px) {
+  .grid-modules, .synergy-strip, .analytics-grid { grid-template-columns: 1fr; }
   .qh-grid { grid-template-columns: repeat(2, 1fr); }
+  .hc-mission-body { flex-direction: column; align-items: flex-start; }
+  .hc-actions { width: 100%; }
+  .btn-hero-action { flex: 1; justify-content: center; }
   header { padding: 14px 16px; }
+  .quote-inline { display: none; }
+  .dock-link span.dl-txt { display: none; }
+  .dock-link.active span.dl-txt { display: inline; }
 }
 </style>
 </head>
@@ -232,43 +452,41 @@ body.survival-mode .na-header { color: var(--purple); }
   <div class="header-inner">
     <div class="brand-group">
       <div class="sys-status">
-        <span><span class="cloud-status" id="cloudStatus"></span> <span id="sysMsg">PIEROVSKI OS</span></span>
-        <span class="streak-box" id="streakBox">🔥 0 DÍAS</span>
+        <span><span class="cloud-status" id="cloudStatus"></span> PIEROVSKI OS</span>
+        <span class="streak-badge" id="streakBox">🔥 0 DÍAS</span>
       </div>
       <div class="greeting-area"><h1 id="greetText">Hola, Piero</h1></div>
     </div>
     <div class="header-actions">
-      <button class="btn-pill-energy" id="energyToggleBtn" onclick="toggleSurvivalMode()" title="Alternar entre Misiones Completas y Microacciones de 2 minutos">⚡ Normal</button>
+      <button class="btn-pill-mode" id="energyToggleBtn" onclick="toggleSurvivalMode()" title="Alternar entre Misiones Completas y Microacciones de 2 minutos">⚡ Modo Normal</button>
       <button class="btn-icon-tool" id="privacyToggleBtn" onclick="togglePrivacy()" title="Modo Privacidad">👁️</button>
       <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema Oscuro / Claro">🌙</button>
-      <button class="btn-icon-tool" id="terrenoToggleBtn" onclick="toggleTerrenoMode()" title="Modo Terreno (Ahorro E-Ink)">🔋</button>
     </div>
   </div>
 </header>
 
 <main>
-  <div class="quote-box stagger-1">
-    <div class="quote-text" id="dailyQuote">"La disciplina te mantiene en el camino."</div>
-  </div>
-
-  <div class="next-action-card stagger-2">
-    <div class="na-clickable" id="nextActionZone">
-      <div class="na-header">
-        <span id="naModeTitle">🎯 MISIÓN RECOMENDADA DE HOY</span>
-        <span id="naWeekBadge">NIVEL 1</span>
-      </div>
-      <div class="na-task" id="naTask">Analizando tu siguiente misión...</div>
-      <div class="na-hint">
-        <span>1 toque: Abrir Ruta de Maestría</span>
-        <span id="naTimerHint">2 toques: Cronómetro (45 min)</span>
+  <!-- 1. CENTRO DE ACCIÓN DIARIA -->
+  <section class="hero-command-card stagger-1">
+    <div class="hc-top">
+      <div class="hc-badge-group">
+        <span class="hc-tag" id="naModeTitle">🎯 MISIÓN PRIORITARIA DE HOY</span>
+        <span class="hc-lvl" id="naWeekBadge">NIVEL 1 DE 6</span>
       </div>
     </div>
 
-    <!-- BARRA DE CHECK RÁPIDO DE HÁBITOS DEL DÍA -->
+    <div class="hc-mission-body">
+      <div class="hc-task-text" id="naTask">Sincronizando tu siguiente paso estratégico...</div>
+      <div class="hc-actions">
+        <button class="btn-hero-action" id="btnQuickFocus" onclick="launchDeepWork(isSurvivalMode ? 2 : 45)">⏱️ 45 min</button>
+        <a href="plan.html" class="btn-hero-action primary">Ir a Misión →</a>
+      </div>
+    </div>
+
     <div class="quick-habits-bar">
-      <div class="qh-lbl">
-        <span>⚡ Hábitos rápidos de hoy (Marca con 1 toque)</span>
-        <span id="qhProgressTxt">0/4 hoy</span>
+      <div class="qh-header">
+        <span>⚡ Registro rápido de hábitos de hoy</span>
+        <span id="qhProgressTxt">0/4 completados hoy</span>
       </div>
       <div class="qh-grid" id="quickHabitsGrid">
         <button class="qh-chip" onclick="quickToggleTodayHabit('topo')">🗺️ Topo + IA</button>
@@ -277,103 +495,129 @@ body.survival-mode .na-header { color: var(--purple); }
         <button class="qh-chip" onclick="quickToggleTodayHabit('gym')">🏋️ Symmetry</button>
       </div>
     </div>
+  </section>
+
+  <!-- 2. CINTA DE SINERGIA CRUZADA ENTRE LAS 3 ÁREAS -->
+  <section class="synergy-strip stagger-2">
+    <a href="plan.html" class="syn-pill" title="Ahorro acumulado en el Pilar de Finanzas">
+      <div class="syn-lbl"><span>🏦 Bóveda Quincenal</span><span>Meta S/ 1.8k</span></div>
+      <div class="syn-val" id="syn-vault-val">S/ 0.00</div>
+      <div class="syn-sub" id="syn-vault-sub">0/6 quincenas ahorradas</div>
+    </a>
+
+    <a href="tarjetas.html" class="syn-pill" title="Tarjeta con mayor cantidad de días libres de interés si compras hoy">
+      <div class="syn-lbl"><span>🛡️ Mejor Tarjeta Hoy</span><span id="syn-sbs-badge">SBS 0%</span></div>
+      <div class="syn-val" id="syn-best-card">Sin tarjetas</div>
+      <div class="syn-sub" id="syn-best-days">Configura tus fechas de corte</div>
+    </a>
+
+    <a href="compras.html" class="syn-pill" title="Relación entre tu próximo deseo prioritario y tu liquidez">
+      <div class="syn-lbl"><span>✨ Próxima Inversión</span><span id="syn-wish-prio">Deseos</span></div>
+      <div class="syn-val" id="syn-wish-name">Lista vacía</div>
+      <div class="syn-sub" id="syn-wish-sub">Agrega metas en Compras</div>
+    </a>
+  </section>
+
+  <!-- 3. MÓDULOS OPERATIVOS -->
+  <div class="section-header stagger-3">
+    <span class="section-title">Áreas del Sistema</span>
+    <span class="quote-inline" id="dailyQuote">"Un ingeniero con sistemas automatizados vale por diez en gabinete."</span>
   </div>
 
-  <div class="data-grid stagger-3">
-    <div class="vital-box">
-      <div class="section-lbl">
-        <span>Maestría (4 Pilares)</span>
-        <span id="globalPctLbl">0 % Total</span>
-      </div>
-      <div class="vital-content">
-        <div class="concentric-wrapper">
-          <!-- 4 Anillos Concéntricos: R=44 (276.5), R=34 (213.6), R=24 (150.8), R=14 (88.0) -->
-          <svg class="vital-svg" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="44" class="ring-bg"/>
-            <circle cx="50" cy="50" r="34" class="ring-bg"/>
-            <circle cx="50" cy="50" r="24" class="ring-bg"/>
-            <circle cx="50" cy="50" r="14" class="ring-bg"/>
-
-            <circle cx="50" cy="50" r="44" class="ring-fill ring-topo" id="c-ring-topo" stroke-dasharray="276.5" stroke-dashoffset="276.5"/>
-            <circle cx="50" cy="50" r="34" class="ring-fill ring-pueblo" id="c-ring-pueblo" stroke-dasharray="213.6" stroke-dashoffset="213.6"/>
-            <circle cx="50" cy="50" r="24" class="ring-fill ring-fin" id="c-ring-fin" stroke-dasharray="150.8" stroke-dashoffset="150.8"/>
-            <circle cx="50" cy="50" r="14" class="ring-fill ring-gym" id="c-ring-gym" stroke-dasharray="88.0" stroke-dashoffset="88.0"/>
-          </svg>
-        </div>
-        <div class="linear-wrapper">
-          <div class="l-bar-item">
-            <div class="l-bar-info"><span class="l-bar-lbl" style="color:var(--blue);">🗺️ TOPO + IA</span><span class="l-bar-val" id="lb-val-topo">0%</span></div>
-            <div class="l-bar-bg"><div class="l-bar-fill" id="lb-fill-topo" style="background:var(--blue); width:0%;"></div></div>
-          </div>
-          <div class="l-bar-item">
-            <div class="l-bar-info"><span class="l-bar-lbl" style="color:var(--purple);">🏛️ MI PUEBLO</span><span class="l-bar-val" id="lb-val-pueblo">0%</span></div>
-            <div class="l-bar-bg"><div class="l-bar-fill" id="lb-fill-pueblo" style="background:var(--purple); width:0%;"></div></div>
-          </div>
-          <div class="l-bar-item">
-            <div class="l-bar-info"><span class="l-bar-lbl" style="color:var(--amber);">💰 FINANZAS</span><span class="l-bar-val" id="lb-val-fin">0%</span></div>
-            <div class="l-bar-bg"><div class="l-bar-fill" id="lb-fill-fin" style="background:var(--amber); width:0%;"></div></div>
-          </div>
-          <div class="l-bar-item">
-            <div class="l-bar-info"><span class="l-bar-lbl" style="color:var(--green);">🏋️ SYMMETRY</span><span class="l-bar-val" id="lb-val-gym">0%</span></div>
-            <div class="l-bar-bg"><div class="l-bar-fill" id="lb-fill-gym" style="background:var(--green); width:0%;"></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="heatmap-box">
-      <div class="section-lbl">
-        <span>Consistencia Real (30D)</span>
-        <span id="activeDaysCount">0/30 d</span>
-      </div>
-      <div class="heatmap-scroll" id="heatmapGrid"></div>
-      <div class="hm-legend">
-        <span>Historial diario sincronizado</span>
-        <span>Hoy ●</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-title stagger-4">Módulos del Sistema</div>
-  <div class="grid-modules stagger-4">
+  <section class="grid-modules stagger-3">
     <a href="compras.html" class="mod-card" id="mc-compras">
-      <div class="pulse-ring"></div>
-      <div class="mod-icon">📦</div>
+      <div class="mod-top">
+        <div class="mod-icon">📦</div>
+        <span class="mod-arrow">ABRIR →</span>
+      </div>
       <div class="mod-info">
         <div class="mod-title">Compras y Activos</div>
         <div class="mod-val" id="stat-money-compras">S/ 0.00</div>
-        <div class="mod-desc" id="stat-desc-compras">Patrimonio e inversión</div>
+        <div class="mod-desc" id="stat-desc-compras">0 amortizados · 0 activos</div>
       </div>
     </a>
 
     <a href="tarjetas.html" class="mod-card" id="mc-tarjetas">
-      <div class="pulse-ring"></div>
-      <div class="mod-icon">💳</div>
+      <div class="mod-top">
+        <div class="mod-icon">💳</div>
+        <span class="mod-arrow">ABRIR →</span>
+      </div>
       <div class="mod-info">
         <div class="mod-title">Tarjetas y Estrategia SBS</div>
-        <div class="mod-val" id="stat-money-tarjetas">0</div>
-        <div class="mod-desc" id="stat-tarjetas">Verificando cortes...</div>
+        <div class="mod-val" id="stat-money-tarjetas">Al día ✓</div>
+        <div class="mod-desc" id="stat-tarjetas">Verificando fechas de corte...</div>
       </div>
     </a>
 
     <a href="plan.html" class="mod-card" id="mc-plan">
-      <div class="pulse-ring"></div>
-      <div class="mod-icon">🧭</div>
+      <div class="mod-top">
+        <div class="mod-icon">🧭</div>
+        <span class="mod-arrow">ABRIR →</span>
+      </div>
       <div class="mod-info">
         <div class="mod-title">Ruta de Maestría</div>
-        <div class="mod-val" id="stat-val-plan" style="color:var(--blue);">Nivel 1</div>
-        <div class="mod-desc" id="stat-desc-plan">4 pilares activos</div>
+        <div class="mod-val" id="stat-val-plan" style="color:var(--blue);">Nivel 1/6</div>
+        <div class="mod-desc" id="stat-desc-plan">4 pilares sincronizados</div>
       </div>
     </a>
-  </div>
+  </section>
+
+  <!-- 4. BALANCE DE LOS 4 PILARES + CONSISTENCIA 14 DÍAS -->
+  <section class="analytics-grid stagger-4">
+    <div class="panel-box">
+      <div class="panel-head">
+        <span>Avance por Pilar de Maestría</span>
+        <span id="globalPctLbl" style="color:var(--amber);">0 % Global</span>
+      </div>
+      <div class="pillars-list">
+        <div class="pillar-item">
+          <div class="pi-top"><span class="pi-name" style="color:var(--blue);">🗺️ Topo + IA</span><span class="pi-pct" id="lb-val-topo">0%</span></div>
+          <div class="pi-bar-bg"><div class="pi-bar-fill" id="lb-fill-topo" style="background:var(--blue); width:0%;"></div></div>
+        </div>
+        <div class="pillar-item">
+          <div class="pi-top"><span class="pi-name" style="color:var(--purple);">🏛️ Mi Pueblo</span><span class="pi-pct" id="lb-val-pueblo">0%</span></div>
+          <div class="pi-bar-bg"><div class="pi-bar-fill" id="lb-fill-pueblo" style="background:var(--purple); width:0%;"></div></div>
+        </div>
+        <div class="pillar-item">
+          <div class="pi-top"><span class="pi-name" style="color:var(--amber);">💰 Finanzas</span><span class="pi-pct" id="lb-val-fin">0%</span></div>
+          <div class="pi-bar-bg"><div class="pi-bar-fill" id="lb-fill-fin" style="background:var(--amber); width:0%;"></div></div>
+        </div>
+        <div class="pillar-item">
+          <div class="pi-top"><span class="pi-name" style="color:var(--green);">🏋️ Symmetry</span><span class="pi-pct" id="lb-val-gym">0%</span></div>
+          <div class="pi-bar-bg"><div class="pi-bar-fill" id="lb-fill-gym" style="background:var(--green); width:0%;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-box">
+      <div class="panel-head">
+        <span>Consistencia Reciente (14 Días)</span>
+        <span id="activeDaysCount">0/30 d activos</span>
+      </div>
+      <div class="heatmap-scroll" id="heatmapGrid"></div>
+      <div class="hm-footer">
+        <span>Sincronizado con tus 4 pilares</span>
+        <span>Hoy ●</span>
+      </div>
+    </div>
+  </section>
 </main>
 
+<!-- DOCK DE NAVEGACIÓN GLOBAL -->
+<nav class="global-dock" aria-label="Navegación Principal">
+  <a href="index.html" class="dock-link active"><span>⚡</span><span class="dl-txt">Comando</span></a>
+  <a href="compras.html" class="dock-link"><span>📦</span><span class="dl-txt">Compras</span></a>
+  <a href="tarjetas.html" class="dock-link"><span>💳</span><span class="dl-txt">Tarjetas</span></a>
+  <a href="plan.html" class="dock-link"><span>🧭</span><span class="dl-txt">Maestría</span></a>
+</nav>
+
+<!-- OVERLAY CRONÓMETRO INMERSIVO -->
 <div class="dw-overlay" id="dwOverlay">
-  <div style="font-family:'DM Mono', monospace; color:var(--amber); margin-bottom:12px; letter-spacing:2px; font-size:0.8rem;">BLOQUE DE ENFOQUE ACTIVO</div>
+  <div style="font-family:'DM Mono', monospace; color:var(--amber); margin-bottom:12px; letter-spacing:2px; font-size:0.8rem;">SESIÓN DE ENFOQUE EN CURSO</div>
   <div class="dw-timer" id="dwTimer">45:00</div>
   <button class="hold-btn" id="holdAbortBtn">
     <div class="hold-fill" id="holdFill"></div>
-    <div class="hold-text">Mantén 1.5 s para detener</div>
+    <div class="hold-text">Mantén presionado 1.5 s para salir</div>
   </button>
 </div>
 
@@ -386,7 +630,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// CONFIGURACIÓN FIREBASE UNIFICADA
 const firebaseConfig = {
   apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
   authDomain: "pierovski-center.firebaseapp.com",
@@ -398,24 +641,8 @@ const db = firebase.database();
 
 const PLAN_IDS = ['topo', 'pueblo', 'fin', 'gym'];
 let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
-let isTerrenoMode = localStorage.getItem('terreno_mode') === 'true';
 let isSurvivalMode = false;
 try { isSurvivalMode = JSON.parse(localStorage.getItem('survival_mode_v1')) === true; } catch (e) {}
-
-// PARALLAX SUAVE
-let tiltTargetX = 0, tiltTargetY = 0, tiltCurrX = 0, tiltCurrY = 0, parallaxReq;
-function lerpParallax() {
-  tiltCurrX += (tiltTargetX - tiltCurrX) * 0.1;
-  tiltCurrY += (tiltTargetY - tiltCurrY) * 0.1;
-  document.documentElement.style.setProperty('--tiltX', `${tiltCurrX.toFixed(2)}px`);
-  document.documentElement.style.setProperty('--tiltY', `${tiltCurrY.toFixed(2)}px`);
-  parallaxReq = requestAnimationFrame(lerpParallax);
-}
-window.addEventListener('deviceorientation', (e) => {
-  if (isTerrenoMode) return;
-  tiltTargetX = Math.max(-10, Math.min(10, e.gamma || 0)) / 2;
-  tiltTargetY = Math.max(-10, Math.min(10, e.beta || 0)) / 2;
-});
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -446,7 +673,6 @@ function initGlobals() {
   if (localStorage.getItem('compras_theme') === 'dark') document.body.classList.add('dark-theme');
   if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
   applySurvivalUI();
-  applyTerrenoMode();
 
   const h = new Date().getHours();
   const greet = h >= 5 && h < 12 ? "Buenos días" : (h >= 12 && h < 19 ? "Buenas tardes" : "Buenas noches");
@@ -458,20 +684,20 @@ function toggleSurvivalMode() {
   localStorage.setItem('survival_mode_v1', JSON.stringify(isSurvivalMode));
   applySurvivalUI();
   processPlanData();
-  showToast(isSurvivalMode ? '🔋 Modo 2 Minutos activado' : '⚡ Modo Energía Normal activado');
+  showToast(isSurvivalMode ? '⚡ Microacciones de 2 minutos activadas' : '⚡ Modo Normal activado');
 }
 
 function applySurvivalUI() {
   document.body.classList.toggle('survival-mode', isSurvivalMode);
   const btn = document.getElementById('energyToggleBtn');
   if (btn) {
-    btn.innerHTML = isSurvivalMode ? '🔋 Modo 2 min' : '⚡ Normal';
+    btn.innerHTML = isSurvivalMode ? '🌱 Modo 2 min' : '⚡ Modo Normal';
     btn.classList.toggle('survival', isSurvivalMode);
   }
   const titleEl = document.getElementById('naModeTitle');
-  const hintEl = document.getElementById('naTimerHint');
-  if (titleEl) titleEl.innerText = isSurvivalMode ? '⚡ MICROACCIÓN DE 2 MINUTOS (ANTI-PEREZA)' : '🎯 MISIÓN RECOMENDADA DE HOY';
-  if (hintEl) hintEl.innerText = isSurvivalMode ? '2 toques: Cronómetro (2 min)' : '2 toques: Cronómetro (45 min)';
+  const focusBtn = document.getElementById('btnQuickFocus');
+  if (titleEl) titleEl.innerText = isSurvivalMode ? '🌱 MICROACCIÓN DE 2 MINUTOS (ANTI-FRICCIÓN)' : '🎯 MISIÓN PRIORITARIA DE HOY';
+  if (focusBtn) focusBtn.innerText = isSurvivalMode ? '⏱️ 2 min' : '⏱️ 45 min';
 }
 
 function togglePrivacy() {
@@ -479,33 +705,12 @@ function togglePrivacy() {
   localStorage.setItem('pierovski_privacy', isPrivacyMode);
   document.getElementById('privacyToggleBtn').classList.toggle('active', isPrivacyMode);
   loadMiniStats();
+  processPlanData();
 }
 
 function toggleDarkMode() {
   const isDark = document.body.classList.toggle('dark-theme');
   localStorage.setItem('compras_theme', isDark ? 'dark' : 'light');
-}
-
-function toggleTerrenoMode() {
-  isTerrenoMode = !isTerrenoMode;
-  localStorage.setItem('terreno_mode', isTerrenoMode);
-  applyTerrenoMode();
-}
-
-function applyTerrenoMode() {
-  const btn = document.getElementById('terrenoToggleBtn');
-  if (isTerrenoMode) {
-    document.body.classList.add('e-ink-mode');
-    btn.classList.add('active');
-    cancelAnimationFrame(parallaxReq);
-    document.documentElement.style.setProperty('--tiltX', '0px');
-    document.documentElement.style.setProperty('--tiltY', '0px');
-  } else {
-    document.body.classList.remove('e-ink-mode');
-    btn.classList.remove('active');
-    cancelAnimationFrame(parallaxReq);
-    parallaxReq = requestAnimationFrame(lerpParallax);
-  }
 }
 
 function formatMoney(val) {
@@ -520,7 +725,35 @@ function formatMoneyK(val) {
   return formatMoney(num);
 }
 
-// SINCRONIZACIÓN MULTI-DISPOSITIVO EN SEGUNDO PLANO (INCLUYE LOS 4 PILARES)
+// CÁLCULO DE DÍAS LIBRES DE INTERÉS Y CORTES PARA EL PUENTE CON TARJETAS
+function getFreeCreditDays(closingDay, paymentDay) {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const cDay = parseInt(closingDay) || 1;
+  const pDay = parseInt(paymentDay) || 1;
+
+  let cycleClose = new Date(today.getFullYear(), today.getMonth(), cDay);
+  if (today.getDate() > cDay) {
+    cycleClose = new Date(today.getFullYear(), today.getMonth() + 1, cDay);
+  }
+  let cyclePay = new Date(cycleClose.getFullYear(), cycleClose.getMonth(), pDay);
+  if (pDay <= cDay) {
+    cyclePay = new Date(cycleClose.getFullYear(), cycleClose.getMonth() + 1, pDay);
+  }
+  return Math.max(0, Math.round((cyclePay.getTime() - today.getTime()) / 86400000));
+}
+
+function getDaysUntilDayOfMonth(dayNum) {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const targetDay = parseInt(dayNum) || 1;
+  let nextDate = new Date(today.getFullYear(), today.getMonth(), targetDay);
+  if (today.getDate() > targetDay) {
+    nextDate = new Date(today.getFullYear(), today.getMonth() + 1, targetDay);
+  }
+  return Math.max(0, Math.round((nextDate.getTime() - today.getTime()) / 86400000));
+}
+
 async function syncFromCloud() {
   try {
     const planFiles = {
@@ -577,8 +810,9 @@ async function syncFromCloud() {
       const cData = comprasSnap.val();
       const cloudCompTs = cData.lastUpdated || 0;
       const localCompTs = parseInt(localStorage.getItem('c_last_update')) || 0;
-      if (cloudCompTs >= localCompTs && cData.products) {
-        localStorage.setItem('c_prods', JSON.stringify(cData.products));
+      if (cloudCompTs >= localCompTs) {
+        if (cData.products) localStorage.setItem('c_prods', JSON.stringify(cData.products));
+        if (cData.wishes) localStorage.setItem('c_wishes', JSON.stringify(cData.wishes));
       }
     }
 
@@ -587,25 +821,37 @@ async function syncFromCloud() {
   } catch (e) {}
 }
 
-function getDaysUntilDayOfMonth(dayNum) {
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const targetDay = parseInt(dayNum) || 1;
-  let nextDate = new Date(today.getFullYear(), today.getMonth(), targetDay);
-  if (today.getDate() > targetDay) {
-    nextDate = new Date(today.getFullYear(), today.getMonth() + 1, targetDay);
-  }
-  return Math.max(0, Math.round((nextDate.getTime() - today.getTime()) / 86400000));
-}
-
 function loadMiniStats() {
   try {
-    // 1. Estadísticas de Tarjetas y Próximo Corte/Pago
+    // 1. Puente con Tarjetas y Estrategia SBS
     const rawTjs = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
     const tjs = Array.isArray(rawTjs) ? rawTjs : Object.values(rawTjs);
     const unpaid = tjs.filter(t => !t.paid);
     const totalDebt = tjs.reduce((acc, t) => acc + (parseFloat(t.debtTotal) || 0), 0);
     const totalLimit = tjs.reduce((acc, t) => acc + (parseFloat(t.creditLimit) || 0), 0);
+    const ratioSBS = totalLimit > 0 ? Math.round((totalDebt / totalLimit) * 100) : 0;
+
+    // Mejor tarjeta para comprar hoy
+    let bestCard = null;
+    let maxDays = -1;
+    tjs.forEach(t => {
+      const fd = getFreeCreditDays(t.closing, t.payment);
+      if (fd > maxDays) { maxDays = fd; bestCard = t; }
+    });
+
+    const synBestCard = document.getElementById('syn-best-card');
+    const synBestDays = document.getElementById('syn-best-days');
+    const synSbsBadge = document.getElementById('syn-sbs-badge');
+    if (bestCard) {
+      synBestCard.textContent = bestCard.name;
+      synBestDays.textContent = `${maxDays} días libres · Cierra día ${bestCard.closing}`;
+      synSbsBadge.textContent = `SBS ${ratioSBS}%`;
+      synSbsBadge.style.color = ratioSBS <= 25 ? 'var(--green)' : 'var(--amber)';
+    } else {
+      synBestCard.textContent = 'Sin tarjetas';
+      synBestDays.textContent = 'Agrega tus tarjetas en el módulo';
+      synSbsBadge.textContent = 'SBS 0%';
+    }
 
     const mt = document.getElementById('stat-money-tarjetas');
     mt.innerText = isPrivacyMode ? '***' : (unpaid.length > 0 ? `${unpaid.length} pend.` : 'Al día ✓');
@@ -615,16 +861,15 @@ function loadMiniStats() {
       unpaid.sort((a, b) => getDaysUntilDayOfMonth(a.payment) - getDaysUntilDayOfMonth(b.payment));
       const nextCard = unpaid[0];
       const daysLeft = getDaysUntilDayOfMonth(nextCard.payment);
-      descT.innerHTML = `<span style="color:${daysLeft <= 5 ? 'var(--red)' : 'var(--amber)'};">${nextCard.name}: vence en ${daysLeft} d</span>`;
+      descT.innerHTML = `<span style="color:${daysLeft <= 5 ? 'var(--red)' : 'var(--amber)'};">${nextCard.name}: vence en ${daysLeft} d</span> · SBS ${ratioSBS}%`;
     } else if (totalLimit > 0) {
-      const ratio = Math.round((totalDebt / totalLimit) * 100);
-      descT.innerHTML = `Uso SBS: <b>${ratio} %</b> (Meta ≤ 25 %)`;
+      descT.innerHTML = `Uso SBS: <b>${ratioSBS} %</b> (Meta ≤ 25 %)`;
     } else {
       descT.innerHTML = `Sin pagos pendientes ✓`;
     }
-    document.getElementById('mc-tarjetas').classList.toggle('is-100', unpaid.length === 0 && tjs.length > 0);
+    document.getElementById('mc-tarjetas').classList.toggle('is-optimal', unpaid.length === 0 && tjs.length > 0);
 
-    // 2. Estadísticas de Compras y Patrimonio
+    // 2. Puente con Compras, Costo Diario y Deseos
     const prodsRaw = JSON.parse(localStorage.getItem('c_prods')) || [];
     const prods = Array.isArray(prodsRaw) ? prodsRaw : Object.values(prodsRaw);
     let totalPatrimonio = 0, enAmort = 0, amortizados = 0;
@@ -643,7 +888,27 @@ function loadMiniStats() {
     });
 
     document.getElementById('stat-money-compras').innerText = formatMoneyK(totalPatrimonio);
-    document.getElementById('stat-desc-compras').innerText = `${amortizados} amortizados · ${enAmort} activos`;
+    document.getElementById('stat-desc-compras').innerText = `${amortizados} amortizados · ${enAmort} en curso`;
+
+    // Deseo prioritario conectado a Bóveda
+    const wishesRaw = JSON.parse(localStorage.getItem('c_wishes')) || [];
+    const wishes = Array.isArray(wishesRaw) ? wishesRaw : Object.values(wishesRaw);
+    const prioOrder = { 'Alta': 1, 'Media': 2, 'Baja': 3 };
+    wishes.sort((a, b) => (prioOrder[a.prio] || 2) - (prioOrder[b.prio] || 2));
+
+    const wNameEl = document.getElementById('syn-wish-name');
+    const wSubEl = document.getElementById('syn-wish-sub');
+    const wPrioEl = document.getElementById('syn-wish-prio');
+    if (wishes.length > 0) {
+      const topW = wishes[0];
+      wNameEl.textContent = topW.name;
+      wPrioEl.textContent = `Prio ${topW.prio || 'Media'}`;
+      wSubEl.textContent = `${formatMoney(topW.cost)} · ${wishes.length} en lista`;
+    } else {
+      wNameEl.textContent = 'Sin deseos';
+      wPrioEl.textContent = 'Deseos';
+      wSubEl.textContent = 'Usa el filtro antes de comprar';
+    }
   } catch (e) {}
 }
 
@@ -666,6 +931,7 @@ function processPlanData() {
   let recommendedTask = null;
   let recommendedLevel = 1;
   let totalLevelsDone = 0;
+  let vaultQuincenas = 0;
 
   PLAN_IDS.forEach(p => {
     try {
@@ -676,6 +942,9 @@ function processPlanData() {
         plan.weeks.forEach((w, wi) => {
           let lvlTot = 0, lvlDone = 0;
           (w.tasks || []).forEach((t, ti) => {
+            if (p === 'fin' && String(t).toLowerCase().includes('bóveda') && states[`${wi}-${ti}`] === true) {
+              vaultQuincenas++;
+            }
             if (isHabitTask(t)) return;
             mTot++;
             lvlTot++;
@@ -683,7 +952,7 @@ function processPlanData() {
               mDone++;
               lvlDone++;
             } else if (!recommendedTask) {
-              recommendedTask = `${extractTaskText(t)}`;
+              recommendedTask = extractTaskText(t);
               recommendedLevel = wi + 1;
             }
           });
@@ -694,7 +963,12 @@ function processPlanData() {
     } catch (e) {}
   });
 
-  // Actualizar barra superior de 6 Quincenas según progreso medio
+  // Actualizar Cinta de Sinergia: Bóveda Quincenal
+  const savedVault = vaultQuincenas * 300;
+  document.getElementById('syn-vault-val').textContent = formatMoney(savedVault);
+  document.getElementById('syn-vault-sub').textContent = `${vaultQuincenas}/6 quincenas (${Math.round((savedVault / 1800) * 100)}%)`;
+
+  // Barra superior de 6 Quincenas
   const avgLevelIndex = Math.min(5, Math.floor(totalLevelsDone / 4));
   const qGrid = document.getElementById('qBarGrid').children;
   for (let i = 0; i < 6; i++) {
@@ -720,16 +994,13 @@ function processPlanData() {
   PLAN_IDS.forEach((pid, idx) => {
     const isDone = habitDays[pid] && habitDays[pid][mondayKey] && habitDays[pid][mondayKey][todayDayIdx] === true;
     if (isDone) habitsDoneToday++;
-    if (chips[idx]) {
-      chips[idx].classList.toggle('done', isDone);
-    }
+    if (chips[idx]) chips[idx].classList.toggle('done', isDone);
   });
 
-  document.getElementById('qhProgressTxt').innerText = `${habitsDoneToday}/4 hábitos hoy`;
+  document.getElementById('qhProgressTxt').innerText = `${habitsDoneToday}/4 completados hoy`;
   document.getElementById('stat-desc-plan').innerText = `${habitsDoneToday}/4 hábitos hoy · ${totalLevelsDone} niveles listos`;
-  document.getElementById('mc-plan').classList.toggle('is-100', habitsDoneToday === 4);
+  document.getElementById('mc-plan').classList.toggle('is-optimal', habitsDoneToday === 4);
 
-  // Registro Diario Real y Racha
   const dailyLog = JSON.parse(localStorage.getItem('pierovski_daily_log') || '{}');
   const todayKey = todayStr();
   if (habitsDoneToday > 0) {
@@ -744,7 +1015,6 @@ function processPlanData() {
   drawRealTimeline(dailyLog);
 }
 
-// MARCAR HÁBITO DEL DÍA DIRECTAMENTE DESDE EL INICIO
 function quickToggleTodayHabit(planId) {
   const mondayKey = getCurrentWeekMondayKey();
   const todayDayIdx = (new Date().getDay() || 7) - 1;
@@ -758,7 +1028,6 @@ function quickToggleTodayHabit(planId) {
   habitDays[planId][mondayKey][todayDayIdx] = !currentVal;
   localStorage.setItem('pierovski_habit_days_v1', JSON.stringify(habitDays));
 
-  // Actualizar registro de 30 días
   const dailyLog = JSON.parse(localStorage.getItem('pierovski_daily_log') || '{}');
   const tKey = todayStr();
   const nextVal = Math.max(0, (dailyLog[tKey] || 0) + (!currentVal ? 1 : -1));
@@ -776,8 +1045,8 @@ function quickToggleTodayHabit(planId) {
     }).catch(() => {});
   }
 
-  if (navigator.vibrate) navigator.vibrate(25);
-  showToast(!currentVal ? '🔥 Hábito de hoy completado' : 'Hábito desmarcado');
+  if (navigator.vibrate) navigator.vibrate(20);
+  showToast(!currentVal ? '✓ Hábito de hoy registrado' : 'Hábito desmarcado');
   processPlanData();
 }
 
@@ -785,14 +1054,10 @@ function calcRealStreak(dailyLog) {
   let count = 0;
   const cursor = new Date();
   const todayKey = todayStr();
-  if (!dailyLog[todayKey]) {
-    cursor.setDate(cursor.getDate() - 1);
-  }
+  if (!dailyLog[todayKey]) cursor.setDate(cursor.getDate() - 1);
+
   while (true) {
-    const y = cursor.getFullYear();
-    const m = String(cursor.getMonth() + 1).padStart(2, '0');
-    const d = String(cursor.getDate()).padStart(2, '0');
-    const key = `${y}-${m}-${d}`;
+    const key = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, '0')}-${String(cursor.getDate()).padStart(2, '0')}`;
     if (dailyLog[key] && dailyLog[key] > 0) {
       count++;
       cursor.setDate(cursor.getDate() - 1);
@@ -805,26 +1070,19 @@ function calcRealStreak(dailyLog) {
 
 function drawVitalBalance(t, p, f, g) {
   const globalPct = Math.round(((t + p + f + g) / 4) * 100);
-  document.getElementById('globalPctLbl').innerText = `${globalPct} % Total`;
+  document.getElementById('globalPctLbl').innerText = `${globalPct} % Global`;
 
-  setTimeout(() => {
-    document.getElementById('c-ring-topo').style.strokeDashoffset = 276.5 * (1 - Math.max(t, 0.03));
-    document.getElementById('c-ring-pueblo').style.strokeDashoffset = 213.6 * (1 - Math.max(p, 0.03));
-    document.getElementById('c-ring-fin').style.strokeDashoffset = 150.8 * (1 - Math.max(f, 0.03));
-    document.getElementById('c-ring-gym').style.strokeDashoffset = 88.0 * (1 - Math.max(g, 0.03));
-
-    const tPct = Math.round(t * 100), pPct = Math.round(p * 100), fPct = Math.round(f * 100), gPct = Math.round(g * 100);
-    document.getElementById('lb-fill-topo').style.width = `${tPct}%`; document.getElementById('lb-val-topo').innerText = `${tPct}%`;
-    document.getElementById('lb-fill-pueblo').style.width = `${pPct}%`; document.getElementById('lb-val-pueblo').innerText = `${pPct}%`;
-    document.getElementById('lb-fill-fin').style.width = `${fPct}%`; document.getElementById('lb-val-fin').innerText = `${fPct}%`;
-    document.getElementById('lb-fill-gym').style.width = `${gPct}%`; document.getElementById('lb-val-gym').innerText = `${gPct}%`;
-  }, 120);
+  const tPct = Math.round(t * 100), pPct = Math.round(p * 100), fPct = Math.round(f * 100), gPct = Math.round(g * 100);
+  document.getElementById('lb-fill-topo').style.width = `${tPct}%`; document.getElementById('lb-val-topo').innerText = `${tPct}%`;
+  document.getElementById('lb-fill-pueblo').style.width = `${pPct}%`; document.getElementById('lb-val-pueblo').innerText = `${pPct}%`;
+  document.getElementById('lb-fill-fin').style.width = `${fPct}%`; document.getElementById('lb-val-fin').innerText = `${fPct}%`;
+  document.getElementById('lb-fill-gym').style.width = `${gPct}%`; document.getElementById('lb-val-gym').innerText = `${gPct}%`;
 }
 
 function drawRealTimeline(dailyLog) {
   const hm = document.getElementById('heatmapGrid');
   let html = '';
-  let activeDays = 0;
+  let activeDays30 = 0;
   const today = new Date();
   const daysArr = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
 
@@ -832,9 +1090,14 @@ function drawRealTimeline(dailyLog) {
     const d = new Date(today);
     d.setDate(today.getDate() - i);
     const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    const count = dailyLog[key] || 0;
-    if (count > 0) activeDays++;
+    if ((dailyLog[key] || 0) > 0) activeDays30++;
+  }
 
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const count = dailyLog[key] || 0;
     const lvl = count >= 3 ? 3 : (count === 2 ? 2 : (count === 1 ? 1 : 0));
     html += `
       <div class="hm-cell lvl-${lvl} ${i === 0 ? 'is-today' : ''}" title="${key}: ${count} acciones">
@@ -844,44 +1107,10 @@ function drawRealTimeline(dailyLog) {
   }
 
   hm.innerHTML = html;
-  document.getElementById('activeDaysCount').innerText = `${activeDays}/30 d`;
-  setTimeout(() => { hm.scrollLeft = hm.scrollWidth; }, 80);
+  document.getElementById('activeDaysCount').innerText = `${activeDays30}/30 d activos`;
 }
 
-// FRASES ROTATIVAS
-const quotes = [
-  "La constancia diaria supera a la intensidad esporádica.",
-  "En los días pesados, una microacción de 2 minutos mantiene viva tu racha.",
-  "Pagar antes de la fecha de cierre es la llave para multiplicar tu línea bancaria.",
-  "Un ingeniero con sistemas automatizados vale por diez en gabinete.",
-  "Liderar con datos y proyectos reales transforma cualquier comunidad."
-];
-let qIdx = 0;
-setInterval(() => {
-  const qEl = document.getElementById('dailyQuote');
-  qEl.style.opacity = 0;
-  setTimeout(() => {
-    qIdx = (qIdx + 1) % quotes.length;
-    qEl.innerText = `"${quotes[qIdx]}"`;
-    qEl.style.opacity = 1;
-  }, 400);
-}, 7000);
-
-// NAVEGACIÓN Y DOBLE TOQUE PARA CRONÓMETRO (2 MIN SI ESTÁ EN MODO SUPERVIVENCIA, 45 MIN EN MODO NORMAL)
-let tapTimer = null;
-document.getElementById('nextActionZone').addEventListener('click', () => {
-  if (tapTimer === null) {
-    tapTimer = setTimeout(() => {
-      tapTimer = null;
-      window.location.href = 'plan.html';
-    }, 260);
-  } else {
-    clearTimeout(tapTimer);
-    tapTimer = null;
-    launchDeepWork(isSurvivalMode ? 2 : 45);
-  }
-});
-
+// CRONÓMETRO INMERSIVO DELTA-TIME
 let dwInt = null;
 function launchDeepWork(minutes = 45) {
   let endTime = parseInt(localStorage.getItem('pierovski_dw_end')) || 0;
@@ -889,7 +1118,7 @@ function launchDeepWork(minutes = 45) {
     endTime = Date.now() + minutes * 60 * 1000;
     localStorage.setItem('pierovski_dw_end', endTime);
   }
-  if (navigator.vibrate) navigator.vibrate([80, 40, 80]);
+  if (navigator.vibrate) navigator.vibrate([60, 30, 60]);
   document.getElementById('dwOverlay').classList.add('open');
   updateDwDisplay();
   clearInterval(dwInt);
@@ -904,7 +1133,7 @@ function updateDwDisplay() {
   document.getElementById('dwTimer').textContent = `${m}:${s}`;
   if (remSecs <= 0) {
     abortDW();
-    showToast("🔥 ¡Tiempo de enfoque completado!");
+    showToast("🔥 ¡Sesión de enfoque completada!");
   }
 }
 
@@ -935,6 +1164,12 @@ function abortDW() {
   localStorage.removeItem('pierovski_dw_end');
   document.getElementById('dwOverlay').classList.remove('open');
 }
+
+// ESCUCHA EN VIVO ENTRE PESTAÑAS
+window.addEventListener('storage', () => {
+  loadMiniStats();
+  processPlanData();
+});
 
 window.addEventListener('DOMContentLoaded', () => {
   initGlobals();
