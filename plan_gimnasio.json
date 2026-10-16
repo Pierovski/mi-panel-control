@@ -1,66 +1,66 @@
 {
-  "vision": "Construyo un físico fuerte, simétrico y definido apoyándome en Symmetry para mis entrenamientos y asegurando mi nutrición y creatina todos los días, esté en obra o en Trujillo.",
-  "meta": "Cumplir mis sesiones semanales en Symmetry registrando cada serie y mantener más del 85% de consistencia en creatina, proteína y control de medidas.",
-  "compromiso": "Symmetry dirige mis pesas; Pierovski blinda mi nutrición, mi descanso y mi constancia. Nunca paso más de 3 días sin estimular el músculo.",
+  "vision": "Construyo un físico fuerte, simétrico y saludable guiándome con la aplicación Symmetry en mis entrenamientos y asegurando mi nutrición y suplementación todos los días.",
+  "meta": "Cumplir mis sesiones de entrenamiento programadas en Symmetry registrando cada serie y mantener una constancia superior al 85 % en creatina, proteína y control corporal.",
+  "compromiso": "Symmetry guía mis rutinas en el gimnasio; mi sistema personal asegura mi nutrición, mi descanso y mis mediciones. Nunca paso más de tres días sin entrenar.",
   "weeks": [
     {
-      "title": "Nivel 1: Calibración con Symmetry y Base",
+      "title": "Nivel 1: Calibración con Symmetry y Base Física",
       "theme": "QUINCENA 1 · ARRANQUE SÓLIDO",
       "tasks": [
-        "[MISIÓN 1] 📱 Bloque Symmetry 1: Completar mis primeras 3 sesiones de la quincena siguiendo exactamente los ejercicios y tiempos de descanso de Symmetry. || 📱 Micro-acción (2m): Abrir Symmetry hoy y revisar qué músculos me tocan en la sesión.",
-        "[MISIÓN 2] 🔥 Bloque Symmetry 2: Completar las siguientes 3 sesiones de la quincena enfocándome en técnica limpia y rango completo de movimiento. || 🔥 Micro-acción (2m): Dejar mi ropa de entrenar y mi shaker listos desde la noche anterior.",
-        "[MISIÓN 3] 📏 Punto Cero en Matriz: Registrar mi peso y medidas iniciales (pecho, abdomen, brazos y piernas) en el botón de Auditoría Física abajo. || 📏 Micro-acción (2m): Anotar al menos mi peso y medida de abdomen actual en el panel.",
-        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
+        "[MISIÓN 1] 📱 Primer bloque en Symmetry: Completar las tres sesiones de la primera semana siguiendo los ejercicios, series y tiempos de descanso indicados en Symmetry. || 📱 Microacción (2 min): Abrir la aplicación Symmetry hoy y revisar la rutina que me corresponde.",
+        "[MISIÓN 2] 🔥 Segundo bloque en Symmetry: Completar las tres sesiones de la segunda semana priorizando una técnica limpia y el rango completo de movimiento en cada ejercicio. || 🔥 Microacción (2 min): Dejar lista mi ropa deportiva y mi suplementación desde la noche anterior.",
+        "[MISIÓN 3] 📏 Registro de medidas iniciales: Anotar mi peso corporal y mis medidas base (pecho, abdomen, brazos y piernas) en el panel de Auditoría Física. || 📏 Microacción (2 min): Registrar al menos mi peso actual y la medida de mi abdomen en la tabla física.",
+        "[DIARIO] 🥩 Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
       ]
     },
     {
       "title": "Nivel 2: Sobrecarga Progresiva Real",
-      "theme": "QUINCENA 2 · CERRANDO MES 1",
+      "theme": "QUINCENA 2 · CIERRE DEL PRIMER MES",
       "tasks": [
-        "[MISIÓN 1] 📈 Superar Marca en Symmetry: Completar las 3 sesiones de la primera semana logrando subir 1 repetición o 2kg en al menos 2 ejercicios principales. || 📈 Micro-acción (2m): Mirar mi historial de la semana pasada en Symmetry antes de empezar la primera serie.",
-        "[MISIÓN 2] ⚖️ Control de Simetría: Completar las 3 sesiones de la segunda semana empezando siempre los ejercicios unilaterales con mi lado menos fuerte. || ⚖️ Micro-acción (2m): Hacer al menos 3 series efectivas del grupo muscular que me toca hoy.",
-        "[MISIÓN 3] 📏 Control de Cierre de Mes 1: Subir mis medidas de la Semana 4 en la Matriz de Auditoría Física para ver la evolución de abdomen y brazos. || 📏 Micro-acción (2m): Medirme el perímetro abdominal en ayunas y guardarlo en la app.",
-        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
+        "[MISIÓN 1] 📈 Progreso de cargas en Symmetry: Completar las tres sesiones de la semana logrando aumentar una repetición o subir el peso en al menos dos ejercicios principales. || 📈 Microacción (2 min): Revisar mis marcas de la semana anterior en Symmetry antes de iniciar la primera serie.",
+        "[MISIÓN 2] ⚖️ Enfoque en simetría muscular: Completar las tres sesiones de la segunda semana iniciando siempre los ejercicios unilaterales por mi lado menos dominante. || ⚖️ Microacción (2 min): Realizar al menos tres series efectivas del grupo muscular programado para hoy.",
+        "[MISIÓN 3] 📏 Evaluación del primer mes: Registrar mis medidas del Mes 1 en la tabla de Auditoría Física para verificar la evolución de abdomen y masa muscular. || 📏 Microacción (2 min): Medir el contorno de mi cintura en ayunas y anotarlo en el panel.",
+        "[DIARIO] 🥩 Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
       ]
     },
     {
-      "title": "Nivel 3: Defensa Física en Días de Obra",
-      "theme": "QUINCENA 3 · CERO EXCUSAS",
+      "title": "Nivel 3: Constancia en Días de Trabajo Intenso",
+      "theme": "QUINCENA 3 · DISCIPLINA SOSTENIDA",
       "tasks": [
-        "[MISIÓN 1] 🏋️ Bloque Symmetry 1: Cumplir las 3 sesiones semanales en el gimnasio (o activar rutina rápida de 25 min si salí tarde de campo). || 🏋️ Micro-acción (2m): Hacer 3 series de flexiones o sentadillas al llegar al cuarto para no quedar en cero.",
-        "[MISIÓN 2] ⚡ Bloque Symmetry 2: Mantener la intensidad cercana al fallo (RIR 1-2) en las 3 sesiones de cierre de quincena. || ⚡ Micro-acción (2m): Ir al gimnasio aunque sea a cumplir los 2 primeros ejercicios compuestos de Symmetry.",
-        "[MISIÓN 3] 🛡️ Estrategia de Viáticos / Comidas: Asegurar que mis comidas en campo tengan siempre una fuente clara de proteína (huevos, pollo, atún o batido Whey) evitando excesos nocturnos. || 🛡️ Micro-acción (2m): Verificar cuánto stock de proteína y creatina me queda para la quincena.",
-        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
+        "[MISIÓN 1] 🏋️ Primer bloque de la quincena: Cumplir las tres sesiones semanales en el gimnasio (o realizar una sesión efectiva de 30 minutos en los días de jornada larga en campo). || 🏋️ Microacción (2 min): Realizar tres series de flexiones o sentadillas al llegar a mi habitación para mantener el cuerpo activo.",
+        "[MISIÓN 2] ⚡ Segundo bloque de la quincena: Completar las tres sesiones de la segunda semana entrenando cerca del fallo muscular controlado (dejando 1 a 2 repeticiones en reserva). || ⚡ Microacción (2 min): Asistir al gimnasio y cumplir como mínimo los dos primeros ejercicios compuestos de Symmetry.",
+        "[MISIÓN 3] 🛡️ Nutrición estratégica: Asegurar que todas mis comidas principales incluyan una porción clara de proteína (huevos, pollo, pescado, carne o batido de proteína). || 🛡️ Microacción (2 min): Verificar cuánto inventario de proteína y creatina tengo disponible para la quincena.",
+        "[DIARIO] 🥩 Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
       ]
     },
     {
-      "title": "Nivel 4: Conexión Mente-Músculo y Segunda Medición",
-      "theme": "QUINCENA 4 · CERRANDO MES 2",
+      "title": "Nivel 4: Control Técnico y Segunda Evaluación",
+      "theme": "QUINCENA 4 · CIERRE DEL SEGUNDO MES",
       "tasks": [
-        "[MISIÓN 1] 🎯 Bloque Symmetry 1: Ejecutar las 3 sesiones de la semana controlando la bajada del peso (2-3 segundos de fase excéntrica). || 🎯 Micro-acción (2m): Abrir Symmetry al entrar al gym y activar el Modo No Molestar en el celular.",
-        "[MISIÓN 2] 💪 Bloque Symmetry 2: Completar las 3 sesiones de la quincena mejorando mi puntaje de simetría corporal dentro de Symmetry. || 💪 Micro-acción (2m): Revisar el gráfico de balance muscular en Symmetry para ver qué músculo está rezagado.",
-        "[MISIÓN 3] 📏 Segunda Auditoría Física: Registrar mis medidas del Mes 2 (Semana 8) en la matriz física y comparar el diferencial (Δ). || 📏 Micro-acción (2m): Registrar mi peso y cintura actuales en la tabla física.",
-        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
+        "[MISIÓN 1] 🎯 Tensión mecánica en Symmetry: Ejecutar las tres sesiones semanales controlando la fase de bajada del peso durante dos a tres segundos en cada repetición. || 🎯 Microacción (2 min): Abrir Symmetry al llegar al gimnasio y poner el celular en modo de concentración.",
+        "[MISIÓN 2] 💪 Balance muscular: Completar las tres sesiones de cierre de quincena revisando el gráfico de proporción muscular que muestra Symmetry. || 💪 Microacción (2 min): Identificar en Symmetry qué grupo muscular necesita mayor atención en las próximas sesiones.",
+        "[MISIÓN 3] 📏 Evaluación del segundo mes: Ingresar mis medidas corporales del Mes 2 en la tabla de Auditoría Física y analizar la variación acumulada. || 📏 Microacción (2 min): Actualizar mi peso y medida abdominal en el panel físico.",
+        "[DIARIO] 🥩 Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
       ]
     },
     {
-      "title": "Nivel 5: Fase de Fuerza y Densidad",
-      "theme": "QUINCENA 5 · RECTA FINAL",
+      "title": "Nivel 5: Fase de Fuerza y Densidad Muscular",
+      "theme": "QUINCENA 5 · SUPERANDO LÍMITES",
       "tasks": [
-        "[MISIÓN 1] 🔥 Bloque Symmetry 1: Completar las 3 sesiones semanales buscando récords personales limpios en ejercicios compuestos. || 🔥 Micro-acción (2m): Calentar articulaciones 3 minutos y arrancar la primera serie en Symmetry.",
-        "[MISIÓN 2] 🧱 Bloque Symmetry 2: Cumplir las 3 sesiones de la segunda semana sin saltarme los ejercicios accesorios (hombro posterior, pantorrillas, core). || 🧱 Micro-acción (2m): Hacer 2 series intensas de abdominales/plancha al terminar de entrenar.",
-        "[MISIÓN 3] 💤 Optimización de Recuperación: Asegurar al menos 7 horas de sueño reparador en los días de entrenamiento pesado para permitir la hipertrofia. || 💤 Micro-acción (2m): Dejar el celular cargando lejos de la cama 15 minutos antes de dormir.",
-        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
+        "[MISIÓN 1] 🔥 Récords en ejercicios principales: Completar las tres sesiones semanales buscando superar mis marcas personales en press, sentadilla, prensa o tracciones con buena técnica. || 🔥 Microacción (2 min): Realizar el calentamiento articular de 3 minutos y comenzar la primera serie en Symmetry.",
+        "[MISIÓN 2] 🧱 Entrenamiento completo sin omisiones: Cumplir las tres sesiones de la segunda semana incluyendo todos los ejercicios accesorios de hombros, brazos, pantorrillas y abdomen. || 🧱 Microacción (2 min): Realizar dos series enfocadas de zona media o plancha abdominal al finalizar la rutina.",
+        "[MISIÓN 3] 💤 Descanso y recuperación: Asegurar un buen descanso nocturno en los días de entrenamiento intenso para permitir la recuperación muscular y del sistema nervioso. || 💤 Microacción (2 min): Dejar el teléfono cargando fuera del alcance de la cama antes de dormir.",
+        "[DIARIO] 🥩 Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
       ]
     },
     {
-      "title": "Nivel 6: Consolidación y Medición Final",
-      "theme": "QUINCENA 6 · TRANSFORMACIÓN",
+      "title": "Nivel 6: Consolidación y Evaluación Final",
+      "theme": "QUINCENA 6 · RESULTADO TRIMESTRAL",
       "tasks": [
-        "[MISIÓN 1] 🏆 Bloque Symmetry 1: Completar las 3 sesiones de la semana con dominio técnico total. || 🏆 Micro-acción (2m): Cumplir el entrenamiento del día registrando cada serie en Symmetry.",
-        "[MISIÓN 2] ⚡ Bloque Symmetry Final: Cerrar las últimas 3 sesiones del trimestre y revisar el progreso global de cargas en Symmetry. || ⚡ Micro-acción (2m): Comparar los pesos que muevo hoy versus el Nivel 1.",
-        "[MISIÓN 3] 📏 Auditoría Física Final (S12): Registrar todas las medidas finales del ciclo en la Matriz Física y evaluar el cambio corporal neto. || 📏 Micro-acción (2m): Completar la columna S12 en el panel de Auditoría Física.",
-        "[DIARIO] 🥩 Hábito: Tomar 5g de creatina + asegurar proteína del día."
+        "[MISIÓN 1] 🏆 Penúltimo bloque en Symmetry: Completar las tres sesiones de la semana manteniendo intensidad, control postural y registro exacto de cargas. || 🏆 Microacción (2 min): Cumplir la sesión del día anotando todas las series en Symmetry.",
+        "[MISIÓN 2] ⚡ Cierre del ciclo de entrenamiento: Completar las últimas tres sesiones de la sexta quincena y revisar la evolución de fuerza alcanzada en Symmetry. || ⚡ Microacción (2 min): Comparar los pesos que levanto hoy frente a mis registros del Nivel 1.",
+        "[MISIÓN 3] 📏 Auditoría Física Final (Mes 3): Registrar todas mis medidas finales en el panel de Auditoría Física y evaluar mi progreso corporal completo. || 📏 Microacción (2 min): Completar la columna del Mes 3 en la matriz de mediciones físicas.",
+        "[DIARIO] 🥩 Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
       ]
     }
   ]

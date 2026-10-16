@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="view-transition" content="same-origin">
-<title>Tarjetas | Pierovski</title>
+<title>Tarjetas y Estrategia SBS | Pierovski</title>
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f172a">
@@ -20,7 +20,7 @@
   color-scheme: light;
   --bg: #f4f5f7;
   --surface: #ffffff;
-  --surface-glass: rgba(255,255,255,0.85);
+  --surface-glass: rgba(255,255,255,0.88);
   --surface2: #f8f9fa;
   --surface3: #e2e8f0;
   --border: #e2e4e8;
@@ -35,7 +35,9 @@
   --red-dim: #b91c1c;
   --red-glow: rgba(220,38,38,0.12);
   --blue: #2563eb;
+  --blue-glow: rgba(37,99,235,0.12);
   --purple: #7c3aed;
+  --purple-glow: rgba(124,58,237,0.12);
   --text: #0f172a;
   --text-muted: #475569;
   --text-dim: #64748b;
@@ -48,7 +50,7 @@ body.dark-theme {
   color-scheme: dark;
   --bg: #0f172a;
   --surface: #1e293b;
-  --surface-glass: rgba(30,41,59,0.85);
+  --surface-glass: rgba(30,41,59,0.88);
   --surface2: #0b1121;
   --surface3: #334155;
   --border: #334155;
@@ -59,6 +61,8 @@ body.dark-theme {
   --amber-glow: rgba(217,119,6,0.22);
   --green-glow: rgba(5,150,105,0.22);
   --red-glow: rgba(220,38,38,0.22);
+  --blue-glow: rgba(37,99,235,0.22);
+  --purple-glow: rgba(124,58,237,0.22);
   --shadow: 0 10px 35px rgba(0,0,0,0.35);
 }
 
@@ -85,9 +89,9 @@ body {
 #offlineBanner { display: none; background: var(--amber); color: #ffffff; text-align: center; padding: 6px 12px; font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; position: sticky; top: 0; z-index: 200; }
 
 /* CABECERA UNIFICADA PIEROVSKI */
-header { border-bottom: 1px solid var(--border); background: var(--surface-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 100; padding: 0 24px; transition: background 0.3s; }
-.header-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 16px 0; flex-wrap: wrap; gap: 10px; }
-.logo-container { display: flex; align-items: center; gap: 12px; }
+header { border-bottom: 1px solid var(--border); background: var(--surface-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 100; padding: 0 20px; transition: background 0.3s; }
+.header-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0; flex-wrap: wrap; gap: 10px; }
+.logo-container { display: flex; align-items: center; gap: 10px; }
 .btn-back-arrow { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--surface); border-radius: 50%; color: var(--text-muted); transition: 0.2s; text-decoration: none; border: 1px solid var(--border2); flex-shrink: 0; }
 .btn-back-arrow:hover { border-color: var(--amber); color: var(--text); transform: scale(0.96); }
 .logo h1 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.35rem; color: var(--text); letter-spacing: -0.02em; line-height: 1; display: flex; align-items: center; gap: 8px; margin: 0; }
@@ -95,29 +99,40 @@ header { border-bottom: 1px solid var(--border); background: var(--surface-glass
 .cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
 
 .header-actions { display: flex; gap: 8px; align-items: center; }
-.btn-icon-tool { background: var(--surface); border: 1px solid var(--border2); color: var(--text-muted); border-radius: 50%; width: 40px; height: 40px; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+.btn-icon-tool { background: var(--surface); border: 1px solid var(--border2); color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
 .btn-icon-tool:hover { border-color: var(--amber); color: var(--text); }
 .btn-icon-tool:active { transform: scale(0.92); }
 .btn-icon-tool.active { color: var(--amber); border-color: var(--amber); background: var(--amber-glow); }
 
-.btn-add-main { background: var(--amber); color: #ffffff; border: none; height: 40px; padding: 0 18px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(217,119,6,0.3); }
+.btn-add-main { background: var(--amber); color: #ffffff; border: none; height: 38px; padding: 0 16px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 0.84rem; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(217,119,6,0.3); }
 .btn-add-main:hover { transform: translateY(-1px); }
 .btn-add-main:active { transform: scale(0.95); }
 
-main { max-width: 800px; margin: 0 auto; padding: 24px 20px 0; }
+main { max-width: 800px; margin: 0 auto; padding: 22px 20px 0; }
 
-/* ALERTA ANIVERSARIO */
-.anniv-alert-box { background: var(--red-glow); border: 1px solid rgba(220,38,38,0.3); border-left: 4px solid var(--red); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; display: none; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--text); font-weight: 600; }
+/* ALERTAS ESTRATÉGICAS */
+.anniv-alert-box { background: var(--red-glow); border: 1px solid rgba(220,38,38,0.3); border-left: 4px solid var(--red); padding: 13px 16px; border-radius: 12px; margin-bottom: 16px; display: none; align-items: center; gap: 10px; font-size: 0.84rem; color: var(--text); font-weight: 600; }
 .anniv-alert-box.show { display: flex; animation: fadeUpTab 0.3s ease forwards; }
 
+.closing-alert-box { background: var(--amber-glow); border: 1px solid rgba(217,119,6,0.35); border-left: 4px solid var(--amber); padding: 13px 16px; border-radius: 12px; margin-bottom: 16px; display: none; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.83rem; color: var(--text); font-weight: 600; }
+.closing-alert-box.show { display: flex; animation: fadeUpTab 0.3s ease forwards; }
+
+/* RECOMENDADOR TÁCTICO: MEJOR TARJETA PARA COMPRAR HOY */
+.best-card-banner { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: 16px; padding: 14px 18px; margin-bottom: 20px; display: none; align-items: center; justify-content: space-between; gap: 12px; box-shadow: var(--shadow); flex-wrap: wrap; }
+.best-card-banner.show { display: flex; }
+.bcb-left { display: flex; flex-direction: column; gap: 2px; }
+.bcb-lbl { font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--green); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+.bcb-val { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+.bcb-pill { font-family: 'DM Mono', monospace; font-size: 0.75rem; font-weight: 700; background: var(--green-glow); color: var(--green); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(5,150,105,0.3); }
+
 /* DASHBOARD FINANCIERO */
-.dashboard-panel { margin-bottom: 28px; }
+.dashboard-panel { margin-bottom: 24px; }
 .kpi-ribbon { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.kpi-item { display: flex; flex-direction: column; justify-content: space-between; padding: 16px; border-radius: var(--r); border: 1px solid var(--border); background: var(--surface); position: relative; overflow: hidden; box-shadow: var(--shadow); }
+.kpi-item { display: flex; flex-direction: column; justify-content: space-between; padding: 15px; border-radius: var(--r); border: 1px solid var(--border); background: var(--surface); position: relative; overflow: hidden; box-shadow: var(--shadow); }
 .kpi-item::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
-.kpi-lbl { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-bottom: 6px; }
-.kpi-val { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; line-height: 1.1; color: var(--text); }
-.kpi-sub { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
+.kpi-lbl { font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-bottom: 6px; }
+.kpi-val { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 700; line-height: 1.1; color: var(--text); }
+.kpi-sub { font-family: 'DM Mono', monospace; font-size: 0.63rem; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
 
 #kpi-pendientes::before { background: var(--amber); }
 #kpi-deuda::before { background: var(--blue); }
@@ -131,52 +146,56 @@ main { max-width: 800px; margin: 0 auto; padding: 24px 20px 0; }
 .card-item:hover { border-color: var(--border2); }
 
 /* CABECERA TIPO TARJETA BANCARIA */
-.card-header { padding: 22px 24px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; user-select: none; min-height: 140px; position: relative; gap: 18px; }
+.card-header { padding: 22px 24px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; user-select: none; min-height: 142px; position: relative; gap: 16px; }
 .card-header::after { content: ''; position: absolute; right: -20px; top: -20px; width: 110px; height: 110px; background: rgba(255,255,255,0.08); border-radius: 50%; pointer-events: none; }
 
 .ch-top { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; z-index: 2; gap: 10px; }
-.card-name { font-weight: 700; font-size: 1.2rem; color: #ffffff; letter-spacing: 0.3px; font-family: 'DM Sans', sans-serif; text-shadow: 0 1px 3px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.tea-pill { font-family: 'DM Mono', monospace; font-size: 0.65rem; background: rgba(0,0,0,0.35); color: #fcd34d; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(252,211,77,0.3); font-weight: 700; }
-.card-sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: rgba(255,255,255,0.88); text-transform: uppercase; font-weight: 600; letter-spacing: 0.8px; margin-top: 4px; }
+.card-name { font-weight: 700; font-size: 1.18rem; color: #ffffff; letter-spacing: 0.3px; font-family: 'DM Sans', sans-serif; text-shadow: 0 1px 3px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.tea-pill { font-family: 'DM Mono', monospace; font-size: 0.64rem; background: rgba(0,0,0,0.35); color: #fcd34d; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(252,211,77,0.3); font-weight: 700; }
+.tier-pill { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: rgba(255,255,255,0.18); color: #ffffff; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+.card-sub { font-family: 'DM Mono', monospace; font-size: 0.69rem; color: rgba(255,255,255,0.9); text-transform: uppercase; font-weight: 600; letter-spacing: 0.7px; margin-top: 4px; }
 
 .ch-bottom { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; z-index: 2; margin-top: auto; flex-wrap: wrap; gap: 10px; }
-.card-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; padding: 6px 12px; border-radius: 20px; font-weight: 700; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: #ffffff; background: rgba(0,0,0,0.25); }
-.badge-red { background: rgba(220,38,38,0.85); border-color: rgba(255,255,255,0.35); box-shadow: 0 4px 12px rgba(220,38,38,0.35); }
-.badge-green { background: rgba(5,150,105,0.85); border-color: rgba(255,255,255,0.35); }
+.card-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; padding: 6px 12px; border-radius: 20px; font-weight: 700; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: #ffffff; background: rgba(0,0,0,0.28); }
+.badge-red { background: rgba(220,38,38,0.88); border-color: rgba(255,255,255,0.35); box-shadow: 0 4px 12px rgba(220,38,38,0.35); }
+.badge-amber { background: rgba(217,119,6,0.88); border-color: rgba(255,255,255,0.35); }
+.badge-green { background: rgba(5,150,105,0.88); border-color: rgba(255,255,255,0.35); }
 
 /* CONTENIDO DESPLEGABLE DE AUDITORÍA */
 .card-details { display: none; padding: 22px 24px; background: var(--surface); border-top: 1px solid var(--border); animation: slideDown 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .card-details.open { display: block; }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* PANEL DE DEUDA Y LÍNEA CONSOLIDADA */
-.debt-audit-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
-.da-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+/* PANEL DE AUDITORÍA SBS Y REGLA DEL 25% */
+.debt-audit-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+.da-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
 .da-col { display: flex; flex-direction: column; gap: 3px; }
-.da-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; }
-.da-val { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; color: var(--text); }
-.da-bar-wrap { width: 100%; height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
-.da-bar-fill { height: 100%; border-radius: 3px; background: var(--blue); transition: width 0.4s ease; }
-.da-bar-meta { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-muted); font-weight: 600; }
+.da-lbl { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; }
+.da-val { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700; color: var(--text); }
+.da-bar-wrap { position: relative; width: 100%; height: 7px; background: var(--surface3); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+.da-bar-fill { height: 100%; border-radius: 4px; background: var(--blue); transition: width 0.4s ease; }
+.da-bar-meta { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-muted); font-weight: 600; flex-wrap: wrap; gap: 6px; }
+
+.sbs-shield-box { background: var(--surface); border: 1px solid var(--border2); border-left: 3px solid var(--blue); border-radius: 10px; padding: 10px 14px; margin-top: 10px; font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
 
 /* SIMULADOR DÍAS DE GRACIA */
-.gracia-box { background: var(--surface2); border: 1px dashed var(--border2); padding: 14px 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-.gracia-lbl { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-.gracia-val { font-family: 'DM Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--green); }
+.gracia-box { background: var(--surface2); border: 1px dashed var(--border2); padding: 13px 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+.gracia-lbl { font-family: 'DM Sans', sans-serif; font-size: 0.84rem; font-weight: 600; color: var(--text-muted); }
+.gracia-val { font-family: 'DM Mono', monospace; font-size: 1.02rem; font-weight: 700; color: var(--green); }
 
 /* HISTORIAL DE PAGOS */
-.hist-title { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.8px; display: flex; justify-content: space-between; }
-.history-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; max-height: 160px; overflow-y: auto; padding-right: 4px; scrollbar-width: thin; }
-.history-item { display: flex; justify-content: space-between; align-items: center; background: var(--surface2); padding: 10px 14px; border-radius: 10px; font-size: 0.85rem; font-family: 'DM Mono', monospace; border: 1px solid var(--border); }
+.hist-title { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.8px; display: flex; justify-content: space-between; }
+.history-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; max-height: 160px; overflow-y: auto; padding-right: 4px; scrollbar-width: thin; }
+.history-item { display: flex; justify-content: space-between; align-items: center; background: var(--surface2); padding: 10px 14px; border-radius: 10px; font-size: 0.84rem; font-family: 'DM Mono', monospace; border: 1px solid var(--border); }
 .hi-date { color: var(--text-muted); font-weight: 600; }
 .hi-amt { color: var(--text); font-weight: 700; font-size: 0.9rem; }
-.hi-desg { font-size: 0.68rem; color: var(--red); margin-left: 8px; background: var(--red-glow); padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+.hi-desg { font-size: 0.66rem; color: var(--red); margin-left: 8px; background: var(--red-glow); padding: 2px 6px; border-radius: 4px; font-weight: 700; }
 .hi-del-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 0.75rem; margin-left: 8px; padding: 2px 4px; }
 .hi-del-btn:hover { color: var(--red); }
 .history-empty { font-size: 0.82rem; color: var(--text-dim); font-style: italic; text-align: center; padding: 14px 0; background: var(--surface2); border-radius: 10px; }
 
 .card-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
-.card-btn { padding: 10px 18px; border-radius: 22px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.card-btn { padding: 10px 16px; border-radius: 22px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; border: none; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; }
 .card-btn:active { transform: scale(0.95); }
 .card-btn.pay { background: var(--text); color: var(--bg); }
 .card-btn.edit { background: var(--surface2); color: var(--text); border: 1px solid var(--border2); }
@@ -186,21 +205,22 @@ main { max-width: 800px; margin: 0 auto; padding: 24px 20px 0; }
 
 /* MODALES */
 .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease; }
-.modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 24px; padding: 28px; max-width: 450px; width: 92%; box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: scaleIn 0.2s cubic-bezier(.34,1.56,.64,1); max-height: 90vh; overflow-y: auto; }
-.modal h3 { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
-.modal .desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 20px; font-weight: 500; }
-.modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
-.mbtn { border: none; border-radius: 24px; min-height: 46px; padding: 0 22px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; font-weight: 700; transition: all 0.2s; }
+.modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 24px; padding: 26px; max-width: 460px; width: 92%; box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: scaleIn 0.2s cubic-bezier(.34,1.56,.64,1); max-height: 90vh; overflow-y: auto; }
+.modal h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.modal .desc { color: var(--text-muted); font-size: 0.84rem; line-height: 1.5; margin-bottom: 18px; font-weight: 500; }
+.modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; flex-wrap: wrap; }
+.mbtn { border: none; border-radius: 24px; min-height: 44px; padding: 0 20px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; cursor: pointer; font-weight: 700; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 .mbtn:active { transform: scale(0.95); }
 .mbtn-cancel { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border2); }
 .mbtn-save { background: var(--text); color: var(--bg); }
+.mbtn-green { background: var(--green); color: #ffffff; }
 
-.field label { display: block; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px; font-weight: 700; }
-.field input, .field select { width: 100%; min-height: 46px; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; padding: 0 14px; outline: none; transition: 0.2s; font-weight: 500; }
+.field label { display: block; font-size: 0.64rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px; font-weight: 700; }
+.field input, .field select { width: 100%; min-height: 44px; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.92rem; padding: 0 14px; outline: none; transition: 0.2s; font-weight: 500; }
 .field input:focus, .field select:focus { border-color: var(--amber); background: var(--surface); box-shadow: 0 0 0 3px var(--amber-glow); }
-.edit-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 14px; }
+.edit-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
 
-.check-row { display: flex; align-items: center; gap: 10px; background: var(--surface2); padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; user-select: none; font-size: 0.85rem; font-weight: 600; color: var(--text); }
+.check-row { display: flex; align-items: center; gap: 10px; background: var(--surface2); padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; user-select: none; font-size: 0.84rem; font-weight: 600; color: var(--text); }
 .check-row input { width: 18px; height: 18px; accent-color: var(--amber); cursor: pointer; }
 
 #toast { position: fixed; bottom: 36px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace; font-size: 0.82rem; font-weight: 700; padding: 12px 24px; border-radius: 30px; opacity: 0; transition: opacity 0.3s, transform 0.3s; z-index: 300; pointer-events: none; box-shadow: 0 10px 25px rgba(0,0,0,0.25); }
@@ -229,9 +249,9 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #000; }
 @media (max-width: 680px) {
   .kpi-ribbon { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .da-grid { grid-template-columns: repeat(2, 1fr); }
-  .modal { position: absolute; bottom: 0; left: 0; right: 0; max-width: 100%; width: 100%; border-radius: 26px 26px 0 0; padding: 24px 20px; margin: 0; animation: slideUp 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .modal { position: absolute; bottom: 0; left: 0; right: 0; max-width: 100%; width: 100%; border-radius: 26px 26px 0 0; padding: 24px 18px; margin: 0; animation: slideUp 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
   @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-  header { padding: 0 16px; }
+  header { padding: 0 14px; }
 }
 </style>
 </head>
@@ -252,6 +272,7 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #000; }
     <div class="header-actions">
       <button class="btn-icon-tool" id="privacyToggleBtn" onclick="togglePrivacy()" title="Modo Privacidad">👁️</button>
       <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema Oscuro / Claro">🌙</button>
+      <button class="btn-icon-tool" onclick="openBackupModal()" title="Respaldo y Reporte Excel">⚙️</button>
       <button class="btn-add-main" onclick="openCardModal()">+ Tarjeta</button>
     </div>
   </div>
@@ -259,15 +280,28 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #000; }
 
 <main>
   <div class="anniv-alert-box" id="globalAnnivAlert">
-    <span>⚠️</span>
-    <span>Tienes tarjetas próximas a su mes de aniversario. Evalúa exoneración de membresía.</span>
+    <span>🎂</span>
+    <span>Tienes tarjetas próximas a su mes de aniversario. Verifica el consumo mínimo para exonerar membresía.</span>
+  </div>
+
+  <div class="closing-alert-box" id="globalClosingAlert">
+    <span id="closingAlertTxt">🛡️ Cierre próximo: Paga antes del cierre para reportar menos del 25 % a la SBS.</span>
+  </div>
+
+  <!-- RECOMENDADOR TÁCTICO DE COMPRA HOY -->
+  <div class="best-card-banner" id="bestCardBanner">
+    <div class="bcb-left">
+      <span class="bcb-lbl">🏆 Mejor tarjeta para comprar hoy (Máximo oxígeno)</span>
+      <span class="bcb-val" id="bestCardName">---</span>
+    </div>
+    <span class="bcb-pill" id="bestCardDays">0 días libres</span>
   </div>
 
   <section class="dashboard-panel">
     <div class="kpi-ribbon">
       <div class="kpi-item" id="kpi-pendientes">
         <div>
-          <div class="kpi-lbl">Cortes del Mes</div>
+          <div class="kpi-lbl">Pagos del Mes</div>
           <div class="kpi-val" id="val-pendientes">0 pend.</div>
         </div>
         <div class="kpi-sub" id="sub-pagadas">0 al día</div>
@@ -277,11 +311,11 @@ body.dark-theme [data-tooltip]::after { background: #f8fafc; color: #000; }
           <div class="kpi-lbl">Deuda Total</div>
           <div class="kpi-val" id="val-deuda-total">S/ 0.00</div>
         </div>
-        <div class="kpi-sub" id="sub-uso-linea">Uso línea: 0%</div>
+        <div class="kpi-sub" id="sub-uso-linea">Uso SBS: 0 %</div>
       </div>
       <div class="kpi-item" id="kpi-pago">
         <div>
-          <div class="kpi-lbl">Pagado (Mes)</div>
+          <div class="kpi-lbl">Abonado (Mes)</div>
           <div class="kpi-val" id="val-total-mes">S/ 0.00</div>
         </div>
         <div class="kpi-sub">Flujo ejecutado</div>
@@ -427,7 +461,6 @@ window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('terreno_mode') === 'true') document.body.classList.add('e-ink-mode');
   if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
 
-  // Carga local inmediata sin bloqueo por red
   loadLocalData();
   autoResetCards();
   renderAll();
@@ -461,20 +494,18 @@ function toggleDarkMode() {
   localStorage.setItem('compras_theme', isDark ? 'dark' : 'light');
 }
 
-// CÁLCULO EXACTO DE CICLO DE FACTURACIÓN Y DÍAS DE GRACIA
+// CÁLCULO EXACTO DE CICLO DE FACTURACIÓN, DÍAS AL CIERRE Y DÍAS DE GRACIA
 function getFreeCreditDays(closingDay, paymentDay) {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const cDay = parseInt(closingDay) || 1;
   const pDay = parseInt(paymentDay) || 1;
 
-  // Si hoy es hasta el día de cierre, entra en el corte de este mes; si ya pasó, entra al corte del siguiente mes
   let cycleClose = new Date(today.getFullYear(), today.getMonth(), cDay);
   if (today.getDate() > cDay) {
     cycleClose = new Date(today.getFullYear(), today.getMonth() + 1, cDay);
   }
 
-  // La fecha límite de pago ocurre después del cierre de ese ciclo
   let cyclePay = new Date(cycleClose.getFullYear(), cycleClose.getMonth(), pDay);
   if (pDay <= cDay) {
     cyclePay = new Date(cycleClose.getFullYear(), cycleClose.getMonth() + 1, pDay);
@@ -484,15 +515,15 @@ function getFreeCreditDays(closingDay, paymentDay) {
   return Math.max(0, diffDays);
 }
 
-function getDaysUntilPayment(paymentDay) {
+function getDaysUntilTargetDay(dayNum) {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const pDay = parseInt(paymentDay) || 1;
-  let nextPay = new Date(today.getFullYear(), today.getMonth(), pDay);
-  if (today.getDate() > pDay) {
-    nextPay = new Date(today.getFullYear(), today.getMonth() + 1, pDay);
+  const targetDay = parseInt(dayNum) || 1;
+  let nextDate = new Date(today.getFullYear(), today.getMonth(), targetDay);
+  if (today.getDate() > targetDay) {
+    nextDate = new Date(today.getFullYear(), today.getMonth() + 1, targetDay);
   }
-  return Math.max(0, Math.round((nextPay.getTime() - today.getTime()) / 86400000));
+  return Math.max(0, Math.round((nextDate.getTime() - today.getTime()) / 86400000));
 }
 
 function checkAnniversaryAlert(annivStr) {
@@ -534,6 +565,80 @@ function autoResetCards() {
     }
   });
   if (changed) triggerSync();
+}
+
+// RESPALDO Y EXPORTACIÓN A EXCEL (CSV)
+function openBackupModal() {
+  document.getElementById('modalContainer').innerHTML = `
+    <div class="backdrop active" onclick="if(event.target===this) closeModal()">
+      <div class="modal" style="max-width: 420px;">
+        <h3>Respaldo y Auditoría de Tarjetas</h3>
+        <p class="desc">Descarga tu estado crediticio e historial de pagos en Excel (.CSV) o guarda una copia de seguridad en formato JSON.</p>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top: 18px;">
+          <button class="mbtn mbtn-green" onclick="exportCardsCSV()" style="width:100%;">📊 Descargar Reporte en Excel (.CSV)</button>
+          <div style="display:flex; gap:10px;">
+            <input type="file" id="importCardsFile" accept=".json" style="display:none" onchange="importCardsJSON(event)">
+            <button class="mbtn mbtn-cancel" style="flex:1;" onclick="document.getElementById('importCardsFile').click()">⬆️ Importar JSON</button>
+            <button class="mbtn mbtn-save" style="flex:1;" onclick="exportCardsJSON()">⬇️ Respaldo JSON</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function exportCardsCSV() {
+  if (tarjetas.length === 0) return toast('⚠ No hay tarjetas para exportar');
+  const headers = ["Banco / Tarjeta", "Categoria / Meta", "Dia Cierre", "Dia Pago", "TEA (%)", "Deuda Actual (S/)", "Linea Total (S/)", "Uso SBS (%)", "Tope Ideal 25% (S/)", "Cuotas", "Estado Mes"];
+  const rows = tarjetas.map(t => {
+    const debt = parseFloat(t.debtTotal) || 0;
+    const limit = parseFloat(t.creditLimit) || 0;
+    const uso = limit > 0 ? Math.round((debt / limit) * 100) : 0;
+    const tope25 = (limit * 0.25).toFixed(2);
+    const cuotas = (t.installmentsTotal || 0) > 0 ? `${t.installmentsPaid || 0}/${t.installmentsTotal}` : "Sin cuotas";
+    return [`"${t.name}"`, `"${t.category}"`, t.closing, t.payment, t.tea || 0, debt.toFixed(2), limit.toFixed(2), `${uso}%`, tope25, cuotas, t.paid ? "AL DIA" : "PENDIENTE"].join(',');
+  });
+
+  const csvContent = "\uFEFF" + [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Pierovski_Tarjetas_SBS_${todayStr()}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('✓ Reporte Excel descargado');
+  closeModal();
+}
+
+function exportCardsJSON() {
+  const data = { tarjetas, pagos, exportedAt: todayStr() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Pierovski_Tarjetas_Backup_${todayStr()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('✓ Respaldo exportado');
+  closeModal();
+}
+
+function importCardsJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.tarjetas) tarjetas = data.tarjetas;
+      if (data.pagos) pagos = data.pagos;
+      triggerSync();
+      renderAll();
+      closeModal();
+      toast('✓ Tarjetas restauradas');
+    } catch (err) { toast('⚠ Archivo JSON inválido'); }
+  };
+  reader.readAsText(file);
 }
 
 // DELEGACIÓN DE EVENTOS
@@ -586,7 +691,7 @@ function openDeleteModal(id) {
     <div class="backdrop active" onclick="if(event.target===this) closeModal()">
       <div class="modal" style="max-width:380px;">
         <h3 style="color: var(--red);">⚠️ Eliminar Tarjeta</h3>
-        <p class="desc">¿Seguro que deseas eliminar esta tarjeta y todo su historial de pagos?</p>
+        <p class="desc">¿Estás seguro de que deseas eliminar esta tarjeta y su historial de pagos?</p>
         <div class="modal-btns">
           <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
           <button class="mbtn" style="background: var(--red); color: white;" onclick="confirmDelete('${id}')">Sí, eliminar</button>
@@ -604,16 +709,16 @@ function confirmDelete(id) {
   toast('🗑️ Tarjeta eliminada');
 }
 
-// MODAL CREAR / EDITAR TARJETA CON AUDITORÍA DE DEUDA, LÍNEA, TEA Y CUOTAS
+// MODAL CREAR / EDITAR TARJETA CON META DE UPGRADE DE CATEGORÍA Y LÍNEA
 function openCardModal(id = null) {
   let title = 'Nueva Tarjeta', btnText = 'Guardar';
-  let cName = '', cCat = 'Crédito', cClose = '', cPay = '', cCol = 'bg-default', cAnn = '';
+  let cName = '', cCat = 'Clásica → Oro / Platinum', cClose = '', cPay = '', cCol = 'bg-default', cAnn = '';
   let cDebt = '', cLimit = '', cTea = '', cInstPaid = 0, cInstTotal = 0;
 
   if (id) {
     const t = tarjetas.find(x => String(x.id) === String(id));
     if (!t) return;
-    title = 'Editar Tarjeta y Deuda';
+    title = 'Editar Tarjeta y Estrategia SBS';
     btnText = 'Actualizar';
     cName = t.name || '';
     cCat = t.category || '';
@@ -632,41 +737,41 @@ function openCardModal(id = null) {
     <div class="backdrop active" onclick="if(event.target===this) closeModal()">
       <div class="modal">
         <h3>${title}</h3>
-        <p class="desc">Configura fechas de corte, línea de crédito y consolidación de deuda.</p>
+        <p class="desc">Configura tus fechas de corte, línea aprobada y meta de ascenso de categoría.</p>
         <div class="edit-grid">
           <div style="display:flex; gap:10px;">
-            <div class="field" style="flex:1.4;"><label>Banco / Tarjeta</label><input type="text" id="cardName" value="${cName}" placeholder="Ej. BBVA Visa" required></div>
-            <div class="field" style="flex:1;"><label>Tipo / Estrategia</label><input type="text" id="cardCat" value="${cCat}" placeholder="Ej. Consolidada"></div>
+            <div class="field" style="flex:1.2;"><label>Banco y Tarjeta</label><input type="text" id="cardName" value="${cName}" placeholder="Ej. BCP Visa" required></div>
+            <div class="field" style="flex:1.2;"><label>Categoría / Meta Upgrade</label><input type="text" id="cardCat" value="${cCat}" placeholder="Ej. Oro → Signature"></div>
           </div>
           <div style="display:flex; gap:10px;">
             <div class="field" style="flex:1;"><label>Día de Cierre</label><input type="number" id="cardClose" min="1" max="31" value="${cClose}" required></div>
             <div class="field" style="flex:1;"><label>Día de Pago</label><input type="number" id="cardPay" min="1" max="31" value="${cPay}" required></div>
-            <div class="field" style="flex:1;"><label>TEA (%)</label><input type="number" step="0.01" id="cardTea" value="${cTea}" placeholder="Ej. 24.5"></div>
+            <div class="field" style="flex:1;"><label>TEA (%)</label><input type="number" step="0.01" id="cardTea" value="${cTea}" placeholder="Ej. 26.5"></div>
           </div>
           <div style="display:flex; gap:10px;">
-            <div class="field" style="flex:1;"><label>Deuda Actual (S/)</label><input type="number" step="0.01" id="cardDebt" value="${cDebt}" placeholder="0.00"></div>
-            <div class="field" style="flex:1;"><label>Línea Total (S/)</label><input type="number" step="0.01" id="cardLimit" value="${cLimit}" placeholder="0.00"></div>
+            <div class="field" style="flex:1;"><label>Deuda / Saldo Actual (S/)</label><input type="number" step="0.01" id="cardDebt" value="${cDebt}" placeholder="0.00"></div>
+            <div class="field" style="flex:1;"><label>Línea de Crédito Total (S/)</label><input type="number" step="0.01" id="cardLimit" value="${cLimit}" placeholder="0.00"></div>
           </div>
           <div style="display:flex; gap:10px;">
             <div class="field" style="flex:1;"><label>Cuotas Pagadas</label><input type="number" min="0" id="cardInstPaid" value="${cInstPaid}"></div>
-            <div class="field" style="flex:1;"><label>Total Cuotas</label><input type="number" min="0" id="cardInstTotal" value="${cInstTotal}" placeholder="Ej. 12"></div>
+            <div class="field" style="flex:1;"><label>Total de Cuotas</label><input type="number" min="0" id="cardInstTotal" value="${cInstTotal}" placeholder="0 si es directo"></div>
           </div>
           <div style="display:flex; gap:10px;">
             <div class="field" style="flex:1.3;">
-              <label>Color Identificador</label>
+              <label>Diseño de Tarjeta</label>
               <select id="cardCol">
-                <option value="bg-default" ${cCol==='color-default'||cCol==='bg-default'?'selected':''}>Gris Neutral</option>
+                <option value="bg-default" ${cCol==='color-default'||cCol==='bg-default'?'selected':''}>Gris Ejecutivo</option>
                 <option value="bg-bbva" ${cCol==='color-azul-bbva'||cCol==='color-bbva'||cCol==='bg-bbva'?'selected':''}>Azul BBVA</option>
                 <option value="bg-bcp" ${cCol==='color-naranja'||cCol==='color-bcp'||cCol==='bg-bcp'?'selected':''}>Naranja BCP</option>
                 <option value="bg-bcp-blue" ${cCol==='color-azul-bcp'||cCol==='bg-bcp-blue'?'selected':''}>Azul BCP</option>
                 <option value="bg-ibk" ${cCol==='color-interbank'||cCol==='bg-ibk'?'selected':''}>Verde Interbank</option>
                 <option value="bg-scotia" ${cCol==='color-scotiabank'||cCol==='bg-scotia'?'selected':''}>Rojo Scotiabank</option>
                 <option value="bg-ripley" ${cCol==='color-morado'||cCol==='color-ripley'||cCol==='bg-ripley'?'selected':''}>Morado Ripley</option>
-                <option value="bg-oh" ${cCol==='color-negro'||cCol==='color-oh'||cCol==='bg-oh'?'selected':''}>Negro Oh!</option>
+                <option value="bg-oh" ${cCol==='color-negro'||cCol==='color-oh'||cCol==='bg-oh'?'selected':''}>Negro Oh! / Signature</option>
                 <option value="bg-cmr" ${cCol==='color-verde'||cCol==='color-cmr'||cCol==='bg-cmr'?'selected':''}>Verde CMR</option>
               </select>
             </div>
-            <div class="field" style="flex:1;"><label>Mes Aniversario</label><input type="text" id="cardAnn" value="${cAnn}" placeholder="Ej. SEP"></div>
+            <div class="field" style="flex:1;"><label>Mes Aniversario</label><input type="text" id="cardAnn" value="${cAnn}" placeholder="Ej. OCT"></div>
           </div>
         </div>
         <div class="modal-btns">
@@ -690,7 +795,7 @@ function saveCard(id) {
   const installmentsPaid = parseInt(document.getElementById('cardInstPaid').value) || 0;
   const installmentsTotal = parseInt(document.getElementById('cardInstTotal').value) || 0;
 
-  if (!name || isNaN(closing) || isNaN(payment)) return toast('⚠ Ingresa nombre, día de cierre y pago');
+  if (!name || isNaN(closing) || isNaN(payment)) return toast('⚠ Ingresa nombre, día de cierre y día de pago');
 
   if (id) {
     const idx = tarjetas.findIndex(x => String(x.id) === String(id));
@@ -724,17 +829,17 @@ function openPayModal(cardId) {
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop active" onclick="if(event.target===this) closeModal()">
       <div class="modal">
-        <h3>Registrar Pago</h3>
-        <p class="desc">Audita el pago mensual de <b>${t.name}</b>.</p>
+        <h3>Registrar Abono o Pago</h3>
+        <p class="desc">Registra tu pago de <b>${t.name}</b>. Si abonas antes del día ${t.closing}, mejoras tu reporte ante la SBS.</p>
         <div class="edit-grid">
           <div style="display:flex; gap:10px;">
             <div class="field" style="flex:1.2;"><label>Monto Total Pagado (S/)</label><input type="number" step="0.01" id="payAmount" required></div>
-            <div class="field" style="flex:1;"><label>Desgravamen (S/)</label><input type="number" step="0.01" id="payDesg" value="0.00" required></div>
+            <div class="field" style="flex:1;"><label>Seguro Desgravamen (S/)</label><input type="number" step="0.01" id="payDesg" value="0.00" required></div>
           </div>
-          <div class="field"><label>Fecha de Pago</label><input type="date" id="payDate" value="${todayStr()}"></div>
+          <div class="field"><label>Fecha de Operación</label><input type="date" id="payDate" value="${todayStr()}"></div>
           <label class="check-row">
             <input type="checkbox" id="payAmortize" ${hasDebt ? 'checked' : ''}>
-            <span>Descontar capital de la Deuda Total y sumar +1 cuota pagada</span>
+            <span>Descontar capital de la Deuda Actual y sumar +1 cuota pagada</span>
           </label>
         </div>
         <div class="modal-btns">
@@ -795,7 +900,10 @@ function renderAll() {
   let cardsHTML = '';
   let cPagadas = 0, cPendientes = 0;
   let tMes = 0, tDesgAno = 0, tDeuda = 0, tLinea = 0;
-  let globalAlert = false;
+  let globalAnnivAlert = false;
+  let closingSoonCard = null;
+  let bestGraceCard = null;
+  let maxGraceDays = -1;
 
   const hoy = new Date();
   const currMonth = hoy.getMonth();
@@ -807,42 +915,77 @@ function renderAll() {
   });
 
   tarjetas.forEach(t => {
-    tDeuda += (parseFloat(t.debtTotal) || 0);
-    tLinea += (parseFloat(t.creditLimit) || 0);
+    const debt = parseFloat(t.debtTotal) || 0;
+    const limit = parseFloat(t.creditLimit) || 0;
+    tDeuda += debt;
+    tLinea += limit;
+
+    const freeDays = getFreeCreditDays(t.closing, t.payment);
+    if (freeDays > maxGraceDays) {
+      maxGraceDays = freeDays;
+      bestGraceCard = t;
+    }
+
+    const daysToClose = getDaysUntilTargetDay(t.closing);
+    if (daysToClose <= 3 && limit > 0 && (debt / limit) > 0.25) {
+      closingSoonCard = { name: t.name, days: daysToClose, excess: debt - (limit * 0.25) };
+    }
   });
+
+  // Mostrar el Recomendador de Mejor Tarjeta Hoy
+  const bestBanner = document.getElementById('bestCardBanner');
+  if (bestGraceCard && tarjetas.length > 0) {
+    bestBanner.classList.add('show');
+    document.getElementById('bestCardName').textContent = `${bestGraceCard.name} (Cierra el día ${bestGraceCard.closing})`;
+    document.getElementById('bestCardDays').textContent = `${maxGraceDays} días libres de interés`;
+  } else {
+    bestBanner.classList.remove('show');
+  }
+
+  // Mostrar alerta si una tarjeta cierra en <= 3 días y supera el 25% SBS
+  const closeAlertBox = document.getElementById('globalClosingAlert');
+  if (closingSoonCard) {
+    closeAlertBox.classList.add('show');
+    document.getElementById('closingAlertTxt').innerHTML = `🛡️ <b>Escudo SBS:</b> Tu tarjeta <b>${closingSoonCard.name}</b> cierra en ${closingSoonCard.days === 0 ? 'hoy' : closingSoonCard.days + ' d'}. Abona <b>${formatMoney(closingSoonCard.excess)}</b> antes del cierre para reportar ≤ 25 % de uso.`;
+  } else {
+    closeAlertBox.classList.remove('show');
+  }
 
   document.getElementById('val-total-mes').innerText = formatMoney(tMes);
   document.getElementById('val-total-desg').innerText = formatMoney(tDesgAno);
   document.getElementById('val-deuda-total').innerText = formatMoney(tDeuda);
   const usoPct = tLinea > 0 ? Math.round((tDeuda / tLinea) * 100) : 0;
-  document.getElementById('sub-uso-linea').innerText = tLinea > 0 ? `Uso línea: ${usoPct}% de ${formatMoney(tLinea)}` : 'Sin línea registrada';
+  document.getElementById('sub-uso-linea').innerText = tLinea > 0 ? `Uso SBS: ${usoPct} % (Meta ≤ 25 %)` : 'Configura tu línea total';
 
   const sorted = [...tarjetas].sort((a, b) => {
     if (a.paid !== b.paid) return a.paid ? 1 : -1;
-    return getDaysUntilPayment(a.payment) - getDaysUntilPayment(b.payment);
+    return getDaysUntilTargetDay(a.payment) - getDaysUntilTargetDay(b.payment);
   });
 
   if (sorted.length === 0) {
-    container.innerHTML = `<div class="empty-state">💳 No tienes tarjetas registradas todavía. Usa el botón <b>+ Tarjeta</b> arriba.</div>`;
+    container.innerHTML = `<div class="empty-state">💳 No tienes tarjetas registradas todavía. Toca el botón <b>+ Tarjeta</b> arriba para empezar.</div>`;
   } else {
     sorted.forEach(t => {
       if (t.paid) cPagadas++; else cPendientes++;
 
-      const faltaPago = getDaysUntilPayment(t.payment);
+      const faltaPago = getDaysUntilTargetDay(t.payment);
+      const faltaCierre = getDaysUntilTargetDay(t.closing);
       const isUrg = (!t.paid && faltaPago <= 5);
-      const badgeClass = t.paid ? 'badge-green' : (isUrg ? 'badge-red' : '');
-      const badgeText = t.paid ? '✓ AL DÍA ESTE MES' : (faltaPago === 0 ? '⚠️ VENCE HOY' : `PAGO EN ${faltaPago} D`);
+      const badgeClass = t.paid ? 'badge-green' : (isUrg ? 'badge-red' : (faltaCierre <= 3 ? 'badge-amber' : ''));
+      const badgeText = t.paid
+        ? '✓ AL DÍA ESTE MES'
+        : (faltaPago === 0 ? '⚠️ PAGO VENCE HOY' : `PAGO EN ${faltaPago} D · CIERRE EN ${faltaCierre} D`);
 
-      if (checkAnniversaryAlert(t.anniversary)) globalAlert = true;
+      if (checkAnniversaryAlert(t.anniversary)) globalAnnivAlert = true;
 
       const freeDays = getFreeCreditDays(t.closing, t.payment);
       const debt = parseFloat(t.debtTotal) || 0;
       const limit = parseFloat(t.creditLimit) || 0;
+      const topeIdeal25 = limit * 0.25;
       const tea = parseFloat(t.tea) || 0;
       const iPaid = parseInt(t.installmentsPaid) || 0;
       const iTot = parseInt(t.installmentsTotal) || 0;
 
-      // Barra de progreso: prioriza cuotas si existen; de lo contrario muestra uso de línea
       let progressPct = 0;
       let leftMeta = '';
       let rightMeta = '';
@@ -850,17 +993,35 @@ function renderAll() {
 
       if (iTot > 0) {
         progressPct = Math.min(100, Math.round((iPaid / iTot) * 100));
-        leftMeta = `Consolidación: ${iPaid}/${iTot} cuotas (${progressPct}%)`;
+        leftMeta = `Progreso de cuotas: ${iPaid}/${iTot} (${progressPct} %)`;
         rightMeta = `Restan ${Math.max(0, iTot - iPaid)} cuotas`;
         barColor = 'var(--green)';
       } else if (limit > 0) {
         progressPct = Math.min(100, Math.round((debt / limit) * 100));
-        leftMeta = `Utilización de línea: ${progressPct}%`;
+        leftMeta = `Uso de línea: ${progressPct} % ${progressPct <= 25 ? '✓ (Óptimo SBS)' : '⚠️ (Supera el 25 %)'}`;
         rightMeta = `Disponible: ${formatMoney(Math.max(0, limit - debt))}`;
-        barColor = progressPct > 70 ? 'var(--red)' : (progressPct > 35 ? 'var(--amber)' : 'var(--green)');
+        barColor = progressPct > 60 ? 'var(--red)' : (progressPct > 25 ? 'var(--amber)' : 'var(--green)');
       } else {
-        leftMeta = 'Sin cuotas ni línea configuradas';
+        leftMeta = 'Edita la tarjeta para agregar tu Línea Total';
         rightMeta = '';
+      }
+
+      // Recomendación de Escudo SBS personalizada por tarjeta
+      let sbsAdviceHTML = '';
+      if (limit > 0) {
+        if (debt > topeIdeal25) {
+          sbsAdviceHTML = `
+            <div class="sbs-shield-box">
+              <span>🛡️ <b>Tope Ideal SBS (25 %):</b> ${formatMoney(topeIdeal25)}</span>
+              <span style="color:var(--amber); font-weight:700;">Abona ${formatMoney(debt - topeIdeal25)} antes del día ${t.closing}</span>
+            </div>`;
+        } else {
+          sbsAdviceHTML = `
+            <div class="sbs-shield-box" style="border-left-color:var(--green);">
+              <span>🛡️ <b>Escudo SBS Activo:</b> Uso bajo el 25 % (Tope ideal: ${formatMoney(topeIdeal25)})</span>
+              <span style="color:var(--green); font-weight:700;">✓ Perfil óptimo para aumento de línea</span>
+            </div>`;
+        }
       }
 
       const cardPagos = pagos
@@ -879,7 +1040,7 @@ function renderAll() {
                 <span class="hi-date">${dp}</span>
                 <span>
                   <span class="hi-amt">${formatMoney(p.amount)}</span>
-                  ${p.desgravamen > 0 ? `<span class="hi-desg" data-tooltip="Fuga en Desgravamen">-${formatMoney(p.desgravamen)}</span>` : ''}
+                  ${p.desgravamen > 0 ? `<span class="hi-desg" data-tooltip="Seguro de Desgravamen">-${formatMoney(p.desgravamen)}</span>` : ''}
                   <button class="hi-del-btn" data-payid="${p.id}" title="Borrar pago">✕</button>
                 </span>
               </div>`;
@@ -893,14 +1054,15 @@ function renderAll() {
                 <div class="card-name">
                   <span>${t.name}</span>
                   ${tea > 0 ? `<span class="tea-pill">TEA ${tea}%</span>` : ''}
+                  <span class="tier-pill">${t.category}</span>
                 </div>
-                <div class="card-sub">${t.category} ${debt > 0 ? `· Deuda: ${formatMoney(debt)}` : ''}</div>
+                <div class="card-sub">${debt > 0 ? `Saldo utilizado: ${formatMoney(debt)}` : 'Saldo en S/ 0.00 (Sin deuda)'}</div>
               </div>
               <div class="card-badge ${badgeClass}">${badgeText}</div>
             </div>
             <div class="ch-bottom">
               <div class="card-sub">${t.anniversary ? `🎂 ANIV: ${t.anniversary}` : `CIERRE: DÍA ${t.closing}`}</div>
-              <div class="card-sub" style="font-size: 0.82rem; color:#ffffff;">Cierre ${t.closing} · Pago Día ${t.payment}</div>
+              <div class="card-sub" style="font-size: 0.8rem; color:#ffffff;">Cierre día ${t.closing} · Pago día ${t.payment}</div>
             </div>
           </div>
 
@@ -908,7 +1070,7 @@ function renderAll() {
             <div class="debt-audit-box">
               <div class="da-grid">
                 <div class="da-col">
-                  <span class="da-lbl">Deuda Capital</span>
+                  <span class="da-lbl">Deuda Actual</span>
                   <span class="da-val">${formatMoney(debt)}</span>
                 </div>
                 <div class="da-col">
@@ -916,8 +1078,12 @@ function renderAll() {
                   <span class="da-val">${limit > 0 ? formatMoney(limit) : '—'}</span>
                 </div>
                 <div class="da-col">
+                  <span class="da-lbl">Tope 25 % SBS</span>
+                  <span class="da-val" style="color:var(--green);">${limit > 0 ? formatMoney(topeIdeal25) : '—'}</span>
+                </div>
+                <div class="da-col">
                   <span class="da-lbl">Tasa (TEA)</span>
-                  <span class="da-val">${tea > 0 ? tea + '%' : '—'}</span>
+                  <span class="da-val">${tea > 0 ? tea + ' %' : '—'}</span>
                 </div>
               </div>
               <div class="da-bar-wrap">
@@ -927,15 +1093,16 @@ function renderAll() {
                 <span>${leftMeta}</span>
                 <span>${rightMeta}</span>
               </div>
+              ${sbsAdviceHTML}
             </div>
 
             <div class="gracia-box">
-              <span class="gracia-lbl">Días de gracia si compras hoy:</span>
-              <span class="gracia-val">${freeDays} días libres</span>
+              <span class="gracia-lbl">Oxígeno si compras hoy con esta tarjeta:</span>
+              <span class="gracia-val">${freeDays} días libres de interés</span>
             </div>
 
             <div class="hist-title">
-              <span>Historial de Pagos (${cardPagos.length})</span>
+              <span>Historial de Abonos (${cardPagos.length})</span>
               <span>Desgravamen</span>
             </div>
             <div class="history-list">${histHTML}</div>
@@ -944,7 +1111,7 @@ function renderAll() {
               ${!t.paid
                 ? `<button class="card-btn pay btn-pay-action" data-id="${t.id}">💳 Registrar Pago</button>`
                 : `<button class="card-btn edit btn-undo-paid" data-id="${t.id}">↩️ Marcar Pendiente</button>`}
-              <button class="card-btn edit btn-edit-action" data-id="${t.id}">✏️ Editar / Deuda</button>
+              <button class="card-btn edit btn-edit-action" data-id="${t.id}">✏️ Editar / Línea</button>
               <button class="card-btn del btn-del-action" data-id="${t.id}">🗑️</button>
             </div>
           </div>
@@ -954,8 +1121,8 @@ function renderAll() {
   }
 
   document.getElementById('val-pendientes').textContent = `${cPendientes} pend.`;
-  document.getElementById('sub-pagadas').textContent = `${cPagadas} pagadas este ciclo`;
-  document.getElementById('globalAnnivAlert').classList.toggle('show', globalAlert);
+  document.getElementById('sub-pagadas').textContent = `${cPagadas} al día este ciclo`;
+  document.getElementById('globalAnnivAlert').classList.toggle('show', globalAnnivAlert);
 }
 </script>
 

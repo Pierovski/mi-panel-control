@@ -1,66 +1,66 @@
 {
-  "vision": "Soy un referente técnico y estratégico para el desarrollo de mi pueblo: domino cómo funcionan los proyectos públicos municipales y uso la ingeniería para destrabar obras y potenciar el turismo.",
-  "meta": "Tener mapeados los proyectos reales de mi distrito en el MEF, estructurar 1 propuesta de inversión rápida (IOARR / Turismo) y dominar las reglas de contratación municipal.",
-  "compromiso": "Construyo autoridad con datos reales y propuestas concretas. Cada quincena doy un paso estratégico que me posiciona como solución para mi comunidad.",
+  "vision": "Soy un referente técnico y estratégico para el desarrollo de mi pueblo: conozco cómo funcionan los proyectos de inversión pública y aplico la ingeniería para destrabar obras e impulsar el turismo local.",
+  "meta": "Tener mapeados los proyectos reales de mi distrito en el portal del MEF, estructurar una propuesta de inversión rápida (IOARR o proyecto turístico) y dominar la gestión técnica municipal.",
+  "compromiso": "Construyo liderazgo con datos reales y soluciones concretas. Cada quincena avanzo un paso firme que aporta valor directo a mi comunidad.",
   "weeks": [
     {
-      "title": "Nivel 1: Radiografía Real del Distrito (Datos MEF)",
+      "title": "Nivel 1: Radiografía Real del Distrito (Datos del MEF)",
       "theme": "QUINCENA 1 · INTELIGENCIA MUNICIPAL",
       "tasks": [
-        "[MISIÓN 1] 🔍 Consulta Amigable MEF: Entrar al portal del MEF, buscar mi municipalidad y anotar cuánto presupuesto (PIM) tiene este año para obras y en qué porcentaje de avance va. || 🔍 Micro-acción (2m): Buscar en Google 'Consulta Amigable MEF' y guardar el enlace en favoritos.",
-        "[MISIÓN 2] 📋 Mapa de Obras Trabadas (SSI): Revisar en el Sistema de Seguimiento de Inversiones (Invierte.pe) las 3 obras más importantes de mi pueblo y ver su código CUI y estado actual. || 📋 Micro-acción (2m): Anotar el nombre de 2 obras o calles de mi pueblo que llevan años esperando ejecutarse.",
-        "[MISIÓN 3] 🗺️ Diagnóstico Territorial: Identificar los 3 puntos críticos de infraestructura o acceso vial que más frenan el crecimiento y el turismo local. || 🗺️ Micro-acción (2m): Ubicar esos 3 puntos en Google Maps y ponerles un marcador.",
-        "[DIARIO] 🏛️ Hábito: Leer 5 min sobre gestión municipal, Invierte.pe o noticias clave de mi provincia."
+        "[MISIÓN 1] 🔍 Consulta Amigable del MEF: Ingresar al portal del Ministerio de Economía y Finanzas, buscar mi municipalidad y anotar cuánto presupuesto tiene asignado este año para proyectos y cuál es su porcentaje de ejecución. || 🔍 Microacción (2 min): Buscar en Google 'Consulta Amigable MEF' y guardar el enlace directo en mis marcadores.",
+        "[MISIÓN 2] 📋 Seguimiento de obras (Invierte.pe): Revisar en el Sistema de Seguimiento de Inversiones las tres obras más importantes de mi distrito para conocer su Código Único de Inversiones (CUI) y su estado actual. || 📋 Microacción (2 min): Anotar el nombre de dos obras urgentes de mi pueblo que llevan años esperando ejecutarse.",
+        "[MISIÓN 3] 🗺️ Diagnóstico territorial: Identificar los tres puntos críticos de infraestructura o acceso vial que más limitan el desarrollo y el turismo en mi localidad. || 🗺️ Microacción (2 min): Ubicar esos tres puntos críticos en Google Maps y guardar sus coordenadas.",
+        "[DIARIO] 🏛️ Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades prioritarias de mi distrito."
       ]
     },
     {
-      "title": "Nivel 2: Potencial Turístico + Geotecnología",
+      "title": "Nivel 2: Potencial Turístico y Geotecnología",
       "theme": "QUINCENA 2 · TURISMO INTELIGENTE",
       "tasks": [
-        "[MISIÓN 1] 📸 Inventario de Atractivos:Catalogar los 3 mejores recursos turísticos de mi pueblo (miradores, rutas de trekking, cascadas, patrimonio) con coordenadas UTM exactas y altitud. || 📸 Micro-acción (2m): Hacer una lista en el celular de los 3 lugares más bonitos de mi zona.",
-        "[MISIÓN 2] 🚁 Vuelo y Mapa de Impacto: Generar con el dron o Google Earth una vista aérea 3D de una ruta turística local trazando distancias, desniveles y tiempos de caminata. || 🚁 Micro-acción (2m): Revisar en mi galería qué fotos o vuelos de dron ya tengo de mi zona.",
-        "[MISIÓN 3] 📍 Propuesta de Mirador / Señalética: Esquematizar en 1 página qué infraestructura mínima falta (paradero, mirador fotográfico, letreros con QR de ruta) para atraer visitantes. || 📍 Micro-acción (2m): Dibujar o anotar la idea de un mirador o letrero turístico en un punto clave.",
-        "[DIARIO] 🏛️ Hábito: Leer 5 min sobre gestión municipal, Invierte.pe o noticias clave de mi provincia."
+        "[MISIÓN 1] 📸 Inventario de atractivos: Catalogar los tres mejores atractivos turísticos de mi pueblo (miradores, rutas de caminata, caídas de agua o zonas históricas) con sus coordenadas UTM exactas y altitud. || 📸 Microacción (2 min): Anotar en mi celular los tres lugares con mayor potencial turístico de mi zona.",
+        "[MISIÓN 2] 🚁 Mapa y ruta en 3D: Generar con ayuda del dron o Google Earth una vista tridimensional de un circuito turístico local indicando distancias, pendientes y tiempos de recorrido. || 🚁 Microacción (2 min): Revisar en mi archivo qué fotografías aéreas o vuelos de dron tengo disponibles de mi localidad.",
+        "[MISIÓN 3] 📍 Propuesta de puesta en valor: Esquematizar en una página qué infraestructura básica (mirador fotográfico, zona de descanso o señalización con código QR) potenciaría la llegada de visitantes. || 📍 Microacción (2 min): Bocetar o describir la idea de un mirador o letrero turístico en el punto más atractivo del pueblo.",
+        "[DIARIO] 🏛️ Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades prioritarias de mi distrito."
       ]
     },
     {
-      "title": "Nivel 3: Dominio de IOARR y Fichas Técnicas",
-      "theme": "QUINCENA 3 · PROYECTOS RÁPIDOS",
+      "title": "Nivel 3: Dominio de IOARR y Expedientes Técnicos",
+      "theme": "QUINCENA 3 · INVERSIONES RÁPIDAS",
       "tasks": [
-        "[MISIÓN 1] ⚡ Qué es una IOARR: Aprender con ayuda de IA la diferencia entre un Proyecto de Inversión completo y una IOARR (reparación/ampliación rápida que la municipalidad aprueba en semanas). || ⚡ Micro-acción (2m): Preguntarle a la IA: 'Dame 3 ejemplos de IOARR municipales para vías o turismo en Perú'.",
-        "[MISIÓN 2] 📄 Radiografía de un Expediente: Descargar del SEACE un Expediente Técnico o Término de Referencia (TdR) municipal de mi región para conocer su estructura exacta. || 📄 Micro-acción (2m): Buscar en mi PC un expediente o TdR antiguo y revisar su índice.",
-        "[MISIÓN 3] 🛠️ El Rol del Topógrafo en Muni: Definir los requisitos exactos que pide una Gerencia de Obras (puntos geodésicos IGN, BMS, planos clave) para que un proyecto no sea observado. || 🛠️ Micro-acción (2m): Anotar los 3 errores topográficos más comunes que paralizan obras municipales.",
-        "[DIARIO] 🏛️ Hábito: Leer 5 min sobre gestión municipal, Invierte.pe o noticias clave de mi provincia."
+        "[MISIÓN 1] ⚡ Inversiones IOARR: Analizar con ayuda de inteligencia artificial cómo se formula una IOARR (inversión rápida de optimización, ampliación marginal, rehabilitación o reposición) para vías o espacios públicos municipales. || ⚡ Microacción (2 min): Pedirle a la IA tres ejemplos reales de IOARR municipales aplicables a caminos o turismo en el Perú.",
+        "[MISIÓN 2] 📄 Estructura de expedientes: Descargar del portal SEACE un expediente técnico o término de referencia (TdR) municipal de mi región para estudiar sus entregables y presupuesto. || 📄 Microacción (2 min): Abrir un expediente técnico o término de referencia que tenga en mi computadora y revisar su índice.",
+        "[MISIÓN 3] 🛠️ Estándar topográfico municipal: Definir la lista de verificación topográfica (puntos geodésicos enlazados a la red del IGN, bancos de nivel y planos clave) que garantiza que un expediente no tenga observaciones. || 🛠️ Microacción (2 min): Anotar los tres errores topográficos más frecuentes que retrasan las obras en mi zona.",
+        "[DIARIO] 🏛️ Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades prioritarias de mi distrito."
       ]
     },
     {
-      "title": "Nivel 4: Contrataciones del Estado y Gestión Interna",
-      "theme": "QUINCENA 4 · REGLAS DEL JUEGO",
+      "title": "Nivel 4: Gestión Municipal y Contrataciones",
+      "theme": "QUINCENA 4 · REGLAS DE GESTIÓN PÚBLICA",
       "tasks": [
-        "[MISIÓN 1] 🏛️ Organigrama Municipal: Entender cómo funciona por dentro la Gerencia de Desarrollo Urbano y Rural (GDUR), Subgerencia de Obras, Estudios y Liquidaciones. || 🏛️ Micro-acción (2m): Buscar el ROF u organigrama de mi municipalidad en su portal de transparencia.",
-        "[MISIÓN 2] 💼 Órdenes de Servicio (≤ 8 UIT): Conocer el flujo exacto de cómo una municipalidad contrata servicios técnicos directos (RNP vigente, cotización, TdR, conformidad). || 💼 Micro-acción (2m): Verificar el estado de mi RNP (Registro Nacional de Proveedores) o requisitos.",
-        "[MISIÓN 3] 🤝 Red de Contactos Clave: Conversar con 1 ingeniero municipal, regidor o dirigente local sobre cuáles son las prioridades técnicas del distrito este año. || 🤝 Micro-acción (2m): Escribir el nombre de 2 personas clave de mi localidad con las que vale la pena conversar.",
-        "[DIARIO] 🏛️ Hábito: Leer 5 min sobre gestión municipal, Invierte.pe o noticias clave de mi provincia."
+        "[MISIÓN 1] 🏛️ Estructura interna: Revisar el Reglamento de Organización y Funciones (ROF) de mi municipalidad para entender las funciones exactas de la Gerencia de Obras, Desarrollo Urbano y Unidad Formuladora. || 🏛️ Microacción (2 min): Buscar el organigrama actualizado de mi municipalidad en su portal web.",
+        "[MISIÓN 2] 💼 Contrataciones menores a 8 UIT: Dominar el flujo completo de una orden de servicio municipal (Registro Nacional de Proveedores vigente, términos de referencia, estudio de mercado y conformidad técnica). || 💼 Microacción (2 min): Verificar la vigencia y estado de mi inscripción en el Registro Nacional de Proveedores (RNP).",
+        "[MISIÓN 3] 🤝 Diálogo técnico local: Conversar con un profesional municipal, autoridad o líder comunal sobre cuáles son los proyectos prioritarios del distrito en el presente año. || 🤝 Microacción (2 min): Anotar el nombre de dos personas clave de mi comunidad con quienes puedo compartir ideas técnicas.",
+        "[DIARIO] 🏛️ Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades prioritarias de mi distrito."
       ]
     },
     {
-      "title": "Nivel 5: Mi Proyecto Bandera para el Pueblo",
-      "theme": "QUINCENA 5 · PROPUESTA REAL",
+      "title": "Nivel 5: Proyecto Bandera para Mi Pueblo",
+      "theme": "QUINCENA 5 · PROPUESTA TÉCNICA REAL",
       "tasks": [
-        "[MISIÓN 1] 🎯 Selección del Proyecto: Elegir 1 problema real y visible de mi pueblo (ej. puesta en valor de ruta turística, acceso vial o parque/mirador) para armar una propuesta técnica. || 🎯 Micro-acción (2m): Escribir en 1 línea el título del proyecto que más ayudaría a mi pueblo hoy.",
-        "[MISIÓN 2] 📐 Levantamiento / Anteproyecto Base: Armar el plano planta-perfil o modelo 3D conceptual del proyecto para que cualquier poblador o alcalde lo entienda al verlo. || 📐 Micro-acción (2m): Delimitar el polígono de ese proyecto en Google Earth.",
-        "[MISIÓN 3] 📊 Resumen Ejecutivo de 2 Caras: Redactar con ayuda de IA el sustento: problema actual, población beneficiada, costo estimado aproximado y beneficio turístico/económico. || 📊 Micro-acción (2m): Pedirle a la IA un esquema de 5 puntos para presentar una iniciativa vecinal a la municipalidad.",
-        "[DIARIO] 🏛️ Hábito: Leer 5 min sobre gestión municipal, Invierte.pe o noticias clave de mi provincia."
+        "[MISIÓN 1] 🎯 Elección del proyecto: Seleccionar un proyecto concreto y de alto beneficio para mi pueblo (mejoramiento de acceso vial, mirador turístico o espacio público) para estructurar su propuesta base. || 🎯 Microacción (2 min): Escribir en una frase el nombre del proyecto que mayor impacto positivo tendría hoy en mi comunidad.",
+        "[MISIÓN 2] 📐 Anteproyecto visual: Elaborar el plano conceptual o modelo tridimensional del proyecto para que cualquier ciudadano o autoridad comprenda el beneficio de inmediato. || 📐 Microacción (2 min): Delimitar el área exacta de intervención del proyecto en Google Earth Pro.",
+        "[MISIÓN 3] 📊 Resumen ejecutivo: Redactar en dos páginas la ficha de propuesta: diagnóstico del problema, beneficiarios directos, alcance técnico e impacto económico y turístico. || 📊 Microacción (2 min): Pedirle a la IA una estructura de cinco puntos para presentar una iniciativa de proyecto a una municipalidad.",
+        "[DIARIO] 🏛️ Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades prioritarias de mi distrito."
       ]
     },
     {
-      "title": "Nivel 6: Liderazgo y Posicionamiento Local",
-      "theme": "QUINCENA 6 · IMPACTO VISIBLE",
+      "title": "Nivel 6: Liderazgo y Posicionamiento Técnico",
+      "theme": "QUINCENA 6 · APORTE A LA COMUNIDAD",
       "tasks": [
-        "[MISIÓN 1] 🗣️ Presentación / Difusión: Compartir el mapa turístico o propuesta técnica con líderes comunales, autoridades o en redes locales aportando valor real sin politiquería. || 🗣️ Micro-acción (2m): Exportar 1 imagen limpia del mapa o modelo 3D con buena presentación.",
-        "[MISIÓN 2] 📁 Carpeta de Gestión: Dejar armada mi carpeta digital con mi CV técnico, portafolio de obras y propuestas para estar listo ante cualquier cargo o consultoría municipal. || 📁 Micro-acción (2m): Crear la carpeta 'Gestión y Proyectos Locales' en mi Google Drive.",
-        "[MISIÓN 3] 🧭 Hoja de Ruta Anual: Definir mi próximo objetivo de impacto en el distrito para el siguiente trimestre. || 🧭 Micro-acción (2m): Anotar qué aprendí en este ciclo sobre las necesidades reales de mi pueblo.",
-        "[DIARIO] 🏛️ Hábito: Leer 5 min sobre gestión municipal, Invierte.pe o noticias clave de mi provincia."
+        "[MISIÓN 1] 🗣️ Presentación de valor: Compartir la propuesta técnica o el mapa turístico con representantes de mi comunidad o autoridades locales, aportando una visión constructiva y profesional. || 🗣️ Microacción (2 min): Exportar una lámina o imagen de alta calidad de mi propuesta lista para mostrar en el celular.",
+        "[MISIÓN 2] 📁 Portafolio de gestión pública: Dejar organizada mi carpeta digital con mi currículo documentado, experiencia en proyectos y propuestas locales lista para asumir cargos o consultorías. || 📁 Microacción (2 min): Crear la carpeta 'Proyectos y Gestión Municipal' en mi nube personal.",
+        "[MISIÓN 3] 🧭 Planificación del siguiente ciclo: Definir el próximo objetivo técnico o comunitario para seguir impulsando el crecimiento de mi pueblo. || 🧭 Microacción (2 min): Anotar las tres lecciones más valiosas aprendidas sobre la gestión de mi distrito en este ciclo.",
+        "[DIARIO] 🏛️ Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades prioritarias de mi distrito."
       ]
     }
   ]

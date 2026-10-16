@@ -1,66 +1,66 @@
 {
-  "vision": "Domino la topografía automatizada: combino Civil 3D, fotogrametría con dron e Inteligencia Artificial para hacer en 1 hora el gabinete que a otros les toma 2 días.",
-  "meta": "Construir mi librería personal de rutinas AutoLISP creadas con IA, plantilla maestra (.dwt) automatizada y flujo limpio Dron/QGIS a Civil 3D.",
-  "compromiso": "Avanzo a mi ritmo por niveles. Si llego cansado de campo, activo el Modo 2 Minutos y hago solo la micro-acción para no perder tracción.",
+  "vision": "Domino la topografía automatizada: combino Civil 3D, fotogrametría con dron e inteligencia artificial para resolver en una hora el trabajo de gabinete que a otros les toma dos días.",
+  "meta": "Construir mi librería personal de rutinas AutoLISP creadas con inteligencia artificial, mi plantilla maestra (.dwt) automatizada y un flujo limpio desde el dron y QGIS hacia Civil 3D.",
+  "compromiso": "Avanzo a mi propio ritmo por niveles. Si llego cansado del campo, activo el Modo de 2 Minutos y realizo únicamente la microacción para mantener la constancia.",
   "weeks": [
     {
       "title": "Nivel 1: Automatización con IA (AutoLISP)",
       "theme": "QUINCENA 1 · CERO TRABAJO REPETITIVO",
       "tasks": [
-        "[MISIÓN 1] 🤖 IA + CAD: Crear con IA una rutina AutoLISP (.lsp) que limpie capas, purgue e inserte mi grilla de coordenadas en 1 comando y probarla en Civil 3D. || 🤖 Micro-acción (2m): Pedirle el código AutoLISP a la IA desde el celular y guardarlo en mis notas.",
-        "[MISIÓN 2] ⚡ Comando Rápido: Cargar mi primer script .lsp en el Startup Suite (APPLOAD) de Civil 3D y asignarle un alias de 2 letras. || ⚡ Micro-acción (2m): Abrir Civil 3D, escribir APPLOAD para ubicar la carpeta de scripts y cerrar.",
-        "[MISIÓN 3] 📐 Etiquetado Veloz: Automatizar con LISP o estilos dinámicos la numeración automática de vértices y cuadro de rumbo/distancia. || 📐 Micro-acción (2m): Anotar qué tarea repetitiva me quitó más tiempo en el último plano.",
-        "[DIARIO] 🧠 Hábito: 15 min de gabinete enfocado o probar 1 truco nuevo de Civil 3D / IA."
+        "[MISIÓN 1] 🤖 IA + CAD: Crear con inteligencia artificial una rutina AutoLISP (.lsp) que limpie capas, purgue el dibujo e inserte mi grilla de coordenadas en un solo comando, y probarla en Civil 3D. || 🤖 Microacción (2 min): Pedirle el código AutoLISP a la IA desde el celular y guardarlo en mis notas.",
+        "[MISIÓN 2] ⚡ Comando rápido: Cargar mi primera rutina .lsp en el inicio automático ( comando APPLOAD) de Civil 3D y asignarle un atajo de dos letras. || ⚡ Microacción (2 min): Abrir Civil 3D, ejecutar el comando APPLOAD para ubicar mi carpeta de rutinas y cerrar.",
+        "[MISIÓN 3] 📐 Etiquetado veloz: Automatizar mediante rutinas LISP o estilos dinámicos la numeración automática de vértices y el cuadro de rumbos y distancias. || 📐 Microacción (2 min): Anotar qué tarea repetitiva me quitó más tiempo en mi último plano.",
+        "[DIARIO] 🧠 Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
       ]
     },
     {
       "title": "Nivel 2: Flujo Dron RTK + QGIS + Civil 3D",
       "theme": "QUINCENA 2 · INTEROPERABILIDAD",
       "tasks": [
-        "[MISIÓN 1] 🚁 Nube de Puntos Ligera: Filtrar y diezmar una nube de puntos/DEM de dron para importarla a Civil 3D sin colgar la PC. || 🚁 Micro-acción (2m): Revisar el peso del último archivo TIFF/LAS procesado y anotar su sistema de coordenadas.",
-        "[MISIÓN 2] 🌍 Puente QGIS / Google Earth: Extraer curvas de nivel y ortofoto georreferenciada (UTM WGS84 Zona 17S) lista para anteproyecto. || 🌍 Micro-acción (2m): Abrir el área de mi próximo trabajo en Google Earth Pro y guardar el polígono KMZ.",
-        "[MISIÓN 3] 🗺️ Superficie Combinada: Fusionar en Civil 3D los puntos precisos de GNSS/Estación Total (breaklines) con la superficie general del dron. || 🗺️ Micro-acción (2m): Crear en mi plantilla un estilo de superficie limpio para 'Terreno Dron vs. GPS'.",
-        "[DIARIO] 🧠 Hábito: 15 min de gabinete enfocado o probar 1 truco nuevo de Civil 3D / IA."
+        "[MISIÓN 1] 🚁 Nube de puntos ligera: Filtrar y optimizar una nube de puntos o modelo digital de elevación (DEM) del dron para importarla en Civil 3D sin saturar la computadora. || 🚁 Microacción (2 min): Revisar el peso del último archivo procesado y anotar su sistema de coordenadas.",
+        "[MISIÓN 2] 🌍 Puente QGIS y Google Earth: Extraer curvas de nivel y ortofoto georreferenciada (UTM WGS84 Zona 17S) listas para un anteproyecto. || 🌍 Microacción (2 min): Abrir el área de mi próximo trabajo en Google Earth Pro y guardar el polígono en formato KMZ.",
+        "[MISIÓN 3] 🗺️ Superficie combinada: Fusionar en Civil 3D los puntos precisos de GNSS o estación total (líneas de rotura) con la superficie topográfica general del dron. || 🗺️ Microacción (2 min): Crear en mi plantilla un estilo de superficie limpio para diferenciar terreno de dron y levantamiento GPS.",
+        "[DIARIO] 🧠 Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
       ]
     },
     {
-      "title": "Nivel 3: Plantilla Maestra Inteligente (.DWT)",
+      "title": "Nivel 3: Plantilla Maestra Inteligente (.dwt)",
       "theme": "QUINCENA 3 · VELOCIDAD DE ENTREGA",
       "tasks": [
-        "[MISIÓN 1] 🎨 Estilos Listos: Configurar mi archivo plantilla (.dwt) con capas, estilos de puntos COGO, superficies y alineamientos ya estandarizados. || 🎨 Micro-acción (2m): Abrir mi mejor plano reciente y guardarlo como archivo .dwt base.",
-        "[MISIÓN 2] 📊 Guitarras Automáticas: Dejar configurado un estilo de banda (Guitarra) de perfil longitudinal con Cota Terreno, Rasante y Corte/Relleno sin errores de texto. || 📊 Micro-acción (2m): Revisar qué dato se superpone siempre en mis guitarras actuales para corregirlo.",
-        "[MISIÓN 3] 📑 Plan Production: Configurar mi cajetín/membrete dinámico con campos automáticos (fecha, escala, nombre de lámina) para exportar PDF en lote. || 📑 Micro-acción (2m): Verificar que los grosores de pluma (.ctb) estén guardados en mi carpeta en la nube.",
-        "[DIARIO] 🧠 Hábito: 15 min de gabinete enfocado o probar 1 truco nuevo de Civil 3D / IA."
+        "[MISIÓN 1] 🎨 Estilos estandarizados: Configurar mi archivo de plantilla (.dwt) con capas, estilos de puntos COGO, superficies y alineamientos listos para usar. || 🎨 Microacción (2 min): Abrir mi mejor plano reciente y guardarlo como archivo base .dwt.",
+        "[MISIÓN 2] 📊 Bandas de perfil automáticas: Dejar configurado un estilo de guitarra de perfil longitudinal con cota de terreno, cota de rasante, corte y relleno sin superposición de textos. || 📊 Microacción (2 min): Revisar qué dato se superpone en mis perfiles actuales para dejarlo corregido.",
+        "[MISIÓN 3] 📑 Producción de planos: Configurar mi membrete dinámico con campos automáticos (fecha, escala y nombre de lámina) para exportar planos a PDF en lote. || 📑 Microacción (2 min): Verificar que mis archivos de grosor de plumas (.ctb) estén respaldados en la nube.",
+        "[DIARIO] 🧠 Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
       ]
     },
     {
       "title": "Nivel 4: Obras Lineales y Corredores Rápidos",
       "theme": "QUINCENA 4 · DISEÑO GEOMÉTRICO",
       "tasks": [
-        "[MISIÓN 1] 🛣️ Subassembly Inteligente: Armar un ensamblaje típico (vía o canal) con taludes condicionales (Daylight) de corte y relleno automáticos. || 🛣️ Micro-acción (2m): Abrir la paleta Tool Palettes (Ctrl+3) en Civil 3D y revisar el subassembly BasicSideSlopeCutDitch.",
-        "[MISIÓN 2] 🔄 Corredor y Superficie: Generar un corredor de prueba de 500m y extraer su superficie superior y datum en menos de 20 minutos. || 🔄 Micro-acción (2m): Abrir un archivo con alineamiento y perfil ya trazados para dejarlo listo.",
-        "[MISIÓN 3] 📐 Secciones en Lote: Crear Sample Lines cada 20m y generar todas las vistas de sección transversal automáticamente. || 📐 Micro-acción (2m): Definir la escala horizontal y vertical ideal para mis láminas de secciones.",
-        "[DIARIO] 🧠 Hábito: 15 min de gabinete enfocado o probar 1 truco nuevo de Civil 3D / IA."
+        "[MISIÓN 1] 🛣️ Sección típica inteligente: Armar un ensamblaje vial o de canal con taludes condicionales de corte y relleno automáticos. || 🛣️ Microacción (2 min): Abrir la paleta de herramientas (Ctrl + 3) en Civil 3D y revisar los subensamblajes de taludes y cunetas.",
+        "[MISIÓN 2] 🔄 Corredor y superficie: Generar un corredor vial de prueba de 500 metros y extraer su superficie superior y de explanación en menos de 20 minutos. || 🔄 Microacción (2 min): Abrir un archivo con alineamiento y perfil ya trazados para dejarlo listo para el modelado.",
+        "[MISIÓN 3] 📐 Secciones transversales en lote: Crear líneas de muestreo cada 20 metros y generar todas las vistas de sección transversal de forma automática. || 📐 Microacción (2 min): Definir la escala horizontal y vertical óptima para mis láminas de secciones transversales.",
+        "[DIARIO] 🧠 Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
       ]
     },
     {
-      "title": "Nivel 5: Metrados Exactos + Reportes con IA",
-      "theme": "QUINCENA 5 · EL NEGOCIO DE LOS DATOS",
+      "title": "Nivel 5: Metrados Exactos y Reportes con IA",
+      "theme": "QUINCENA 5 · EL VALOR DE LOS DATOS",
       "tasks": [
-        "[MISIÓN 1] 📦 Movimiento de Tierras: Ejecutar Compute Materials y exportar la tabla de volúmenes de corte y relleno a Excel/CSV. || 📦 Micro-acción (2m): Verificar los factores de esponjamiento y compactación estándar que uso en mis cálculos.",
-        "[MISIÓN 2] 📈 Automatización Excel/JS: Usar IA para crear una plantilla o script que convierta el reporte bruto de Civil 3D en un cuadro de metrados listo para valorización. || 📈 Micro-acción (2m): Copiar las cabeceras de una tabla de metrados de Civil 3D y pasárselas a la IA.",
-        "[MISIÓN 3] 📤 Replanteo Directo: Extraer puntos de eje, bordes y cabeceras de talud del corredor en formato CSV limpio listo para el receptor GNSS / Estación Total. || 📤 Micro-acción (2m): Revisar el formato exacto de columnas (P,N,E,Z,D) que pide mi colectora.",
-        "[DIARIO] 🧠 Hábito: 15 min de gabinete enfocado o probar 1 truco nuevo de Civil 3D / IA."
+        "[MISIÓN 1] 📦 Movimiento de tierras: Ejecutar el cálculo de materiales en Civil 3D y exportar la tabla de volúmenes de corte y relleno hacia Excel o CSV. || 📦 Microacción (2 min): Verificar los factores de esponjamiento y compactación estándar que utilizo en mis informes.",
+        "[MISIÓN 2] 📈 Automatización de reportes: Usar inteligencia artificial para crear una plantilla o script que transforme la tabla bruta de Civil 3D en un cuadro de metrados listo para valorización. || 📈 Microacción (2 min): Copiar los encabezados de una tabla de volúmenes de Civil 3D y enviárselos a la IA.",
+        "[MISIÓN 3] 📤 Datos para replanteo: Extraer coordenadas de eje, bordes y cabeceras de talud del corredor en un archivo CSV limpio, listo para el receptor GNSS o estación total. || 📤 Microacción (2 min): Revisar el orden exacto de columnas (Punto, Norte, Este, Cota, Descripción) que utiliza mi colectora de campo.",
+        "[DIARIO] 🧠 Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
       ]
     },
     {
       "title": "Nivel 6: Entregables 3D de Alto Impacto",
-      "theme": "QUINCENA 6 · DIFERENCIACIÓN 1%",
+      "theme": "QUINCENA 6 · DIFERENCIACIÓN PROFESIONAL",
       "tasks": [
-        "[MISIÓN 1] 🌐 Visor Web 3D: Exportar un modelo de terreno + diseño para que el cliente o autoridad lo pueda girar en 3D desde su celular o navegador. || 🌐 Micro-acción (2m): Elegir el proyecto más vistoso que haya levantado este año para usarlo de demo.",
-        "[MISIÓN 2] 📝 Memoria Técnica con IA: Crear una estructura maestra de Memoria Descriptiva Topográfica y Geodésica que se redacte en 5 minutos con ayuda de IA. || 📝 Micro-acción (2m): Guardar el índice de mi mejor informe técnico como plantilla en Google Docs/Notion.",
-        "[MISIÓN 3] 🏆 Auditoría de Velocidad: Cronometrar cuánto me toma hoy pasar de los puntos de campo al plano PDF final usando mi plantilla y mis rutinas LISP. || 🏆 Micro-acción (2m): Hacer respaldo completo de mi carpeta de Lisp, CTB y Plantillas (.dwt) en la nube.",
-        "[DIARIO] 🧠 Hábito: 15 min de gabinete enfocado o probar 1 truco nuevo de Civil 3D / IA."
+        "[MISIÓN 1] 🌐 Presentación en 3D: Exportar un modelo de terreno y diseño para que el cliente o autoridad pueda visualizarlo en tres dimensiones desde su celular o navegador. || 🌐 Microacción (2 min): Elegir el levantamiento más vistoso que haya realizado este año para usarlo como demostración.",
+        "[MISIÓN 2] 📝 Memoria descriptiva asistida: Crear una plantilla maestra de Memoria Descriptiva Topográfica y Geodésica que pueda completarse en 5 minutos con apoyo de IA. || 📝 Microacción (2 min): Guardar el índice de mi mejor informe técnico como plantilla en mis documentos.",
+        "[MISIÓN 3] 🏆 Auditoría de flujo de trabajo: Cronometrar cuánto tiempo me toma hoy pasar desde los datos crudos de campo hasta el plano final en PDF usando mis plantillas y rutinas. || 🏆 Microacción (2 min): Realizar una copia de seguridad completa de mi carpeta de rutinas LISP, estilos de ploteo y plantillas en la nube.",
+        "[DIARIO] 🧠 Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
       ]
     }
   ]
