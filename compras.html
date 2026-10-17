@@ -91,7 +91,6 @@ body {
   letter-spacing: 0.5px; position: sticky; top: 0; z-index: 200;
 }
 
-/* CABECERA UNIFICADA PIEROVSKI */
 header {
   border-bottom: 1px solid var(--border);
   background: var(--surface-glass);
@@ -151,7 +150,6 @@ header {
 }
 .btn-add-header:hover { opacity: 0.92; transform: translateY(-1px); }
 
-/* PESTAÑAS DE NAVEGACIÓN */
 .tabs {
   max-width: 840px; margin: 0 auto; display: flex; gap: 6px;
   padding-bottom: 10px; overflow-x: auto; scrollbar-width: none;
@@ -172,11 +170,7 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .tab-pane.active { display: block; animation: fadeUpTab 0.3s var(--ease) forwards; }
 @keyframes fadeUpTab { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* BARRA DE SINERGIA FINANCIERA (CONEXIÓN CON TARJETAS Y BÓVEDA) */
-.synergy-bar {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
-  margin-bottom: 16px;
-}
+.synergy-bar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
 .syn-box {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--r-md); padding: 12px 16px;
@@ -188,12 +182,8 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .sb-left { display: flex; flex-direction: column; gap: 2px; }
 .sb-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.05em; }
 .sb-val { font-size: 0.88rem; font-weight: 700; color: var(--text); }
-.sb-badge {
-  font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700;
-  padding: 4px 10px; border-radius: 12px; white-space: nowrap;
-}
+.sb-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
 
-/* PANEL DE PATRIMONIO Y DISTRIBUCIÓN */
 .dashboard-panel {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--r-lg); padding: 20px; margin-bottom: 20px;
@@ -218,13 +208,11 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .kpi-item.active-filter#kpi-pending .kpi-val { color: var(--amber); }
 .kpi-item.active-filter#kpi-daily .kpi-val { color: var(--red); }
 
-/* BARRA DE COMPOSICIÓN PATRIMONIAL */
 .alloc-bar-wrap { margin-bottom: 16px; }
 .alloc-header { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; font-weight: 700; }
 .alloc-bar { width: 100%; height: 8px; border-radius: 4px; background: var(--surface3); display: flex; overflow: hidden; gap: 2px; }
 .alloc-seg { height: 100%; transition: width 0.5s var(--ease); }
 
-/* CATEGORÍAS Y PRESUPUESTOS */
 .cat-summary { display: flex; gap: 12px; overflow-x: auto; padding: 4px 0; scrollbar-width: thin; }
 .cat-summary::-webkit-scrollbar { height: 4px; }
 .cat-summary::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
@@ -234,17 +222,8 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
   cursor: pointer; transition: all 0.2s var(--ease); position: relative; overflow: hidden;
 }
 .cat-card:hover, .cat-card.active-filter { border-color: var(--amber); background: var(--surface); box-shadow: var(--shadow-sm); }
-.cc-name {
-  font-size: 0.68rem; font-family: 'DM Mono', monospace; font-weight: 700;
-  letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-dim);
-  margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; gap: 6px;
-}
-.cc-edit-btn {
-  background: var(--surface); border: 1px solid var(--border-strong);
-  border-radius: 6px; width: 24px; height: 24px;
-  display: inline-flex; align-items: center; justify-content: center;
-  font-size: 0.68rem; cursor: pointer; transition: 0.2s; color: var(--text-muted);
-}
+.cc-name { font-size: 0.68rem; font-family: 'DM Mono', monospace; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.cc-edit-btn { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 6px; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem; cursor: pointer; transition: 0.2s; color: var(--text-muted); }
 .cc-edit-btn:hover { border-color: var(--amber); color: var(--text); transform: scale(1.08); }
 .cc-inv { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
 .budget-wrap { width: 100%; height: 5px; background: var(--surface3); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
@@ -253,44 +232,22 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .budget-fill.danger { background: var(--red); }
 .budget-text { font-size: 0.64rem; color: var(--text-dim); font-family: 'DM Mono', monospace; display: flex; justify-content: space-between; font-weight: 600; }
 
-/* BÚSQUEDA Y FILTROS */
 .filter-bar { display: flex; gap: 10px; margin-bottom: 12px; }
-.filter-bar input[type="text"] {
-  flex: 1; min-height: 44px; background: var(--surface);
-  border: 1px solid var(--border); border-radius: 22px;
-  color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-  padding: 0 20px; outline: none; transition: 0.2s; box-shadow: var(--shadow-sm);
-}
+.filter-bar input[type="text"] { flex: 1; min-height: 44px; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 0 20px; outline: none; transition: 0.2s; box-shadow: var(--shadow-sm); }
 .filter-bar input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px var(--amber-glow); }
-.custom-select-btn {
-  min-width: 165px; min-height: 44px; background: var(--surface);
-  border: 1px solid var(--border); border-radius: 22px; color: var(--text);
-  font-family: 'DM Sans', sans-serif; font-size: 0.84rem; padding: 0 16px;
-  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-  transition: all 0.2s; font-weight: 600; box-shadow: var(--shadow-sm);
-}
+.custom-select-btn { min-width: 165px; min-height: 44px; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.84rem; padding: 0 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; font-weight: 600; box-shadow: var(--shadow-sm); }
 .custom-select-btn:hover { border-color: var(--amber); }
 
 .quick-pills { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-bottom: 20px; }
 .quick-pills::-webkit-scrollbar { display: none; }
-.q-pill {
-  background: var(--surface); border: 1px solid var(--border);
-  color: var(--text-muted); padding: 7px 14px; border-radius: 20px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600;
-  cursor: pointer; white-space: nowrap; transition: 0.2s;
-}
+.q-pill { background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 14px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.2s; }
 .q-pill:hover, .q-pill.active { border-color: var(--amber); color: var(--amber); background: var(--amber-glow); }
 
-/* SECCIONES Y TARJETAS DE ACTIVOS */
 .section { margin-bottom: 30px; }
 .sec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; cursor: pointer; user-select: none; padding: 6px 0; }
 .sec-title-group { display: flex; align-items: center; gap: 10px; }
 .sec-header h2 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--text); }
-.sec-header .badge {
-  background: var(--surface); border: 1px solid var(--border-strong);
-  border-radius: 12px; font-family: 'DM Mono', monospace; font-size: 0.7rem;
-  padding: 2px 9px; color: var(--text-muted); font-weight: 700;
-}
+.sec-header .badge { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 12px; font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 2px 9px; color: var(--text-muted); font-weight: 700; }
 .sec-chevron { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--text-dim); transition: transform 0.25s; }
 .section.is-collapsed .sec-chevron { transform: rotate(-90deg); }
 .section.green .sec-header h2 { color: var(--green); }
@@ -299,11 +256,7 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .list-container { display: flex; flex-direction: column; gap: 12px; }
 .list-container.collapsed { display: none; }
 
-.prod-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-md); overflow: hidden;
-  transition: all 0.2s var(--ease); box-shadow: var(--shadow-sm); position: relative;
-}
+.prod-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; transition: all 0.2s var(--ease); box-shadow: var(--shadow-sm); position: relative; }
 .prod-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
 .prod-card.premium { border-left: 4px solid var(--amber); }
 
@@ -311,10 +264,7 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .pc-main { display: flex; flex-direction: column; gap: 5px; flex: 1; overflow: hidden; }
 .pc-name { font-weight: 700; font-size: 0.96rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
 .pc-cat { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.04em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.paid-via-tag {
-  background: var(--blue-glow); color: var(--blue);
-  padding: 1px 6px; border-radius: 4px; font-size: 0.6rem; font-weight: 700;
-}
+.paid-via-tag { background: var(--blue-glow); color: var(--blue); padding: 1px 6px; border-radius: 4px; font-size: 0.6rem; font-weight: 700; }
 
 .pc-stats { text-align: right; display: flex; flex-direction: column; gap: 5px; align-items: flex-end; flex-shrink: 0; }
 .pc-cday { font-family: 'DM Mono', monospace; font-weight: 700; font-size: 1rem; color: var(--text); }
@@ -328,7 +278,6 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .pill-green { background: var(--green-glow); color: var(--green); border-color: rgba(5, 150, 105, 0.3); }
 .pill-amber { background: var(--amber-glow); color: var(--amber); border-color: rgba(217, 119, 6, 0.3); }
 
-/* DETALLES DESPLEGABLES */
 .pc-details { display: none; padding: 16px; border-top: 1px dashed var(--border); background: var(--surface2); animation: slideDown 0.2s var(--ease); }
 .pc-details.open { display: block; }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
@@ -348,24 +297,14 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .pc-btn.edit { background: var(--surface); color: var(--text); border: 1px solid var(--border-strong); }
 .pc-btn.del { background: var(--red-glow); color: var(--red); border: 1px solid rgba(220, 38, 38, 0.35); }
 
-/* LISTA DE DESEOS CON INTELIGENCIA FINANCIERA INTEGRADA */
 .wish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
-.wish-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-md);
-  display: flex; flex-direction: column; justify-content: space-between; gap: 12px;
-}
+.wish-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
 .wish-card .wc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
 .wish-card .wc-name { font-weight: 700; font-size: 1.02rem; color: var(--text); }
 .wish-card .wc-precio { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.3rem; color: var(--purple); margin-top: 2px; }
 .wish-card .wc-nota { font-size: 0.8rem; color: var(--text-muted); font-style: italic; line-height: 1.45; background: var(--surface2); padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--purple); }
 .wish-card .wc-meta { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--text-dim); margin-top: 4px; }
-.wc-synergy-box {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 10px; padding: 9px 11px;
-  font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-muted);
-  display: flex; flex-direction: column; gap: 4px;
-}
+.wc-synergy-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 9px 11px; font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; }
 .wish-card .wc-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 10px; border-top: 1px dashed var(--border); }
 .prio-pill { font-family: 'DM Mono', monospace; font-size: 0.64rem; padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid; }
 .prio-Alta { background: var(--red-glow); color: var(--red); border-color: rgba(220, 38, 38, 0.3); }
@@ -375,29 +314,13 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .empty-state { text-align: center; padding: 44px 24px; color: var(--text-dim); background: var(--surface); border-radius: var(--r-lg); border: 1.5px dashed var(--border-strong); }
 .empty-state .es-icon { font-size: 2.2rem; margin-bottom: 10px; opacity: 0.7; display: block; }
 
-/* MODALES PREMIUM UNIFICADOS */
 .duplicate-warn { display: none; color: var(--amber); font-size: 0.72rem; font-weight: 600; margin-top: 6px; font-family: 'DM Mono', monospace; }
-.backdrop {
-  position: fixed; inset: 0; background: rgba(9, 13, 22, 0.65);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  z-index: 300; display: flex; align-items: center; justify-content: center;
-  animation: fadeIn 0.2s var(--ease);
-}
-.modal {
-  background: var(--surface); border: 1px solid var(--border-strong);
-  border-radius: 24px; padding: 26px; max-width: 490px; width: 92%;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-  animation: scaleIn 0.22s var(--ease); max-height: 90vh; overflow-y: auto;
-}
+.backdrop { position: fixed; inset: 0; background: rgba(9, 13, 22, 0.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 300; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s var(--ease); }
+.modal { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 24px; padding: 26px; max-width: 490px; width: 92%; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35); animation: scaleIn 0.22s var(--ease); max-height: 90vh; overflow-y: auto; }
 .modal h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
 .modal .desc { color: var(--text-muted); font-size: 0.84rem; line-height: 1.5; margin-bottom: 18px; font-weight: 500; }
 .modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; flex-wrap: wrap; }
-.mbtn {
-  border: none; border-radius: 22px; min-height: 44px; padding: 0 18px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.86rem; cursor: pointer;
-  font-weight: 700; transition: all 0.2s var(--ease);
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-}
+.mbtn { border: none; border-radius: 22px; min-height: 44px; padding: 0 18px; font-family: 'DM Sans', sans-serif; font-size: 0.86rem; cursor: pointer; font-weight: 700; transition: all 0.2s var(--ease); display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 .mbtn:active { transform: scale(0.95); }
 .mbtn-cancel { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border-strong); }
 .mbtn-green { background: var(--green); color: white; }
@@ -405,57 +328,26 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 .mbtn-amber { background: var(--amber); color: white; }
 
 .field label { display: block; font-size: 0.64rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px; font-weight: 700; }
-.field input, .field select, .field textarea {
-  width: 100%; min-height: 44px; background: var(--surface2);
-  border: 1px solid var(--border-strong); border-radius: 12px;
-  color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-  padding: 0 14px; outline: none; transition: 0.2s; font-weight: 500;
-}
-.field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--amber); background: var(--surface); box-shadow: 0 0 0 3px var(--amber-glow);
-}
+.field input, .field select, .field textarea { width: 100%; min-height: 44px; background: var(--surface2); border: 1px solid var(--border-strong); border-radius: 12px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 0 14px; outline: none; transition: 0.2s; font-weight: 500; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--amber); background: var(--surface); box-shadow: 0 0 0 3px var(--amber-glow); }
 .edit-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
-
-.card-bridge-box {
-  background: var(--surface2); border: 1px solid var(--border-strong);
-  border-left: 3px solid var(--blue); border-radius: 12px; padding: 12px;
-}
+.card-bridge-box { background: var(--surface2); border: 1px solid var(--border-strong); border-left: 3px solid var(--blue); border-radius: 12px; padding: 12px; }
 .cb-hint { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-muted); margin-top: 6px; }
 
 .sort-item { padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 0.9rem; font-weight: 600; color: var(--text); cursor: pointer; transition: background 0.2s; display: flex; justify-content: space-between; align-items: center; border-radius: 10px; }
 .sort-item:last-child { border-bottom: none; }
 .sort-item.active-sort { color: var(--amber); font-weight: 700; background: var(--amber-glow); }
 
-/* GLOBAL DOCK DE NAVEGACIÓN UNIFICADA */
-.global-dock {
-  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
-  background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-strong); border-radius: 30px;
-  padding: 6px 8px; display: flex; align-items: center; gap: 6px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); z-index: 200;
-}
-.dock-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 16px; border-radius: 24px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
-  color: var(--text-muted); text-decoration: none; transition: all 0.2s var(--ease);
-  white-space: nowrap;
-}
+.global-dock { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-strong); border-radius: 30px; padding: 6px 8px; display: flex; align-items: center; gap: 6px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); z-index: 200; }
+.dock-link { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 24px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-decoration: none; transition: all 0.2s var(--ease); white-space: nowrap; }
 .dock-link:hover { color: var(--text); background: var(--surface2); }
 .dock-link.active { background: var(--text); color: var(--bg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
 
-#toast {
-  position: fixed; bottom: 82px; left: 50%; transform: translateX(-50%) translateY(20px);
-  background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace;
-  font-size: 0.78rem; font-weight: 700; padding: 11px 22px; border-radius: 30px;
-  opacity: 0; transition: 0.3s var(--ease); z-index: 400; pointer-events: none;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-}
+#toast { position: fixed; bottom: 82px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 700; padding: 11px 22px; border-radius: 30px; opacity: 0; transition: 0.3s var(--ease); z-index: 400; pointer-events: none; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
 .impact-bar-bg { width: 100%; height: 6px; background: var(--surface3); border-radius: 3px; margin-top: 8px; overflow: hidden; display: none; }
 .impact-bar-fill { height: 100%; background: var(--red); border-radius: 3px; transition: width 0.3s var(--ease); }
 
@@ -635,8 +527,8 @@ main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 
 <div id="modalContainer"></div>
 <div id="toast">Notificación</div>
-
 <script>
+// --- REGISTRO Y CONFIGURACIÓN INICIAL ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => {});
@@ -653,31 +545,31 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const CLOUD_KEY = "compras";
 
+// --- ESTADO Y CONSTANTES GLOBALES ---
+const APP_KEYS = {
+  THEME: 'compras_theme',
+  PRIVACY: 'pierovski_privacy',
+  PRODS: 'c_prods',
+  WISHES: 'c_wishes',
+  HIST: 'c_hist',
+  TRASH: 'c_trash',
+  CATS: 'c_cats',
+  BUDGETS: 'c_budgets',
+  LAST_UPDATE: 'c_last_update',
+  CARDS: 'tarjetasPremiumV3',
+  CARDS_UPDATE: 't_last_update',
+  FIN_PLAN: 'cache_fin',
+  FIN_TASKS: 'fin_tasks_v1'
+};
+
 let isOnline = navigator.onLine;
 let searchTimeout = null;
 let currentDashboardFilter = 'all';
 let currentCategoryFilter = 'all';
 window.currentSortBy = 'category';
-let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
+let isPrivacyMode = localStorage.getItem(APP_KEYS.PRIVACY) === 'true';
 
-const AudioCtx = window.AudioContext || window.webkitAudioContext;
-const audioCtx = AudioCtx ? new AudioCtx() : null;
-function playTactileSound() {
-  if (audioCtx) {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(660, audioCtx.currentTime + 0.06);
-    gain.gain.setValueAtTime(0.16, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.06);
-  }
-  if (navigator.vibrate) navigator.vibrate(20);
-}
-
+// --- INICIALIZACIÓN Y SINCRONIZACIÓN ---
 function initCloud() {
   if (!navigator.onLine) {
     document.getElementById('offlineBanner').style.display = 'block';
@@ -691,15 +583,16 @@ function initCloud() {
     if (snap.exists()) {
       const cloud = snap.val();
       const cloudTs = cloud.lastUpdated || 0;
-      const localTs = parseInt(localStorage.getItem('c_last_update')) || 0;
+      const localTs = parseInt(localStorage.getItem(APP_KEYS.LAST_UPDATE)) || 0;
+      
       if (cloudTs > localTs) {
-        localStorage.setItem('c_prods', JSON.stringify(cloud.products || []));
-        localStorage.setItem('c_wishes', JSON.stringify(cloud.wishes || []));
-        localStorage.setItem('c_hist', JSON.stringify(cloud.history || []));
-        localStorage.setItem('c_trash', JSON.stringify(cloud.trash || []));
-        if (cloud.categories) localStorage.setItem('c_cats', JSON.stringify(cloud.categories));
-        if (cloud.budgets) localStorage.setItem('c_budgets', JSON.stringify(cloud.budgets));
-        localStorage.setItem('c_last_update', cloudTs);
+        localStorage.setItem(APP_KEYS.PRODS, JSON.stringify(cloud.products || []));
+        localStorage.setItem(APP_KEYS.WISHES, JSON.stringify(cloud.wishes || []));
+        localStorage.setItem(APP_KEYS.HIST, JSON.stringify(cloud.history || []));
+        localStorage.setItem(APP_KEYS.TRASH, JSON.stringify(cloud.trash || []));
+        if (cloud.categories) localStorage.setItem(APP_KEYS.CATS, JSON.stringify(cloud.categories));
+        if (cloud.budgets) localStorage.setItem(APP_KEYS.BUDGETS, JSON.stringify(cloud.budgets));
+        localStorage.setItem(APP_KEYS.LAST_UPDATE, cloudTs);
         renderAll();
       } else if (localTs > cloudTs) {
         syncCloud(localTs);
@@ -714,7 +607,7 @@ function initCloud() {
 
 function triggerSync() {
   const ts = Date.now();
-  localStorage.setItem('c_last_update', ts);
+  localStorage.setItem(APP_KEYS.LAST_UPDATE, ts);
   syncCloud(ts);
 }
 
@@ -736,24 +629,26 @@ function syncCloud(ts) {
 window.addEventListener('storage', () => renderAll());
 
 window.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('compras_theme') === 'dark') document.body.classList.add('dark-theme');
+  if (localStorage.getItem(APP_KEYS.THEME) === 'dark') document.body.classList.add('dark-theme');
   if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
   renderAll();
   initCloud();
 });
 
+// --- LÓGICA FINANCIERA Y FECHAS (Reparado Zona Horaria) ---
 function todayStr() {
   const now = new Date();
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 }
 
 function calcDays(dStr) {
-  const clean = String(dStr || todayStr()).split('T')[0];
-  const parts = clean.split('-');
+  if (!dStr) return 1;
+  const parts = String(dStr).split('T')[0].split('-');
   if (parts.length !== 3) return 1;
-  const itemDate = new Date(parts[0], parts[1] - 1, parts[2]);
+  // Uso de UTC estricto para evitar saltos por zona horaria local
+  const itemDate = Date.UTC(parts[0], parts[1] - 1, parts[2]);
   const now = new Date();
-  const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const todayMidnight = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
   const diff = Math.floor((todayMidnight - itemDate) / 86400000);
   return Math.max(1, diff + 1);
 }
@@ -773,6 +668,7 @@ function calcSuggestedResale(cost, days) {
   return Math.max(0, sug);
 }
 
+// --- UTILIDADES DE CARGA DE DATOS ---
 function getSafeArray(key) {
   try {
     const data = JSON.parse(localStorage.getItem(key));
@@ -783,7 +679,7 @@ function getSafeArray(key) {
 }
 
 function loadProds() {
-  return getSafeArray('c_prods').map(p => ({
+  return getSafeArray(APP_KEYS.PRODS).map(p => ({
     ...p,
     id: p.id || 'p_' + Date.now(),
     category: p.category || 'Otros',
@@ -799,24 +695,25 @@ function loadProds() {
 function loadBudgets() {
   const def = { "Topografía": 15000, "Gabinete": 2500, "Herramientas": 1000, "Personal": 800, "Entretenimiento": 500, "Otros": 500 };
   try {
-    const saved = JSON.parse(localStorage.getItem('c_budgets'));
+    const saved = JSON.parse(localStorage.getItem(APP_KEYS.BUDGETS));
     return saved ? { ...def, ...saved } : def;
   } catch (e) { return def; }
 }
-function loadWishes() { return getSafeArray('c_wishes'); }
-function loadHist() { return getSafeArray('c_hist'); }
-function loadTrash() { return getSafeArray('c_trash'); }
+
+function loadWishes() { return getSafeArray(APP_KEYS.WISHES); }
+function loadHist() { return getSafeArray(APP_KEYS.HIST); }
+function loadTrash() { return getSafeArray(APP_KEYS.TRASH); }
 function loadCategories() {
   const def = ["Topografía", "Gabinete", "Herramientas", "Personal", "Entretenimiento", "Otros"];
   try {
-    const saved = JSON.parse(localStorage.getItem('c_cats'));
+    const saved = JSON.parse(localStorage.getItem(APP_KEYS.CATS));
     return (Array.isArray(saved) && saved.length > 0) ? saved : def;
   } catch (e) { return def; }
 }
 
-// FUNCIONES PUENTE CON TARJETAS Y PLAN (BÓVEDA)
+// --- PUENTE CRUZADO (TARJETAS Y BÓVEDA) ---
 function loadSyncedCards() {
-  return getSafeArray('tarjetasPremiumV3');
+  return getSafeArray(APP_KEYS.CARDS);
 }
 
 function getFreeCreditDays(closingDay, paymentDay) {
@@ -844,8 +741,8 @@ function getBestCardToday() {
 
 function getVaultSavedAmount() {
   try {
-    const finPlan = JSON.parse(localStorage.getItem('cache_fin'));
-    const finStates = JSON.parse(localStorage.getItem('fin_tasks_v1') || '{}');
+    const finPlan = JSON.parse(localStorage.getItem(APP_KEYS.FIN_PLAN));
+    const finStates = JSON.parse(localStorage.getItem(APP_KEYS.FIN_TASKS) || '{}');
     let qDone = 0;
     if (finPlan && finPlan.weeks) {
       finPlan.weeks.forEach((w, wi) => {
@@ -868,18 +765,19 @@ function chargeCardInBridge(cardId, amountToCharge) {
 
   target.debtTotal = parseFloat(((parseFloat(target.debtTotal) || 0) + amountToCharge).toFixed(2));
   const ts = Date.now();
-  localStorage.setItem('tarjetasPremiumV3', JSON.stringify(cards));
-  localStorage.setItem('t_last_update', ts);
+  localStorage.setItem(APP_KEYS.CARDS, JSON.stringify(cards));
+  localStorage.setItem(APP_KEYS.CARDS_UPDATE, ts);
 
   if (navigator.onLine) {
     db.ref('pierovski').update({
       tarjetasLastUpdated: ts,
-      tarjetasPremiumV3: cards
+      [APP_KEYS.CARDS]: cards
     }).catch(() => {});
   }
   return target.name;
 }
 
+// --- UI Y FORMATO ---
 function toast(msg) {
   const t = document.getElementById('toast');
   t.innerText = msg;
@@ -919,16 +817,17 @@ function renderStars(rating) {
   return `<span style="color:var(--amber); font-size:0.8rem; letter-spacing:-1px;">${'★'.repeat(rating)}</span>`;
 }
 
+// --- CONTROLES Y NAVEGACIÓN ---
 function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
 function togglePrivacy() {
   isPrivacyMode = !isPrivacyMode;
-  localStorage.setItem('pierovski_privacy', isPrivacyMode);
+  localStorage.setItem(APP_KEYS.PRIVACY, isPrivacyMode);
   document.getElementById('privacyToggleBtn').classList.toggle('active', isPrivacyMode);
   renderAll();
 }
 function toggleDarkMode() {
   const isDark = document.body.classList.toggle('dark-theme');
-  localStorage.setItem('compras_theme', isDark ? 'dark' : 'light');
+  localStorage.setItem(APP_KEYS.THEME, isDark ? 'dark' : 'light');
 }
 function handleFabClick() {
   const isD = document.getElementById('tab-deseos').classList.contains('active');
@@ -942,7 +841,6 @@ function populateSelects(prefix) {
       `<option value="ADD">+ Nueva Categoría...</option>`;
   }
 }
-
 function toggleItemDetails(id) {
   const details = document.getElementById('details-' + id);
   if (!details) return;
@@ -950,7 +848,6 @@ function toggleItemDetails(id) {
   document.querySelectorAll('.pc-details.open').forEach(el => el.classList.remove('open'));
   if (!wasOpen) details.classList.add('open');
 }
-
 function switchTab(t) {
   if (!document.startViewTransition) executeTabSwitch(t);
   else document.startViewTransition(() => executeTabSwitch(t));
@@ -960,7 +857,6 @@ function executeTabSwitch(t) {
   document.getElementById('tab-' + t).classList.add('active');
   document.getElementById('btn-tab-' + t)?.classList.add('active');
 }
-
 function setDashboardFilter(val, element) {
   currentDashboardFilter = (currentDashboardFilter === val && val !== 'all') ? 'all' : val;
   document.querySelectorAll('.kpi-item').forEach(c => c.classList.remove('active-filter'));
@@ -968,7 +864,6 @@ function setDashboardFilter(val, element) {
   else document.getElementById('kpi-total').classList.add('active-filter');
   renderAll();
 }
-
 function setCategoryFilter(cat) {
   currentCategoryFilter = (currentCategoryFilter === cat) ? 'all' : cat;
   renderAll();
@@ -985,14 +880,14 @@ function toggleSection(secId) {
   }
 }
 
-// REGISTRADOR DE INVENTARIO POR LOTE
+// --- GESTIÓN POR LOTE Y ORDENAMIENTO ---
 function openPresetsModal() {
   const catOptions = loadCategories().map(c => `<option value="${c}">${getCatIcon(c)} ${c}</option>`).join('');
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal">
         <h3>📦 Registro Rápido por Lote</h3>
-        <p class="desc">Ingresa varios equipos o compras previas (una por línea) usando el formato:<br>
+        <p class="desc">Ingresa varios equipos (una por línea) formato:<br>
         <code style="color:var(--amber); font-family:'DM Mono', monospace; font-size:0.76rem;">Nombre | Costo | Meta diaria (opcional)</code></p>
 
         <div class="edit-grid">
@@ -1009,7 +904,7 @@ function openPresetsModal() {
 
           <div class="field">
             <label>Artículos (uno por línea)</label>
-            <textarea id="bulkText" rows="5" style="padding:12px; font-family:'DM Mono', monospace; font-size:0.84rem;" placeholder="Trípode de aluminio | 450 | 1.50&#10;Batería adicional | 380&#10;Chaleco geodésico | 120"></textarea>
+            <textarea id="bulkText" rows="5" style="padding:12px; font-family:'DM Mono', monospace; font-size:0.84rem;" placeholder="Trípode de aluminio | 450 | 1.50&#10;Batería adicional | 380"></textarea>
           </div>
         </div>
 
@@ -1050,22 +945,14 @@ function saveBulkLegacyItems() {
 
   if (added === 0) return toast('⚠ Formato inválido. Usa: Nombre | Costo');
 
-  localStorage.setItem('c_prods', JSON.stringify(prods));
+  localStorage.setItem(APP_KEYS.PRODS, JSON.stringify(prods));
   triggerSync();
-  playTactileSound();
   closeModal();
   renderAll();
-  toast(`✓ ${added} ${added === 1 ? 'activo agregado' : 'activos agregados'}`);
+  toast(`✓ ${added} agregados`);
 }
 
-// ORDENAMIENTO AVANZADO
-const sortOpts = {
-  'category': 'A-Z Categorías',
-  'date-desc': 'Más Recientes',
-  'cost-desc': 'Mayor Inversión',
-  'goal-closest': 'Cerca de Meta',
-  'cday-asc': 'Menor Costo/Día'
-};
+const sortOpts = { 'category': 'A-Z Categorías', 'date-desc': 'Más Recientes', 'cost-desc': 'Mayor Inversión', 'goal-closest': 'Cerca de Meta', 'cday-asc': 'Menor Costo/Día' };
 function openSortModal() {
   const html = Object.entries(sortOpts).map(([k, v]) =>
     `<div class="sort-item ${window.currentSortBy === k ? 'active-sort' : ''}" onclick="applySort('${k}')"><span>${v}</span>${window.currentSortBy === k ? '<span>✓</span>' : ''}</div>`
@@ -1089,15 +976,15 @@ function applySort(val, btnEl) {
   renderAll();
 }
 
-// RESPALDO JSON Y EXPORTACIÓN A EXCEL (CSV)
+// --- RESPALDO Y GESTIÓN DE PRESUPUESTOS ---
 function openBackupModal() {
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal" style="max-width: 430px;">
         <h3>Gestión y Exportación de Datos</h3>
-        <p class="desc">Descarga tu inventario en formato Excel (.CSV) o guarda una copia de seguridad completa en formato JSON.</p>
+        <p class="desc">Descarga tu inventario en Excel (.CSV) o guarda una copia en JSON.</p>
         <div style="display:flex; flex-direction:column; gap:10px; margin-top: 18px;">
-          <button class="mbtn mbtn-green" onclick="exportCSVReport()" style="width:100%;">📊 Descargar Reporte en Excel (.CSV)</button>
+          <button class="mbtn mbtn-green" onclick="exportCSVReport()" style="width:100%;">📊 Descargar Reporte (.CSV)</button>
           <div style="display:flex; gap:10px;">
             <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackupData(event)">
             <button class="mbtn mbtn-cancel" style="flex:1;" onclick="document.getElementById('importFile').click()">⬆️ Importar JSON</button>
@@ -1111,7 +998,6 @@ function openBackupModal() {
 function exportCSVReport() {
   const prods = loadProds();
   if (prods.length === 0) return toast('⚠ No hay activos para exportar');
-
   const headers = ["Nombre", "Categoria", "Fecha Compra", "Costo Inicial (S/)", "Dias de Uso", "Costo por Dia (S/)", "Meta Diaria (S/)", "Porcentaje Amortizado", "Estado", "Medio de Pago", "Calificacion", "Notas"];
   const rows = prods.map(p => {
     const days = calcDays(p.date);
@@ -1138,14 +1024,7 @@ function exportCSVReport() {
 }
 
 function exportBackupData() {
-  const data = {
-    products: loadProds(),
-    wishes: loadWishes(),
-    history: loadHist(),
-    trash: loadTrash(),
-    categories: loadCategories(),
-    budgets: loadBudgets()
-  };
+  const data = { products: loadProds(), wishes: loadWishes(), history: loadHist(), trash: loadTrash(), categories: loadCategories(), budgets: loadBudgets() };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -1164,12 +1043,12 @@ function importBackupData(event) {
   reader.onload = function(e) {
     try {
       const data = JSON.parse(e.target.result);
-      if (data.products) localStorage.setItem('c_prods', JSON.stringify(data.products));
-      if (data.wishes) localStorage.setItem('c_wishes', JSON.stringify(data.wishes));
-      if (data.history) localStorage.setItem('c_hist', JSON.stringify(data.history));
-      if (data.trash) localStorage.setItem('c_trash', JSON.stringify(data.trash));
-      if (data.categories) localStorage.setItem('c_cats', JSON.stringify(data.categories));
-      if (data.budgets) localStorage.setItem('c_budgets', JSON.stringify(data.budgets));
+      if (data.products) localStorage.setItem(APP_KEYS.PRODS, JSON.stringify(data.products));
+      if (data.wishes) localStorage.setItem(APP_KEYS.WISHES, JSON.stringify(data.wishes));
+      if (data.history) localStorage.setItem(APP_KEYS.HIST, JSON.stringify(data.history));
+      if (data.trash) localStorage.setItem(APP_KEYS.TRASH, JSON.stringify(data.trash));
+      if (data.categories) localStorage.setItem(APP_KEYS.CATS, JSON.stringify(data.categories));
+      if (data.budgets) localStorage.setItem(APP_KEYS.BUDGETS, JSON.stringify(data.budgets));
       triggerSync();
       renderAll();
       closeModal();
@@ -1179,14 +1058,13 @@ function importBackupData(event) {
   reader.readAsText(file);
 }
 
-// GESTIÓN DE CATEGORÍAS Y PRESUPUESTOS
 function editBudgetModal(cat, ev) {
   if (ev) ev.stopPropagation();
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal" style="max-width:360px;">
         <h3>${getCatIcon(cat)} ${cat}</h3>
-        <p class="desc">Define tu tope de inversión mensual para esta categoría.</p>
+        <p class="desc">Define tu tope de inversión mensual.</p>
         <div class="edit-grid">
           <div class="field">
             <label>Tope Mensual (S/)</label>
@@ -1207,7 +1085,7 @@ function saveBudget(cat) {
   if (!isNaN(val) && val > 0) {
     const b = loadBudgets();
     b[cat] = val;
-    localStorage.setItem('c_budgets', JSON.stringify(b));
+    localStorage.setItem(APP_KEYS.BUDGETS, JSON.stringify(b));
     triggerSync();
     renderAll();
     closeModal();
@@ -1216,13 +1094,10 @@ function saveBudget(cat) {
 }
 function deleteCategory(cat) {
   const prods = loadProds();
-  if (prods.some(p => p.category === cat)) {
-    toast('⚠ Hay activos usando esta categoría');
-    return;
-  }
+  if (prods.some(p => p.category === cat)) return toast('⚠ Hay activos usando esta categoría');
   if (confirm(`¿Eliminar la categoría "${cat}"?`)) {
     const cats = loadCategories().filter(c => c !== cat);
-    localStorage.setItem('c_cats', JSON.stringify(cats));
+    localStorage.setItem(APP_KEYS.CATS, JSON.stringify(cats));
     if (currentCategoryFilter === cat) currentCategoryFilter = 'all';
     triggerSync();
     closeModal();
@@ -1231,7 +1106,7 @@ function deleteCategory(cat) {
   }
 }
 
-// CRUD ACTIVOS CON PUENTE DIRECTO A TARJETAS DE CRÉDITO
+// --- CRUD PRINCIPAL ---
 function openAddModal(prefill = null) {
   const defName = prefill ? prefill.name : '';
   const defCost = prefill && prefill.cost ? prefill.cost : '';
@@ -1241,7 +1116,7 @@ function openAddModal(prefill = null) {
 
   const syncedCards = loadSyncedCards();
   const bestToday = getBestCardToday();
-  const cardOptionsHTML = `<option value="CASH">💵 Contado / Débito (No suma deuda a tarjetas)</option>` +
+  const cardOptionsHTML = `<option value="CASH">💵 Contado / Débito (No suma deuda)</option>` +
     syncedCards.map(c => {
       const fd = getFreeCreditDays(c.closing, c.payment);
       const isBest = bestToday && String(bestToday.card.id) === String(c.id);
@@ -1251,7 +1126,7 @@ function openAddModal(prefill = null) {
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal">
-        <h3>${fromWishId ? '✨ Convertir Deseo en Activo' : '📦 Registrar Compra o Activo'}</h3>
+        <h3>${fromWishId ? '✨ Convertir Deseo en Activo' : '📦 Registrar Compra'}</h3>
         <div class="edit-grid">
           <div class="field">
             <label>Artículo / Equipo</label>
@@ -1262,21 +1137,12 @@ function openAddModal(prefill = null) {
             <div class="field" style="flex:1;"><label>Costo Total (S/)</label><input type="number" step="0.01" id="aCosto" value="${defCost}" oninput="previewCardImpact()"></div>
             <div class="field" style="flex:1;"><label>Meta Diaria (S/)</label><input type="number" step="0.01" id="aMeta" value="${defGoal}"></div>
           </div>
-
-          <!-- PUENTE CON MÓDULO DE TARJETAS -->
           <div class="card-bridge-box">
-            <div class="field">
-              <label style="color:var(--blue);">💳 Método de Pago (Sincronizado con Tarjetas)</label>
-              <select id="aPayMethod" onchange="previewCardImpact()">${cardOptionsHTML}</select>
-            </div>
-            <div class="cb-hint" id="cardImpactHint">Selecciona una tarjeta si deseas sumar esta compra a tu saldo utilizado en Tarjetas.</div>
+            <div class="field"><label style="color:var(--blue);">💳 Método de Pago</label><select id="aPayMethod" onchange="previewCardImpact()">${cardOptionsHTML}</select></div>
+            <div class="cb-hint" id="cardImpactHint">Selecciona una tarjeta si deseas sumar esta compra a tu saldo en Tarjetas.</div>
           </div>
-
           <div style="display:flex; gap:10px;">
-            <div class="field" style="flex:1;">
-              <label>Categoría</label>
-              <select id="aCat" onchange="handleNewCatSelect(this, 'a')"></select>
-            </div>
+            <div class="field" style="flex:1;"><label>Categoría</label><select id="aCat" onchange="handleNewCatSelect(this, 'a')"></select></div>
             <div class="field" style="flex:1;">
               <label>Calificación</label>
               <select id="aRating">
@@ -1291,7 +1157,7 @@ function openAddModal(prefill = null) {
           </div>
           <div style="display:flex; gap:10px;">
             <div class="field" style="flex:1;"><label>Fecha de Compra</label><input type="date" id="aFecha" value="${todayStr()}"></div>
-            <div class="field" style="flex:1.3;"><label>Nota / Serie / Detalle</label><input type="text" id="aNota" value="${defNote}" placeholder="Opcional"></div>
+            <div class="field" style="flex:1.3;"><label>Nota / Detalle</label><input type="text" id="aNota" value="${defNote}" placeholder="Opcional"></div>
           </div>
         </div>
         <div class="modal-btns">
@@ -1312,18 +1178,17 @@ function previewCardImpact() {
   if (!sel || !hint) return;
 
   if (sel.value === 'CASH') {
-    hint.innerHTML = `Pago al contado: no incrementa la deuda de tus tarjetas de crédito.`;
+    hint.innerHTML = `Pago al contado: no incrementa deuda en tarjetas de crédito.`;
     hint.style.color = 'var(--text-muted)';
     return;
   }
-
   const card = loadSyncedCards().find(c => String(c.id) === String(sel.value));
   if (!card) return;
   const newDebt = (parseFloat(card.debtTotal) || 0) + cost;
   const limit = parseFloat(card.creditLimit) || 0;
   if (limit > 0) {
     const newPct = Math.round((newDebt / limit) * 100);
-    hint.innerHTML = `Nuevo saldo en <b>${card.name}</b>: ${formatMoney(newDebt)} (Uso SBS proyectado: <b>${newPct}%</b> ${newPct <= 25 ? '✓ Óptimo' : '⚠️ Supera el 25%'})`;
+    hint.innerHTML = `Nuevo saldo en <b>${card.name}</b>: ${formatMoney(newDebt)} (Uso SBS: <b>${newPct}%</b> ${newPct <= 25 ? '✓ Óptimo' : '⚠️ Supera el 25%'})`;
     hint.style.color = newPct <= 25 ? 'var(--green)' : 'var(--amber)';
   } else {
     hint.innerHTML = `Se sumarán ${formatMoney(cost)} a la deuda actual de <b>${card.name}</b>.`;
@@ -1339,7 +1204,7 @@ function handleNewCatSelect(selEl, prefix) {
       const c = loadCategories();
       if (!c.includes(clean)) {
         c.push(clean);
-        localStorage.setItem('c_cats', JSON.stringify(c));
+        localStorage.setItem(APP_KEYS.CATS, JSON.stringify(c));
       }
       populateSelects(prefix);
       selEl.value = clean;
@@ -1381,18 +1246,17 @@ function addProduct(fromWishId = '') {
     note: document.getElementById('aNota').value.trim(),
     paidWithCardName: chargedCardName
   });
-  localStorage.setItem('c_prods', JSON.stringify(prods));
+  localStorage.setItem(APP_KEYS.PRODS, JSON.stringify(prods));
 
   if (fromWishId) {
     const w = loadWishes().filter(i => i.id !== fromWishId);
-    localStorage.setItem('c_wishes', JSON.stringify(w));
+    localStorage.setItem(APP_KEYS.WISHES, JSON.stringify(w));
     switchTab('activos');
   }
 
   triggerSync();
   closeModal();
-  playTactileSound();
-  toast(chargedCardName ? `✓ Activo guardado y cargado a ${chargedCardName}` : '✓ Activo registrado');
+  toast(chargedCardName ? `✓ Guardado y cargado a ${chargedCardName}` : '✓ Activo registrado');
   renderAll();
 }
 
@@ -1405,11 +1269,10 @@ function rebuyConsumable(id) {
     if (target) {
       target.date = todayStr();
       target.rebuyCount = (parseInt(target.rebuyCount) || 1) + 1;
-      localStorage.setItem('c_prods', JSON.stringify(prods));
+      localStorage.setItem(APP_KEYS.PRODS, JSON.stringify(prods));
       triggerSync();
-      playTactileSound();
       renderAll();
-      toast(`🔄 Ciclo renovado (Compra #${target.rebuyCount})`);
+      toast(`🔄 Ciclo renovado (#${target.rebuyCount})`);
     }
   }
 }
@@ -1442,8 +1305,8 @@ function openEditModal(id) {
             </div>
           </div>
           <div style="display:flex; gap:10px;">
-            <div class="field" style="flex:1;"><label>Fecha de Compra</label><input type="date" id="eFecha" value="${p.date}"></div>
-            <div class="field" style="flex:1.3;"><label>Nota / Observación</label><input type="text" id="eNota" value="${p.note || ''}"></div>
+            <div class="field" style="flex:1;"><label>Fecha Compra</label><input type="date" id="eFecha" value="${p.date}"></div>
+            <div class="field" style="flex:1.3;"><label>Nota</label><input type="text" id="eNota" value="${p.note || ''}"></div>
           </div>
         </div>
         <div class="modal-btns">
@@ -1467,14 +1330,13 @@ function executeEdit(id) {
   p.category = document.getElementById('eCat').value;
   p.rating = parseInt(document.getElementById('eRating').value) || 0;
   p.note = document.getElementById('eNota').value.trim();
-  localStorage.setItem('c_prods', JSON.stringify(prods));
+  localStorage.setItem(APP_KEYS.PRODS, JSON.stringify(prods));
   triggerSync();
   closeModal();
   toast('✓ Cambios guardados');
   renderAll();
 }
 
-// SIMULADOR Y LISTA DE DESEOS
 function calcWishImpact() {
   const c = parseFloat(document.getElementById('wCosto').value) || 0;
   const r = parseFloat(document.getElementById('wRetorno').value) || 1;
@@ -1484,8 +1346,8 @@ function calcWishImpact() {
   if (c > 0 && r > 0) {
     const days = Math.ceil(c / r);
     const vaultAmt = getVaultSavedAmount();
-    const vaultMsg = vaultAmt >= c ? `✓ Cubierto al 100% por tu Bóveda (S/ ${vaultAmt})` : `Tu Bóveda actual cubre el ${Math.min(100, Math.round((vaultAmt / c) * 100))}%`;
-    impactEl.innerText = `⏳ Se amortiza en ${days} días (S/ ${r.toFixed(2)}/d) · ${vaultMsg}`;
+    const vaultMsg = vaultAmt >= c ? `✓ Bóveda cubre el 100% (S/ ${vaultAmt})` : `Bóveda cubre el ${Math.min(100, Math.round((vaultAmt / c) * 100))}%`;
+    impactEl.innerText = `⏳ Amortiza en ${days} días (S/ ${r.toFixed(2)}/d) · ${vaultMsg}`;
     bgBar.style.display = 'block';
     const pct = Math.min((c / 3000) * 100, 100);
     fillBar.style.width = pct + '%';
@@ -1500,15 +1362,12 @@ function openAddWishModal() {
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal">
-        <h3>✨ Añadir a Filtro de Deseos</h3>
+        <h3>✨ Añadir a Deseos</h3>
         <div class="edit-grid">
-          <div class="field"><label>Artículo o Inversión Deseada</label><input type="text" id="wNombre" required></div>
+          <div class="field"><label>Artículo</label><input type="text" id="wNombre" required></div>
           <div style="display:flex; gap:10px;">
-            <div class="field" style="flex:1;"><label>Costo Estimado (S/)</label><input type="number" step="0.01" id="wCosto" oninput="calcWishImpact()"></div>
-            <div class="field" style="flex:1;">
-              <label>Meta Diaria (S/)</label>
-              <input type="number" step="0.01" id="wRetorno" value="1.50" oninput="calcWishImpact()">
-            </div>
+            <div class="field" style="flex:1;"><label>Costo (S/)</label><input type="number" step="0.01" id="wCosto" oninput="calcWishImpact()"></div>
+            <div class="field" style="flex:1;"><label>Meta Diaria (S/)</label><input type="number" step="0.01" id="wRetorno" value="1.50" oninput="calcWishImpact()"></div>
           </div>
           <div>
             <div id="wImpact" style="font-size: 0.72rem; color: var(--amber); font-weight: 700; font-family:'DM Mono', monospace;"></div>
@@ -1519,10 +1378,7 @@ function openAddWishModal() {
               <label>Prioridad</label>
               <select id="wPrio"><option value="Alta">Alta</option><option value="Media" selected>Media</option><option value="Baja">Baja</option></select>
             </div>
-            <div class="field" style="flex:2;">
-              <label>Justificación / Retorno</label>
-              <input type="text" id="wNota" placeholder="¿Cómo impulsará tu trabajo o bienestar?">
-            </div>
+            <div class="field" style="flex:2;"><label>Retorno / Uso</label><input type="text" id="wNota" placeholder="¿Cómo impulsará tu trabajo?"></div>
           </div>
         </div>
         <div class="modal-btns">
@@ -1537,17 +1393,10 @@ function addWish() {
   const n = document.getElementById('wNombre').value.trim();
   const c = parseFloat(document.getElementById('wCosto').value) || 0;
   const g = parseFloat(document.getElementById('wRetorno').value) || 1;
-  if (!n) return toast('⚠ Ingresa el nombre del artículo');
+  if (!n) return toast('⚠ Ingresa el nombre');
   const w = loadWishes();
-  w.push({
-    id: 'w_' + Date.now(),
-    name: n,
-    cost: c,
-    goal: g,
-    prio: document.getElementById('wPrio').value,
-    note: document.getElementById('wNota').value.trim()
-  });
-  localStorage.setItem('c_wishes', JSON.stringify(w));
+  w.push({ id: 'w_' + Date.now(), name: n, cost: c, goal: g, prio: document.getElementById('wPrio').value, note: document.getElementById('wNota').value.trim() });
+  localStorage.setItem(APP_KEYS.WISHES, JSON.stringify(w));
   triggerSync();
   closeModal();
   toast('✓ Añadido a Deseos');
@@ -1563,13 +1412,12 @@ function buyWish(id) {
 function deleteWish(id) {
   if (confirm("¿Eliminar de la lista de deseos?")) {
     const w = loadWishes().filter(i => i.id !== id);
-    localStorage.setItem('c_wishes', JSON.stringify(w));
+    localStorage.setItem(APP_KEYS.WISHES, JSON.stringify(w));
     triggerSync();
     renderAll();
   }
 }
 
-// MATRIZ DE REVENTA Y PAPELERA
 function openSellModal(id) {
   const p = loadProds().find(i => i.id === id);
   if (!p) return;
@@ -1581,10 +1429,10 @@ function openSellModal(id) {
         <h3>💰 Liquidar / Vender Activo</h3>
         <div class="desc" style="background:var(--surface2); padding:14px; border-radius:12px; border:1px solid var(--border);">
           Valor sugerido de reventa: <b>${formatMoney(sug)}</b><br>
-          <span style="font-size:0.72rem; font-family:'DM Mono', monospace;">Depreciación calculada sobre ${days} días de uso</span>
+          <span style="font-size:0.72rem; font-family:'DM Mono', monospace;">Depreciación sobre ${days} días de uso</span>
         </div>
         <div class="field" style="margin-top:16px;">
-          <label>Precio Final de Venta (S/)</label>
+          <label>Precio Final Venta (S/)</label>
           <input type="number" step="0.01" id="sellPrice" value="${sug.toFixed(2)}">
         </div>
         <div class="modal-btns">
@@ -1605,25 +1453,13 @@ function executeSell(id) {
   const days = calcDays(p.date);
   const bal = p.cost - sellPrice;
   const cDay = bal > 0 ? (bal / days) : 0;
-  hist.push({
-    id: p.id,
-    name: p.name,
-    category: p.category,
-    baseCost: p.cost,
-    sellPrice: sellPrice,
-    daysUsed: days,
-    costPerDay: cDay,
-    balance: bal,
-    sellDate: todayStr(),
-    goal: p.goal || 1
-  });
+  hist.push({ id: p.id, name: p.name, category: p.category, baseCost: p.cost, sellPrice: sellPrice, daysUsed: days, costPerDay: cDay, balance: bal, sellDate: todayStr(), goal: p.goal || 1 });
   prods.splice(pIdx, 1);
-  localStorage.setItem('c_prods', JSON.stringify(prods));
-  localStorage.setItem('c_hist', JSON.stringify(hist));
+  localStorage.setItem(APP_KEYS.PRODS, JSON.stringify(prods));
+  localStorage.setItem(APP_KEYS.HIST, JSON.stringify(hist));
   triggerSync();
   closeModal();
-  playTactileSound();
-  toast('✓ Venta registrada en el historial');
+  toast('✓ Venta registrada');
   renderAll();
 }
 
@@ -1637,12 +1473,13 @@ function moveToTrash(id) {
   p.daysUsedTrash = calcDays(p.date);
   trash.push(p);
   prods.splice(pIdx, 1);
-  localStorage.setItem('c_prods', JSON.stringify(prods));
-  localStorage.setItem('c_trash', JSON.stringify(trash));
+  localStorage.setItem(APP_KEYS.PRODS, JSON.stringify(prods));
+  localStorage.setItem(APP_KEYS.TRASH, JSON.stringify(trash));
   triggerSync();
   toast('Movido a papelera');
   renderAll();
 }
+
 function restoreFromTrash(id) {
   const prods = loadProds();
   const trash = loadTrash();
@@ -1653,22 +1490,24 @@ function restoreFromTrash(id) {
   delete p.daysUsedTrash;
   prods.push(p);
   trash.splice(tIdx, 1);
-  localStorage.setItem('c_prods', JSON.stringify(prods));
-  localStorage.setItem('c_trash', JSON.stringify(trash));
+  localStorage.setItem(APP_KEYS.PRODS, JSON.stringify(prods));
+  localStorage.setItem(APP_KEYS.TRASH, JSON.stringify(trash));
   triggerSync();
-  toast('✓ Activo restaurado');
+  toast('✓ Restaurado');
   renderAll();
 }
+
 function deletePermanent(id) {
-  if (confirm("¿Eliminar definitivamente de la papelera?")) {
+  if (confirm("¿Eliminar definitivamente?")) {
     const trash = loadTrash().filter(i => i.id !== id);
-    localStorage.setItem('c_trash', JSON.stringify(trash));
+    localStorage.setItem(APP_KEYS.TRASH, JSON.stringify(trash));
     triggerSync();
     toast('Eliminado definitivamente');
     renderAll();
   }
 }
 
+// --- RENDERIZADO PRINCIPAL (Optimizado) ---
 function genCardHTML(p, isAmort) {
   const days = calcDays(p.date);
   const cDay = p.cost / days;
@@ -1683,9 +1522,7 @@ function genCardHTML(p, isAmort) {
     : `<span class="cat-pill pill-amber">⏳ Faltan ${dNeed} d (${pctAmort}%)</span>`;
 
   const barColor = isAmort ? 'var(--green)' : (pctAmort >= 65 ? 'var(--blue)' : 'var(--amber)');
-  const cardUsedBadge = p.paidWithCardName
-    ? `<span class="paid-via-tag">💳 ${p.paidWithCardName}</span>`
-    : '';
+  const cardUsedBadge = p.paidWithCardName ? `<span class="paid-via-tag">💳 ${p.paidWithCardName}</span>` : '';
 
   return `
     <div class="prod-card ${p.cost >= 3000 ? 'premium' : ''}">
@@ -1696,19 +1533,11 @@ function genCardHTML(p, isAmort) {
             ${renderStars(p.rating)}
             ${p.rebuyCount > 1 ? `<span class="cat-pill pill-green" style="font-size:0.55rem;">#${p.rebuyCount}</span>` : ''}
           </div>
-          <div class="pc-cat">
-            <span>${getCatIcon(p.category)} ${p.category} · ${p.date}</span>
-            ${cardUsedBadge}
-          </div>
+          <div class="pc-cat"><span>${getCatIcon(p.category)} ${p.category} · ${p.date}</span>${cardUsedBadge}</div>
         </div>
-        <div class="pc-stats">
-          <div class="pc-cday">${formatMoney(cDay)}/d</div>
-          ${badge}
-        </div>
+        <div class="pc-stats"><div class="pc-cday">${formatMoney(cDay)}/d</div>${badge}</div>
       </div>
-      <div class="pc-prog-track">
-        <div class="pc-prog-fill" style="width:${pctAmort}%; background:${barColor};"></div>
-      </div>
+      <div class="pc-prog-track"><div class="pc-prog-fill" style="width:${pctAmort}%; background:${barColor};"></div></div>
       <div class="pc-details" id="details-${p.id}">
         ${p.note ? `<div class="pc-note-box">📌 ${p.note}</div>` : ''}
         <div class="pc-grid">
@@ -1720,7 +1549,7 @@ function genCardHTML(p, isAmort) {
           <div><span>Valor Reventa Hoy</span><strong style="color:var(--green);">${formatMoney(estResale)}</strong></div>
         </div>
         <div class="pc-actions">
-          <button class="pc-btn rebuy" onclick="rebuyConsumable('${p.id}')" title="Reiniciar ciclo si volviste a comprar este producto">🔄 Renovar</button>
+          <button class="pc-btn rebuy" onclick="rebuyConsumable('${p.id}')">🔄 Renovar</button>
           <button class="pc-btn sell" onclick="openSellModal('${p.id}')">💰 Vender</button>
           <button class="pc-btn edit" onclick="openEditModal('${p.id}')">✏️ Editar</button>
           <button class="pc-btn del" onclick="moveToTrash('${p.id}')">🗑️</button>
@@ -1730,24 +1559,22 @@ function genCardHTML(p, isAmort) {
 }
 
 function renderAll() {
-  // Actualizar barra de sinergia superior
   const bestCardObj = getBestCardToday();
-  const bridgeBestCard = document.getElementById('bridgeBestCard');
-  const bridgeBestDays = document.getElementById('bridgeBestDays');
-  if (bestCardObj) {
-    bridgeBestCard.textContent = `${bestCardObj.card.name} (Cierra día ${bestCardObj.card.closing})`;
-    bridgeBestDays.textContent = `${bestCardObj.freeDays} d libres`;
-  } else {
-    bridgeBestCard.textContent = 'Configura tus tarjetas en el módulo';
-    bridgeBestDays.textContent = 'Ir a Tarjetas →';
+  const bCard = document.getElementById('bridgeBestCard');
+  const bDays = document.getElementById('bridgeBestDays');
+  if (bCard && bDays) {
+    if (bestCardObj) { bCard.textContent = `${bestCardObj.card.name} (Cierra día ${bestCardObj.card.closing})`; bDays.textContent = `${bestCardObj.freeDays} d libres`; } 
+    else { bCard.textContent = 'Configura tus tarjetas'; bDays.textContent = 'Ir a Tarjetas →'; }
   }
 
   const savedVault = getVaultSavedAmount();
-  document.getElementById('bridgeVaultVal').textContent = `${formatMoney(savedVault)} disponibles`;
-  document.getElementById('bridgeVaultPct').textContent = `${Math.min(100, Math.round((savedVault / 1800) * 100))}% de S/ 1.8k`;
+  const bridgeVal = document.getElementById('bridgeVaultVal');
+  const bridgePct = document.getElementById('bridgeVaultPct');
+  if (bridgeVal) bridgeVal.textContent = `${formatMoney(savedVault)} disponibles`;
+  if (bridgePct) bridgePct.textContent = `${Math.min(100, Math.round((savedVault / 1800) * 100))}% de S/ 1.8k`;
 
   const prods = loadProds();
-  const query = String(document.getElementById('searchBar').value || "").toLowerCase().trim();
+  const query = String(document.getElementById('searchBar')?.value || "").toLowerCase().trim();
   const sortBy = window.currentSortBy;
   let tAct = 0, tResale = 0, cGrn = 0, cPnd = 0, aDay = 0;
   const cTot = {}, cMon = {};
@@ -1758,32 +1585,23 @@ function renderAll() {
     const days = calcDays(p.date);
     cTot[p.category] = (cTot[p.category] || 0) + p.cost;
     const cleanD = String(p.date || todayStr()).split('T')[0].split('-');
-    if (cleanD.length === 3 && (parseInt(cleanD[1]) - 1) === cm && parseInt(cleanD[0]) === cy) {
-      cMon[p.category] = (cMon[p.category] || 0) + p.cost;
-    }
+    if (cleanD.length === 3 && (parseInt(cleanD[1]) - 1) === cm && parseInt(cleanD[0]) === cy) cMon[p.category] = (cMon[p.category] || 0) + p.cost;
     tAct += p.cost;
     tResale += calcSuggestedResale(p.cost, days);
     const cd = p.cost / days;
-    if (cd <= p.goal) cGrn++;
-    else { cPnd++; aDay += cd; }
+    if (cd <= p.goal) cGrn++; else { cPnd++; aDay += cd; }
   });
 
   const allocBar = document.getElementById('allocBar');
   const allocTopCat = document.getElementById('allocTopCat');
-  if (allocBar) {
+  if (allocBar && allocTopCat) {
     if (tAct > 0) {
       const sortedCats = Object.entries(cTot).sort((a, b) => b[1] - a[1]);
       const topName = sortedCats[0][0];
       const topPct = Math.round((sortedCats[0][1] / tAct) * 100);
-      allocTopCat.innerText = `Mayor concentración: ${topName} (${topPct}%)`;
-      allocBar.innerHTML = sortedCats.map(([catName, val]) => {
-        const wPct = Math.max(2, (val / tAct) * 100);
-        return `<div class="alloc-seg" style="width:${wPct}%; background:${getCatColor(catName)};" title="${catName}: ${formatMoney(val)}"></div>`;
-      }).join('');
-    } else {
-      allocTopCat.innerText = 'Sin activos registrados';
-      allocBar.innerHTML = '';
-    }
+      allocTopCat.innerText = `Mayor: ${topName} (${topPct}%)`;
+      allocBar.innerHTML = sortedCats.map(([catName, val]) => `<div class="alloc-seg" style="width:${Math.max(2, (val / tAct) * 100)}%; background:${getCatColor(catName)};" title="${catName}"></div>`).join('');
+    } else { allocTopCat.innerText = 'Sin activos'; allocBar.innerHTML = ''; }
   }
 
   const cats = loadCategories();
@@ -1797,13 +1615,10 @@ function renderAll() {
       const col = pct > 90 ? 'danger' : pct > 70 ? 'warn' : '';
       return `
         <div class="cat-card ${currentCategoryFilter === c ? 'active-filter' : ''}" onclick="setCategoryFilter('${c}')">
-          <div class="cc-name">
-            <span>${getCatIcon(c)} ${c}</span>
-            <button class="cc-edit-btn" onclick="editBudgetModal('${c}', event)" title="Ajustar Tope Mensual">⚙️</button>
-          </div>
+          <div class="cc-name"><span>${getCatIcon(c)} ${c}</span><button class="cc-edit-btn" onclick="editBudgetModal('${c}', event)">⚙️</button></div>
           <div class="cc-inv">${formatMoney(cTot[c] || 0)}</div>
           <div class="budget-wrap"><div class="budget-fill ${col}" style="width:${pct}%"></div></div>
-          <div class="budget-text"><span>Mes: ${formatMoney(sm)}</span><span>Tope: ${formatMoney(lim).replace('S/ ', '')}</span></div>
+          <div class="budget-text"><span>Mes: ${formatMoney(sm)}</span><span>Tope: S/ ${lim}</span></div>
         </div>`;
     }).join('');
   }
@@ -1814,13 +1629,7 @@ function renderAll() {
     if (currentDashboardFilter === 'green' && cd > p.goal) return false;
     if (currentDashboardFilter === 'pending' && cd <= p.goal) return false;
     if (currentDashboardFilter === 'costly' && cd <= 5) return false;
-    if (query) {
-      const matchName = String(p.name).toLowerCase().includes(query);
-      const matchCat = String(p.category).toLowerCase().includes(query);
-      const matchNote = String(p.note || '').toLowerCase().includes(query);
-      const matchCard = String(p.paidWithCardName || '').toLowerCase().includes(query);
-      if (!matchName && !matchCat && !matchNote && !matchCard) return false;
-    }
+    if (query && !String(p.name).toLowerCase().includes(query) && !String(p.category).toLowerCase().includes(query) && !String(p.note || '').toLowerCase().includes(query) && !String(p.paidWithCardName || '').toLowerCase().includes(query)) return false;
     return true;
   });
 
@@ -1829,137 +1638,85 @@ function renderAll() {
       if (sortBy === 'date-desc') return new Date(b.date) - new Date(a.date);
       if (sortBy === 'cost-desc') return b.cost - a.cost;
       if (sortBy === 'cday-asc') return (a.cost / calcDays(a.date)) - (b.cost / calcDays(b.date));
-      if (sortBy === 'goal-closest') {
-        const remA = Math.max(0, (a.cost / (a.goal || 1)) - calcDays(a.date));
-        const remB = Math.max(0, (b.cost / (b.goal || 1)) - calcDays(b.date));
-        return remA - remB;
-      }
+      if (sortBy === 'goal-closest') return Math.max(0, (a.cost / (a.goal || 1)) - calcDays(a.date)) - Math.max(0, (b.cost / (b.goal || 1)) - calcDays(b.date));
       return 0;
     });
   }
 
   const lG = [], lP = [];
-  filt.forEach(p => {
-    if (p.cost / calcDays(p.date) <= p.goal) lG.push(p);
-    else lP.push(p);
-  });
+  filt.forEach(p => { if (p.cost / calcDays(p.date) <= p.goal) lG.push(p); else lP.push(p); });
 
   const renderList = (el, items, isA) => {
-    if (items.length === 0) {
-      el.innerHTML = `<div class="empty-state" style="padding:28px;"><div class="es-text">No hay activos en esta vista. Usa <b>+ Registrar</b> o <b>✨ Lote</b> en la barra superior.</div></div>`;
-      return;
-    }
+    if (!el) return;
+    if (items.length === 0) { el.innerHTML = `<div class="empty-state"><div class="es-text">No hay activos aquí. Usa <b>+ Registrar</b></div></div>`; return; }
     if (sortBy === 'category') {
       items.sort((a, b) => a.category.localeCompare(b.category));
       const g = items.reduce((acc, i) => { (acc[i.category] = acc[i.category] || []).push(i); return acc; }, {});
-      el.innerHTML = Object.entries(g).map(([c, prds]) =>
-        `<div style="font-family:'DM Mono', monospace; font-size:0.72rem; font-weight:700; color:var(--text-dim); text-transform:uppercase; margin:14px 0 6px;">${getCatIcon(c)} ${c} (${prds.length})</div>` +
-        prds.map(p => genCardHTML(p, isA)).join('')
-      ).join('');
-    } else {
-      el.innerHTML = items.map(p => genCardHTML(p, isA)).join('');
-    }
+      el.innerHTML = Object.entries(g).map(([c, prds]) => `<div style="font-family:'DM Mono', monospace; font-size:0.72rem; font-weight:700; color:var(--text-dim); text-transform:uppercase; margin:14px 0 6px;">${getCatIcon(c)} ${c} (${prds.length})</div>` + prds.map(p => genCardHTML(p, isA)).join('')).join('');
+    } else { el.innerHTML = items.map(p => genCardHTML(p, isA)).join(''); }
   };
 
   renderList(document.getElementById('body-pending'), lP, false);
   renderList(document.getElementById('body-green'), lG, true);
 
-  document.getElementById('mTotal').innerText = formatMoneyK(tAct);
-  document.getElementById('mSubResale').innerText = `Liquidez est.: ${formatMoneyK(tResale)}`;
-  document.getElementById('mGreen').innerText = cGrn;
-  const grnPct = prods.length > 0 ? Math.round((cGrn / prods.length) * 100) : 0;
-  document.getElementById('mSubGreenPct').innerText = `${grnPct}% del inventario`;
-  document.getElementById('mPending').innerText = cPnd;
-  document.getElementById('mDaily').innerText = formatMoney(aDay);
-  document.getElementById('badge-pending').innerText = lP.length;
-  document.getElementById('badge-green').innerText = lG.length;
+  const setIf = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+  setIf('mTotal', formatMoneyK(tAct));
+  setIf('mSubResale', `Liquidez est.: ${formatMoneyK(tResale)}`);
+  setIf('mGreen', cGrn);
+  setIf('mSubGreenPct', `${prods.length > 0 ? Math.round((cGrn / prods.length) * 100) : 0}% del inventario`);
+  setIf('mPending', cPnd);
+  setIf('mDaily', formatMoney(aDay));
+  setIf('badge-pending', lP.length);
+  setIf('badge-green', lG.length);
 
-  // LISTA DE DESEOS CON PUENTE A BÓVEDA Y TARJETAS
   const w = loadWishes();
   const wc = document.getElementById('wish-list-container');
   if (wc) {
-    wc.innerHTML = w.length === 0
-      ? `<div class="empty-state" style="grid-column: 1 / -1;"><span class="es-icon">✨</span><div class="es-text">Tu filtro de deseos está vacío. Agrega aquí tus próximas metas antes de comprarlas por impulso.</div></div>`
-      : w.map(i => {
-          const goalVal = parseFloat(i.goal) || 1;
-          const estDays = i.cost > 0 ? Math.ceil(i.cost / goalVal) : 0;
-          const coveredByVault = savedVault >= i.cost && i.cost > 0;
-          const vaultStatusTxt = i.cost > 0
-            ? (coveredByVault ? `<span style="color:var(--green);">🏦 Bóveda cubre el 100% al contado</span>` : `<span>🏦 Bóveda cubre ${Math.min(100, Math.round((savedVault / i.cost) * 100))}% (${formatMoney(savedVault)})</span>`)
-            : '';
-          const cardAdviceTxt = bestCardObj
-            ? `<span>💳 Mejor tarjeta hoy: <b>${bestCardObj.card.name}</b> (${bestCardObj.freeDays} d libres)</span>`
-            : '';
-
-          return `
-            <div class="wish-card">
-              <div>
-                <div class="wc-top">
-                  <div class="wc-name">${i.name}</div>
-                  <span class="prio-pill prio-${i.prio}">${i.prio}</span>
-                </div>
-                <div class="wc-precio">${formatMoney(i.cost)}</div>
-                ${estDays > 0 ? `<div class="wc-meta">⏳ Amortización proyectada: ${estDays} días (${formatMoney(goalVal)}/d)</div>` : ''}
-              </div>
-              ${(vaultStatusTxt || cardAdviceTxt) ? `<div class="wc-synergy-box">${vaultStatusTxt}${cardAdviceTxt}</div>` : ''}
-              ${i.note ? `<div class="wc-nota">"${i.note}"</div>` : ''}
-              <div class="wc-footer">
-                <button class="pc-btn sell" onclick="buyWish('${i.id}')">✅ Adquirir Ahora</button>
-                <button class="pc-btn del" onclick="deleteWish('${i.id}')">🗑️</button>
-              </div>
-            </div>`;
-        }).join('');
+    wc.innerHTML = w.length === 0 ? `<div class="empty-state" style="grid-column: 1 / -1;"><span class="es-icon">✨</span><div class="es-text">Tu filtro de deseos está vacío.</div></div>` : w.map(i => {
+      const estDays = i.cost > 0 ? Math.ceil(i.cost / (parseFloat(i.goal) || 1)) : 0;
+      const cvd = savedVault >= i.cost && i.cost > 0;
+      const vt = i.cost > 0 ? (cvd ? `<span style="color:var(--green);">🏦 Bóveda 100% al contado</span>` : `<span>🏦 Bóveda cubre ${Math.min(100, Math.round((savedVault / i.cost) * 100))}%</span>`) : '';
+      const ca = bestCardObj ? `<span>💳 Mejor tarjeta: <b>${bestCardObj.card.name}</b></span>` : '';
+      return `
+        <div class="wish-card">
+          <div>
+            <div class="wc-top"><div class="wc-name">${i.name}</div><span class="prio-pill prio-${i.prio}">${i.prio}</span></div>
+            <div class="wc-precio">${formatMoney(i.cost)}</div>
+            ${estDays > 0 ? `<div class="wc-meta">⏳ Amortiza en: ${estDays} días</div>` : ''}
+          </div>
+          ${vt || ca ? `<div class="wc-synergy-box">${vt}${ca}</div>` : ''}
+          ${i.note ? `<div class="wc-nota">"${i.note}"</div>` : ''}
+          <div class="wc-footer"><button class="pc-btn sell" onclick="buyWish('${i.id}')">✅ Adquirir</button><button class="pc-btn del" onclick="deleteWish('${i.id}')">🗑️</button></div>
+        </div>`;
+    }).join('');
   }
 
-  // HISTORIAL VENDIDOS
   const hist = loadHist();
   const hc = document.getElementById('body-history');
   if (hc) {
-    hc.innerHTML = hist.length === 0
-      ? `<div class="empty-state"><span class="es-icon">📦</span><div class="es-text">Sin ventas registradas.</div></div>`
-      : hist.map(h => `
-          <div class="prod-card">
-            <div class="pc-header">
-              <div class="pc-main">
-                <div class="pc-name">${h.name}</div>
-                <div class="pc-cat">Compra: ${formatMoney(h.baseCost)} · Venta: ${formatMoney(h.sellPrice)} · ${h.daysUsed || 1} días de uso</div>
-              </div>
-              <div class="pc-stats">
-                <div class="pc-cday" style="color:${h.costPerDay <= (h.goal || 1) ? 'var(--green)' : 'var(--red)'}">${formatMoney(h.costPerDay)}/d</div>
-                <span class="cat-pill pill-amber">Costo Neto: ${formatMoney(h.balance)}</span>
-              </div>
-            </div>
-          </div>`).join('');
+    hc.innerHTML = hist.length === 0 ? `<div class="empty-state"><span class="es-icon">📦</span><div class="es-text">Sin ventas registradas.</div></div>` : hist.map(h => `
+      <div class="prod-card">
+        <div class="pc-header">
+          <div class="pc-main"><div class="pc-name">${h.name}</div><div class="pc-cat">Compra: ${formatMoney(h.baseCost)} · Venta: ${formatMoney(h.sellPrice)}</div></div>
+          <div class="pc-stats"><div class="pc-cday" style="color:${h.costPerDay <= (h.goal || 1) ? 'var(--green)' : 'var(--red)'}">${formatMoney(h.costPerDay)}/d</div><span class="cat-pill pill-amber">Neto: ${formatMoney(h.balance)}</span></div>
+        </div>
+      </div>`).join('');
   }
 
-  // PAPELERA
   const trash = loadTrash();
   const tc = document.getElementById('body-trash');
   if (tc) {
-    tc.innerHTML = trash.length === 0
-      ? `<div class="empty-state"><span class="es-icon">♻️</span><div class="es-text">Papelera limpia.</div></div>`
-      : trash.map(t => {
-          const cd = t.cost / (t.daysUsedTrash || 1);
-          return `
-            <div class="prod-card">
-              <div class="pc-header" onclick="toggleItemDetails('t_${t.id}')">
-                <div class="pc-main">
-                  <div class="pc-name">${t.name}</div>
-                  <div class="pc-cat">Eliminado: ${t.trashDate}</div>
-                </div>
-                <div class="pc-stats">
-                  <div class="pc-cday">${formatMoney(cd)}/d</div>
-                </div>
-              </div>
-              <div class="pc-details" id="details-t_${t.id}">
-                <div class="pc-actions">
-                  <button class="pc-btn edit" onclick="restoreFromTrash('${t.id}')">♻️ Restaurar</button>
-                  <button class="pc-btn del" onclick="deletePermanent('${t.id}')">❌ Borrar Definitivo</button>
-                </div>
-              </div>
-            </div>`;
-        }).join('');
-    document.getElementById('trashCount').innerText = trash.length;
+    tc.innerHTML = trash.length === 0 ? `<div class="empty-state"><span class="es-icon">♻️</span><div class="es-text">Papelera limpia.</div></div>` : trash.map(t => `
+      <div class="prod-card">
+        <div class="pc-header" onclick="toggleItemDetails('t_${t.id}')">
+          <div class="pc-main"><div class="pc-name">${t.name}</div><div class="pc-cat">Eliminado: ${t.trashDate}</div></div>
+          <div class="pc-stats"><div class="pc-cday">${formatMoney(t.cost / (t.daysUsedTrash || 1))}/d</div></div>
+        </div>
+        <div class="pc-details" id="details-t_${t.id}">
+          <div class="pc-actions"><button class="pc-btn edit" onclick="restoreFromTrash('${t.id}')">♻️ Restaurar</button><button class="pc-btn del" onclick="deletePermanent('${t.id}')">❌ Borrar</button></div>
+        </div>
+      </div>`).join('');
+    setIf('trashCount', trash.length);
   }
 }
 </script>

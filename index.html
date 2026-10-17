@@ -6,7 +6,7 @@
 <meta name="view-transition" content="same-origin">
 <title>Comando | Pierovski OS</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#090d16">
+<meta name="theme-color" content="#f0f4f8">
 <link rel="apple-touch-icon" href="icon.jpg">
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,426 +16,235 @@
 <style>
 :root {
   color-scheme: light;
-  --bg: #f1f5f9;
-  --bg-accent: radial-gradient(circle at 15% 0%, rgba(217,119,6,0.06), transparent 45%), radial-gradient(circle at 85% 10%, rgba(37,99,235,0.05), transparent 45%);
+  --bg: #f0f4f8;
   --surface: #ffffff;
-  --surface-glass: rgba(255, 255, 255, 0.86);
+  --surface-glass: rgba(255, 255, 255, 0.85);
   --surface2: #f8fafc;
   --surface3: #e2e8f0;
-  --border: rgba(148, 163, 184, 0.28);
-  --border-strong: rgba(100, 116, 139, 0.35);
+  --border: rgba(148, 163, 184, 0.15);
+  --border-strong: rgba(148, 163, 184, 0.25);
+  
   --amber: #d97706;
   --amber-dim: #b45309;
   --amber-glow: rgba(217, 119, 6, 0.12);
   --green: #059669;
-  --green-dim: #047857;
   --green-glow: rgba(5, 150, 105, 0.12);
   --red: #dc2626;
-  --red-dim: #b91c1c;
-  --red-glow: rgba(220, 38, 38, 0.12);
   --blue: #2563eb;
-  --blue-glow: rgba(37, 99, 235, 0.12);
   --purple: #7c3aed;
-  --purple-glow: rgba(124, 58, 237, 0.12);
+  
   --text: #0f172a;
   --text-muted: #475569;
-  --text-dim: #64748b;
-  --r-lg: 22px;
+  --text-dim: #94a3b8;
+  
+  --r-xl: 24px;
+  --r-lg: 20px;
   --r-md: 16px;
-  --r-sm: 12px;
-  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  --r-sm: 10px;
+  
+  --shadow-sm: 0 2px 10px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.08);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body.dark-theme {
   color-scheme: dark;
-  --bg: #090d16;
-  --bg-accent: radial-gradient(circle at 15% 0%, rgba(217,119,6,0.12), transparent 45%), radial-gradient(circle at 85% 10%, rgba(37,99,235,0.10), transparent 45%);
-  --surface: #131b2e;
-  --surface-glass: rgba(19, 27, 46, 0.84);
-  --surface2: #0d1322;
-  --surface3: #1e293b;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --text: #f8fafc;
-  --text-muted: #cbd5e1;
-  --text-dim: #94a3b8;
-  --amber-glow: rgba(217, 119, 6, 0.22);
-  --green-glow: rgba(5, 150, 105, 0.22);
-  --red-glow: rgba(220, 38, 38, 0.22);
-  --blue-glow: rgba(37, 99, 235, 0.22);
-  --purple-glow: rgba(124, 58, 237, 0.22);
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
-  --shadow-md: 0 14px 36px -6px rgba(0, 0, 0, 0.45);
+  --bg: #09090b;
+  --surface: #18181b;
+  --surface-glass: rgba(24, 24, 27, 0.85);
+  --surface2: #27272a;
+  --surface3: #3f3f46;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --text: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --text-dim: #71717a;
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.4);
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
 body {
   background-color: var(--bg);
-  background-image: var(--bg-accent);
-  background-attachment: fixed;
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
   min-height: 100vh;
-  padding-bottom: 105px;
+  padding-bottom: 110px;
   transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
   overflow-x: hidden;
   font-variant-numeric: tabular-nums;
 }
 
-/* BARRA SUPERIOR DE PROGRESO DE LAS 6 QUINCENAS */
-.quarter-grid {
-  position: fixed; top: 0; left: 0; width: 100%; height: 4px;
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; z-index: 250;
-  background: var(--surface2);
-}
-.quarter-seg { background: var(--surface3); height: 100%; transition: 0.4s var(--ease); }
-.quarter-seg.active { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
-.quarter-seg.done { background: var(--green); }
-
-/* CABECERA EJECUTIVA PREMIUM */
 header {
-  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
   background: var(--surface-glass);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  position: sticky; top: 0; z-index: 100;
-  padding: 16px 20px; margin-top: 4px;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
 }
 .header-inner {
   max-width: 840px; margin: 0 auto;
-  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  display: flex; justify-content: space-between; align-items: center;
 }
-.brand-group { display: flex; flex-direction: column; gap: 4px; }
-.sys-status {
-  display: flex; align-items: center; gap: 10px;
-  font-family: 'DM Mono', monospace; font-size: 0.66rem;
-  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); font-weight: 700;
-}
-.cloud-status { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); display: inline-block; transition: 0.3s; }
-.cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.brand-group { display: flex; align-items: center; gap: 8px; }
+.sys-label { font-family: 'DM Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+.cloud-status { width: 6px; height: 6px; border-radius: 50%; background: var(--border-strong); transition: 0.3s; }
+.cloud-online { background: var(--green); box-shadow: 0 0 6px var(--green); }
 .streak-badge {
-  display: inline-flex; align-items: center; gap: 4px;
+  font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700;
   color: var(--amber); background: var(--amber-glow);
-  border: 1px solid rgba(217, 119, 6, 0.3);
-  padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 700;
-}
-.greeting-area h1 {
-  font-family: 'Fraunces', serif; font-size: clamp(1.25rem, 3vw, 1.5rem);
-  color: var(--text); line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;
+  padding: 4px 10px; border-radius: 12px; letter-spacing: 0.05em;
 }
 
 .header-actions { display: flex; gap: 8px; align-items: center; }
-.btn-pill-mode {
-  font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700;
-  height: 38px; padding: 0 14px; border-radius: 20px;
-  border: 1px solid var(--border-strong); background: var(--surface);
-  color: var(--text-muted); cursor: pointer;
-  display: inline-flex; align-items: center; gap: 6px;
-  transition: all 0.2s var(--ease); box-shadow: var(--shadow-sm);
-}
-.btn-pill-mode:hover { border-color: var(--amber); color: var(--text); transform: translateY(-1px); }
-.btn-pill-mode:active { transform: scale(0.96); }
-.btn-pill-mode.survival {
-  background: var(--purple); color: #ffffff; border-color: var(--purple);
-  box-shadow: 0 4px 14px var(--purple-glow);
-}
-
 .btn-icon-tool {
-  background: var(--surface); border: 1px solid var(--border-strong);
-  color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text-muted); border-radius: 50%; width: 36px; height: 36px;
   font-size: 0.95rem; cursor: pointer; transition: all 0.2s var(--ease);
   display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm);
 }
-.btn-icon-tool:hover { border-color: var(--amber); color: var(--text); transform: translateY(-1px); }
-.btn-icon-tool:active { transform: scale(0.92); }
+.btn-icon-tool:hover { border-color: var(--border-strong); color: var(--text); transform: translateY(-1px); }
 .btn-icon-tool.active { color: var(--amber); border-color: var(--amber); background: var(--amber-glow); }
+.btn-pill-mode {
+  font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700;
+  height: 36px; padding: 0 14px; border-radius: 18px;
+  border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow-sm);
+  color: var(--text-muted); cursor: pointer; transition: all 0.2s;
+}
+.btn-pill-mode:active { transform: scale(0.95); }
+.btn-pill-mode.survival { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-main { max-width: 840px; margin: 0 auto; padding: 22px 20px 0; }
+main { max-width: 840px; margin: 0 auto; padding: 20px 20px 0; }
 
-/* ANIMACIONES ESCALONADAS */
-.stagger-1 { animation: fadeUp 0.45s var(--ease) forwards; opacity: 0; animation-delay: 0.03s; }
-.stagger-2 { animation: fadeUp 0.45s var(--ease) forwards; opacity: 0; animation-delay: 0.08s; }
-.stagger-3 { animation: fadeUp 0.45s var(--ease) forwards; opacity: 0; animation-delay: 0.13s; }
-.stagger-4 { animation: fadeUp 0.45s var(--ease) forwards; opacity: 0; animation-delay: 0.18s; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-/* 1. CENTRO DE ACCIÓN DIARIA (MISIÓN + HÁBITOS EN 1 TOQUE) */
-.hero-command-card {
+.app-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 22px;
-  margin-bottom: 18px;
+  border-radius: var(--r-xl);
+  padding: 24px;
   box-shadow: var(--shadow-md);
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.25s var(--ease);
-}
-.hero-command-card::before {
-  content: ''; position: absolute; left: 0; top: 0; width: 5px; height: 100%;
-  background: linear-gradient(180deg, var(--amber), var(--amber-dim));
-}
-body.survival-mode .hero-command-card::before {
-  background: linear-gradient(180deg, var(--purple), #5b21b6);
-}
-
-.hc-top {
-  display: flex; justify-content: space-between; align-items: center; gap: 10px;
-  margin-bottom: 10px; flex-wrap: wrap;
-}
-.hc-badge-group { display: flex; align-items: center; gap: 8px; }
-.hc-tag {
-  font-family: 'DM Mono', monospace; font-size: 0.66rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--amber); background: var(--amber-glow);
-  padding: 4px 10px; border-radius: 8px;
-}
-body.survival-mode .hc-tag { color: var(--purple); background: var(--purple-glow); }
-.hc-lvl {
-  font-family: 'DM Mono', monospace; font-size: 0.66rem; font-weight: 700;
-  color: var(--text-dim); background: var(--surface2);
-  border: 1px solid var(--border); padding: 4px 10px; border-radius: 8px;
-}
-
-.hc-mission-body {
-  display: flex; justify-content: space-between; align-items: center; gap: 16px;
-  padding-bottom: 18px; border-bottom: 1px dashed var(--border);
-}
-.hc-task-text {
-  font-size: 1.02rem; font-weight: 600; color: var(--text); line-height: 1.48; flex: 1;
-}
-.hc-actions { display: flex; gap: 8px; flex-shrink: 0; }
-.btn-hero-action {
-  height: 40px; padding: 0 15px; border-radius: 12px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
-  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
-  border: 1px solid var(--border-strong); background: var(--surface2); color: var(--text);
-  text-decoration: none; transition: all 0.2s var(--ease); white-space: nowrap;
-}
-.btn-hero-action:hover { border-color: var(--amber); transform: translateY(-1px); }
-.btn-hero-action.primary {
-  background: var(--text); color: var(--bg); border-color: var(--text);
-}
-.btn-hero-action.primary:hover { opacity: 0.92; }
-
-/* HÁBITOS RÁPIDOS INTEGRADOS */
-.quick-habits-bar { padding-top: 16px; display: flex; flex-direction: column; gap: 10px; }
-.qh-header {
-  display: flex; justify-content: space-between; align-items: center;
-  font-family: 'DM Mono', monospace; font-size: 0.65rem;
-  color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;
-}
-.qh-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.qh-chip {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: var(--r-sm); padding: 10px 8px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 700;
-  color: var(--text-muted); cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  transition: all 0.2s var(--ease); user-select: none; white-space: nowrap;
-}
-.qh-chip:hover { border-color: var(--amber); color: var(--text); transform: translateY(-1px); }
-.qh-chip:active { transform: scale(0.95); }
-.qh-chip.done {
-  background: var(--green-glow); border-color: var(--green); color: var(--green);
-  box-shadow: 0 2px 10px var(--green-glow);
-}
-
-/* 2. CINTA DE SINERGIA ENTRE ÁREAS (PUENTE DE INTELIGENCIA CRUZADA) */
-.synergy-strip {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-  margin-bottom: 18px;
-}
-.syn-pill {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-md); padding: 14px 16px;
-  display: flex; flex-direction: column; gap: 4px;
-  text-decoration: none; color: inherit;
-  box-shadow: var(--shadow-sm); transition: all 0.2s var(--ease);
-  position: relative; overflow: hidden;
-}
-.syn-pill:hover { border-color: var(--amber); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.syn-lbl {
-  font-family: 'DM Mono', monospace; font-size: 0.62rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim);
-  display: flex; justify-content: space-between; align-items: center;
-}
-.syn-val {
-  font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--text);
-}
-.syn-sub {
-  font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-muted); font-weight: 600;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-
-/* 3. TARJETAS DE LAS 3 ÁREAS PRINCIPALES */
-.section-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 12px;
-}
-.section-title {
-  font-family: 'DM Mono', monospace; font-size: 0.72rem;
-  color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
-}
-.quote-inline {
-  font-family: 'Fraunces', serif; font-size: 0.8rem; font-style: italic;
-  color: var(--text-muted);
-}
-
-.grid-modules {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-  margin-bottom: 22px;
-}
-.mod-card {
-  background: var(--surface); border: 1px solid var(--border);
-  padding: 20px; border-radius: var(--r-lg); text-decoration: none;
-  display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
-  transition: all 0.25s var(--ease); box-shadow: var(--shadow-md);
-  position: relative; overflow: hidden;
-}
-.mod-card:hover { border-color: var(--amber); transform: translateY(-3px); }
-.mod-card:active { transform: scale(0.98); }
-.mod-card.is-optimal { border-color: rgba(5, 150, 105, 0.45); }
-
-.mod-top { display: flex; justify-content: space-between; align-items: center; }
-.mod-icon {
-  width: 42px; height: 42px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.25rem; background: var(--surface2); border: 1px solid var(--border);
-}
-.mod-arrow {
-  font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--text-dim);
-  transition: transform 0.2s var(--ease);
-}
-.mod-card:hover .mod-arrow { transform: translateX(3px); color: var(--amber); }
-
-.mod-info { display: flex; flex-direction: column; gap: 4px; }
-.mod-title { font-size: 0.92rem; font-weight: 700; color: var(--text-muted); }
-.mod-val {
-  font-family: 'Fraunces', serif; font-size: 1.38rem; font-weight: 700;
-  color: var(--text); line-height: 1.1;
-}
-.mod-desc {
-  font-family: 'DM Mono', monospace; font-size: 0.68rem;
-  color: var(--text-dim); font-weight: 600; line-height: 1.35; margin-top: 2px;
-}
-
-/* 4. PANEL COMPACTO DE MAESTRÍA (4 PILARES) Y CONSISTENCIA 14D */
-.analytics-grid {
-  display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px;
   margin-bottom: 24px;
+  animation: fadeUp 0.4s var(--ease);
 }
-.panel-box {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-lg); padding: 20px;
-  box-shadow: var(--shadow-md); display: flex; flex-direction: column; justify-content: space-between;
+
+.hero-tag {
+  font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim);
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
 }
-.panel-head {
+.hero-title {
+  font-size: 1.35rem; font-weight: 700; color: var(--text);
+  line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.01em;
+}
+.hero-actions { display: flex; gap: 10px; align-items: center; }
+.btn-primary {
+  background: var(--text); color: var(--bg);
+  height: 42px; padding: 0 20px; border-radius: 21px; text-decoration: none;
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center; transition: 0.2s;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+.btn-primary:active { transform: scale(0.96); }
+.btn-secondary {
+  background: var(--surface2); color: var(--text); border: 1px solid var(--border);
+  height: 42px; width: 42px; border-radius: 50%; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; transition: 0.2s;
+}
+
+.section-title {
   font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700;
-  color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em;
-  margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim);
+  margin: 0 0 12px 4px; display: block;
 }
 
-.pillars-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.pillar-item {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: var(--r-sm); padding: 10px 12px;
-  display: flex; flex-direction: column; gap: 6px;
+.habits-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  margin-bottom: 32px; animation: fadeUp 0.45s var(--ease);
 }
-.pi-top { display: flex; justify-content: space-between; align-items: center; }
-.pi-name { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
-.pi-pct { font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 700; color: var(--text); }
-.pi-bar-bg { width: 100%; height: 5px; background: var(--surface3); border-radius: 3px; overflow: hidden; }
-.pi-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s var(--ease); }
-
-/* LÍNEA DE TIEMPO LIMPIA (ÚLTIMOS 14 DÍAS VISIBLES SIN SATURAR) */
-.heatmap-scroll {
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
-}
-.hm-cell {
-  height: 44px; border-radius: 10px;
-  background: var(--surface2); border: 1px solid var(--border);
+.habit-btn {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 14px 6px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  transition: 0.2s;
+  gap: 8px; cursor: pointer; box-shadow: var(--shadow-sm);
+  transition: all 0.2s var(--ease); user-select: none;
 }
-.hm-day { font-family: 'DM Mono', monospace; font-size: 0.52rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; }
-.hm-date { font-size: 0.84rem; font-weight: 700; color: var(--text); line-height: 1.1; }
+.habit-btn:active { transform: scale(0.94); }
+.habit-btn:hover { border-color: var(--amber); transform: translateY(-2px); }
+.habit-icon { font-size: 1.4rem; line-height: 1; }
+.habit-lbl {
+  font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 700;
+  color: var(--text-muted); text-align: center; line-height: 1.1;
+}
+.habit-btn.done {
+  background: var(--text); border-color: var(--text);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.habit-btn.done .habit-lbl { color: var(--bg); }
+
+.analytics-section { animation: fadeUp 0.55s var(--ease); }
+.heatmap-container { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.hm-header { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+.heatmap-scroll { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.hm-cell {
+  aspect-ratio: 1; border-radius: 10px; background: var(--surface2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 1px solid var(--border); transition: 0.2s;
+}
+.hm-day { font-family: 'DM Mono', monospace; font-size: 0.5rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; }
+.hm-date { font-size: 0.85rem; font-weight: 700; color: var(--text); line-height: 1; margin-top: 2px; }
 .hm-cell.is-today { border: 2px solid var(--amber); }
-.hm-cell.lvl-1 { background: var(--green-glow); border-color: rgba(5, 150, 105, 0.35); }
+.hm-cell.lvl-1 { background: var(--green-glow); border-color: rgba(5, 150, 105, 0.2); }
 .hm-cell.lvl-1 .hm-date, .hm-cell.lvl-1 .hm-day { color: var(--green); }
-.hm-cell.lvl-2 { background: rgba(5, 150, 105, 0.32); border-color: var(--green); }
-.hm-cell.lvl-3 { background: var(--green); border-color: var(--green-dim); }
-.hm-cell.lvl-3 .hm-date, .hm-cell.lvl-3 .hm-day { color: #ffffff; }
+.hm-cell.lvl-2 { background: rgba(5, 150, 105, 0.4); border-color: var(--green); }
+.hm-cell.lvl-3 { background: var(--green); border-color: var(--green-dim); box-shadow: 0 4px 10px var(--green-glow); }
+.hm-cell.lvl-3 .hm-date, .hm-cell.lvl-3 .hm-day { color: #fff; }
 
-.hm-footer {
-  font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text-dim);
-  display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
-}
+.pillars-container { display: flex; flex-direction: column; gap: 14px; }
+.pillar-row { display: flex; flex-direction: column; gap: 6px; }
+.pr-top { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted);}
+.pr-bg { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.pr-fill { height: 100%; border-radius: 3px; transition: width 0.8s var(--ease); }
 
-/* GLOBAL DOCK DE NAVEGACIÓN UNIFICADA */
+#hidden-js-dump { display: none; }
+
 .global-dock {
   position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
   background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-strong); border-radius: 30px;
   padding: 6px 8px; display: flex; align-items: center; gap: 6px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); z-index: 200;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); z-index: 200;
 }
 .dock-link {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 16px; border-radius: 24px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
+  padding: 10px 18px; border-radius: 24px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 700;
   color: var(--text-muted); text-decoration: none; transition: all 0.2s var(--ease);
-  white-space: nowrap;
 }
 .dock-link:hover { color: var(--text); background: var(--surface2); }
-.dock-link.active {
-  background: var(--text); color: var(--bg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* OVERLAY DEEP WORK DELTA-TIME */
-.dw-overlay {
-  position: fixed; inset: 0; background: rgba(9, 13, 22, 0.96);
-  backdrop-filter: blur(16px); z-index: 1000;
-  display: none; flex-direction: column; align-items: center; justify-content: center;
-  color: #fff; text-align: center; padding: 24px;
-}
-.dw-overlay.open { display: flex; }
-.dw-timer {
-  font-family: 'DM Mono', monospace; font-size: clamp(3.8rem, 12vw, 5.5rem);
-  font-weight: 700; margin-bottom: 40px; letter-spacing: -2px; color: #f8fafc;
-}
-.hold-btn {
-  position: relative; padding: 15px 34px; border-radius: 30px;
-  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.92rem;
-  color: #fff; background: rgba(220, 38, 38, 0.15); border: 1.5px solid var(--red);
-  cursor: pointer; overflow: hidden; user-select: none; -webkit-touch-callout: none;
-  transition: transform 0.1s;
-}
-.hold-btn.shaking { transform: scale(0.96); }
-.hold-fill { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: var(--red); z-index: 1; }
-.hold-text { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; }
+.dock-link.active { background: var(--text); color: var(--bg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
 
 #toast {
   position: fixed; bottom: 82px; left: 50%; transform: translateX(-50%) translateY(20px);
   background: var(--text); color: var(--bg);
   font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 700;
-  padding: 11px 22px; border-radius: 30px; opacity: 0;
+  padding: 12px 24px; border-radius: 30px; opacity: 0;
   transition: 0.3s var(--ease); z-index: 9999; pointer-events: none;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-@media (max-width: 740px) {
-  .grid-modules, .synergy-strip, .analytics-grid { grid-template-columns: 1fr; }
-  .qh-grid { grid-template-columns: repeat(2, 1fr); }
-  .hc-mission-body { flex-direction: column; align-items: flex-start; }
-  .hc-actions { width: 100%; }
-  .btn-hero-action { flex: 1; justify-content: center; }
-  header { padding: 14px 16px; }
-  .quote-inline { display: none; }
+.dw-overlay {
+  position: fixed; inset: 0; background: rgba(9, 13, 22, 0.96);
+  backdrop-filter: blur(16px); z-index: 1000; display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+}
+.dw-overlay.open { display: flex; }
+.dw-timer { font-family: 'DM Mono', monospace; font-size: 5rem; font-weight: 700; color: #fff; margin-bottom: 30px; }
+.dw-abort { background: var(--red); border: none; color: #fff; padding: 14px 28px; border-radius: 22px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 640px) {
   .dock-link span.dl-txt { display: none; }
   .dock-link.active span.dl-txt { display: inline; }
 }
@@ -443,167 +252,113 @@ body.survival-mode .hc-tag { color: var(--purple); background: var(--purple-glow
 </head>
 <body>
 
-<div class="quarter-grid" id="qBarGrid">
-  <div class="quarter-seg"></div><div class="quarter-seg"></div><div class="quarter-seg"></div>
-  <div class="quarter-seg"></div><div class="quarter-seg"></div><div class="quarter-seg"></div>
-</div>
-
 <header>
   <div class="header-inner">
     <div class="brand-group">
-      <div class="sys-status">
-        <span><span class="cloud-status" id="cloudStatus"></span> PIEROVSKI OS</span>
-        <span class="streak-badge" id="streakBox">🔥 0 DÍAS</span>
-      </div>
-      <div class="greeting-area"><h1 id="greetText">Hola, Piero</h1></div>
+      <span class="cloud-status" id="cloudStatus"></span>
+      <span class="sys-label">Comando</span>
     </div>
     <div class="header-actions">
-      <button class="btn-pill-mode" id="energyToggleBtn" onclick="toggleSurvivalMode()" title="Alternar entre Misiones Completas y Microacciones de 2 minutos">⚡ Modo Normal</button>
-      <button class="btn-icon-tool" id="privacyToggleBtn" onclick="togglePrivacy()" title="Modo Privacidad">👁️</button>
-      <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema Oscuro / Claro">🌙</button>
+      <span class="streak-badge" id="streakBox">🔥 0 d</span>
+      <button class="btn-pill-mode" id="energyToggleBtn" onclick="toggleSurvivalMode()" title="Alternar Misiones / Microacciones">⚡ Normal</button>
+      <button class="btn-icon-tool" id="privacyToggleBtn" onclick="togglePrivacy()">👁️</button>
+      <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()">🌙</button>
     </div>
   </div>
 </header>
 
 <main>
-  <!-- 1. CENTRO DE ACCIÓN DIARIA -->
-  <section class="hero-command-card stagger-1">
-    <div class="hc-top">
-      <div class="hc-badge-group">
-        <span class="hc-tag" id="naModeTitle">🎯 MISIÓN PRIORITARIA DE HOY</span>
-        <span class="hc-lvl" id="naWeekBadge">NIVEL 1 DE 6</span>
-      </div>
+  <!-- 1. HERO CARD -->
+  <section class="app-card hero-section">
+    <div class="hero-tag">
+      <span id="naModeTitle" style="color: var(--amber);">🎯 FOCO DE HOY</span>
+      <span id="naWeekBadge" style="background: var(--surface2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 6px;">NIVEL 1</span>
     </div>
-
-    <div class="hc-mission-body">
-      <div class="hc-task-text" id="naTask">Sincronizando tu siguiente paso estratégico...</div>
-      <div class="hc-actions">
-        <button class="btn-hero-action" id="btnQuickFocus" onclick="launchDeepWork(isSurvivalMode ? 2 : 45)">⏱️ 45 min</button>
-        <a href="plan.html" class="btn-hero-action primary">Ir a Misión →</a>
-      </div>
-    </div>
-
-    <div class="quick-habits-bar">
-      <div class="qh-header">
-        <span>⚡ Registro rápido de hábitos de hoy</span>
-        <span id="qhProgressTxt">0/4 completados hoy</span>
-      </div>
-      <div class="qh-grid" id="quickHabitsGrid">
-        <button class="qh-chip" onclick="quickToggleTodayHabit('topo')">🗺️ Topo + IA</button>
-        <button class="qh-chip" onclick="quickToggleTodayHabit('pueblo')">🏛️ Mi Pueblo</button>
-        <button class="qh-chip" onclick="quickToggleTodayHabit('fin')">💰 Finanzas</button>
-        <button class="qh-chip" onclick="quickToggleTodayHabit('gym')">🏋️ Symmetry</button>
-      </div>
+    
+    <div class="hero-title" id="naTask">Sincronizando tu siguiente paso estratégico...</div>
+    
+    <div class="hero-actions">
+      <a href="plan.html" class="btn-primary">Ir a Maestría →</a>
+      <button class="btn-secondary" id="btnQuickFocus" onclick="launchDeepWork(isSurvivalMode ? 2 : 45)" title="Iniciar Enfoque">⏱️</button>
     </div>
   </section>
 
-  <!-- 2. CINTA DE SINERGIA CRUZADA ENTRE LAS 3 ÁREAS -->
-  <section class="synergy-strip stagger-2">
-    <a href="plan.html" class="syn-pill" title="Ahorro acumulado en el Pilar de Finanzas">
-      <div class="syn-lbl"><span>🏦 Bóveda Quincenal</span><span>Meta S/ 1.8k</span></div>
-      <div class="syn-val" id="syn-vault-val">S/ 0.00</div>
-      <div class="syn-sub" id="syn-vault-sub">0/6 quincenas ahorradas</div>
-    </a>
-
-    <a href="tarjetas.html" class="syn-pill" title="Tarjeta con mayor cantidad de días libres de interés si compras hoy">
-      <div class="syn-lbl"><span>🛡️ Mejor Tarjeta Hoy</span><span id="syn-sbs-badge">SBS 0%</span></div>
-      <div class="syn-val" id="syn-best-card">Sin tarjetas</div>
-      <div class="syn-sub" id="syn-best-days">Configura tus fechas de corte</div>
-    </a>
-
-    <a href="compras.html" class="syn-pill" title="Relación entre tu próximo deseo prioritario y tu liquidez">
-      <div class="syn-lbl"><span>✨ Próxima Inversión</span><span id="syn-wish-prio">Deseos</span></div>
-      <div class="syn-val" id="syn-wish-name">Lista vacía</div>
-      <div class="syn-sub" id="syn-wish-sub">Agrega metas en Compras</div>
-    </a>
-  </section>
-
-  <!-- 3. MÓDULOS OPERATIVOS -->
-  <div class="section-header stagger-3">
-    <span class="section-title">Áreas del Sistema</span>
-    <span class="quote-inline" id="dailyQuote">"Un ingeniero con sistemas automatizados vale por diez en gabinete."</span>
+  <!-- HÁBITOS WIDGETS -->
+  <span class="section-title">Registro Rápido Diario</span>
+  <div class="habits-grid" id="quickHabitsGrid">
+    <div class="habit-btn" onclick="quickToggleTodayHabit('topo')">
+      <div class="habit-icon">🗺️</div>
+      <div class="habit-lbl">Topo</div>
+    </div>
+    <div class="habit-btn" onclick="quickToggleTodayHabit('pueblo')">
+      <div class="habit-icon">🏛️</div>
+      <div class="habit-lbl">Pueblo</div>
+    </div>
+    <div class="habit-btn" onclick="quickToggleTodayHabit('fin')">
+      <div class="habit-icon">💰</div>
+      <div class="habit-lbl">Finanzas</div>
+    </div>
+    <div class="habit-btn" onclick="quickToggleTodayHabit('gym')">
+      <div class="habit-icon">🏋️</div>
+      <div class="habit-lbl">Gym</div>
+    </div>
   </div>
 
-  <section class="grid-modules stagger-3">
-    <a href="compras.html" class="mod-card" id="mc-compras">
-      <div class="mod-top">
-        <div class="mod-icon">📦</div>
-        <span class="mod-arrow">ABRIR →</span>
-      </div>
-      <div class="mod-info">
-        <div class="mod-title">Compras y Activos</div>
-        <div class="mod-val" id="stat-money-compras">S/ 0.00</div>
-        <div class="mod-desc" id="stat-desc-compras">0 amortizados · 0 activos</div>
-      </div>
-    </a>
-
-    <a href="tarjetas.html" class="mod-card" id="mc-tarjetas">
-      <div class="mod-top">
-        <div class="mod-icon">💳</div>
-        <span class="mod-arrow">ABRIR →</span>
-      </div>
-      <div class="mod-info">
-        <div class="mod-title">Tarjetas y Estrategia SBS</div>
-        <div class="mod-val" id="stat-money-tarjetas">Al día ✓</div>
-        <div class="mod-desc" id="stat-tarjetas">Verificando fechas de corte...</div>
-      </div>
-    </a>
-
-    <a href="plan.html" class="mod-card" id="mc-plan">
-      <div class="mod-top">
-        <div class="mod-icon">🧭</div>
-        <span class="mod-arrow">ABRIR →</span>
-      </div>
-      <div class="mod-info">
-        <div class="mod-title">Ruta de Maestría</div>
-        <div class="mod-val" id="stat-val-plan" style="color:var(--blue);">Nivel 1/6</div>
-        <div class="mod-desc" id="stat-desc-plan">4 pilares sincronizados</div>
-      </div>
-    </a>
-  </section>
-
-  <!-- 4. BALANCE DE LOS 4 PILARES + CONSISTENCIA 14 DÍAS -->
-  <section class="analytics-grid stagger-4">
-    <div class="panel-box">
-      <div class="panel-head">
-        <span>Avance por Pilar de Maestría</span>
-        <span id="globalPctLbl" style="color:var(--amber);">0 % Global</span>
-      </div>
-      <div class="pillars-list">
-        <div class="pillar-item">
-          <div class="pi-top"><span class="pi-name" style="color:var(--blue);">🗺️ Topo + IA</span><span class="pi-pct" id="lb-val-topo">0%</span></div>
-          <div class="pi-bar-bg"><div class="pi-bar-fill" id="lb-fill-topo" style="background:var(--blue); width:0%;"></div></div>
-        </div>
-        <div class="pillar-item">
-          <div class="pi-top"><span class="pi-name" style="color:var(--purple);">🏛️ Mi Pueblo</span><span class="pi-pct" id="lb-val-pueblo">0%</span></div>
-          <div class="pi-bar-bg"><div class="pi-bar-fill" id="lb-fill-pueblo" style="background:var(--purple); width:0%;"></div></div>
-        </div>
-        <div class="pillar-item">
-          <div class="pi-top"><span class="pi-name" style="color:var(--amber);">💰 Finanzas</span><span class="pi-pct" id="lb-val-fin">0%</span></div>
-          <div class="pi-bar-bg"><div class="pi-bar-fill" id="lb-fill-fin" style="background:var(--amber); width:0%;"></div></div>
-        </div>
-        <div class="pillar-item">
-          <div class="pi-top"><span class="pi-name" style="color:var(--green);">🏋️ Symmetry</span><span class="pi-pct" id="lb-val-gym">0%</span></div>
-          <div class="pi-bar-bg"><div class="pi-bar-fill" id="lb-fill-gym" style="background:var(--green); width:0%;"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel-box">
-      <div class="panel-head">
-        <span>Consistencia Reciente (14 Días)</span>
-        <span id="activeDaysCount">0/30 d activos</span>
+  <!-- 3. ANALÍTICAS -->
+  <span class="section-title">Consistencia <span id="globalPctLbl" style="float: right; color: var(--amber);">0%</span></span>
+  <section class="app-card analytics-section">
+    <!-- Heatmap -->
+    <div class="heatmap-container">
+      <div class="hm-header">
+        <span>Últimos 14 días</span>
+        <span id="activeDaysCount">0/30 activos</span>
       </div>
       <div class="heatmap-scroll" id="heatmapGrid"></div>
-      <div class="hm-footer">
-        <span>Sincronizado con tus 4 pilares</span>
-        <span>Hoy ●</span>
+    </div>
+
+    <!-- Pilares -->
+    <div class="pillars-container">
+      <div class="pillar-row">
+        <div class="pr-top"><span style="color: var(--blue);">🗺️ Topo + IA</span><span id="lb-val-topo">0%</span></div>
+        <div class="pr-bg"><div class="pr-fill" id="lb-fill-topo" style="background: var(--blue); width: 0%;"></div></div>
+      </div>
+      <div class="pillar-row">
+        <div class="pr-top"><span style="color: var(--purple);">🏛️ Mi Pueblo</span><span id="lb-val-pueblo">0%</span></div>
+        <div class="pr-bg"><div class="pr-fill" id="lb-fill-pueblo" style="background: var(--purple); width: 0%;"></div></div>
+      </div>
+      <div class="pillar-row">
+        <div class="pr-top"><span style="color: var(--amber);">💰 Finanzas</span><span id="lb-val-fin">0%</span></div>
+        <div class="pr-bg"><div class="pr-fill" id="lb-fill-fin" style="background: var(--amber); width: 0%;"></div></div>
+      </div>
+      <div class="pillar-row">
+        <div class="pr-top"><span style="color: var(--green);">🏋️ Symmetry</span><span id="lb-val-gym">0%</span></div>
+        <div class="pr-bg"><div class="pr-fill" id="lb-fill-gym" style="background: var(--green); width: 0%;"></div></div>
       </div>
     </div>
   </section>
+
+  <!-- CONTENEDOR OCULTO DE CÁLCULOS JS -->
+  <div id="hidden-js-dump">
+    <span id="qhProgressTxt"></span>
+    <span id="syn-sbs-badge"></span>
+    <span id="stat-val-plan"></span>
+    <span id="stat-desc-plan"></span>
+    <span id="dailyQuote"></span>
+    <!-- IDs rescatados del antiguo Panorama Operativo -->
+    <span id="syn-vault-val"></span>
+    <span id="syn-vault-sub"></span>
+    <span id="stat-money-tarjetas"></span>
+    <span id="stat-tarjetas"></span>
+    <span id="syn-best-card"></span>
+    <span id="syn-best-days"></span>
+    <span id="stat-money-compras"></span>
+    <span id="stat-desc-compras"></span>
+    <span id="syn-wish-name"></span>
+    <span id="syn-wish-prio"></span>
+    <span id="syn-wish-sub"></span>
+  </div>
 </main>
 
-<!-- DOCK DE NAVEGACIÓN GLOBAL -->
 <nav class="global-dock" aria-label="Navegación Principal">
   <a href="index.html" class="dock-link active"><span>⚡</span><span class="dl-txt">Comando</span></a>
   <a href="compras.html" class="dock-link"><span>📦</span><span class="dl-txt">Compras</span></a>
@@ -611,18 +366,13 @@ body.survival-mode .hc-tag { color: var(--purple); background: var(--purple-glow
   <a href="plan.html" class="dock-link"><span>🧭</span><span class="dl-txt">Maestría</span></a>
 </nav>
 
-<!-- OVERLAY CRONÓMETRO INMERSIVO -->
 <div class="dw-overlay" id="dwOverlay">
-  <div style="font-family:'DM Mono', monospace; color:var(--amber); margin-bottom:12px; letter-spacing:2px; font-size:0.8rem;">SESIÓN DE ENFOQUE EN CURSO</div>
+  <div style="font-family:'DM Mono', monospace; color:var(--text-muted); margin-bottom:12px; letter-spacing:2px; font-size:0.85rem;">SESIÓN DE ENFOQUE</div>
   <div class="dw-timer" id="dwTimer">45:00</div>
-  <button class="hold-btn" id="holdAbortBtn">
-    <div class="hold-fill" id="holdFill"></div>
-    <div class="hold-text">Mantén presionado 1.5 s para salir</div>
-  </button>
+  <button class="dw-abort" onclick="abortDW()">Finalizar Sesión</button>
 </div>
 
 <div id="toast">Notificación</div>
-
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -673,10 +423,6 @@ function initGlobals() {
   if (localStorage.getItem('compras_theme') === 'dark') document.body.classList.add('dark-theme');
   if (isPrivacyMode) document.getElementById('privacyToggleBtn').classList.add('active');
   applySurvivalUI();
-
-  const h = new Date().getHours();
-  const greet = h >= 5 && h < 12 ? "Buenos días" : (h >= 12 && h < 19 ? "Buenas tardes" : "Buenas noches");
-  document.getElementById('greetText').textContent = `${greet}, Piero`;
 }
 
 function toggleSurvivalMode() {
@@ -684,20 +430,18 @@ function toggleSurvivalMode() {
   localStorage.setItem('survival_mode_v1', JSON.stringify(isSurvivalMode));
   applySurvivalUI();
   processPlanData();
-  showToast(isSurvivalMode ? '⚡ Microacciones de 2 minutos activadas' : '⚡ Modo Normal activado');
+  showToast(isSurvivalMode ? '🌱 Modo 2 min (Microacciones)' : '⚡ Modo Normal (Misiones)');
 }
 
 function applySurvivalUI() {
   document.body.classList.toggle('survival-mode', isSurvivalMode);
   const btn = document.getElementById('energyToggleBtn');
   if (btn) {
-    btn.innerHTML = isSurvivalMode ? '🌱 Modo 2 min' : '⚡ Modo Normal';
+    btn.innerHTML = isSurvivalMode ? '🌱 2 min' : '⚡ Normal';
     btn.classList.toggle('survival', isSurvivalMode);
   }
   const titleEl = document.getElementById('naModeTitle');
-  const focusBtn = document.getElementById('btnQuickFocus');
-  if (titleEl) titleEl.innerText = isSurvivalMode ? '🌱 MICROACCIÓN DE 2 MINUTOS (ANTI-FRICCIÓN)' : '🎯 MISIÓN PRIORITARIA DE HOY';
-  if (focusBtn) focusBtn.innerText = isSurvivalMode ? '⏱️ 2 min' : '⏱️ 45 min';
+  if (titleEl) titleEl.innerText = isSurvivalMode ? '🌱 MICROACCIÓN (2 MIN)' : '🎯 FOCO DE HOY';
 }
 
 function togglePrivacy() {
@@ -725,7 +469,6 @@ function formatMoneyK(val) {
   return formatMoney(num);
 }
 
-// CÁLCULO DE DÍAS LIBRES DE INTERÉS Y CORTES PARA EL PUENTE CON TARJETAS
 function getFreeCreditDays(closingDay, paymentDay) {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -756,12 +499,7 @@ function getDaysUntilDayOfMonth(dayNum) {
 
 async function syncFromCloud() {
   try {
-    const planFiles = {
-      topo:   'plan_topografia.json',
-      pueblo: 'plan_pueblo.json',
-      fin:    'plan_finanzas.json',
-      gym:    'plan_gimnasio.json'
-    };
+    const planFiles = { topo: 'plan_topografia.json', pueblo: 'plan_pueblo.json', fin: 'plan_finanzas.json', gym: 'plan_gimnasio.json' };
     for (const [pid, file] of Object.entries(planFiles)) {
       if (!localStorage.getItem(`cache_${pid}`)) {
         try {
@@ -800,7 +538,6 @@ async function syncFromCloud() {
             });
           }
           if (pData.plan.habitDays) localStorage.setItem('pierovski_habit_days_v1', JSON.stringify(pData.plan.habitDays));
-          if (pData.plan.startDate) localStorage.setItem('topo_start_date_v1', JSON.stringify(pData.plan.startDate));
           if (pData.plan.dailyLog) localStorage.setItem('pierovski_daily_log', JSON.stringify(pData.plan.dailyLog));
         }
       }
@@ -823,7 +560,6 @@ async function syncFromCloud() {
 
 function loadMiniStats() {
   try {
-    // 1. Puente con Tarjetas y Estrategia SBS
     const rawTjs = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
     const tjs = Array.isArray(rawTjs) ? rawTjs : Object.values(rawTjs);
     const unpaid = tjs.filter(t => !t.paid);
@@ -831,45 +567,22 @@ function loadMiniStats() {
     const totalLimit = tjs.reduce((acc, t) => acc + (parseFloat(t.creditLimit) || 0), 0);
     const ratioSBS = totalLimit > 0 ? Math.round((totalDebt / totalLimit) * 100) : 0;
 
-    // Mejor tarjeta para comprar hoy
-    let bestCard = null;
-    let maxDays = -1;
-    tjs.forEach(t => {
-      const fd = getFreeCreditDays(t.closing, t.payment);
-      if (fd > maxDays) { maxDays = fd; bestCard = t; }
-    });
-
-    const synBestCard = document.getElementById('syn-best-card');
-    const synBestDays = document.getElementById('syn-best-days');
-    const synSbsBadge = document.getElementById('syn-sbs-badge');
-    if (bestCard) {
-      synBestCard.textContent = bestCard.name;
-      synBestDays.textContent = `${maxDays} días libres · Cierra día ${bestCard.closing}`;
-      synSbsBadge.textContent = `SBS ${ratioSBS}%`;
-      synSbsBadge.style.color = ratioSBS <= 25 ? 'var(--green)' : 'var(--amber)';
-    } else {
-      synBestCard.textContent = 'Sin tarjetas';
-      synBestDays.textContent = 'Agrega tus tarjetas en el módulo';
-      synSbsBadge.textContent = 'SBS 0%';
-    }
-
     const mt = document.getElementById('stat-money-tarjetas');
-    mt.innerText = isPrivacyMode ? '***' : (unpaid.length > 0 ? `${unpaid.length} pend.` : 'Al día ✓');
-
     const descT = document.getElementById('stat-tarjetas');
-    if (unpaid.length > 0) {
-      unpaid.sort((a, b) => getDaysUntilDayOfMonth(a.payment) - getDaysUntilDayOfMonth(b.payment));
-      const nextCard = unpaid[0];
-      const daysLeft = getDaysUntilDayOfMonth(nextCard.payment);
-      descT.innerHTML = `<span style="color:${daysLeft <= 5 ? 'var(--red)' : 'var(--amber)'};">${nextCard.name}: vence en ${daysLeft} d</span> · SBS ${ratioSBS}%`;
-    } else if (totalLimit > 0) {
-      descT.innerHTML = `Uso SBS: <b>${ratioSBS} %</b> (Meta ≤ 25 %)`;
-    } else {
-      descT.innerHTML = `Sin pagos pendientes ✓`;
-    }
-    document.getElementById('mc-tarjetas').classList.toggle('is-optimal', unpaid.length === 0 && tjs.length > 0);
+    
+    if (mt) mt.innerText = isPrivacyMode ? '***' : (unpaid.length > 0 ? `${unpaid.length} pend.` : 'Al día ✓');
 
-    // 2. Puente con Compras, Costo Diario y Deseos
+    if (descT) {
+      if (unpaid.length > 0) {
+        unpaid.sort((a, b) => getDaysUntilDayOfMonth(a.payment) - getDaysUntilDayOfMonth(b.payment));
+        const nextCard = unpaid[0];
+        const daysLeft = getDaysUntilDayOfMonth(nextCard.payment);
+        descT.innerHTML = `<span style="color:${daysLeft <= 5 ? 'var(--red)' : 'var(--amber)'};">${nextCard.name}: ${daysLeft} d</span>`;
+      } else {
+        descT.innerHTML = `SBS: ${ratioSBS}%`;
+      }
+    }
+
     const prodsRaw = JSON.parse(localStorage.getItem('c_prods')) || [];
     const prods = Array.isArray(prodsRaw) ? prodsRaw : Object.values(prodsRaw);
     let totalPatrimonio = 0, enAmort = 0, amortizados = 0;
@@ -882,15 +595,15 @@ function loadMiniStats() {
         totalPatrimonio += cost;
         const pd = new Date(cleanDateStr(p.date) + 'T12:00:00');
         const days = Math.max(1, Math.ceil(Math.abs(hoy - pd) / 86400000));
-        if ((cost / days) > goal) enAmort++;
-        else amortizados++;
+        if ((cost / days) > goal) enAmort++; else amortizados++;
       }
     });
 
-    document.getElementById('stat-money-compras').innerText = formatMoneyK(totalPatrimonio);
-    document.getElementById('stat-desc-compras').innerText = `${amortizados} amortizados · ${enAmort} en curso`;
+    const mc = document.getElementById('stat-money-compras');
+    const dc = document.getElementById('stat-desc-compras');
+    if (mc) mc.innerText = formatMoneyK(totalPatrimonio);
+    if (dc) dc.innerText = `${amortizados} listos · ${enAmort} curso`;
 
-    // Deseo prioritario conectado a Bóveda
     const wishesRaw = JSON.parse(localStorage.getItem('c_wishes')) || [];
     const wishes = Array.isArray(wishesRaw) ? wishesRaw : Object.values(wishesRaw);
     const prioOrder = { 'Alta': 1, 'Media': 2, 'Baja': 3 };
@@ -899,15 +612,18 @@ function loadMiniStats() {
     const wNameEl = document.getElementById('syn-wish-name');
     const wSubEl = document.getElementById('syn-wish-sub');
     const wPrioEl = document.getElementById('syn-wish-prio');
-    if (wishes.length > 0) {
-      const topW = wishes[0];
-      wNameEl.textContent = topW.name;
-      wPrioEl.textContent = `Prio ${topW.prio || 'Media'}`;
-      wSubEl.textContent = `${formatMoney(topW.cost)} · ${wishes.length} en lista`;
-    } else {
-      wNameEl.textContent = 'Sin deseos';
-      wPrioEl.textContent = 'Deseos';
-      wSubEl.textContent = 'Usa el filtro antes de comprar';
+    
+    if (wNameEl) {
+      if (wishes.length > 0) {
+        const topW = wishes[0];
+        wNameEl.textContent = topW.name;
+        wPrioEl.textContent = `Prio ${topW.prio || 'Media'}`;
+        wSubEl.textContent = `${formatMoney(topW.cost)}`;
+      } else {
+        wNameEl.textContent = 'Vacía';
+        wPrioEl.textContent = 'Deseos';
+        wSubEl.textContent = 'Usa el filtro';
+      }
     }
   } catch (e) {}
 }
@@ -930,7 +646,6 @@ function processPlanData() {
   const radar = { topo: 0, pueblo: 0, fin: 0, gym: 0 };
   let recommendedTask = null;
   let recommendedLevel = 1;
-  let totalLevelsDone = 0;
   let vaultQuincenas = 0;
 
   PLAN_IDS.forEach(p => {
@@ -940,50 +655,36 @@ function processPlanData() {
       if (plan && plan.weeks) {
         let mTot = 0, mDone = 0;
         plan.weeks.forEach((w, wi) => {
-          let lvlTot = 0, lvlDone = 0;
           (w.tasks || []).forEach((t, ti) => {
             if (p === 'fin' && String(t).toLowerCase().includes('bóveda') && states[`${wi}-${ti}`] === true) {
               vaultQuincenas++;
             }
             if (isHabitTask(t)) return;
             mTot++;
-            lvlTot++;
             if (states[`${wi}-${ti}`] === true) {
               mDone++;
-              lvlDone++;
             } else if (!recommendedTask) {
               recommendedTask = extractTaskText(t);
               recommendedLevel = wi + 1;
             }
           });
-          if (lvlTot > 0 && lvlDone === lvlTot) totalLevelsDone++;
         });
         radar[p] = mTot > 0 ? Math.min(mDone / mTot, 1) : 0;
       }
     } catch (e) {}
   });
 
-  // Actualizar Cinta de Sinergia: Bóveda Quincenal
   const savedVault = vaultQuincenas * 300;
-  document.getElementById('syn-vault-val').textContent = formatMoney(savedVault);
-  document.getElementById('syn-vault-sub').textContent = `${vaultQuincenas}/6 quincenas (${Math.round((savedVault / 1800) * 100)}%)`;
+  const svVal = document.getElementById('syn-vault-val');
+  const svSub = document.getElementById('syn-vault-sub');
+  if (svVal) svVal.textContent = formatMoney(savedVault);
+  if (svSub) svSub.textContent = `${vaultQuincenas}/6 qcs`;
 
-  // Barra superior de 6 Quincenas
-  const avgLevelIndex = Math.min(5, Math.floor(totalLevelsDone / 4));
-  const qGrid = document.getElementById('qBarGrid').children;
-  for (let i = 0; i < 6; i++) {
-    qGrid[i].className = 'quarter-seg';
-    if (i < avgLevelIndex) qGrid[i].classList.add('done');
-    else if (i === avgLevelIndex) qGrid[i].classList.add('active');
-  }
-
-  document.getElementById('naWeekBadge').innerText = `NIVEL ${recommendedLevel} DE 6`;
-  document.getElementById('stat-val-plan').innerText = `Nivel ${recommendedLevel}/6`;
-
+  const naWeek = document.getElementById('naWeekBadge');
   const naEl = document.getElementById('naTask');
-  naEl.innerText = recommendedTask || "🏆 ¡Todas las misiones de tus 4 pilares están completadas!";
+  if (naWeek) naWeek.innerText = `NIVEL ${recommendedLevel}`;
+  if (naEl) naEl.innerText = recommendedTask || "🏆 ¡Misiones completadas!";
 
-  // Estado de los 4 hábitos rápidos de hoy
   const mondayKey = getCurrentWeekMondayKey();
   const todayDayIdx = (new Date().getDay() || 7) - 1;
   let habitDays = {};
@@ -997,10 +698,6 @@ function processPlanData() {
     if (chips[idx]) chips[idx].classList.toggle('done', isDone);
   });
 
-  document.getElementById('qhProgressTxt').innerText = `${habitsDoneToday}/4 completados hoy`;
-  document.getElementById('stat-desc-plan').innerText = `${habitsDoneToday}/4 hábitos hoy · ${totalLevelsDone} niveles listos`;
-  document.getElementById('mc-plan').classList.toggle('is-optimal', habitsDoneToday === 4);
-
   const dailyLog = JSON.parse(localStorage.getItem('pierovski_daily_log') || '{}');
   const todayKey = todayStr();
   if (habitsDoneToday > 0) {
@@ -1009,7 +706,7 @@ function processPlanData() {
   }
 
   const streak = calcRealStreak(dailyLog);
-  document.getElementById('streakBox').innerText = `🔥 ${streak} ${streak === 1 ? 'DÍA' : 'DÍAS'}`;
+  document.getElementById('streakBox').innerText = `🔥 ${streak} d`;
 
   drawVitalBalance(radar.topo, radar.pueblo, radar.fin, radar.gym);
   drawRealTimeline(dailyLog);
@@ -1046,7 +743,6 @@ function quickToggleTodayHabit(planId) {
   }
 
   if (navigator.vibrate) navigator.vibrate(20);
-  showToast(!currentVal ? '✓ Hábito de hoy registrado' : 'Hábito desmarcado');
   processPlanData();
 }
 
@@ -1070,7 +766,7 @@ function calcRealStreak(dailyLog) {
 
 function drawVitalBalance(t, p, f, g) {
   const globalPct = Math.round(((t + p + f + g) / 4) * 100);
-  document.getElementById('globalPctLbl').innerText = `${globalPct} % Global`;
+  document.getElementById('globalPctLbl').innerText = `${globalPct}%`;
 
   const tPct = Math.round(t * 100), pPct = Math.round(p * 100), fPct = Math.round(f * 100), gPct = Math.round(g * 100);
   document.getElementById('lb-fill-topo').style.width = `${tPct}%`; document.getElementById('lb-val-topo').innerText = `${tPct}%`;
@@ -1100,17 +796,16 @@ function drawRealTimeline(dailyLog) {
     const count = dailyLog[key] || 0;
     const lvl = count >= 3 ? 3 : (count === 2 ? 2 : (count === 1 ? 1 : 0));
     html += `
-      <div class="hm-cell lvl-${lvl} ${i === 0 ? 'is-today' : ''}" title="${key}: ${count} acciones">
+      <div class="hm-cell lvl-${lvl} ${i === 0 ? 'is-today' : ''}">
         <span class="hm-day">${daysArr[d.getDay()]}</span>
         <span class="hm-date">${d.getDate()}</span>
       </div>`;
   }
 
   hm.innerHTML = html;
-  document.getElementById('activeDaysCount').innerText = `${activeDays30}/30 d activos`;
+  document.getElementById('activeDaysCount').innerText = `${activeDays30}/30 activos`;
 }
 
-// CRONÓMETRO INMERSIVO DELTA-TIME
 let dwInt = null;
 function launchDeepWork(minutes = 45) {
   let endTime = parseInt(localStorage.getItem('pierovski_dw_end')) || 0;
@@ -1133,39 +828,17 @@ function updateDwDisplay() {
   document.getElementById('dwTimer').textContent = `${m}:${s}`;
   if (remSecs <= 0) {
     abortDW();
-    showToast("🔥 ¡Sesión de enfoque completada!");
+    showToast("🔥 ¡Sesión completada!");
   }
 }
 
-const holdBtn = document.getElementById('holdAbortBtn');
-const holdFill = document.getElementById('holdFill');
-let holdReq, holdStart = 0;
-
-function updateHold() {
-  const prog = Math.min((Date.now() - holdStart) / 1500, 1);
-  holdFill.style.width = `${prog * 100}%`;
-  holdBtn.classList.add('shaking');
-  if (prog >= 1) { abortDW(); return; }
-  holdReq = requestAnimationFrame(updateHold);
-}
-const startHold = (e) => { e.preventDefault(); holdStart = Date.now(); holdReq = requestAnimationFrame(updateHold); };
-const stopHold = () => { cancelAnimationFrame(holdReq); holdFill.style.width = '0%'; holdBtn.classList.remove('shaking'); };
-
-holdBtn.addEventListener('mousedown', startHold);
-holdBtn.addEventListener('touchstart', startHold, { passive: false });
-holdBtn.addEventListener('mouseup', stopHold);
-holdBtn.addEventListener('mouseleave', stopHold);
-holdBtn.addEventListener('touchend', stopHold);
-
 function abortDW() {
-  stopHold();
   clearInterval(dwInt);
   dwInt = null;
   localStorage.removeItem('pierovski_dw_end');
   document.getElementById('dwOverlay').classList.remove('open');
 }
 
-// ESCUCHA EN VIVO ENTRE PESTAÑAS
 window.addEventListener('storage', () => {
   loadMiniStats();
   processPlanData();

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pierovski-v10';
+const CACHE_NAME = 'pierovski-v10.1';
 
 const ASSETS = [
   './',
