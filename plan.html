@@ -4,418 +4,377 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="view-transition" content="same-origin">
-<title>Ruta de Maestría | Pierovski OS</title>
-
+<title>Maestría</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#090d16">
+<meta name="theme-color" content="#080c17">
 <link rel="apple-touch-icon" href="icon.jpg">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <style>
 :root {
   color-scheme: light;
-  --bg: #f1f5f9;
-  --bg-accent: radial-gradient(circle at 15% 0%, rgba(217,119,6,0.06), transparent 45%), radial-gradient(circle at 85% 10%, rgba(37,99,235,0.05), transparent 45%);
-  --surface: #ffffff;
-  --surface-glass: rgba(255, 255, 255, 0.86);
+  --bg: #f3f5fa;
+  --bg-aurora: 
+    radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.11) 0px, transparent 48%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.11) 0px, transparent 48%),
+    radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-solid: #ffffff;
   --surface2: #f8fafc;
   --surface3: #e2e8f0;
-  --border: rgba(148, 163, 184, 0.28);
-  --border-strong: rgba(100, 116, 139, 0.35);
-  --amber: #d97706;
-  --amber-dim: #b45309;
-  --amber-glow: rgba(217, 119, 6, 0.12);
-  --green: #059669;
-  --green-dim: #047857;
-  --green-glow: rgba(5, 150, 105, 0.12);
-  --red: #dc2626;
-  --red-dim: #b91c1c;
-  --red-glow: rgba(220, 38, 38, 0.12);
-  --blue: #2563eb;
-  --blue-glow: rgba(37, 99, 235, 0.12);
-  --purple: #7c3aed;
-  --purple-glow: rgba(124, 58, 237, 0.12);
+  --border: rgba(148, 163, 184, 0.22);
+  --border-strong: rgba(100, 116, 139, 0.32);
   --text: #0f172a;
   --text-muted: #475569;
   --text-dim: #64748b;
-  --white-fixed: #ffffff;
-  --r-lg: 22px;
-  --r-md: 16px;
-  --r-sm: 12px;
-  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+
+  --cyan: #0284c7;
+  --cyan-soft: rgba(2, 132, 199, 0.12);
+  --violet: #7c3aed;
+  --violet-soft: rgba(124, 58, 237, 0.12);
+  --amber: #d97706;
+  --amber-soft: rgba(217, 119, 6, 0.12);
+  --emerald: #059669;
+  --emerald-soft: rgba(5, 150, 105, 0.12);
+  --rose: #e11d48;
+  --rose-soft: rgba(225, 29, 72, 0.12);
+
+  --r-2xl: 24px;
+  --r-xl: 18px;
+  --r-lg: 14px;
+  --shadow-card: 0 10px 30px -8px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.03);
+  --shadow-dock: 0 16px 36px -6px rgba(15, 23, 42, 0.14);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body.dark-theme {
   color-scheme: dark;
-  --bg: #090d16;
-  --bg-accent: radial-gradient(circle at 15% 0%, rgba(217,119,6,0.12), transparent 45%), radial-gradient(circle at 85% 10%, rgba(37,99,235,0.10), transparent 45%);
-  --surface: #131b2e;
-  --surface-glass: rgba(19, 27, 46, 0.84);
-  --surface2: #0d1322;
+  --bg: #080c17;
+  --bg-aurora: 
+    radial-gradient(at 5% 0%, rgba(14, 165, 233, 0.16) 0px, transparent 45%),
+    radial-gradient(at 95% 5%, rgba(139, 92, 246, 0.16) 0px, transparent 45%),
+    radial-gradient(at 50% 95%, rgba(16, 185, 129, 0.11) 0px, transparent 50%);
+  --surface: rgba(17, 24, 43, 0.78);
+  --surface-solid: #11182b;
+  --surface2: rgba(11, 16, 30, 0.75);
   --surface3: #1e293b;
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.16);
   --text: #f8fafc;
   --text-muted: #cbd5e1;
   --text-dim: #94a3b8;
-  --amber-glow: rgba(217, 119, 6, 0.22);
-  --green-glow: rgba(5, 150, 105, 0.22);
-  --red-glow: rgba(220, 38, 38, 0.22);
-  --blue-glow: rgba(37, 99, 235, 0.22);
-  --purple-glow: rgba(124, 58, 237, 0.22);
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
-  --shadow-md: 0 14px 36px -6px rgba(0, 0, 0, 0.45);
+
+  --cyan: #38bdf8;
+  --cyan-soft: rgba(56, 189, 248, 0.16);
+  --violet: #a78bfa;
+  --violet-soft: rgba(167, 139, 250, 0.16);
+  --amber: #fbbf24;
+  --amber-soft: rgba(251, 191, 36, 0.16);
+  --emerald: #34d399;
+  --emerald-soft: rgba(52, 211, 153, 0.16);
+  --rose: #fb7185;
+  --rose-soft: rgba(251, 113, 133, 0.16);
+
+  --shadow-card: 0 14px 34px -8px rgba(0, 0, 0, 0.45);
+  --shadow-dock: 0 18px 40px rgba(0, 0, 0, 0.55);
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html { scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body {
   background-color: var(--bg);
-  background-image: var(--bg-accent);
+  background-image: var(--bg-aurora);
   background-attachment: fixed;
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   min-height: 100vh;
-  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
-  padding-bottom: 115px;
+  padding-bottom: 108px;
   font-variant-numeric: tabular-nums;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
 }
 
 #offlineBanner {
-  display: none; background: var(--amber); color: #ffffff;
-  text-align: center; padding: 6px 12px;
-  font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700;
-  letter-spacing: 0.5px; position: sticky; top: 0; z-index: 200;
+  display: none; background: var(--amber); color: #000; text-align: center;
+  padding: 5px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700;
 }
 
-/* CABECERA UNIFICADA PIEROVSKI */
+/* CABECERA LIMPIA Y COMPACTA */
 header {
   position: sticky; top: 0; z-index: 100;
-  background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border); padding: 0 20px 12px;
+  background: var(--surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border); padding: 0 18px 10px;
 }
 .header-inner {
-  max-width: 840px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 0 12px; flex-wrap: wrap; gap: 10px;
+  max-width: 780px; margin: 0 auto; height: 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
 }
-.logo-container { display: flex; align-items: center; gap: 10px; }
-.btn-back-arrow {
-  display: flex; align-items: center; justify-content: center;
-  width: 38px; height: 38px; background: var(--surface);
-  border-radius: 50%; color: var(--text-muted);
-  transition: all 0.2s var(--ease); text-decoration: none;
-  border: 1px solid var(--border-strong); flex-shrink: 0; box-shadow: var(--shadow-sm);
+.brand-box { display: flex; align-items: center; gap: 10px; }
+.sync-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong);
+  transition: all 0.3s var(--ease);
 }
-.btn-back-arrow:hover { border-color: var(--amber); color: var(--text); transform: translateX(-2px); }
-.logo h1 {
-  font-family: 'Fraunces', serif; font-weight: 700; font-size: clamp(1.2rem, 3vw, 1.4rem);
-  color: var(--text); letter-spacing: -0.02em; line-height: 1;
-  display: flex; align-items: center; gap: 8px;
+.sync-dot.online { background: var(--emerald); box-shadow: 0 0 10px var(--emerald); }
+.sync-dot.syncing { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
+
+.header-title {
+  font-family: 'Outfit', sans-serif; font-size: 1.16rem; font-weight: 700;
+  color: var(--text); letter-spacing: -0.01em;
 }
 
-.cloud-status { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); display: inline-block; transition: 0.3s; }
-.cloud-online { background: var(--green); box-shadow: 0 0 8px var(--green); }
-.cloud-syncing { background: var(--amber); animation: pulse-cloud 1s infinite; }
-@keyframes pulse-cloud { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-.header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.btn-pill {
-  font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-muted);
-  background: var(--surface); border: 1px solid var(--border-strong);
-  font-weight: 700; height: 38px; padding: 0 14px; border-radius: 20px;
-  transition: all 0.2s var(--ease); cursor: pointer;
-  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
-  box-shadow: var(--shadow-sm);
+.header-tools { display: flex; align-items: center; gap: 7px; }
+.btn-mode-pill {
+  height: 34px; padding: 0 12px; border-radius: 14px; cursor: pointer;
+  border: 1px solid var(--border-strong); background: var(--surface2);
+  color: var(--text-muted); font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.73rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;
+  transition: all 0.2s var(--ease);
 }
-.btn-pill:hover { border-color: var(--amber); color: var(--text); transform: translateY(-1px); }
-.btn-pill.active-survival {
-  background: var(--purple); color: #ffffff; border-color: var(--purple);
-  box-shadow: 0 4px 14px var(--purple-glow);
+.btn-mode-pill:hover { border-color: var(--cyan); color: var(--text); }
+.btn-mode-pill.active-survival {
+  background: var(--violet-soft); color: var(--violet); border-color: var(--violet);
 }
-.btn-pill.btn-dw { background: var(--text); color: var(--bg); border-color: var(--text); }
-
-.btn-icon-tool {
-  background: var(--surface); border: 1px solid var(--border-strong);
-  color: var(--text-muted); border-radius: 50%; width: 38px; height: 38px;
-  font-size: 0.92rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s var(--ease); box-shadow: var(--shadow-sm);
+.btn-mode-pill.btn-dw {
+  background: var(--amber-soft); color: var(--amber); border-color: rgba(217, 119, 6, 0.3);
 }
-.btn-icon-tool:hover { border-color: var(--amber); color: var(--text); transform: translateY(-1px); }
-.btn-icon-tool:active { transform: scale(0.92); }
+.btn-mode-pill svg { width: 14px; height: 14px; stroke-width: 2.1; }
 
-/* SELECTOR DE 4 PILARES */
-.plan-selector { max-width: 840px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.btn-icon-svg {
+  width: 34px; height: 34px; border-radius: 11px; border: 1px solid var(--border-strong);
+  background: var(--surface2); color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+.btn-icon-svg:hover { border-color: var(--cyan); color: var(--text); transform: translateY(-1px); }
+.btn-icon-svg svg { width: 15px; height: 15px; stroke-width: 2; }
+
+/* SELECTOR DE 4 SECCIONES CON ICONOS PEQUEÑOS (13PX) */
+.plan-selector {
+  max-width: 780px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px;
+}
 .plan-btn {
-  padding: 10px 8px; border-radius: 14px; background: var(--surface);
+  padding: 7px 8px; border-radius: 11px; background: var(--surface2);
   border: 1px solid var(--border); cursor: pointer; color: var(--text-muted);
-  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.8rem;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  transition: all 0.2s var(--ease); box-shadow: var(--shadow-sm); white-space: nowrap;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.74rem;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  transition: all 0.2s var(--ease); white-space: nowrap;
 }
+.plan-btn svg { width: 13px; height: 13px; stroke-width: 2.1; flex-shrink: 0; opacity: 0.85; }
 .plan-btn:hover { border-color: var(--border-strong); color: var(--text); }
-.plan-btn .pb-icon { font-size: 1.05rem; }
-.plan-btn.active {
-  background: var(--amber-glow); color: var(--amber);
-  border-color: var(--amber); transform: translateY(-1px);
-}
 
-/* CINTA INTEGRADA DE NAVEGACIÓN DE LOS 6 NIVELES + BITÁCORA */
-.level-ribbon-wrap {
-  max-width: 840px; margin: 14px auto 0; padding: 0 20px;
-}
-.level-ribbon {
-  display: flex; align-items: center; gap: 8px; overflow-x: auto;
-  scrollbar-width: none; padding: 4px 0;
-}
+.plan-btn.active[data-plan="topo"] { background: var(--cyan-soft); color: var(--cyan); border-color: var(--cyan); }
+.plan-btn.active[data-plan="pueblo"] { background: var(--violet-soft); color: var(--violet); border-color: var(--violet); }
+.plan-btn.active[data-plan="fin"] { background: var(--amber-soft); color: var(--amber); border-color: var(--amber); }
+.plan-btn.active[data-plan="gym"] { background: var(--emerald-soft); color: var(--emerald); border-color: var(--emerald); }
+
+/* CINTA DE NIVELES + GESTIÓN */
+.level-ribbon-wrap { max-width: 780px; margin: 12px auto 0; padding: 0 18px; }
+.level-ribbon { display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; }
 .level-ribbon::-webkit-scrollbar { display: none; }
 .bn-tab {
-  flex: 0 0 auto; padding: 8px 15px; border-radius: 20px;
-  background: var(--surface); border: 1px solid var(--border-strong);
-  font-family: 'DM Mono', monospace; font-size: 0.74rem; font-weight: 700;
-  color: var(--text-muted); transition: all 0.2s var(--ease); cursor: pointer;
-  display: inline-flex; align-items: center; gap: 5px; box-shadow: var(--shadow-sm);
+  flex: 0 0 auto; padding: 6px 13px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700;
+  color: var(--text-muted); cursor: pointer; transition: 0.2s;
 }
-.bn-tab:hover { border-color: var(--amber); color: var(--text); }
+.bn-tab:hover { border-color: var(--cyan); color: var(--text); }
 .bn-tab.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-.bn-tab.done-lvl { border-color: var(--green); color: var(--green); }
-.bn-tab.active.done-lvl { background: var(--green); color: #ffffff; border-color: var(--green); }
-.bn-tab.current-week { border: 2px solid var(--amber); }
+.bn-tab.done-lvl { border-color: var(--emerald); color: var(--emerald); }
+.bn-tab.active.done-lvl { background: var(--emerald); color: #fff; }
+.bn-tab.current-week { border-color: var(--cyan); }
 
-.bn-wam-btn {
-  flex: 0 0 auto; padding: 8px 15px; border-radius: 20px;
-  background: var(--amber-glow); border: 1px solid rgba(217, 119, 6, 0.35);
-  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 700;
-  color: var(--amber); display: flex; align-items: center; gap: 6px;
-  margin-left: auto; cursor: pointer; transition: all 0.2s var(--ease);
+.bn-action-btn {
+  flex: 0 0 auto; padding: 6px 11px; border-radius: 12px;
+  background: var(--surface2); border: 1px solid var(--border-strong);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; font-weight: 700;
+  color: var(--text-muted); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+  transition: 0.2s;
 }
-.bn-wam-btn:hover { background: var(--amber); color: #ffffff; }
+.bn-action-btn:hover { border-color: var(--cyan); color: var(--text); }
+.bn-action-btn svg { width: 12px; height: 12px; stroke-width: 2.2; }
 
-main { max-width: 840px; margin: 0 auto; }
-.plan-section { display: none; padding: 16px 20px 20px; animation: fadeIn 0.25s var(--ease); }
-.plan-section.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+main { max-width: 780px; margin: 0 auto; }
+.plan-section { display: none; padding: 14px 18px 20px; }
+.plan-section.active { display: block; animation: fadeUp 0.22s var(--ease); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-/* TARJETA VISIÓN, BÓVEDA QUINCENAL Y PUENTE SBS */
+/* TARJETA VISIÓN */
 .vision-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-md); padding: 14px 18px; margin-bottom: 14px;
-  box-shadow: var(--shadow-sm);
+  background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 12px 16px; margin-bottom: 12px; box-shadow: var(--shadow-card);
 }
+.vision-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+.btn-mini-edit {
+  background: var(--surface2); border: 1px solid var(--border-strong); color: var(--text-muted);
+  border-radius: 9px; padding: 4px 9px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.68rem;
+  font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s;
+}
+.btn-mini-edit:hover { border-color: var(--cyan); color: var(--text); }
+.btn-mini-edit svg { width: 11px; height: 11px; stroke-width: 2.2; }
 
-.fin-synergy-grid {
-  display: grid; grid-template-columns: 1.15fr 1fr; gap: 12px;
-  margin-bottom: 16px;
-}
-.vault-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-left: 4px solid var(--green); border-radius: var(--r-md);
-  padding: 16px 18px; box-shadow: var(--shadow-sm);
-  display: flex; flex-direction: column; justify-content: space-between;
-}
-.vault-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
-.vault-lbl { font-family: 'DM Mono', monospace; font-size: 0.66rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.06em; }
-.vault-val { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; color: var(--text); }
-.vault-bar-bg { width: 100%; height: 7px; background: var(--surface3); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
-.vault-bar-fill { height: 100%; background: var(--green); border-radius: 4px; transition: width 0.5s var(--ease); }
-.vault-sub { font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-dim); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
-
-.sbs-live-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-left: 4px solid var(--blue); border-radius: var(--r-md);
-  padding: 16px 18px; box-shadow: var(--shadow-sm);
-  display: flex; flex-direction: column; justify-content: space-between;
-  text-decoration: none; color: inherit; transition: all 0.2s var(--ease);
-}
-.sbs-live-card:hover { border-color: var(--amber); transform: translateY(-1px); }
-
-/* BANNER DE MODO MICROACCIÓN 2 MINUTOS */
-.survival-banner {
-  display: none; background: var(--purple-glow);
-  border: 1px solid rgba(124, 58, 237, 0.35); border-left: 4px solid var(--purple);
-  padding: 12px 16px; border-radius: var(--r-sm); margin-bottom: 14px;
-  font-size: 0.82rem; color: var(--text); font-weight: 600;
-  align-items: center; justify-content: space-between; gap: 10px;
-}
-body.survival-mode .survival-banner { display: flex; }
-
-/* CABECERA DE NIVEL / QUINCENA */
+/* CABECERA DE NIVEL COMPACTA */
 .week-header-card {
   display: flex; justify-content: space-between; align-items: center;
-  background: var(--surface); padding: 20px; border-radius: var(--r-lg);
-  border: 1px solid var(--border); margin-bottom: 16px;
-  box-shadow: var(--shadow-md); gap: 14px;
+  background: var(--surface); backdrop-filter: blur(16px); padding: 16px 18px;
+  border-radius: var(--r-2xl); border: 1px solid var(--border);
+  margin-bottom: 14px; box-shadow: var(--shadow-card); gap: 12px;
+  position: relative; overflow: hidden;
 }
-.wh-info h2 { font-family: 'Fraunces', serif; font-size: 1.28rem; color: var(--text); margin-bottom: 4px; font-weight: 700; line-height: 1.2; }
-.wh-info .wh-dates { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--amber); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 4px; }
-.wh-info .wh-theme { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 4px 10px; background: var(--surface2); border: 1px solid var(--border-strong); border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 0.66rem; font-weight: 700; color: var(--text-muted); }
+.week-header-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--violet), var(--emerald));
+}
+.wh-dates { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--cyan); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
+.wh-info h2 { font-family: 'Outfit', sans-serif; font-size: 1.14rem; color: var(--text); margin: 3px 0 8px; font-weight: 700; }
+.wh-actions-row { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+.btn-add-mission {
+  background: var(--text); color: var(--bg); border: none; border-radius: 10px;
+  padding: 5px 11px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; font-weight: 700;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+}
 
-.progress-ring-container { position: relative; width: 64px; height: 64px; display: flex; justify-content: center; align-items: center; }
+.progress-ring-container { position: relative; width: 54px; height: 54px; display: flex; justify-content: center; align-items: center; }
 .progress-ring { transform: rotate(-90deg); }
 .progress-ring__circle-bg { stroke: var(--surface3); }
-.progress-ring__circle { stroke: var(--amber); transition: stroke-dashoffset 0.5s var(--ease), stroke 0.5s; }
-.progress-ring-container.winner .progress-ring__circle { stroke: var(--green); }
-.pr-text { position: absolute; font-family: 'DM Mono', monospace; font-size: 0.86rem; font-weight: 700; color: var(--text); }
-.ghost-target { font-family: 'DM Mono', monospace; font-size: 0.62rem; font-weight: 700; text-align: center; margin-top: 6px; color: var(--text-dim); }
+.progress-ring__circle { stroke: var(--cyan); transition: stroke-dashoffset 0.4s var(--ease); }
+.progress-ring-container.winner .progress-ring__circle { stroke: var(--emerald); }
+.pr-text { position: absolute; font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; font-weight: 700; }
 
-/* FOCO CORRECTIVO BITÁCORA */
-.active-wam-banner { background: var(--amber-glow); border-left: 4px solid var(--amber); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 0.84rem; color: var(--text); line-height: 1.45; }
-.active-wam-banner strong { color: var(--amber); font-family: 'DM Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; }
-
-/* MISIONES CON PISO Y TECHO */
-.task-group-title { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.08em; margin: 16px 0 10px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; }
-.tasks-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 20px; }
+/* MISIONES EN 2 CAPAS */
+.task-group-title {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--text-dim);
+  letter-spacing: 0.05em; margin: 14px 2px 8px; font-weight: 700; text-transform: uppercase;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.tasks-grid { display: flex; flex-direction: column; gap: 9px; margin-bottom: 18px; }
 
 .task-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r-md); padding: 16px;
-  display: flex; align-items: flex-start; gap: 12px;
-  cursor: pointer; transition: all 0.2s var(--ease);
-  box-shadow: var(--shadow-sm); user-select: none; position: relative;
+  background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 13px 15px;
+  transition: all 0.2s var(--ease); box-shadow: var(--shadow-card);
 }
-.task-card:hover { border-color: var(--amber); transform: translateY(-1px); }
-.task-card:active { transform: scale(0.99); }
-.task-body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.task-card .t-text { font-size: 0.92rem; font-weight: 600; color: var(--text); line-height: 1.48; transition: color 0.2s; }
-.task-card .t-micro-badge { display: none; font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--purple); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-body.survival-mode .task-card .t-micro-badge { display: inline-block; }
-body.survival-mode .task-card:not(.checked) { border-color: rgba(124, 58, 237, 0.4); }
+.task-card:hover { border-color: var(--border-strong); }
+.task-top-row { display: flex; align-items: center; gap: 11px; cursor: pointer; user-select: none; }
+.task-check {
+  width: 22px; height: 22px; border: 2px solid var(--border-strong); border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; font-size: 12px; color: transparent;
+  flex-shrink: 0; font-weight: 700; transition: 0.2s;
+}
+.task-main-info { flex: 1; min-width: 0; }
+.t-headline { font-family: 'Outfit', sans-serif; font-size: 0.94rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+.t-preview {
+  font-size: 0.78rem; color: var(--text-muted); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; margin-top: 2px;
+}
+.btn-expand-task {
+  background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted);
+  border-radius: 9px; padding: 4px 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+  font-weight: 700; cursor: pointer; flex-shrink: 0; transition: 0.2s;
+}
+.btn-expand-task:hover { border-color: var(--cyan); color: var(--text); }
 
-.task-check { width: 24px; height: 24px; border: 2px solid var(--border-strong); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: transparent; flex-shrink: 0; transition: all 0.2s; margin-top: 1px; font-weight: 700; }
+/* CAPA 2 DESPLEGABLE */
+.task-drawer {
+  display: none; margin-top: 11px; padding-top: 11px; border-top: 1px dashed var(--border);
+  font-size: 0.82rem; line-height: 1.48; color: var(--text-muted);
+}
+.task-drawer.open { display: block; animation: fadeUp 0.18s var(--ease); }
+.td-box { background: var(--surface2); padding: 9px 12px; border-radius: 10px; margin-bottom: 8px; border-left: 3px solid var(--cyan); }
+.td-box.micro { border-left-color: var(--violet); }
+.td-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 3px; color: var(--text-dim); }
+.td-actions { display: flex; justify-content: flex-end; gap: 7px; margin-top: 8px; }
 
-@keyframes checkPop { 0% { transform: scale(0.8); } 50% { transform: scale(1.18); } 100% { transform: scale(1); } }
-.task-card.checked { border-color: var(--green); background: var(--green-glow); }
-.task-card.checked .t-text { color: var(--text-muted); text-decoration: line-through; }
-.task-card.checked .task-check { background: var(--green); border-color: var(--green); color: var(--white-fixed); animation: checkPop 0.25s var(--ease) forwards; }
+.task-card.checked { border-color: var(--emerald); background: var(--emerald-soft); }
+.task-card.checked .t-headline { text-decoration: line-through; color: var(--text-muted); }
+.task-card.checked .task-check { background: var(--emerald); border-color: var(--emerald); color: #fff; }
 
-/* HÁBITOS CON 7 BOTONES DIARIOS (L M M J V S D) */
-.habit-weekly-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 16px 18px; box-shadow: var(--shadow-sm); margin-bottom: 22px; }
-.hw-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; }
-.hw-title { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.4; }
-.hw-count { font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 700; color: var(--amber); background: var(--amber-glow); padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
-.hw-days-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+/* HÁBITO SEMANAL DE 7 DÍAS */
+.habit-weekly-card {
+  background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 14px 16px; box-shadow: var(--shadow-card); margin-bottom: 16px;
+}
+.hw-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 11px; }
+.hw-title { font-size: 0.84rem; font-weight: 600; color: var(--text); }
+.hw-days-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
 .hw-day-btn {
-  height: 42px; border-radius: 10px; background: var(--surface2);
-  border: 1px solid var(--border-strong); font-family: 'DM Mono', monospace;
-  font-size: 0.74rem; font-weight: 700; color: var(--text-muted);
+  height: 38px; border-radius: 10px; background: var(--surface2);
+  border: 1px solid var(--border-strong); font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
   cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 2px; transition: all 0.2s var(--ease); user-select: none;
+  transition: 0.2s;
 }
-.hw-day-btn:hover { border-color: var(--amber); }
-.hw-day-btn:active { transform: scale(0.93); }
-.hw-day-btn.is-today { border: 2px solid var(--amber); color: var(--text); }
-.hw-day-btn.done { background: var(--green); border-color: var(--green-dim); color: #ffffff; box-shadow: 0 3px 10px var(--green-glow); }
-.hw-day-btn .d-dot { font-size: 0.6rem; line-height: 1; }
+.hw-day-btn.is-today { border: 2px solid var(--cyan); color: var(--text); }
+.hw-day-btn.done { background: var(--emerald); border-color: var(--emerald); color: #fff; }
 
-/* MAPA DE PROGRESO DE LOS 6 NIVELES */
-.heatmap-container { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-md); margin-top: 20px; }
-.hm-title { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 14px; font-weight: 700; letter-spacing: 0.08em; display: flex; justify-content: space-between; align-items: center; }
-.heatmap-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
-.hm-cell { aspect-ratio: 1.1; border-radius: 12px; background: var(--surface2); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; position: relative; cursor: pointer; transition: 0.2s var(--ease); }
-.hm-cell:hover { border-color: var(--amber); transform: translateY(-2px); }
-.hm-cell .hm-num { font-size: 0.64rem; font-weight: 700; color: var(--text-dim); margin-bottom: 3px; }
-.hm-cell .hm-pct { font-size: 0.85rem; font-weight: 700; color: var(--text); }
-.hm-cell.lvl-0 { background: var(--surface2); }
-.hm-cell.lvl-1 { background: var(--amber-glow); border-color: rgba(217, 119, 6, 0.35); }
-.hm-cell.lvl-2 { background: rgba(217, 119, 6, 0.28); border-color: var(--amber); }
-.hm-cell.lvl-3 { background: var(--green); border-color: var(--green-dim); }
-.hm-cell.lvl-3 .hm-num, .hm-cell.lvl-3 .hm-pct { color: var(--white-fixed); }
-.hm-current { border: 2px solid var(--amber) !important; transform: scale(1.03); z-index: 2; }
-.hm-reward { position: absolute; top: -6px; right: -6px; font-size: 0.76rem; background: var(--surface); border-radius: 50%; box-shadow: var(--shadow-sm); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
-
-/* MODALES PREMIUM */
+/* MODALES */
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(9, 13, 22, 0.65);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  z-index: 300; display: none; align-items: center; justify-content: center;
+  position: fixed; inset: 0; background: rgba(8, 12, 23, 0.72);
+  backdrop-filter: blur(8px); z-index: 300; display: none; align-items: center; justify-content: center;
 }
-.modal-overlay.open { display: flex; animation: fadeIn 0.2s var(--ease); }
+.modal-overlay.open { display: flex; }
 .modal-content {
-  position: relative; background: var(--surface); width: 92%; max-width: 520px;
-  border-radius: 24px; border: 1px solid var(--border-strong);
-  padding: 28px 24px; max-height: 88vh; overflow-y: auto;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  position: relative; background: var(--surface-solid); width: 92%; max-width: 490px;
+  border-radius: var(--r-2xl); border: 1px solid var(--border-strong); padding: 22px 20px;
+  max-height: 88vh; overflow-y: auto; box-shadow: var(--shadow-dock);
 }
-.modal-close { position: absolute; top: 20px; right: 20px; background: var(--surface2); border: 1px solid var(--border-strong); width: 34px; height: 34px; border-radius: 50%; font-size: 0.95rem; color: var(--text-muted); cursor: pointer; }
-.modal-content h2 { font-family: 'Fraunces', serif; font-size: 1.32rem; color: var(--text); margin-bottom: 18px; font-weight: 700; }
-
+.modal-close {
+  position: absolute; top: 16px; right: 16px; background: var(--surface2);
+  border: 1px solid var(--border-strong); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; color: var(--text);
+}
+.field-lbl { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); margin: 10px 0 4px; font-weight: 700; }
 .wam-input {
-  width: 100%; min-height: 76px; font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem; padding: 12px; border-radius: 12px;
-  border: 1px solid var(--border-strong); background: var(--surface2);
-  color: var(--text); outline: none; margin-top: 6px; margin-bottom: 14px; resize: vertical;
+  width: 100%; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.86rem; padding: 9px 12px;
+  border-radius: 11px; border: 1px solid var(--border-strong); background: var(--surface2); color: var(--text); outline: none;
 }
-.wam-input:focus { border-color: var(--amber); background: var(--surface); box-shadow: 0 0 0 3px var(--amber-glow); }
+.wam-input:focus { border-color: var(--cyan); }
 .mbtn-save {
-  width: 100%; background: var(--text); color: var(--bg);
-  border: none; padding: 14px; border-radius: 22px;
-  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.9rem;
-  cursor: pointer; margin-top: 8px; transition: 0.2s var(--ease);
+  width: 100%; background: var(--text); color: var(--bg); border: none; padding: 12px;
+  border-radius: 14px; font-weight: 700; font-size: 0.84rem; cursor: pointer; margin-top: 12px;
 }
-.mbtn-save:active { transform: scale(0.98); }
 
-/* CRONÓMETRO DE INMERSIÓN */
+/* CRONÓMETRO */
 .dw-overlay {
-  position: fixed; inset: 0; background: rgba(9, 13, 22, 0.96);
-  backdrop-filter: blur(16px); z-index: 1000;
-  display: none; flex-direction: column; align-items: center; justify-content: center;
-  color: #fff; padding: 20px; text-align: center;
+  position: fixed; inset: 0; background: rgba(8, 12, 23, 0.95); backdrop-filter: blur(20px);
+  z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; color: #fff;
 }
-.dw-overlay.open { display: flex; animation: fadeIn 0.25s; }
-.dw-title { font-family: 'DM Mono', monospace; font-size: 0.82rem; color: var(--amber); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
-.dw-timer { font-family: 'DM Mono', monospace; font-size: clamp(3.8rem, 12vw, 5.2rem); font-weight: 700; color: #fff; margin-bottom: 36px; }
-.dw-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-.dw-btn { background: #fff; color: #000; border: none; border-radius: 30px; padding: 14px 32px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.92rem; cursor: pointer; transition: 0.2s; }
-.dw-btn-danger { background: var(--red); color: #fff; }
-.dw-btn-small { background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid rgba(255, 255, 255, 0.25); padding: 9px 14px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 0.74rem; cursor: pointer; transition: 0.2s; font-weight: 600; }
-.dw-btn-small.active { background: var(--amber); color: #fff; border-color: var(--amber); font-weight: 700; }
+.dw-overlay.open { display: flex; }
+.dw-timer { font-family: 'Outfit', sans-serif; font-size: 4.8rem; font-weight: 700; margin: 18px 0 24px; }
+.dw-btn-small {
+  background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2);
+  padding: 7px 13px; border-radius: 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; cursor: pointer;
+}
+.dw-btn-small.active { background: var(--cyan); border-color: var(--cyan); font-weight: 700; }
 
-.wh-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 12px; text-align: left; }
-.wh-item-header { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--amber); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
-.wh-q { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-top: 8px; }
-.wh-a { font-size: 0.88rem; color: var(--text); margin-top: 2px; line-height: 1.45; font-style: italic; }
-
-/* GLOBAL DOCK DE NAVEGACIÓN UNIFICADA */
+/* SUBMENÚ INFERIOR DOCK UNIFICADO */
 .global-dock {
-  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
-  background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-strong); border-radius: 30px;
-  padding: 6px 8px; display: flex; align-items: center; gap: 6px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); z-index: 200;
+  position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+  background: var(--surface); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  border: 1px solid var(--border-strong); border-radius: 26px; padding: 6px 8px;
+  display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-dock); z-index: 200;
 }
 .dock-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 16px; border-radius: 24px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
-  color: var(--text-muted); text-decoration: none; transition: all 0.2s var(--ease);
-  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 20px;
+  font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-decoration: none;
+  transition: all 0.22s var(--ease); white-space: nowrap;
 }
+.dock-link svg { width: 17px; height: 17px; stroke-width: 2.1; }
 .dock-link:hover { color: var(--text); background: var(--surface2); }
-.dock-link.active { background: var(--text); color: var(--bg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+.dock-link.active {
+  background: var(--text); color: var(--bg);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
 
 #toast {
-  position: fixed; bottom: 82px; left: 50%; transform: translateX(-50%) translateY(20px);
-  background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace;
-  font-size: 0.78rem; font-weight: 700; padding: 11px 22px; border-radius: 30px;
-  opacity: 0; transition: 0.3s var(--ease); z-index: 9999; pointer-events: none;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(15px);
+  background: var(--text); color: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem; font-weight: 700; padding: 10px 20px; border-radius: 20px;
+  opacity: 0; pointer-events: none; transition: 0.25s var(--ease); z-index: 400;
 }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-@media (max-width: 680px) {
+@media (max-width: 640px) {
   .plan-selector { grid-template-columns: repeat(2, 1fr); }
-  .fin-synergy-grid { grid-template-columns: 1fr; }
-  .heatmap-grid { grid-template-columns: repeat(3, 1fr); }
-  .modal-overlay { align-items: flex-end; }
-  .modal-content { width: 100%; max-width: 100%; border-radius: 24px 24px 0 0; }
-  header { padding: 0 14px 12px; }
-  .level-ribbon-wrap { padding: 0 14px; }
   .dock-link span.dl-txt { display: none; }
   .dock-link.active span.dl-txt { display: inline; }
 }
@@ -423,34 +382,53 @@ body.survival-mode .task-card:not(.checked) { border-color: rgba(124, 58, 237, 0
 </head>
 <body>
 
-<div id="offlineBanner">⚠️ MODO SIN CONEXIÓN — GUARDANDO EN DISPOSITIVO</div>
+<div id="offlineBanner">MODO SIN CONEXIÓN — GUARDANDO EN DISPOSITIVO</div>
 
 <header>
   <div class="header-inner">
-    <div class="logo-container">
-      <a href="index.html" class="btn-back-arrow" title="Volver al Comando">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-      </a>
-      <div class="logo">
-        <h1>Ruta de Maestría <span id="cloud-indicator" class="cloud-status" title="Sincronización"></span></h1>
-      </div>
+    <div class="brand-box">
+      <span id="cloud-indicator" class="sync-dot" title="Sincronización"></span>
+      <span class="header-title">Maestría</span>
     </div>
-    <div class="header-actions">
-      <button class="btn-pill" id="btn-survival" onclick="toggleSurvivalMode()" title="Transforma las misiones en microacciones de 2 minutos">⚡ Modo Normal</button>
-      <button class="btn-pill btn-dw" onclick="openDeepWork()">⏱️ Enfoque</button>
-      <button class="btn-icon-tool" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema Oscuro / Claro">🌙</button>
-      <button class="btn-icon-tool" onclick="openSettings()" title="Configuración y Recordatorio">⚙️</button>
+    <div class="header-tools">
+      <button class="btn-mode-pill" id="btn-survival" onclick="toggleSurvivalMode()" title="Cambiar entre Misión Normal y Microacción de 2m">
+        <span id="modeIconWrap"></span>
+        <span id="modeTextWrap">Normal</span>
+      </button>
+      <button class="btn-mode-pill btn-dw" onclick="openDeepWork()" title="Cronómetro de Enfoque">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Enfoque
+      </button>
+      <button class="btn-icon-svg" onclick="toggleDarkMode()" title="Tema">
+        <span id="themeIconWrap"></span>
+      </button>
+      <button class="btn-icon-svg" onclick="openSettings()" title="Ajustes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+      </button>
     </div>
   </div>
+
+  <!-- SELECTOR DE 4 PILARES CON MICRO-ICONOS SVG (13PX) -->
   <div class="plan-selector">
-    <button class="plan-btn active" data-plan="topo" onclick="switchPlan('topo')"><span class="pb-icon">🗺️</span>Topografía + IA</button>
-    <button class="plan-btn" data-plan="pueblo" onclick="switchPlan('pueblo')"><span class="pb-icon">🏛️</span>Mi Pueblo</button>
-    <button class="plan-btn" data-plan="fin" onclick="switchPlan('fin')"><span class="pb-icon">💰</span>Finanzas</button>
-    <button class="plan-btn" data-plan="gym" onclick="switchPlan('gym')"><span class="pb-icon">🏋️</span>Symmetry</button>
+    <button class="plan-btn active" data-plan="topo" onclick="switchPlan('topo')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+      Topo + IA
+    </button>
+    <button class="plan-btn" data-plan="pueblo" onclick="switchPlan('pueblo')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+      Mi Pueblo
+    </button>
+    <button class="plan-btn" data-plan="fin" onclick="switchPlan('fin')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Finanzas
+    </button>
+    <button class="plan-btn" data-plan="gym" onclick="switchPlan('gym')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
+      Symmetry
+    </button>
   </div>
 </header>
 
-<!-- CINTA DE NAVEGACIÓN DE NIVELES INTEGRADA -->
 <div class="level-ribbon-wrap">
   <div class="level-ribbon" id="levelRibbon"></div>
 </div>
@@ -462,75 +440,112 @@ body.survival-mode .task-card:not(.checked) { border-color: rgba(124, 58, 237, 0
   <div class="plan-section" data-plan="gym" id="section-gym"></div>
 </main>
 
-<!-- DOCK DE NAVEGACIÓN GLOBAL -->
+<!-- SUBMENÚ INFERIOR DOCK UNIFICADO CON ICONOS SVG -->
 <nav class="global-dock" aria-label="Navegación Principal">
-  <a href="index.html" class="dock-link"><span>⚡</span><span class="dl-txt">Comando</span></a>
-  <a href="compras.html" class="dock-link"><span>📦</span><span class="dl-txt">Compras</span></a>
-  <a href="tarjetas.html" class="dock-link"><span>💳</span><span class="dl-txt">Tarjetas</span></a>
-  <a href="plan.html" class="dock-link active"><span>🧭</span><span class="dl-txt">Maestría</span></a>
+  <a href="index.html" class="dock-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+    <span class="dl-txt">Inicio</span>
+  </a>
+  <a href="compras.html" class="dock-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+    <span class="dl-txt">Compras</span>
+  </a>
+  <a href="tarjetas.html" class="dock-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+    <span class="dl-txt">Tarjetas</span>
+  </a>
+  <a href="plan.html" class="dock-link active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+    <span class="dl-txt">Maestría</span>
+  </a>
 </nav>
 
-<!-- MODAL CONFIGURACIÓN Y RECORDATORIO -->
+<!-- MODAL CREADOR / EDITOR DE MISIÓN -->
+<div class="modal-overlay" id="missionCreatorOverlay" onclick="if(event.target===this)closeMissionCreator()">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeMissionCreator()">✕</button>
+    <h2 id="mcModalTitle" style="font-family:'Outfit',sans-serif; font-size:1.18rem; margin-bottom:4px;">Crear / Editar Misión</h2>
+    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:10px;">Define el título corto (Capa 1), el detalle técnico y tu microacción de 2 minutos (Capa 2).</p>
+
+    <label class="field-lbl">Título Corto de la Misión</label>
+    <input type="text" id="mcTitle" class="wam-input" placeholder="Ej: Rutina AutoLISP en Civil 3D">
+
+    <label class="field-lbl">Detalle / Resultado Esperado (Modo Normal)</label>
+    <textarea id="mcDetail" rows="3" class="wam-input" placeholder="¿Qué resultado concreto conseguirás al completarla?"></textarea>
+
+    <label class="field-lbl">Microacción de 2 Minutos (Días de poca energía)</label>
+    <textarea id="mcMicro" rows="2" class="wam-input" placeholder="Paso mínimo de 2 minutos para mantener el avance"></textarea>
+
+    <button class="mbtn-save" onclick="saveMissionFromModal()">Guardar Misión</button>
+  </div>
+</div>
+
+<!-- MODAL EDITOR DE VISIÓN / META DEL PILAR -->
+<div class="modal-overlay" id="pillarEditorOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="document.getElementById('pillarEditorOverlay').classList.remove('open')">✕</button>
+    <h2 style="font-family:'Outfit',sans-serif; font-size:1.18rem; margin-bottom:8px;">Editar Propósito de la Sección</h2>
+    <label class="field-lbl">Visión de Largo Plazo</label>
+    <textarea id="peVision" rows="2" class="wam-input"></textarea>
+    <label class="field-lbl">Meta Medible del Ciclo</label>
+    <textarea id="peMeta" rows="2" class="wam-input"></textarea>
+    <label class="field-lbl">Regla de Oro / Compromiso</label>
+    <textarea id="peCompromiso" rows="2" class="wam-input"></textarea>
+    <label class="field-lbl">Hábito Diario de la Semana</label>
+    <input type="text" id="peHabit" class="wam-input">
+    <button class="mbtn-save" onclick="savePillarPurpose()">Guardar Cambios</button>
+  </div>
+</div>
+
+<!-- MODAL AJUSTES Y CALIBRACIÓN -->
 <div class="modal-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
   <div class="modal-content">
     <button class="modal-close" onclick="closeSettings()">✕</button>
-    <h2>⚙️ Calibración del Sistema</h2>
-    <p style="font-size:0.84rem; color:var(--text-muted); margin-top:-10px; margin-bottom:18px;">Tu avance es por niveles desbloqueables: sin fechas rígidas que te penalicen.</p>
-
-    <div style="background:var(--surface2); padding:14px; border-radius:14px; border:1px solid var(--border); margin-bottom:18px;">
-      <label style="font-weight:700; font-size:0.7rem; font-family:'DM Mono', monospace; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:6px;">🔔 Hora de Recordatorio Diario</label>
-      <div style="display:flex; gap:10px; align-items:center;">
-        <input type="time" id="cfg-reminder-time" class="wam-input" style="min-height:42px; margin:0; flex:1; font-family:'DM Mono', monospace;">
-        <button onclick="requestNotifPermission()" class="btn-pill" style="height:42px;">Activar Aviso</button>
-      </div>
+    <h2 style="font-family:'Outfit',sans-serif; font-size:1.18rem; margin-bottom:10px;">Calibración del Sistema</h2>
+    <label class="field-lbl">Hora de Recordatorio Diario</label>
+    <div style="display:flex; gap:8px;">
+      <input type="time" id="cfg-reminder-time" class="wam-input" style="flex:1;">
+      <button onclick="requestNotifPermission()" class="btn-mode-pill" style="height:38px;">Activar</button>
     </div>
+    <label class="field-lbl">Fecha Referencial de Inicio</label>
+    <input type="date" id="cfg-start-date" class="wam-input">
 
-    <label style="font-weight:700; font-size:0.7rem; font-family:'DM Mono', monospace; text-transform:uppercase; color:var(--text-muted);">📅 Fecha Referencial de Inicio del Ciclo</label>
-    <input type="date" id="cfg-start-date" class="wam-input" style="min-height:44px; font-family: 'DM Mono', monospace;">
-
-    <h3 style="font-family:'Fraunces', serif; font-size: 1.05rem; color: var(--text); margin-top: 6px; margin-bottom: 10px;">Medidas Físicas Base (Punto Cero)</h3>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px;">
-      <div><label style="font-size:0.68rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Peso (kg)</label><input type="number" step="0.1" id="cfg-peso" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.68rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Pecho (cm)</label><input type="number" step="0.1" id="cfg-pecho" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.68rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Abdomen (cm)</label><input type="number" step="0.1" id="cfg-barriga" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.68rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Brazo izquierdo (cm)</label><input type="number" step="0.1" id="cfg-brazo-izq" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.68rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Brazo derecho (cm)</label><input type="number" step="0.1" id="cfg-brazo-der" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.68rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Pierna izquierda (cm)</label><input type="number" step="0.1" id="cfg-pierna-izq" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
-      <div><label style="font-size:0.68rem; color:var(--text-muted); font-family:'DM Mono', monospace;">Pierna derecha (cm)</label><input type="number" step="0.1" id="cfg-pierna-der" class="wam-input" style="min-height:40px; margin:4px 0 0; padding:8px 12px;"></div>
+    <h3 style="font-family:'Outfit',sans-serif; font-size:0.96rem; margin:14px 0 6px;">Medidas Físicas Base (Punto Cero)</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      <div><label class="field-lbl">Peso (kg)</label><input type="number" step="0.1" id="cfg-peso" class="wam-input"></div>
+      <div><label class="field-lbl">Pecho (cm)</label><input type="number" step="0.1" id="cfg-pecho" class="wam-input"></div>
+      <div><label class="field-lbl">Abdomen (cm)</label><input type="number" step="0.1" id="cfg-barriga" class="wam-input"></div>
+      <div><label class="field-lbl">Brazo Izq (cm)</label><input type="number" step="0.1" id="cfg-brazo-izq" class="wam-input"></div>
+      <div><label class="field-lbl">Brazo Der (cm)</label><input type="number" step="0.1" id="cfg-brazo-der" class="wam-input"></div>
+      <div><label class="field-lbl">Pierna Izq (cm)</label><input type="number" step="0.1" id="cfg-pierna-izq" class="wam-input"></div>
+      <div><label class="field-lbl">Pierna Der (cm)</label><input type="number" step="0.1" id="cfg-pierna-der" class="wam-input"></div>
     </div>
-
-    <button onclick="saveSettings()" class="mbtn-save">Guardar y Sincronizar</button>
-
-    <div style="margin-top: 22px; padding-top: 14px; border-top: 1px dashed var(--border);">
-      <button onclick="resetCycle()" style="width: 100%; background: var(--red-glow); color: var(--red); border: 1px solid rgba(220,38,38,0.35); padding: 12px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.84rem; cursor: pointer;">⚠️ Reiniciar Progreso de Todos los Niveles</button>
-    </div>
+    <button onclick="saveSettings()" class="mbtn-save">Guardar Configuración</button>
+    <button onclick="resetCycle()" style="width:100%; background:var(--rose-soft); color:var(--rose); border:1px solid rgba(225,29,72,0.3); padding:10px; border-radius:12px; font-weight:700; font-size:0.78rem; margin-top:12px; cursor:pointer;">Reiniciar Checks de Todos los Niveles</button>
   </div>
 </div>
 
-<!-- MODAL NOTAS / RETROSPECTIVA DE NIVEL -->
+<!-- MODAL BITÁCORA -->
 <div class="modal-overlay" id="wamOverlay" onclick="if(event.target===this)closeWam()">
   <div class="modal-content">
     <button class="modal-close" onclick="closeWam()">✕</button>
-    <h2>Bitácora del Nivel <span id="wam-week-num"></span></h2>
-    <p style="font-size:0.84rem; color:var(--text-muted); margin-top:-10px; margin-bottom:18px;">Anota tu aprendizaje o el ajuste que aplicarás en el siguiente nivel.</p>
-    <label style="font-weight:700; font-size:0.82rem; color:var(--text);">1. ¿Qué obstáculo encontraste o qué aprendiste en este nivel?</label>
-    <textarea id="wam-q1" class="wam-input" placeholder="Ejemplo: Tuve poco tiempo entre semana, pero la rutina AutoLISP me ahorró una hora de dibujo..."></textarea>
-    <label style="font-weight:700; font-size:0.82rem; color:var(--text);">2. ¿Cuál es tu prioridad clave para el siguiente nivel?</label>
-    <textarea id="wam-q2" class="wam-input" placeholder="Esta nota aparecerá fijada arriba en tu siguiente nivel..."></textarea>
-    <label style="font-weight:700; font-size:0.82rem; color:var(--text);">3. Nivel de satisfacción con tu avance (del 1 al 10)</label>
-    <input type="number" id="wam-q3" min="1" max="10" class="wam-input" style="min-height:44px; font-size:1.1rem; text-align:center; width:110px; display:block;">
-    <button onclick="saveWam()" class="mbtn-save">Guardar Nota en Bitácora</button>
+    <h2 style="font-family:'Outfit',sans-serif; font-size:1.18rem;">Bitácora Nivel <span id="wam-week-num"></span></h2>
+    <label class="field-lbl">1. ¿Qué aprendizaje u obstáculo tuviste en este nivel?</label>
+    <textarea id="wam-q1" rows="3" class="wam-input"></textarea>
+    <label class="field-lbl">2. Prioridad clave para el siguiente nivel</label>
+    <textarea id="wam-q2" rows="2" class="wam-input"></textarea>
+    <label class="field-lbl">3. Calificación de avance (1 al 10)</label>
+    <input type="number" id="wam-q3" min="1" max="10" class="wam-input" style="width:100px;">
+    <button onclick="saveWam()" class="mbtn-save">Guardar en Bitácora</button>
   </div>
 </div>
 
-<!-- MODAL HISTORIAL BITÁCORA -->
 <div class="modal-overlay" id="wamHistoryOverlay" onclick="if(event.target===this)closeWamHistory()">
   <div class="modal-content">
     <button class="modal-close" onclick="closeWamHistory()">✕</button>
-    <h2>📖 Bitácora de Avance</h2>
-    <p style="font-size:0.84rem; color:var(--text-muted); margin-top:-10px; margin-bottom:18px;">Tus notas estratégicas por cada nivel completado.</p>
+    <h2 style="font-family:'Outfit',sans-serif; font-size:1.18rem; margin-bottom:10px;">Historial de Bitácora</h2>
     <div id="wamHistoryContent"></div>
-    <button onclick="openWam(currentPlan, activeLevelByPlan[currentPlan] || 0); closeWamHistory();" class="mbtn-save" style="margin-top:12px;">✍️ Registrar Nota del Nivel Actual</button>
+    <button onclick="openWam(currentPlan, activeLevelByPlan[currentPlan] || 0); closeWamHistory();" class="mbtn-save">Anotar sobre el Nivel Actual</button>
   </div>
 </div>
 
@@ -539,35 +554,26 @@ body.survival-mode .task-card:not(.checked) { border-color: rgba(124, 58, 237, 0
   <div class="modal-content" id="measContent"></div>
 </div>
 
-<!-- CRONÓMETRO DE ENFOQUE CON MODO DE 2 MINUTOS -->
+<!-- CRONÓMETRO -->
 <div class="dw-overlay" id="dwOverlay">
-  <div class="dw-title">Cronómetro de Acción Inmediata</div>
-
-  <div id="dwSelector" style="display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; justify-content:center;">
-    <button class="dw-btn-small active" id="btnDw2" onclick="setDwTime(2)">🌱 Arranque (2 min)</button>
-    <button class="dw-btn-small" id="btnDw15" onclick="setDwTime(15)">Rápido (15 min)</button>
-    <button class="dw-btn-small" id="btnDw45" onclick="setDwTime(45)">Enfoque (45 min)</button>
-    <button class="dw-btn-small" id="btnDw90" onclick="setDwTime(90)">Gabinete (90 min)</button>
+  <div style="font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--cyan); letter-spacing:2px;">SESIÓN DE ENFOQUE</div>
+  <div id="dwSelector" style="display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; justify-content:center;">
+    <button class="dw-btn-small active" id="btnDw2" onclick="setDwTime(2)">2m</button>
+    <button class="dw-btn-small" id="btnDw15" onclick="setDwTime(15)">15m</button>
+    <button class="dw-btn-small" id="btnDw45" onclick="setDwTime(45)">45m</button>
+    <button class="dw-btn-small" id="btnDw90" onclick="setDwTime(90)">90m</button>
   </div>
-
   <div class="dw-timer" id="dwTimer">02:00</div>
-
-  <div class="dw-actions">
-    <button class="dw-btn" id="btnDwStart" onclick="startDeepWork()">Iniciar Ahora</button>
-    <button class="dw-btn dw-btn-danger" id="btnDwAbort" onclick="stopDeepWork()" style="display:none;">Detener</button>
-    <button class="dw-btn" id="btnDwClose" onclick="closeDeepWork()" style="background:rgba(255,255,255,0.18); color:#fff;">Cerrar</button>
+  <div style="display:flex; gap:10px;">
+    <button class="btn-mode-pill" id="btnDwStart" style="background:#fff; color:#000; height:40px; padding:0 22px;" onclick="startDeepWork()">Iniciar</button>
+    <button class="btn-mode-pill" id="btnDwAbort" style="background:var(--rose); color:#fff; border-color:var(--rose); height:40px; padding:0 22px; display:none;" onclick="stopDeepWork()">Detener</button>
+    <button class="btn-mode-pill" style="background:rgba(255,255,255,0.12); color:#fff; border-color:transparent; height:40px; padding:0 18px;" onclick="closeDeepWork()">Cerrar</button>
   </div>
 </div>
 
 <div id="toast">Notificación</div>
 
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  });
-}
-
 const firebaseConfig = {
   apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
   authDomain: "pierovski-center.firebaseapp.com",
@@ -579,10 +585,10 @@ const db = firebase.database();
 
 const PLAN_IDS = ['topo', 'pueblo', 'fin', 'gym'];
 const KEYS = {
-  topo:   { tasks: 'topo_tasks_v1' },
+  topo: { tasks: 'topo_tasks_v1' },
   pueblo: { tasks: 'pueblo_tasks_v1' },
-  fin:    { tasks: 'fin_tasks_v1' },
-  gym:    { tasks: 'gym_tasks_v1' },
+  fin: { tasks: 'fin_tasks_v1' },
+  gym: { tasks: 'gym_tasks_v1' },
   startDate: 'topo_start_date_v1',
   habitDays: 'pierovski_habit_days_v1',
   reminderTime: 'pierovski_reminder_time'
@@ -590,167 +596,737 @@ const KEYS = {
 const MEDS_KEY = 'gym_measurements_v1';
 const BASE_KEY = 'pierovski_baseline_v1';
 
-function ls_get(key, fallback = null) {
-  try {
-    const v = localStorage.getItem(key);
-    return v !== null ? JSON.parse(v) : fallback;
-  } catch (e) {
-    const raw = localStorage.getItem(key);
-    return raw !== null ? raw : fallback;
-  }
-}
-function ls_set(key, value) {
-  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
-  triggerPlanSync();
-}
-
-function getBaseline() {
-  return ls_get(BASE_KEY, {
-    peso: 75.0, pecho: 94.5, barriga: 91.0, brazoIzq: 33.0, brazoDer: 33.0, piernaIzq: 53.0, piernaDer: 55.0
-  });
-}
-
-function cleanDateStr(raw) {
-  if (!raw) return '2026-10-15';
-  return String(raw).replace(/"/g, '').split('T')[0];
-}
-
-function todayStr() {
-  const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-}
-
-function getCurrentWeekMondayKey() {
-  const now = new Date();
-  const day = now.getDay() || 7;
-  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - day + 1);
-  return `${monday.getFullYear()}-${String(monday.getMonth() + 1).padStart(2, '0')}-${String(monday.getDate()).padStart(2, '0')}`;
-}
-
-let isSurvivalMode = ls_get('survival_mode_v1', false);
-
-function toggleSurvivalMode() {
-  isSurvivalMode = !isSurvivalMode;
-  ls_set('survival_mode_v1', isSurvivalMode);
-  applySurvivalModeUI();
-  buildAllUI();
-  showToast(isSurvivalMode
-    ? '🌱 Modo de 2 Minutos activado: Haz solo la microacción hoy'
-    : '⚡ Modo Normal activado: Misiones completas visibles');
-}
-
-function applySurvivalModeUI() {
-  document.body.classList.toggle('survival-mode', isSurvivalMode);
-  const btn = document.getElementById('btn-survival');
-  if (btn) {
-    btn.innerHTML = isSurvivalMode ? '🌱 Modo 2 min' : '⚡ Modo Normal';
-    btn.classList.toggle('active-survival', isSurvivalMode);
-  }
-}
-
-window.addEventListener('online', () => {
-  document.getElementById('offlineBanner').style.display = 'none';
-  syncPlanToCloud(parseInt(localStorage.getItem('plan_last_update')) || Date.now());
-});
-window.addEventListener('offline', () => {
-  document.getElementById('offlineBanner').style.display = 'block';
-  document.getElementById('cloud-indicator').className = 'cloud-status';
-});
-
-window.addEventListener('storage', () => {
-  PLAN_IDS.forEach(p => { taskStates[p] = ls_get(KEYS[p].tasks, {}); });
-  habitDaysState = ls_get(KEYS.habitDays, {});
-  buildAllUI();
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('compras_theme') === 'dark') document.body.classList.add('dark-theme');
-  applySurvivalModeUI();
-  loadExternalPlans();
-  initDailyReminderCheck();
-  if ((parseInt(localStorage.getItem('pierovski_dw_end')) || 0) > Date.now()) {
-    resumeDeepWorkUI();
-  }
-});
-
-function toggleDarkMode() {
-  const isDark = document.body.classList.toggle('dark-theme');
-  localStorage.setItem('compras_theme', isDark ? 'dark' : 'light');
-}
-
-let PLANS = {
-  topo:   { id: 'topo',   label: 'Topografía + IA', icon: '🗺️', weeks: [] },
-  pueblo: { id: 'pueblo', label: 'Mi Pueblo',       icon: '🏛️', weeks: [] },
-  fin:    { id: 'fin',    label: 'Finanzas',        icon: '💰', weeks: [] },
-  gym:    { id: 'gym',    label: 'Symmetry',        icon: '🏋️', weeks: [] }
+const SVG_ICONS = {
+  bolt: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+  sprout: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>`,
+  sun: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`,
+  moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`
 };
+
+/* PLANES BASE INTEGRADOS */
+const DEFAULT_PLANS = {
+  topo: {
+    id: 'topo', label: 'Topografía + IA',
+    vision: "Domino la topografía automatizada: combino Civil 3D, fotogrametría con dron e inteligencia artificial para resolver en una hora el trabajo de gabinete que a otros les toma dos días.",
+    meta: "Construir mi librería personal de rutinas AutoLISP creadas con IA, mi plantilla maestra (.dwt) automatizada y un flujo limpio desde el dron y QGIS hacia Civil 3D.",
+    compromiso: "Avanzo a mi propio ritmo por niveles. Si llego cansado del campo, activo el Modo de 2 Minutos y realizo únicamente la microacción para mantener la constancia.",
+    weeks: [
+      { title: "Nivel 1: Automatización con IA (AutoLISP)", theme: "QUINCENA 1 · CERO TRABAJO REPETITIVO", tasks: [
+        "[MISIÓN 1] IA + CAD: Crear con inteligencia artificial una rutina AutoLISP (.lsp) que limpie capas, purgue el dibujo e inserte mi grilla de coordenadas en un solo comando, y probarla en Civil 3D. || Microacción (2 min): Pedirle el código AutoLISP a la IA desde el celular y guardarlo en mis notas.",
+        "[MISIÓN 2] Comando rápido: Cargar mi primera rutina .lsp en el inicio automático (comando APPLOAD) de Civil 3D y asignarle un atajo de dos letras. || Microacción (2 min): Abrir Civil 3D, ejecutar APPLOAD para ubicar mi carpeta de rutinas y cerrar.",
+        "[MISIÓN 3] Etiquetado veloz: Automatizar mediante rutinas LISP o estilos dinámicos la numeración automática de vértices y el cuadro de rumbos y distancias. || Microacción (2 min): Anotar qué tarea repetitiva me quitó más tiempo en mi último plano.",
+        "[DIARIO] Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
+      ]},
+      { title: "Nivel 2: Flujo Dron RTK + QGIS + Civil 3D", theme: "QUINCENA 2 · INTEROPERABILIDAD", tasks: [
+        "[MISIÓN 1] Nube de puntos ligera: Filtrar y optimizar una nube de puntos o DEM del dron para importarla en Civil 3D sin saturar la computadora. || Microacción (2 min): Revisar el peso del último archivo procesado y anotar su sistema de coordenadas.",
+        "[MISIÓN 2] Puente QGIS y Google Earth: Extraer curvas de nivel y ortofoto georreferenciada (UTM WGS84 Zona 17S) listas para un anteproyecto. || Microacción (2 min): Abrir el área de mi próximo trabajo en Google Earth Pro y guardar el polígono en KMZ.",
+        "[MISIÓN 3] Superficie combinada: Fusionar en Civil 3D los puntos precisos de GNSS o estación total con la superficie topográfica general del dron. || Microacción (2 min): Crear en mi plantilla un estilo de superficie limpio para diferenciar terreno de dron y GPS.",
+        "[DIARIO] Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
+      ]},
+      { title: "Nivel 3: Plantilla Maestra Inteligente (.dwt)", theme: "QUINCENA 3 · VELOCIDAD DE ENTREGA", tasks: [
+        "[MISIÓN 1] Estilos estandarizados: Configurar mi archivo de plantilla (.dwt) con capas, estilos de puntos COGO, superficies y alineamientos listos para usar. || Microacción (2 min): Abrir mi mejor plano reciente y guardarlo como archivo base .dwt.",
+        "[MISIÓN 2] Bandas de perfil automáticas: Dejar configurado un estilo de guitarra de perfil longitudinal con cota de terreno, rasante, corte y relleno sin superposición. || Microacción (2 min): Revisar qué dato se superpone en mis perfiles actuales para dejarlo corregido.",
+        "[MISIÓN 3] Producción de planos: Configurar mi membrete dinámico con campos automáticos para exportar planos a PDF en lote. || Microacción (2 min): Verificar que mis archivos de grosor de plumas (.ctb) estén respaldados en la nube.",
+        "[DIARIO] Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
+      ]},
+      { title: "Nivel 4: Obras Lineales y Corredores Rápidos", theme: "QUINCENA 4 · DISEÑO GEOMÉTRICO", tasks: [
+        "[MISIÓN 1] Sección típica inteligente: Armar un ensamblaje vial o de canal con taludes condicionales de corte y relleno automáticos. || Microacción (2 min): Abrir la paleta de herramientas (Ctrl + 3) en Civil 3D y revisar los subensamblajes.",
+        "[MISIÓN 2] Corredor y superficie: Generar un corredor vial de prueba de 500 metros y extraer su superficie superior y de explanación en menos de 20 minutos. || Microacción (2 min): Abrir un archivo con alineamiento y perfil ya trazados.",
+        "[MISIÓN 3] Secciones transversales en lote: Crear líneas de muestreo cada 20 metros y generar todas las vistas de sección transversal automáticamente. || Microacción (2 min): Definir la escala óptima para mis láminas de secciones.",
+        "[DIARIO] Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
+      ]},
+      { title: "Nivel 5: Metrados Exactos y Reportes con IA", theme: "QUINCENA 5 · EL VALOR DE LOS DATOS", tasks: [
+        "[MISIÓN 1] Movimiento de tierras: Ejecutar el cálculo de materiales en Civil 3D y exportar la tabla de volúmenes de corte y relleno hacia Excel o CSV. || Microacción (2 min): Verificar los factores de esponjamiento y compactación estándar.",
+        "[MISIÓN 2] Automatización de reportes: Usar IA para crear una plantilla o script que transforme la tabla bruta de Civil 3D en un cuadro de metrados listo para valorización. || Microacción (2 min): Copiar los encabezados de una tabla de volúmenes de Civil 3D y enviárselos a la IA.",
+        "[MISIÓN 3] Datos para replanteo: Extraer coordenadas de eje, bordes y cabeceras de talud en un archivo CSV limpio para el receptor GNSS. || Microacción (2 min): Revisar el orden exacto de columnas (P, N, E, Z, D) de mi colectora.",
+        "[DIARIO] Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
+      ]},
+      { title: "Nivel 6: Entregables 3D de Alto Impacto", theme: "QUINCENA 6 · DIFERENCIACIÓN PROFESIONAL", tasks: [
+        "[MISIÓN 1] Presentación en 3D: Exportar un modelo de terreno y diseño para que el cliente o autoridad pueda visualizarlo en 3D desde su celular o navegador. || Microacción (2 min): Elegir el levantamiento más vistoso del año para usarlo como demostración.",
+        "[MISIÓN 2] Memoria descriptiva asistida: Crear una plantilla maestra de Memoria Descriptiva Topográfica y Geodésica que pueda completarse en 5 minutos con IA. || Microacción (2 min): Guardar el índice de mi mejor informe técnico como plantilla.",
+        "[MISIÓN 3] Auditoría de flujo de trabajo: Cronometrar cuánto tiempo me toma pasar desde los datos crudos de campo hasta el plano final en PDF. || Microacción (2 min): Hacer copia de seguridad de mi carpeta de rutinas LISP y plantillas en la nube.",
+        "[DIARIO] Hábito: Dedicar 15 minutos de gabinete enfocado o probar una herramienta nueva de Civil 3D e IA."
+      ]}
+    ]
+  },
+  pueblo: {
+    id: 'pueblo', label: 'Mi Pueblo',
+    vision: "Soy un referente técnico y estratégico para el desarrollo de mi pueblo: conozco cómo funcionan los proyectos de inversión pública y aplico la ingeniería para destrabar obras e impulsar el turismo local.",
+    meta: "Tener mapeados los proyectos reales de mi distrito en el portal del MEF, estructurar una propuesta de inversión rápida (IOARR o proyecto turístico) y dominar la gestión técnica municipal.",
+    compromiso: "Construyo liderazgo con datos reales y soluciones concretas. Cada quincena avanzo un paso firme que aporta valor directo a mi comunidad.",
+    weeks: [
+      { title: "Nivel 1: Radiografía Real del Distrito (MEF)", theme: "QUINCENA 1 · INTELIGENCIA MUNICIPAL", tasks: [
+        "[MISIÓN 1] Consulta Amigable del MEF: Ingresar al portal del MEF, buscar mi municipalidad y anotar cuánto presupuesto tiene asignado para proyectos y su % de ejecución. || Microacción (2 min): Buscar en Google 'Consulta Amigable MEF' y guardar el enlace en marcadores.",
+        "[MISIÓN 2] Seguimiento de obras (Invierte.pe): Revisar las tres obras más importantes de mi distrito para conocer su CUI y estado actual. || Microacción (2 min): Anotar el nombre de dos obras urgentes de mi pueblo.",
+        "[MISIÓN 3] Diagnóstico territorial: Identificar los tres puntos críticos de infraestructura o acceso vial que más limitan el desarrollo local. || Microacción (2 min): Ubicar esos tres puntos críticos en Google Maps y guardar sus coordenadas.",
+        "[DIARIO] Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades de mi distrito."
+      ]},
+      { title: "Nivel 2: Potencial Turístico y Geotecnología", theme: "QUINCENA 2 · TURISMO INTELIGENTE", tasks: [
+        "[MISIÓN 1] Inventario de atractivos: Catalogar los tres mejores atractivos turísticos de mi pueblo con sus coordenadas UTM exactas y altitud. || Microacción (2 min): Anotar en mi celular los tres lugares con mayor potencial turístico de mi zona.",
+        "[MISIÓN 2] Mapa y ruta en 3D: Generar con dron o Google Earth una vista 3D de un circuito turístico local indicando distancias, pendientes y tiempos. || Microacción (2 min): Revisar qué fotografías aéreas o vuelos de dron tengo disponibles de mi localidad.",
+        "[MISIÓN 3] Propuesta de puesta en valor: Esquematizar en una página qué infraestructura básica (mirador, señalización QR) potenciaría la llegada de visitantes. || Microacción (2 min): Bocetar la idea de un mirador o letrero turístico en el punto más atractivo.",
+        "[DIARIO] Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades de mi distrito."
+      ]},
+      { title: "Nivel 3: Dominio de IOARR y Expedientes", theme: "QUINCENA 3 · INVERSIONES RÁPIDAS", tasks: [
+        "[MISIÓN 1] Inversiones IOARR: Analizar con ayuda de IA cómo se formula una IOARR para vías o espacios públicos municipales. || Microacción (2 min): Pedirle a la IA tres ejemplos reales de IOARR municipales aplicables a caminos o turismo.",
+        "[MISIÓN 2] Estructura de expedientes: Descargar del portal SEACE un expediente técnico o TdR municipal de mi región para estudiar sus entregables. || Microacción (2 min): Abrir un expediente técnico o TdR que tenga en mi computadora y revisar su índice.",
+        "[MISIÓN 3] Estándar topográfico municipal: Definir la lista de verificación topográfica (puntos IGN, BMs y planos clave) que evita observaciones. || Microacción (2 min): Anotar los tres errores topográficos más frecuentes que retrasan obras en mi zona.",
+        "[DIARIO] Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades de mi distrito."
+      ]},
+      { title: "Nivel 4: Gestión Municipal y Contrataciones", theme: "QUINCENA 4 · REGLAS DE GESTIÓN PÚBLICA", tasks: [
+        "[MISIÓN 1] Estructura interna: Revisar el ROF de mi municipalidad para entender las funciones de la Gerencia de Obras y Unidad Formuladora. || Microacción (2 min): Buscar el organigrama actualizado de mi municipalidad en su portal web.",
+        "[MISIÓN 2] Contrataciones menores a 8 UIT: Dominar el flujo completo de una orden de servicio municipal (RNP vigente, TdR, estudio de mercado y conformidad). || Microacción (2 min): Verificar la vigencia de mi inscripción en el RNP.",
+        "[MISIÓN 3] Diálogo técnico local: Conversar con un profesional municipal o líder comunal sobre cuáles son los proyectos prioritarios del año. || Microacción (2 min): Anotar el nombre de dos personas clave de mi comunidad para compartir ideas técnicas.",
+        "[DIARIO] Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades de mi distrito."
+      ]},
+      { title: "Nivel 5: Proyecto Bandera para Mi Pueblo", theme: "QUINCENA 5 · PROPUESTA TÉCNICA REAL", tasks: [
+        "[MISIÓN 1] Elección del proyecto: Seleccionar un proyecto concreto y de alto beneficio para mi pueblo para estructurar su propuesta base. || Microacción (2 min): Escribir en una frase el nombre del proyecto de mayor impacto positivo hoy en mi comunidad.",
+        "[MISIÓN 2] Anteproyecto visual: Elaborar el plano conceptual o modelo 3D del proyecto para que cualquier ciudadano comprenda el beneficio. || Microacción (2 min): Delimitar el área exacta de intervención del proyecto en Google Earth Pro.",
+        "[MISIÓN 3] Resumen ejecutivo: Redactar en dos páginas la ficha de propuesta: diagnóstico, beneficiarios, alcance técnico e impacto económico. || Microacción (2 min): Pedirle a la IA una estructura de cinco puntos para presentar una iniciativa municipal.",
+        "[DIARIO] Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades de mi distrito."
+      ]},
+      { title: "Nivel 6: Liderazgo y Posicionamiento Técnico", theme: "QUINCENA 6 · APORTE A LA COMUNIDAD", tasks: [
+        "[MISIÓN 1] Presentación de valor: Compartir la propuesta técnica o mapa turístico con representantes de mi comunidad aportando visión constructiva. || Microacción (2 min): Exportar una lámina de alta calidad de mi propuesta lista para mostrar en el celular.",
+        "[MISIÓN 2] Portafolio de gestión pública: Dejar organizada mi carpeta digital con CV documentado, experiencia y propuestas locales. || Microacción (2 min): Crear la carpeta 'Proyectos y Gestión Municipal' en mi nube personal.",
+        "[MISIÓN 3] Planificación del siguiente ciclo: Definir el próximo objetivo técnico o comunitario para seguir impulsando el crecimiento de mi pueblo. || Microacción (2 min): Anotar las tres lecciones más valiosas aprendidas sobre la gestión de mi distrito.",
+        "[DIARIO] Hábito: Dedicar 5 minutos a revisar gestión pública, proyectos de Invierte.pe o necesidades de mi distrito."
+      ]}
+    ]
+  },
+  fin: {
+    id: 'fin', label: 'Finanzas',
+    vision: "Ahorro como mínimo S/ 600 cada mes sin fallar y administro mis tarjetas de crédito con estrategia para que los bancos eleven mi categoría y mis líneas de crédito.",
+    meta: "Acumular S/ 1,800 en el trimestre (S/ 300 por quincena), mantener el uso de mi línea de crédito por debajo del 25 % en la fecha de cierre y optimizar mis tasas de interés.",
+    compromiso: "Mis S/ 300 quincenales se separan el mismo día en que cobro. Pago mis consumos antes de la fecha de cierre para mantener una calificación impecable en la SBS.",
+    weeks: [
+      { title: "Nivel 1: Ahorro Quincenal y Radiografía Crediticia", theme: "QUINCENA 1 · CONTROL DE BASE", tasks: [
+        "[QUINCENA] Ahorro (Quincena 1): Transferir S/ 300 a mi cuenta de ahorro intocable apenas reciba mi ingreso quincenal. || Microacción (2 min): Abrir la app del banco y transferir hoy mismo un primer adelanto para asegurar el hábito.",
+        "[MISIÓN 2] Auditoría en Tarjetas: Verificar que todas mis tarjetas activas tengan registrados su día de cierre, día de pago, TEA y línea de crédito total. || Microacción (2 min): Abrir el módulo de Tarjetas y revisar las fechas de cierre de este mes.",
+        "[MISIÓN 3] Revisión en la SBS: Consultar mi reporte de deudas en el portal de la SBS para verificar mi calificación 100 % Normal y el saldo reportado. || Microacción (2 min): Revisar mi puntaje crediticio actual dentro de la app de mi banco principal.",
+        "[DIARIO] Hábito: Registrar mis gastos del día y verificar mis fechas de corte en menos de 2 minutos."
+      ]},
+      { title: "Nivel 2: Estrategia de Fecha de Cierre (Puntaje SBS)", theme: "QUINCENA 2 · PRIMER MES CUMPLIDO (S/ 600)", tasks: [
+        "[QUINCENA] Ahorro (Quincena 2): Transferir S/ 300 para completar la meta mínima del primer mes (S/ 600 ahorrados). || Microacción (2 min): Separar el ahorro quincenal en mi cuenta intangible antes de cualquier gasto opcional.",
+        "[MISIÓN 2] Regla del 25 % al cierre: Abonar a mis tarjetas dos días antes de su fecha de cierre para que el banco reporte a la SBS un uso menor al 25 %. || Microacción (2 min): Identificar cuál de mis tarjetas tiene la fecha de cierre más cercana esta semana.",
+        "[MISIÓN 3] Ahorro de desgravamen: Dejar al menos una tarjeta secundaria con deuda cero antes de su fecha de cierre para evitar el seguro de desgravamen. || Microacción (2 min): Revisar en Tarjetas cuánto he pagado en seguros de desgravamen durante el año.",
+        "[DIARIO] Hábito: Registrar mis gastos del día y verificar mis fechas de corte en menos de 2 minutos."
+      ]},
+      { title: "Nivel 3: Optimización de Tasas y Compra de Deuda", theme: "QUINCENA 3 · REDUCCIÓN DE INTERESES", tasks: [
+        "[QUINCENA] Ahorro (Quincena 3): Transferir S/ 300 a mi cuenta de ahorro (acumulado: S/ 900). || Microacción (2 min): Ejecutar la transferencia quincenal a mi cuenta de ahorros.",
+        "[MISIÓN 2] Evaluación de campañas bancarias: Revisar en las apps de mis bancos qué ofertas preaprobadas de reducción de tasa tengo disponibles frente a mi TEA. || Microacción (2 min): Entrar a la sección de ofertas de mi banco principal y verificar tasas vigentes.",
+        "[MISIÓN 3] Eliminación de fugas: Cancelar o ajustar un gasto recurrente o suscripción mensual que no aporte valor real a mis metas. || Microacción (2 min): Revisar los últimos cinco movimientos de mis tarjetas para detectar cobros innecesarios.",
+        "[DIARIO] Hábito: Registrar mis gastos del día y verificar mis fechas de corte en menos de 2 minutos."
+      ]},
+      { title: "Nivel 4: Tracción Bancaria y Consolidación", theme: "QUINCENA 4 · SEGUNDO MES CUMPLIDO (S/ 1,200)", tasks: [
+        "[QUINCENA] Ahorro (Quincena 4): Transferir S/ 300 para alcanzar la meta del segundo mes (S/ 1,200 ahorrados). || Microacción (2 min): Realizar la transferencia quincenal y verificar el saldo acumulado.",
+        "[MISIÓN 2] Uso táctico de tarjeta principal: Concentrar mis pagos habituales al contado en la tarjeta donde busco ascender de categoría y liquidarlos antes del cierre. || Microacción (2 min): Definir cuál es mi tarjeta prioritaria para solicitar upgrade este año.",
+        "[MISIÓN 3] Actualización de perfil financiero: Actualizar mis ingresos y actividad profesional en mi banco para habilitar mejores evaluaciones de línea. || Microacción (2 min): Verificar en los ajustes de mi app bancaria que mis datos laborales estén actualizados.",
+        "[DIARIO] Hábito: Registrar mis gastos del día y verificar mis fechas de corte en menos de 2 minutos."
+      ]},
+      { title: "Nivel 5: Expansión de Línea y Categoría", theme: "QUINCENA 5 · ESCALANDO HISTORIAL", tasks: [
+        "[QUINCENA] Ahorro (Quincena 5): Transferir S/ 300 a mi cuenta de ahorro (acumulado: S/ 1,500). || Microacción (2 min): Transferir el monto quincenal manteniendo la constancia.",
+        "[MISIÓN 2] Gestión de línea y categoría: Solicitar o activar la ampliación de línea o mejora de categoría respaldado por bajo endeudamiento SBS. || Microacción (2 min): Revisar en banca por internet si aparece habilitada la opción de aumento de línea.",
+        "[MISIÓN 3] Control de membresías anuales: Verificar el mes de aniversario de cada tarjeta y confirmar que cumplo el requisito de exoneración. || Microacción (2 min): Revisar en Tarjetas las fechas de aniversario registradas.",
+        "[DIARIO] Hábito: Registrar mis gastos del día y verificar mis fechas de corte en menos de 2 minutos."
+      ]},
+      { title: "Nivel 6: Meta Trimestral Cumplida y Blindaje", theme: "QUINCENA 6 · META TRIMESTRAL CUMPLIDA", tasks: [
+        "[QUINCENA] Ahorro (Quincena 6): Transferir los últimos S/ 300 del ciclo para alcanzar los S/ 1,800 ahorrados en el trimestre. || Microacción (2 min): Ejecutar la transferencia final del trimestre.",
+        "[MISIÓN 2] Rentabilidad del ahorro: Asegurar que mi ahorro esté en una cuenta de alto rendimiento (TREA > 4.5 %) de libre disponibilidad. || Microacción (2 min): Revisar qué tasa de interés anual me paga mi cuenta actual.",
+        "[MISIÓN 3] Balance del trimestre: Comparar mi deuda reducida y mi línea de crédito disponible frente al inicio del Nivel 1. || Microacción (2 min): Abrir el panel de Tarjetas y Compras para revisar mi resumen patrimonial.",
+        "[DIARIO] Hábito: Registrar mis gastos del día y verificar mis fechas de corte en menos de 2 minutos."
+      ]}
+    ]
+  },
+  gym: {
+    id: 'gym', label: 'Symmetry',
+    vision: "Construyo un físico fuerte, simétrico y saludable guiándome con la aplicación Symmetry en mis entrenamientos y asegurando mi nutrición y suplementación todos los días.",
+    meta: "Cumplir mis sesiones de entrenamiento programadas en Symmetry registrando cada serie y mantener una constancia superior al 85 % en creatina, proteína y control corporal.",
+    compromiso: "Symmetry guía mis rutinas en el gimnasio; mi sistema personal asegura mi nutrición, mi descanso y mis mediciones. Nunca paso más de tres días sin entrenar.",
+    weeks: [
+      { title: "Nivel 1: Calibración con Symmetry y Base Física", theme: "QUINCENA 1 · ARRANQUE SÓLIDO", tasks: [
+        "[MISIÓN 1] Primer bloque en Symmetry: Completar las tres sesiones de la primera semana siguiendo los ejercicios, series y descansos de Symmetry. || Microacción (2 min): Abrir la aplicación Symmetry hoy y revisar la rutina que me corresponde.",
+        "[MISIÓN 2] Segundo bloque en Symmetry: Completar las tres sesiones de la segunda semana priorizando técnica limpia y rango completo de movimiento. || Microacción (2 min): Dejar lista mi ropa deportiva y mi suplementación desde la noche anterior.",
+        "[MISIÓN 3] Registro de medidas iniciales: Anotar mi peso corporal y mis medidas base (pecho, abdomen, brazos y piernas) en el panel de Auditoría Física. || Microacción (2 min): Registrar al menos mi peso actual y la medida de mi abdomen en la tabla física.",
+        "[DIARIO] Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
+      ]},
+      { title: "Nivel 2: Sobrecarga Progresiva Real", theme: "QUINCENA 2 · CIERRE DEL PRIMER MES", tasks: [
+        "[MISIÓN 1] Progreso de cargas en Symmetry: Completar las tres sesiones logrando aumentar una repetición o subir el peso en dos ejercicios principales. || Microacción (2 min): Revisar mis marcas de la semana anterior en Symmetry antes de iniciar.",
+        "[MISIÓN 2] Enfoque en simetría muscular: Completar las tres sesiones de la segunda semana iniciando los ejercicios unilaterales por mi lado menos dominante. || Microacción (2 min): Realizar al menos tres series efectivas del grupo muscular programado para hoy.",
+        "[MISIÓN 3] Evaluación del primer mes: Registrar mis medidas del Mes 1 en la Matriz de Mediciones Físicas para verificar evolución. || Microacción (2 min): Medir el contorno de mi cintura en ayunas y anotarlo en el panel.",
+        "[DIARIO] Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
+      ]},
+      { title: "Nivel 3: Constancia en Días de Trabajo Intenso", theme: "QUINCENA 3 · DISCIPLINA SOSTENIDA", tasks: [
+        "[MISIÓN 1] Primer bloque de la quincena: Cumplir las tres sesiones semanales en el gimnasio (o una sesión efectiva de 30 min tras días de campo). || Microacción (2 min): Realizar tres series de flexiones o sentadillas al llegar a mi habitación.",
+        "[MISIÓN 2] Segundo bloque de la quincena: Completar las tres sesiones entrenando cerca del fallo controlado (dejando 1 a 2 repeticiones en reserva). || Microacción (2 min): Asistir al gimnasio y cumplir como mínimo los dos primeros ejercicios compuestos.",
+        "[MISIÓN 3] Nutrición estratégica: Asegurar que todas mis comidas principales incluyan una porción clara de proteína. || Microacción (2 min): Verificar cuánto inventario de proteína y creatina tengo disponible para la quincena.",
+        "[DIARIO] Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
+      ]},
+      { title: "Nivel 4: Control Técnico y Segunda Evaluación", theme: "QUINCENA 4 · CIERRE DEL SEGUNDO MES", tasks: [
+        "[MISIÓN 1] Tensión mecánica en Symmetry: Ejecutar las tres sesiones controlando la fase excéntrica durante 2 a 3 segundos en cada repetición. || Microacción (2 min): Abrir Symmetry al llegar al gimnasio y poner el celular en modo concentración.",
+        "[MISIÓN 2] Balance muscular: Completar las tres sesiones de cierre revisando el gráfico de proporción muscular de Symmetry. || Microacción (2 min): Identificar en Symmetry qué grupo muscular necesita mayor atención.",
+        "[MISIÓN 3] Evaluación del segundo mes: Ingresar mis medidas corporales del Mes 2 en la Matriz Física y analizar la variación. || Microacción (2 min): Actualizar mi peso y medida abdominal en el panel físico.",
+        "[DIARIO] Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
+      ]},
+      { title: "Nivel 5: Fase de Fuerza y Densidad Muscular", theme: "QUINCENA 5 · SUPERANDO LÍMITES", tasks: [
+        "[MISIÓN 1] Récords en ejercicios principales: Completar las tres sesiones buscando superar mis marcas personales con buena técnica. || Microacción (2 min): Realizar el calentamiento articular de 3 minutos y comenzar la primera serie.",
+        "[MISIÓN 2] Entrenamiento completo sin omisiones: Cumplir las tres sesiones incluyendo accesorios de hombros, brazos, pantorrillas y abdomen. || Microacción (2 min): Realizar dos series enfocadas de zona media o plancha al finalizar.",
+        "[MISIÓN 3] Descanso y recuperación: Asegurar un buen descanso nocturno en los días de entrenamiento intenso. || Microacción (2 min): Dejar el teléfono cargando fuera del alcance de la cama antes de dormir.",
+        "[DIARIO] Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
+      ]},
+      { title: "Nivel 6: Consolidación y Evaluación Final", theme: "QUINCENA 6 · RESULTADO TRIMESTRAL", tasks: [
+        "[MISIÓN 1] Penúltimo bloque en Symmetry: Completar las tres sesiones manteniendo intensidad, control postural y registro exacto de cargas. || Microacción (2 min): Cumplir la sesión del día anotando todas las series en Symmetry.",
+        "[MISIÓN 2] Cierre del ciclo de entrenamiento: Completar las últimas tres sesiones de la sexta quincena y revisar la evolución de fuerza alcanzada. || Microacción (2 min): Comparar los pesos que levanto hoy frente a mis registros del Nivel 1.",
+        "[MISIÓN 3] Auditoría Física Final (Mes 3): Registrar todas mis medidas finales en el panel de Auditoría Física y evaluar mi progreso completo. || Microacción (2 min): Completar la columna del Mes 3 en la matriz de mediciones físicas.",
+        "[DIARIO] Hábito: Tomar 5 gramos de creatina y cumplir mi requerimiento diario de proteína."
+      ]}
+    ]
+  }
+};
+
+let PLANS = JSON.parse(JSON.stringify(DEFAULT_PLANS));
 let currentPlan = 'topo';
 let activeLevelByPlan = { topo: 0, pueblo: 0, fin: 0, gym: 0 };
+let currentDisplayedWeek = { topo: 0, pueblo: 0, fin: 0, gym: 0 };
 let taskStates = { topo: {}, pueblo: {}, fin: {}, gym: {} };
 let wamStates = { topo: {}, pueblo: {}, fin: {}, gym: {} };
 let habitDaysState = {};
+let isSurvivalMode = JSON.parse(localStorage.getItem('survival_mode_v1') || 'false');
+let editingMissionContext = null;
 
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 const audioCtx = AudioCtx ? new AudioCtx() : null;
-
-function playSuccessSound() {
+function playSound(freq = 600) {
   if (audioCtx) {
     if (audioCtx.state === 'suspended') audioCtx.resume();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(580, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(980, audioCtx.currentTime + 0.09);
-    gain.gain.setValueAtTime(0.22, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.09);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.09);
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    g.gain.setValueAtTime(0.11, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+    o.start(); o.stop(audioCtx.currentTime + 0.08);
   }
+  if (navigator.vibrate) navigator.vibrate(18);
 }
 
+function ls_get(k, def) {
+  try { const v = JSON.parse(localStorage.getItem(k)); return v !== null && v !== undefined ? v : def; } catch (e) { return def; }
+}
+function ls_set(k, v) {
+  try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {}
+  triggerPlanSync();
+}
+function todayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function getCurrentWeekMondayKey() {
+  const d = new Date();
+  const day = d.getDay() || 7;
+  d.setDate(d.getDate() - day + 1);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('show'), 2400);
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+function toggleDarkMode() {
+  const isDark = document.body.classList.toggle('dark-theme');
+  localStorage.setItem('compras_theme', isDark ? 'dark' : 'light');
+  applyHeaderUI();
+}
+function toggleSurvivalMode() {
+  isSurvivalMode = !isSurvivalMode;
+  ls_set('survival_mode_v1', isSurvivalMode);
+  applyHeaderUI();
+  buildAllUI();
+  showToast(isSurvivalMode ? 'Modo 2 minutos activo' : 'Modo normal activo');
+}
+function applyHeaderUI() {
+  const isDark = localStorage.getItem('compras_theme') === 'dark';
+  document.body.classList.toggle('dark-theme', isDark);
+
+  const btn = document.getElementById('btn-survival');
+  if (btn) {
+    btn.classList.toggle('active-survival', isSurvivalMode);
+    document.getElementById('modeIconWrap').innerHTML = isSurvivalMode ? SVG_ICONS.sprout : SVG_ICONS.bolt;
+    document.getElementById('modeTextWrap').textContent = isSurvivalMode ? '2 min' : 'Normal';
+  }
+  const tWrap = document.getElementById('themeIconWrap');
+  if (tWrap) tWrap.innerHTML = isDark ? SVG_ICONS.sun : SVG_ICONS.moon;
 }
 
-async function loadExternalPlans() {
+/* PARSER DE 2 CAPAS LIMPIO */
+function isHabitTask(tStr) {
+  const l = String(tStr || '').toLowerCase();
+  return l.includes('[diario]') || l.includes('hábito');
+}
+function parseTwoLayerTask(rawTask) {
+  const clean = String(rawTask || '').replace(/\[.*?\]/g, '').trim();
+  const parts = clean.includes('||') ? clean.split('||') : [clean, clean];
+  const macroFull = parts[0].trim();
+  const microFull = (parts[1] || parts[0]).trim();
+
+  let headline = macroFull;
+  let detail = macroFull;
+  const colonIdx = macroFull.indexOf(':');
+  if (colonIdx > 0 && colonIdx < 65) {
+    headline = macroFull.slice(0, colonIdx).trim();
+    detail = macroFull.slice(colonIdx + 1).trim();
+  }
+  const cleanMicro = microFull.replace(/^.*?Microacción\s*\(2\s*min\)\s*:\s*/i, '').trim();
+  return { headline, detail, micro: cleanMicro };
+}
+
+/* CARGA E INICIALIZACIÓN */
+function loadPlansAndStates() {
   PLAN_IDS.forEach(p => {
     taskStates[p] = ls_get(KEYS[p].tasks, {});
-    const cached = localStorage.getItem('cache_' + p);
-    if (cached) {
-      try { PLANS[p] = { ...PLANS[p], ...JSON.parse(cached) }; } catch (e) {}
+    const cached = ls_get('cache_' + p, null);
+    if (cached && cached.weeks && cached.weeks.length > 0) {
+      PLANS[p] = { ...DEFAULT_PLANS[p], ...cached };
+    } else {
+      PLANS[p] = JSON.parse(JSON.stringify(DEFAULT_PLANS[p]));
+      localStorage.setItem('cache_' + p, JSON.stringify(PLANS[p]));
     }
   });
   wamStates = ls_get('wam_states_v1', { topo: {}, pueblo: {}, fin: {}, gym: {} });
   habitDaysState = ls_get(KEYS.habitDays, {});
-
-  if (PLANS.topo.weeks.length > 0) buildAllUI();
-
-  const files = {
-    topo:   'plan_topografia.json',
-    pueblo: 'plan_pueblo.json',
-    fin:    'plan_finanzas.json',
-    gym:    'plan_gimnasio.json'
-  };
-
-  for (const [pid, filename] of Object.entries(files)) {
-    try {
-      const res = await fetch(filename);
-      if (res.ok) {
-        const data = await res.json();
-        PLANS[pid] = { ...PLANS[pid], ...data };
-        localStorage.setItem('cache_' + pid, JSON.stringify(data));
-      }
-    } catch (e) {}
-  }
-
   buildAllUI();
   initCloud();
 }
 
+function detectActiveLevelForPlan(planId) {
+  const weeks = PLANS[planId]?.weeks || [];
+  const ts = taskStates[planId] || {};
+  for (let i = 0; i < weeks.length; i++) {
+    const w = weeks[i];
+    const mIdxs = [];
+    (w.tasks || []).forEach((t, ti) => { if (!isHabitTask(t)) mIdxs.push(ti); });
+    if (mIdxs.length === 0 || !mIdxs.every(ti => ts[`${i}-${ti}`] === true)) return i;
+  }
+  return Math.max(0, weeks.length - 1);
+}
+
+function buildAllUI() {
+  PLAN_IDS.forEach(pid => {
+    activeLevelByPlan[pid] = detectActiveLevelForPlan(pid);
+    if (currentDisplayedWeek[pid] === undefined) currentDisplayedWeek[pid] = activeLevelByPlan[pid];
+    buildPlanUI(pid);
+  });
+  switchPlan(currentPlan);
+}
+
+function buildPlanUI(planId) {
+  const plan = PLANS[planId];
+  const section = document.getElementById('section-' + planId);
+  section.innerHTML = '';
+
+  // Tarjeta de Visión + Botón Editar Pilar
+  const vb = document.createElement('div');
+  vb.className = 'vision-card';
+  vb.innerHTML = `
+    <div class="vision-header" onclick="toggleVision('${planId}')">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.64rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">
+        Propósito y Meta · ${plan.label}
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="btn-mini-edit" onclick="event.stopPropagation(); openPillarEditor('${planId}')">Editar Meta</button>
+        <span id="vi-icon-${planId}" style="font-weight:700; color:var(--text-muted);">+</span>
+      </div>
+    </div>
+    <div id="vi-content-${planId}" style="display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--border); font-size:0.82rem; line-height:1.5;">
+      <div style="margin-bottom:8px;"><strong style="color:var(--cyan);">Visión:</strong> ${plan.vision}</div>
+      <div style="margin-bottom:8px;"><strong style="color:var(--violet);">Meta:</strong> ${plan.meta}</div>
+      <div><strong style="color:var(--emerald);">Compromiso:</strong> ${plan.compromiso}</div>
+    </div>`;
+  section.appendChild(vb);
+
+  const ts = taskStates[planId] || {};
+  const mondayKey = getCurrentWeekMondayKey();
+  const todayIdx = (new Date().getDay() || 7) - 1;
+  const dayLetters = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+
+  plan.weeks.forEach((w, i) => {
+    const misionesHTML = [];
+    let habitText = null;
+
+    (w.tasks || []).forEach((t, ti) => {
+      if (isHabitTask(t)) {
+        habitText = String(t).replace(/\[.*?\]/g, '').replace(/^.*?Hábito:\s*/i, '').trim();
+        return;
+      }
+      const isChecked = ts[`${i}-${ti}`] === true;
+      const { headline, detail, micro } = parseTwoLayerTask(t);
+      const previewLine = isSurvivalMode ? `2 min: ${micro}` : detail;
+
+      misionesHTML.push(`
+        <div id="task-${planId}-${i}-${ti}" class="task-card ${isChecked ? 'checked' : ''}">
+          <div class="task-top-row" onclick="toggleTask('${planId}', ${i}, ${ti})">
+            <div class="task-check">✓</div>
+            <div class="task-main-info">
+              <div class="t-headline">${headline}</div>
+              <div class="t-preview">${previewLine}</div>
+            </div>
+            <button class="btn-expand-task" onclick="event.stopPropagation(); toggleTaskDrawer('${planId}-${i}-${ti}')">Detalle</button>
+          </div>
+          <div class="task-drawer" id="drawer-${planId}-${i}-${ti}">
+            <div class="td-box">
+              <span class="td-lbl">Misión Completa (Modo Normal)</span>
+              <div>${detail}</div>
+            </div>
+            <div class="td-box micro">
+              <span class="td-lbl" style="color:var(--violet);">Microacción de 2 Minutos</span>
+              <div>${micro}</div>
+            </div>
+            <div class="td-actions">
+              <button class="btn-mini-edit" onclick="openMissionCreator('${planId}', ${i}, ${ti})">Editar</button>
+              <button class="btn-mini-edit" style="color:var(--rose);" onclick="deleteMission('${planId}', ${i}, ${ti})">Eliminar</button>
+            </div>
+          </div>
+        </div>`);
+    });
+
+    const pHabits = (habitDaysState[planId] && habitDaysState[planId][mondayKey]) || {};
+    let daysDone = 0;
+    const dayBtns = dayLetters.map((letter, dIdx) => {
+      const done = pHabits[dIdx] === true;
+      if (done) daysDone++;
+      return `<button class="hw-day-btn ${done ? 'done' : ''} ${dIdx === todayIdx ? 'is-today' : ''}" onclick="toggleHabitDay('${planId}', ${dIdx})"><span>${letter}</span><span style="font-size:0.55rem;">${done ? '✓' : '·'}</span></button>`;
+    }).join('');
+
+    let activeWamBanner = '';
+    if (i > 0 && wamStates[planId]?.[i - 1]?.q2) {
+      activeWamBanner = `<div style="background:var(--amber-soft); border-left:3px solid var(--amber); padding:10px 14px; border-radius:11px; margin-bottom:12px; font-size:0.8rem;"><strong>Prioridad fijada en Bitácora:</strong> "${wamStates[planId][i - 1].q2}"</div>`;
+    }
+
+    const panel = document.createElement('div');
+    panel.className = 'week-panel-content';
+    panel.id = `panel-${planId}-${i}`;
+    panel.style.display = 'none';
+    const circum = 2 * Math.PI * 22;
+
+    panel.innerHTML = `
+      <div class="week-header-card">
+        <div class="wh-info">
+          <div class="wh-dates">${w.theme || `NIVEL ${i + 1}`}</div>
+          <h2>${w.title}</h2>
+          <div class="wh-actions-row">
+            <button class="btn-add-mission" onclick="openMissionCreator('${planId}', ${i}, null)">+ Misión</button>
+            <button class="btn-mini-edit" onclick="renameLevelTitle('${planId}', ${i})">Renombrar Nivel</button>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div class="progress-ring-container" id="pr-cont-${planId}-${i}">
+            <svg class="progress-ring" width="54" height="54">
+              <circle class="progress-ring__circle-bg" stroke-width="4.5" fill="transparent" r="22" cx="27" cy="27"/>
+              <circle class="progress-ring__circle" id="pr-circle-${planId}-${i}" stroke-width="4.5" fill="transparent" r="22" cx="27" cy="27" style="stroke-dasharray:${circum}; stroke-dashoffset:${circum}; stroke-linecap:round;"/>
+            </svg>
+            <div class="pr-text" id="pr-text-${planId}-${i}">0%</div>
+          </div>
+          <span id="ghost-${planId}-${i}" style="font-family:'JetBrains Mono',monospace; font-size:0.58rem; color:var(--text-dim); margin-top:4px;">0/0</span>
+        </div>
+      </div>
+
+      ${activeWamBanner}
+
+      <div class="task-group-title">
+        <span>Misiones del Nivel</span>
+        <span>${isSurvivalMode ? 'Modo 2m' : 'Modo Normal'}</span>
+      </div>
+      <div class="tasks-grid">${misionesHTML.join('') || '<div style="padding:18px; text-align:center; color:var(--text-dim); font-size:0.82rem;">No hay misiones en este nivel. Usa <b>+ Misión</b> arriba.</div>'}</div>
+
+      ${habitText ? `
+        <div class="task-group-title"><span>Hábito Diario de la Semana</span><button class="btn-mini-edit" onclick="openPillarEditor('${planId}')">Cambiar</button></div>
+        <div class="habit-weekly-card">
+          <div class="hw-header">
+            <div class="hw-title">${habitText}</div>
+            <span id="hw-count-${planId}-${i}" style="font-family:'JetBrains Mono',monospace; font-size:0.66rem; color:var(--cyan); font-weight:700;">${daysDone}/7 d</span>
+          </div>
+          <div class="hw-days-row" id="hw-row-${planId}-${i}">${dayBtns}</div>
+        </div>` : ''}
+    `;
+    section.appendChild(panel);
+  });
+
+  if (planId === 'gym') {
+    const measBtn = document.createElement('button');
+    measBtn.className = 'mbtn-save';
+    measBtn.style.marginTop = '4px';
+    measBtn.textContent = 'Abrir Matriz de Evolución Física';
+    measBtn.onclick = () => buildMeasurementsPanel();
+    section.appendChild(measBtn);
+  }
+
+  plan.weeks.forEach((_, i) => refreshScore(planId, i));
+}
+
+function toggleTaskDrawer(id) {
+  document.getElementById('drawer-' + id)?.classList.toggle('open');
+}
+function toggleVision(pid) {
+  const c = document.getElementById(`vi-content-${pid}`);
+  const ic = document.getElementById(`vi-icon-${pid}`);
+  const show = c.style.display === 'none';
+  c.style.display = show ? 'block' : 'none';
+  ic.textContent = show ? '−' : '+';
+}
+
+/* CREADOR Y EDITOR DE METAS / MISIONES */
+function openMissionCreator(planId, weekIdx, taskIdx = null) {
+  editingMissionContext = { planId, weekIdx, taskIdx };
+  const titleEl = document.getElementById('mcTitle');
+  const detailEl = document.getElementById('mcDetail');
+  const microEl = document.getElementById('mcMicro');
+
+  if (taskIdx !== null) {
+    document.getElementById('mcModalTitle').textContent = 'Editar Misión';
+    const raw = PLANS[planId].weeks[weekIdx].tasks[taskIdx];
+    const parsed = parseTwoLayerTask(raw);
+    titleEl.value = parsed.headline;
+    detailEl.value = parsed.detail;
+    microEl.value = parsed.micro;
+  } else {
+    document.getElementById('mcModalTitle').textContent = `Nueva Misión · Nivel ${weekIdx + 1}`;
+    titleEl.value = '';
+    detailEl.value = '';
+    microEl.value = '';
+  }
+  document.getElementById('missionCreatorOverlay').classList.add('open');
+}
+function closeMissionCreator() {
+  document.getElementById('missionCreatorOverlay').classList.remove('open');
+}
+function saveMissionFromModal() {
+  if (!editingMissionContext) return;
+  const { planId, weekIdx, taskIdx } = editingMissionContext;
+  const t = document.getElementById('mcTitle').value.trim();
+  const d = document.getElementById('mcDetail').value.trim() || t;
+  const m = document.getElementById('mcMicro').value.trim() || d;
+  if (!t) return showToast('Escribe un título para la misión');
+
+  const formatted = `[MISIÓN] ${t}: ${d} || Microacción (2 min): ${m}`;
+  const tasks = PLANS[planId].weeks[weekIdx].tasks;
+
+  if (taskIdx !== null) {
+    tasks[taskIdx] = formatted;
+  } else {
+    const habitIdx = tasks.findIndex(x => isHabitTask(x));
+    if (habitIdx !== -1) tasks.splice(habitIdx, 0, formatted);
+    else tasks.push(formatted);
+  }
+
+  saveCustomPlanToStorage(planId);
+  closeMissionCreator();
+  buildPlanUI(planId);
+  rebuildLevelRibbon();
+  switchWeekTo(weekIdx);
+  showToast('Misión guardada');
+}
+
+function deleteMission(planId, weekIdx, taskIdx) {
+  if (!confirm('¿Eliminar esta misión del nivel?')) return;
+  PLANS[planId].weeks[weekIdx].tasks.splice(taskIdx, 1);
+  const oldStates = taskStates[planId] || {};
+  const newStates = {};
+  Object.keys(oldStates).forEach(k => {
+    const [wStr, tStr] = k.split('-');
+    const wi = parseInt(wStr), ti = parseInt(tStr);
+    if (wi !== weekIdx) newStates[k] = oldStates[k];
+    else if (ti < taskIdx) newStates[`${wi}-${ti}`] = oldStates[k];
+    else if (ti > taskIdx) newStates[`${wi}-${ti - 1}`] = oldStates[k];
+  });
+  taskStates[planId] = newStates;
+  localStorage.setItem(KEYS[planId].tasks, JSON.stringify(newStates));
+
+  saveCustomPlanToStorage(planId);
+  buildPlanUI(planId);
+  rebuildLevelRibbon();
+  switchWeekTo(weekIdx);
+  showToast('Misión eliminada');
+}
+
+function renameLevelTitle(planId, weekIdx) {
+  const w = PLANS[planId].weeks[weekIdx];
+  const nextTitle = prompt('Nombre del Nivel:', w.title);
+  if (nextTitle && nextTitle.trim()) {
+    w.title = nextTitle.trim();
+    saveCustomPlanToStorage(planId);
+    buildPlanUI(planId);
+    switchWeekTo(weekIdx);
+  }
+}
+
+function addNewLevel(planId) {
+  const num = PLANS[planId].weeks.length + 1;
+  const title = prompt(`Título para el Nivel ${num}:`, `Nivel ${num}: Nuevo Objetivo`);
+  if (!title) return;
+  PLANS[planId].weeks.push({
+    title: title.trim(),
+    theme: `QUINCENA ${num} · META PERSONALIZADA`,
+    tasks: [
+      `[MISIÓN 1] Objetivo Principal: Define el entregable clave de este nivel. || Microacción (2 min): Dar el primer paso de 2 minutos hoy.`,
+      `[DIARIO] Hábito: Avanzar con constancia diaria en ${PLANS[planId].label}.`
+    ]
+  });
+  saveCustomPlanToStorage(planId);
+  buildPlanUI(planId);
+  rebuildLevelRibbon();
+  switchWeekTo(num - 1);
+  showToast(`Nivel ${num} creado`);
+}
+
+function openPillarEditor(planId) {
+  const p = PLANS[planId];
+  const wIdx = currentDisplayedWeek[planId] || 0;
+  const habitTask = (p.weeks[wIdx]?.tasks || []).find(x => isHabitTask(x)) || '';
+  document.getElementById('peVision').value = p.vision || '';
+  document.getElementById('peMeta').value = p.meta || '';
+  document.getElementById('peCompromiso').value = p.compromiso || '';
+  document.getElementById('peHabit').value = habitTask.replace(/\[.*?\]/g, '').replace(/^.*?Hábito:\s*/i, '').trim();
+  document.getElementById('pillarEditorOverlay').classList.add('open');
+}
+
+function savePillarPurpose() {
+  const p = PLANS[currentPlan];
+  p.vision = document.getElementById('peVision').value.trim();
+  p.meta = document.getElementById('peMeta').value.trim();
+  p.compromiso = document.getElementById('peCompromiso').value.trim();
+  const newHabit = document.getElementById('peHabit').value.trim();
+  if (newHabit) {
+    p.weeks.forEach(w => {
+      const idx = (w.tasks || []).findIndex(x => isHabitTask(x));
+      if (idx !== -1) w.tasks[idx] = `[DIARIO] Hábito: ${newHabit}`;
+      else w.tasks.push(`[DIARIO] Hábito: ${newHabit}`);
+    });
+  }
+  saveCustomPlanToStorage(currentPlan);
+  document.getElementById('pillarEditorOverlay').classList.remove('open');
+  buildPlanUI(currentPlan);
+  switchWeekTo(currentDisplayedWeek[currentPlan] || 0);
+  showToast('Propósito actualizado');
+}
+
+function saveCustomPlanToStorage(planId) {
+  localStorage.setItem('cache_' + planId, JSON.stringify(PLANS[planId]));
+  triggerPlanSync();
+}
+
+/* PROGRESO Y NAVEGACIÓN DE CINTA */
+function refreshScore(p, wi) {
+  const w = PLANS[p].weeks[wi];
+  if (!w) return;
+  let mDone = 0, mTot = 0;
+  (w.tasks || []).forEach((t, ti) => {
+    if (isHabitTask(t)) return;
+    mTot++;
+    if (taskStates[p]?.[`${wi}-${ti}`]) mDone++;
+  });
+  const pct = mTot > 0 ? Math.round((mDone / mTot) * 100) : 0;
+
+  const ghost = document.getElementById(`ghost-${p}-${wi}`);
+  if (ghost) ghost.textContent = `${mDone}/${mTot} listas`;
+
+  const circum = 2 * Math.PI * 22;
+  const circle = document.getElementById(`pr-circle-${p}-${wi}`);
+  if (circle) circle.style.strokeDashoffset = circum - (pct / 100) * circum;
+  const prTxt = document.getElementById(`pr-text-${p}-${wi}`);
+  if (prTxt) prTxt.textContent = `${pct}%`;
+  document.getElementById(`pr-cont-${p}-${wi}`)?.classList.toggle('winner', pct === 100);
+}
+
+function rebuildLevelRibbon() {
+  const nav = document.getElementById('levelRibbon');
+  nav.innerHTML = '';
+  const weeks = PLANS[currentPlan].weeks || [];
+  const ts = taskStates[currentPlan] || {};
+
+  weeks.forEach((w, i) => {
+    let mDone = 0, mTot = 0;
+    (w.tasks || []).forEach((t, ti) => { if (!isHabitTask(t)) { mTot++; if (ts[`${i}-${ti}`]) mDone++; } });
+    const done = mTot > 0 && mDone === mTot;
+    const btn = document.createElement('button');
+    btn.className = `bn-tab ${i === activeLevelByPlan[currentPlan] ? 'current-week' : ''} ${done ? 'done-lvl' : ''}`;
+    btn.innerHTML = `Nivel ${i + 1}${done ? ' ✓' : ''}`;
+    btn.onclick = () => switchWeekTo(i);
+    nav.appendChild(btn);
+  });
+
+  const addLvlBtn = document.createElement('button');
+  addLvlBtn.className = 'bn-action-btn';
+  addLvlBtn.innerHTML = '+ Nivel';
+  addLvlBtn.onclick = () => addNewLevel(currentPlan);
+  nav.appendChild(addLvlBtn);
+
+  const wamBtn = document.createElement('button');
+  wamBtn.className = 'bn-action-btn';
+  wamBtn.style.marginLeft = 'auto';
+  wamBtn.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+    Bitácora`;
+  wamBtn.onclick = () => openWamHistory(currentPlan);
+  nav.appendChild(wamBtn);
+}
+
+function switchPlan(p) {
+  currentPlan = p;
+  document.querySelectorAll('.plan-btn').forEach(b => b.classList.toggle('active', b.dataset.plan === p));
+  document.querySelectorAll('.plan-section').forEach(s => s.classList.toggle('active', s.dataset.plan === p));
+  rebuildLevelRibbon();
+  switchWeekTo(currentDisplayedWeek[p] ?? activeLevelByPlan[p] ?? 0);
+}
+
+function switchWeekTo(idx) {
+  currentDisplayedWeek[currentPlan] = idx;
+  document.querySelectorAll(`#section-${currentPlan} .week-panel-content`).forEach((el, i) => {
+    el.style.display = i === idx ? 'block' : 'none';
+  });
+  document.querySelectorAll('#levelRibbon .bn-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+}
+
+function toggleTask(p, wi, ti) {
+  if (!taskStates[p]) taskStates[p] = {};
+  const key = `${wi}-${ti}`;
+  const nextState = !taskStates[p][key];
+  taskStates[p][key] = nextState;
+
+  const dailyLog = ls_get('pierovski_daily_log', {});
+  const tKey = todayStr();
+  const nextVal = Math.max(0, (dailyLog[tKey] || 0) + (nextState ? 1 : -1));
+  if (nextVal === 0) delete dailyLog[tKey]; else dailyLog[tKey] = nextVal;
+  localStorage.setItem('pierovski_daily_log', JSON.stringify(dailyLog));
+
+  playSound(nextState ? 680 : 420);
+  ls_set(KEYS[p].tasks, taskStates[p]);
+
+  document.getElementById(`task-${p}-${wi}-${ti}`)?.classList.toggle('checked', nextState);
+  activeLevelByPlan[p] = detectActiveLevelForPlan(p);
+  refreshScore(p, wi);
+  rebuildLevelRibbon();
+  switchWeekTo(wi);
+}
+
+function toggleHabitDay(planId, dayIdx) {
+  const mondayKey = getCurrentWeekMondayKey();
+  if (!habitDaysState[planId]) habitDaysState[planId] = {};
+  if (!habitDaysState[planId][mondayKey]) habitDaysState[planId][mondayKey] = {};
+
+  const next = !habitDaysState[planId][mondayKey][dayIdx];
+  habitDaysState[planId][mondayKey][dayIdx] = next;
+
+  const dailyLog = ls_get('pierovski_daily_log', {});
+  const tKey = todayStr();
+  const nextVal = Math.max(0, (dailyLog[tKey] || 0) + (next ? 1 : -1));
+  if (nextVal === 0) delete dailyLog[tKey]; else dailyLog[tKey] = nextVal;
+  localStorage.setItem('pierovski_daily_log', JSON.stringify(dailyLog));
+
+  playSound(next ? 640 : 400);
+  ls_set(KEYS.habitDays, habitDaysState);
+  buildPlanUI(planId);
+  switchWeekTo(currentDisplayedWeek[planId] || 0);
+}
+
+/* SINCRONIZACIÓN FIREBASE */
 function triggerPlanSync() {
   const ts = Date.now();
   localStorage.setItem('plan_last_update', ts);
@@ -758,41 +1334,51 @@ function triggerPlanSync() {
 }
 
 function syncPlanToCloud(ts = Date.now()) {
-  if (!navigator.onLine) return;
+  if (!navigator.onLine || !db) return;
   const ind = document.getElementById('cloud-indicator');
-  if (ind) ind.className = 'cloud-status cloud-syncing';
-  db.ref('pierovski/plan').set({
+  if (ind) ind.className = 'sync-dot syncing';
+
+  const customPlansObj = {};
+  PLAN_IDS.forEach(k => { customPlansObj[k] = PLANS[k]; });
+
+  db.ref('pierovski/plan').update({
     lastUpdated: ts,
     tasks: taskStates,
+    customPlans: customPlansObj,
     habitDays: habitDaysState,
     wamLogs: wamStates,
-    startDate: cleanDateStr(ls_get(KEYS.startDate, '2026-10-15')),
+    startDate: ls_get(KEYS.startDate, '2026-10-15'),
     measurements: ls_get(MEDS_KEY, {}),
     baseline: getBaseline(),
     dailyLog: ls_get('pierovski_daily_log', {})
   }).then(() => {
-    if (ind) ind.className = 'cloud-status cloud-online';
+    if (ind) ind.className = 'sync-dot online';
   }).catch(() => {});
 }
 
 function initCloud() {
-  if (!navigator.onLine) {
-    document.getElementById('offlineBanner').style.display = 'block';
-    return;
-  }
+  if (!navigator.onLine || !db) return;
+  const ind = document.getElementById('cloud-indicator');
   db.ref('pierovski/plan').once('value').then(snap => {
-    document.getElementById('cloud-indicator').className = 'cloud-status cloud-online';
+    if (ind) ind.className = 'sync-dot online';
     if (snap.exists()) {
       const data = snap.val();
       const cloudTs = data.lastUpdated || 0;
       const localTs = parseInt(localStorage.getItem('plan_last_update')) || 0;
-
       if (cloudTs >= localTs) {
+        if (data.customPlans) {
+          PLAN_IDS.forEach(p => {
+            if (data.customPlans[p]) {
+              PLANS[p] = data.customPlans[p];
+              localStorage.setItem('cache_' + p, JSON.stringify(PLANS[p]));
+            }
+          });
+        }
         if (data.tasks) {
           PLAN_IDS.forEach(p => {
             if (data.tasks[p]) {
-              localStorage.setItem(KEYS[p].tasks, JSON.stringify(data.tasks[p]));
               taskStates[p] = data.tasks[p];
+              localStorage.setItem(KEYS[p].tasks, JSON.stringify(data.tasks[p]));
             }
           });
         }
@@ -804,7 +1390,6 @@ function initCloud() {
           wamStates = { topo: {}, pueblo: {}, fin: {}, gym: {}, ...data.wamLogs };
           localStorage.setItem('wam_states_v1', JSON.stringify(wamStates));
         }
-        if (data.startDate) localStorage.setItem(KEYS.startDate, JSON.stringify(cleanDateStr(data.startDate)));
         if (data.measurements) localStorage.setItem(MEDS_KEY, JSON.stringify(data.measurements));
         if (data.baseline) localStorage.setItem(BASE_KEY, JSON.stringify(data.baseline));
         if (data.dailyLog) localStorage.setItem('pierovski_daily_log', JSON.stringify(data.dailyLog));
@@ -819,537 +1404,12 @@ function initCloud() {
   }).catch(() => {});
 }
 
-function detectActiveLevelForPlan(planId) {
-  const weeks = PLANS[planId]?.weeks || [];
-  const ts = taskStates[planId] || {};
-  for (let i = 0; i < weeks.length; i++) {
-    const w = weeks[i];
-    const missionIndexes = [];
-    (w.tasks || []).forEach((t, ti) => {
-      if (!isHabitTask(t)) missionIndexes.push(ti);
-    });
-    const allMissionsDone = missionIndexes.length > 0 && missionIndexes.every(ti => ts[`${i}-${ti}`] === true);
-    if (!allMissionsDone) return i;
-  }
-  return Math.max(0, weeks.length - 1);
+/* BITÁCORA, AJUSTES, MATRIZ FÍSICA Y CRONÓMETRO */
+function getBaseline() {
+  return ls_get(BASE_KEY, { peso: 75.0, pecho: 94.5, barriga: 91.0, brazoIzq: 33.0, brazoDer: 33.0, piernaIzq: 53.0, piernaDer: 55.0 });
 }
-
-function isHabitTask(tStr) {
-  const lower = String(tStr || '').toLowerCase();
-  return lower.includes('[diario]') || lower.includes('hábito');
-}
-
-// REGEX REPARADO CON ESCAPADO EXACTO (NO BORRA LETRAS DE LAS PALABRAS)
-function splitMacroMicro(rawTask) {
-  const clean = String(rawTask || '').replace(/[H]/gi, '').trim();
-  if (clean.includes('||')) {
-    const parts = clean.split('||');
-    return {
-      macro: parts[0].trim(),
-      micro: parts[1].trim()
-    };
-  }
-  return { macro: clean, micro: clean };
-}
-
-function toggleVision(pid) {
-  const content = document.getElementById(`vi-content-${pid}`);
-  const icon = document.getElementById(`vi-icon-${pid}`);
-  if (content.style.display === 'none') {
-    content.style.display = 'block';
-    icon.textContent = '−';
-  } else {
-    content.style.display = 'none';
-    icon.textContent = '+';
-  }
-}
-
-function calcVaultProgress() {
-  const finWeeks = PLANS.fin.weeks || [];
-  const finTasks = taskStates.fin || {};
-  let completedQuincenas = 0;
-  finWeeks.forEach((w, wi) => {
-    (w.tasks || []).forEach((t, ti) => {
-      if (t.toLowerCase().includes('bóveda') && finTasks[`${wi}-${ti}`]) {
-        completedQuincenas++;
-      }
-    });
-  });
-  const savedAmount = completedQuincenas * 300;
-  const goalAmount = 1800;
-  const pct = Math.min(100, Math.round((savedAmount / goalAmount) * 100));
-  return { completedQuincenas, savedAmount, goalAmount, pct };
-}
-
-// PUENTE CON TARJETAS Y COMPRAS PARA EL PILAR DE FINANZAS
-function getLiveCreditSummary() {
-  try {
-    const rawC = JSON.parse(localStorage.getItem('tarjetasPremiumV3')) || [];
-    const cards = Array.isArray(rawC) ? rawC : Object.values(rawC);
-    const totalDebt = cards.reduce((acc, c) => acc + (parseFloat(c.debtTotal) || 0), 0);
-    const totalLimit = cards.reduce((acc, c) => acc + (parseFloat(c.creditLimit) || 0), 0);
-    const ratio = totalLimit > 0 ? Math.round((totalDebt / totalLimit) * 100) : 0;
-    const unpaid = cards.filter(c => !c.paid).length;
-    return { count: cards.length, totalDebt, totalLimit, ratio, unpaid };
-  } catch (e) {
-    return { count: 0, totalDebt: 0, totalLimit: 0, ratio: 0, unpaid: 0 };
-  }
-}
-
-function buildAllUI() {
-  PLAN_IDS.forEach(pid => {
-    if (PLANS[pid].weeks && PLANS[pid].weeks.length) {
-      activeLevelByPlan[pid] = detectActiveLevelForPlan(pid);
-      buildPlanUI(pid);
-    }
-  });
-  switchPlan(currentPlan);
-}
-
-function buildPlanUI(planId) {
-  const plan = PLANS[planId];
-  const section = document.getElementById('section-' + planId);
-  section.innerHTML = '';
-
-  const survBanner = document.createElement('div');
-  survBanner.className = 'survival-banner';
-  survBanner.innerHTML = `
-    <span>🌱 <b>Modo de 2 Minutos activo:</b> Hoy solo necesitas cumplir la microacción para mantener tu racha.</span>
-    <button class="btn-pill" onclick="openDeepWork(2)" style="height:30px; font-size:0.65rem;">⏱️ 2 min</button>
-  `;
-  section.appendChild(survBanner);
-
-  const vb = document.createElement('div');
-  vb.className = 'vision-card';
-  vb.innerHTML = `
-    <div onclick="toggleVision('${planId}')" style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none;">
-      <div style="font-family:'DM Mono', monospace; font-size:0.7rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.06em;">👁️ Propósito y Regla de Oro (${plan.label})</div>
-      <span id="vi-icon-${planId}" style="color:var(--text-muted); font-size:1.15rem; font-weight:bold;">+</span>
-    </div>
-    <div id="vi-content-${planId}" style="display:none; margin-top:14px; padding-top:14px; border-top:1px dashed var(--border); font-size:0.85rem; line-height:1.5;">
-      <div style="margin-bottom:10px;"><strong style="color:var(--amber);">🎯 Visión:</strong> <span>${plan.vision || 'No definida'}</span></div>
-      <div style="margin-bottom:10px;"><strong style="color:var(--amber);">🏆 Meta del ciclo:</strong> <span>${plan.meta || 'No definida'}</span></div>
-      <div><strong style="color:var(--amber);">⚡ Compromiso:</strong> <span>${plan.compromiso || 'No definido'}</span></div>
-    </div>
-  `;
-  section.appendChild(vb);
-
-  if (planId === 'fin') {
-    const vData = calcVaultProgress();
-    const sbsData = getLiveCreditSummary();
-    const sbsColor = sbsData.ratio <= 25 ? 'var(--green)' : (sbsData.ratio <= 50 ? 'var(--amber)' : 'var(--red)');
-
-    const finGrid = document.createElement('div');
-    finGrid.className = 'fin-synergy-grid';
-    finGrid.innerHTML = `
-      <div class="vault-card">
-        <div>
-          <div class="vault-top">
-            <span class="vault-lbl">🏦 Bóveda Quincenal (S/ 600/mes)</span>
-            <span class="vault-val" id="vault-val-txt">S/ ${vData.savedAmount.toLocaleString('es-PE')} / S/ 1,800</span>
-          </div>
-          <div class="vault-bar-bg"><div class="vault-bar-fill" id="vault-bar-fill" style="width:${vData.pct}%;"></div></div>
-        </div>
-        <div class="vault-sub">
-          <span id="vault-dep-txt">${vData.completedQuincenas}/6 quincenas ahorradas</span>
-          <span id="vault-pct-txt">${vData.pct} % completado</span>
-        </div>
-      </div>
-
-      <a href="tarjetas.html" class="sbs-live-card" title="Abrir módulo de Tarjetas y Estrategia SBS">
-        <div>
-          <div class="vault-top">
-            <span class="vault-lbl" style="color:var(--blue);">💳 Estado Real SBS (Tarjetas)</span>
-            <span class="vault-val" style="color:${sbsColor};">${sbsData.ratio} % Uso</span>
-          </div>
-          <div class="vault-bar-bg"><div class="vault-bar-fill" style="width:${Math.min(100, sbsData.ratio)}%; background:${sbsColor};"></div></div>
-        </div>
-        <div class="vault-sub">
-          <span>Deuda: S/ ${sbsData.totalDebt.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
-          <span>${sbsData.unpaid > 0 ? sbsData.unpaid + ' pend. este mes →' : 'Al día ✓ →'}</span>
-        </div>
-      </a>
-    `;
-    section.appendChild(finGrid);
-  }
-
-  const ts = taskStates[planId] || {};
-  const mondayKey = getCurrentWeekMondayKey();
-  const todayDayIdx = (new Date().getDay() || 7) - 1;
-  const dayLetters = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
-
-  plan.weeks.forEach((w, i) => {
-    const misiones = [];
-    let habitText = null;
-
-    w.tasks.forEach((t, ti) => {
-      if (isHabitTask(t)) {
-        habitText = splitMacroMicro(t).macro.replace(/[DIARIO]/gi, '').trim();
-        return;
-      }
-      const isChecked = ts[`${i}-${ti}`] === true;
-      const { macro, micro } = splitMacroMicro(t);
-      const displayText = isSurvivalMode ? micro : macro;
-
-      misiones.push(`
-        <div id="task-${planId}-${i}-${ti}" class="task-card ${isChecked ? 'checked' : ''}" onclick="toggleTask('${planId}',${i},${ti})">
-          <div class="task-check">✓</div>
-          <div class="task-body">
-            <span class="t-micro-badge">🌱 Versión de 2 minutos (anti-fricción)</span>
-            <div class="t-text">${displayText}</div>
-          </div>
-        </div>`);
-    });
-
-    let habitHTML = '';
-    if (habitText) {
-      const pHabits = (habitDaysState[planId] && habitDaysState[planId][mondayKey]) || {};
-      let daysDoneCount = 0;
-      const dayButtons = dayLetters.map((letter, dIdx) => {
-        const isDone = pHabits[dIdx] === true;
-        if (isDone) daysDoneCount++;
-        return `
-          <button class="hw-day-btn ${isDone ? 'done' : ''} ${dIdx === todayDayIdx ? 'is-today' : ''}"
-                  onclick="toggleHabitDay('${planId}', ${dIdx})"
-                  title="Marcar día ${letter}">
-            <span>${letter}</span>
-            <span class="d-dot">${isDone ? '✓' : '·'}</span>
-          </button>`;
-      }).join('');
-
-      habitHTML = `
-        <div class="task-group-title">
-          <span>🔁 Hábito Diario (Marca el día de hoy)</span>
-          <span>Semana Actual</span>
-        </div>
-        <div class="habit-weekly-card">
-          <div class="hw-header">
-            <div class="hw-title">${habitText}</div>
-            <div class="hw-count" id="hw-count-${planId}-${i}">${daysDoneCount}/7 días</div>
-          </div>
-          <div class="hw-days-row" id="hw-row-${planId}-${i}">${dayButtons}</div>
-        </div>`;
-    }
-
-    let activeWamHTML = '';
-    if (i > 0 && wamStates[planId] && wamStates[planId][i - 1] && wamStates[planId][i - 1].q2) {
-      activeWamHTML = `
-        <div class="active-wam-banner">
-          <strong>🧭 Prioridad anotada en el Nivel ${i}:</strong><br>
-          "${wamStates[planId][i - 1].q2}"
-        </div>`;
-    }
-
-    const panel = document.createElement('div');
-    panel.className = 'week-panel-content';
-    panel.id = `panel-${planId}-${i}`;
-    panel.style.display = 'none';
-
-    const radius = 26;
-    const circum = 2 * Math.PI * radius;
-
-    panel.innerHTML = `
-      <div class="week-header-card">
-        <div class="wh-info">
-          <div class="wh-dates">${w.theme || `QUINCENA ${i + 1}`}</div>
-          <h2>${w.title}</h2>
-          <div class="wh-theme" id="level-status-${planId}-${i}">🎯 Completa las 3 misiones para desbloquear el siguiente nivel</div>
-        </div>
-        <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
-          <div class="progress-ring-container" id="pr-cont-${planId}-${i}">
-            <svg class="progress-ring" width="64" height="64">
-              <circle class="progress-ring__circle-bg" stroke-width="5" fill="transparent" r="26" cx="32" cy="32"/>
-              <circle class="progress-ring__circle" id="pr-circle-${planId}-${i}" stroke-width="5" fill="transparent" r="26" cx="32" cy="32" style="stroke-dasharray: ${circum}; stroke-dashoffset: ${circum}; stroke-linecap: round;"/>
-            </svg>
-            <div class="pr-text" id="pr-text-${planId}-${i}">0%</div>
-          </div>
-          <div class="ghost-target" id="ghost-${planId}-${i}">0/3 listas</div>
-        </div>
-      </div>
-
-      ${activeWamHTML}
-
-      <div>
-        <div class="task-group-title">
-          <span>🎯 Misiones del Nivel (${isSurvivalMode ? 'Modo de 2 Minutos' : 'Modo Normal'})</span>
-          <span>+33 % cada una</span>
-        </div>
-        <div class="tasks-grid">${misiones.join('')}</div>
-        ${habitHTML}
-      </div>
-    `;
-    section.appendChild(panel);
-  });
-
-  const hmContainer = document.createElement('div');
-  hmContainer.className = 'heatmap-container';
-  let hmHTML = `
-    <div class="hm-title">
-      <span>🏆 Mapa de Maestría (6 Quincenas)</span>
-      <span>Avance a tu ritmo</span>
-    </div>
-    <div class="heatmap-grid">`;
-
-  plan.weeks.forEach((w, i) => {
-    hmHTML += `
-      <div class="hm-cell" id="hm-cell-${planId}-${i}" onclick="switchWeekTo(${i})">
-        <div class="hm-num">NIVEL ${i + 1}</div>
-        <div class="hm-pct" id="hm-pct-${planId}-${i}">0%</div>
-        <div class="hm-reward" id="reward-${planId}-${i}">🔒</div>
-      </div>`;
-  });
-  hmHTML += '</div>';
-  hmContainer.innerHTML = hmHTML;
-  section.appendChild(hmContainer);
-
-  if (planId === 'gym') {
-    const measBtn = document.createElement('button');
-    measBtn.className = 'mbtn-save';
-    measBtn.style.marginTop = '16px';
-    measBtn.innerHTML = '📏 Abrir Matriz de Mediciones Físicas';
-    measBtn.onclick = () => buildMeasurementsPanel();
-    hmContainer.appendChild(measBtn);
-  }
-
-  plan.weeks.forEach((_, i) => refreshScore(planId, i));
-}
-
-function updateVaultUI() {
-  const vData = calcVaultProgress();
-  const valTxt = document.getElementById('vault-val-txt');
-  const barFill = document.getElementById('vault-bar-fill');
-  const depTxt = document.getElementById('vault-dep-txt');
-  const pctTxt = document.getElementById('vault-pct-txt');
-  if (valTxt) valTxt.textContent = `S/ ${vData.savedAmount.toLocaleString('es-PE')} / S/ 1,800`;
-  if (barFill) barFill.style.width = `${vData.pct}%`;
-  if (depTxt) depTxt.textContent = `${vData.completedQuincenas}/6 quincenas ahorradas`;
-  if (pctTxt) pctTxt.textContent = `${vData.pct} % completado`;
-}
-
-function refreshScore(p, wi) {
-  const w = PLANS[p].weeks[wi];
-  if (!w) return;
-
-  let missionsDone = 0, missionsTotal = 0;
-  w.tasks.forEach((t, ti) => {
-    if (isHabitTask(t)) return;
-    missionsTotal++;
-    if (taskStates[p] && taskStates[p][`${wi}-${ti}`]) missionsDone++;
-  });
-
-  if (missionsTotal === 0) missionsTotal = 1;
-  const pct = Math.round((missionsDone / missionsTotal) * 100);
-
-  const ghostEl = document.getElementById(`ghost-${p}-${wi}`);
-  if (ghostEl) {
-    ghostEl.textContent = `${missionsDone}/${missionsTotal} misiones`;
-    ghostEl.style.color = pct === 100 ? 'var(--green)' : 'var(--text-dim)';
-  }
-
-  const statusBadge = document.getElementById(`level-status-${p}-${wi}`);
-  if (statusBadge) {
-    if (pct === 100) {
-      statusBadge.innerHTML = '🏆 ¡Nivel completado! Siguiente nivel desbloqueado';
-      statusBadge.style.color = 'var(--green)';
-      statusBadge.style.borderColor = 'var(--green)';
-    } else {
-      statusBadge.innerHTML = `🎯 Avance actual: ${missionsDone} de ${missionsTotal} misiones completadas`;
-      statusBadge.style.color = 'var(--text-muted)';
-      statusBadge.style.borderColor = 'var(--border-strong)';
-    }
-  }
-
-  const radius = 26;
-  const circum = 2 * Math.PI * radius;
-  const offset = circum - (pct / 100) * circum;
-  const circle = document.getElementById(`pr-circle-${p}-${wi}`);
-  if (circle) circle.style.strokeDashoffset = offset;
-
-  const text = document.getElementById(`pr-text-${p}-${wi}`);
-  if (text) text.textContent = pct + '%';
-
-  const cont = document.getElementById(`pr-cont-${p}-${wi}`);
-  if (cont) cont.classList.toggle('winner', pct === 100);
-
-  const cell = document.getElementById(`hm-cell-${p}-${wi}`);
-  const hmPct = document.getElementById(`hm-pct-${p}-${wi}`);
-  if (cell && hmPct) {
-    hmPct.textContent = pct + '%';
-    cell.className = 'hm-cell';
-    if (wi === activeLevelByPlan[p]) cell.classList.add('hm-current');
-    if (pct === 100) cell.classList.add('lvl-3');
-    else if (pct >= 60) cell.classList.add('lvl-2');
-    else if (pct > 0) cell.classList.add('lvl-1');
-    else cell.classList.add('lvl-0');
-  }
-
-  const rw = document.getElementById(`reward-${p}-${wi}`);
-  if (rw) {
-    rw.textContent = pct === 100 ? '🏆' : (pct > 0 ? '⚡' : '🔒');
-    rw.style.background = pct === 100 ? 'var(--amber)' : 'var(--surface)';
-    rw.style.borderColor = pct === 100 ? 'var(--amber)' : 'var(--border)';
-  }
-
-  if (p === 'fin') updateVaultUI();
-}
-
-function rebuildLevelRibbon() {
-  const nav = document.getElementById('levelRibbon');
-  nav.innerHTML = '';
-  const weeks = PLANS[currentPlan].weeks || [];
-  const ts = taskStates[currentPlan] || {};
-
-  weeks.forEach((w, i) => {
-    let mDone = 0, mTot = 0;
-    (w.tasks || []).forEach((t, ti) => {
-      if (!isHabitTask(t)) {
-        mTot++;
-        if (ts[`${i}-${ti}`]) mDone++;
-      }
-    });
-    const isComplete = mTot > 0 && mDone === mTot;
-
-    const tab = document.createElement('button');
-    tab.className = `bn-tab ${i === activeLevelByPlan[currentPlan] ? 'current-week' : ''} ${isComplete ? 'done-lvl' : ''}`;
-    tab.innerHTML = `Nivel ${i + 1} ${isComplete ? '✓' : ''}`;
-    tab.onclick = () => switchWeekTo(i);
-    nav.appendChild(tab);
-  });
-
-  const wamBtn = document.createElement('button');
-  wamBtn.className = 'bn-wam-btn';
-  wamBtn.innerHTML = '📖 Bitácora';
-  wamBtn.onclick = () => openWamHistory(currentPlan);
-  nav.appendChild(wamBtn);
-}
-
-function switchPlan(p) {
-  currentPlan = p;
-  document.querySelectorAll('.plan-btn').forEach(b => b.classList.toggle('active', b.dataset.plan === p));
-  document.querySelectorAll('.plan-section').forEach(s => s.classList.toggle('active', s.dataset.plan === p));
-  rebuildLevelRibbon();
-  switchWeekTo(activeLevelByPlan[p] || 0);
-}
-
-function switchWeekTo(idx) {
-  document.querySelectorAll(`#section-${currentPlan} .week-panel-content`).forEach((el, i) => {
-    el.style.display = i === idx ? 'block' : 'none';
-  });
-  document.querySelectorAll('#levelRibbon .bn-tab').forEach((t, i) => {
-    t.classList.toggle('active', i === idx);
-  });
-}
-
-function updateDailyConsistencyLog(delta) {
-  const dailyLog = ls_get('pierovski_daily_log', {});
-  const tKey = todayStr();
-  const nextVal = Math.max(0, (dailyLog[tKey] || 0) + delta);
-  if (nextVal === 0) delete dailyLog[tKey];
-  else dailyLog[tKey] = nextVal;
-  localStorage.setItem('pierovski_daily_log', JSON.stringify(dailyLog));
-}
-
-function toggleTask(p, wi, ti) {
-  if (!taskStates[p]) taskStates[p] = {};
-  const key = `${wi}-${ti}`;
-
-  taskStates[p][key] = !taskStates[p][key];
-  if (taskStates[p][key]) {
-    playSuccessSound();
-    if (navigator.vibrate) navigator.vibrate([25, 40, 25]);
-    updateDailyConsistencyLog(1);
-  } else {
-    updateDailyConsistencyLog(-1);
-  }
-
-  ls_set(KEYS[p].tasks, taskStates[p]);
-  document.getElementById(`task-${p}-${wi}-${ti}`)?.classList.toggle('checked', taskStates[p][key]);
-
-  activeLevelByPlan[p] = detectActiveLevelForPlan(p);
-  refreshScore(p, wi);
-  rebuildLevelRibbon();
-  document.querySelectorAll('#levelRibbon .bn-tab').forEach((t, idx) => t.classList.toggle('active', idx === wi));
-
-  const w = PLANS[p].weeks[wi];
-  const allDone = w.tasks.every((t, idx) => isHabitTask(t) || taskStates[p][`${wi}-${idx}`]);
-  if (allDone && taskStates[p][key]) {
-    showToast(`🏆 ¡Nivel ${wi + 1} completado al 100 %!`);
-    if (wi + 1 < PLANS[p].weeks.length) {
-      setTimeout(() => switchWeekTo(wi + 1), 900);
-    }
-  }
-}
-
-function toggleHabitDay(planId, dayIdx) {
-  const mondayKey = getCurrentWeekMondayKey();
-  if (!habitDaysState[planId]) habitDaysState[planId] = {};
-  if (!habitDaysState[planId][mondayKey]) habitDaysState[planId][mondayKey] = {};
-
-  const currentVal = habitDaysState[planId][mondayKey][dayIdx] === true;
-  habitDaysState[planId][mondayKey][dayIdx] = !currentVal;
-
-  if (!currentVal) {
-    playSuccessSound();
-    if (navigator.vibrate) navigator.vibrate(25);
-    updateDailyConsistencyLog(1);
-    showToast('🔥 Hábito del día registrado');
-  } else {
-    updateDailyConsistencyLog(-1);
-  }
-
-  ls_set(KEYS.habitDays, habitDaysState);
-
-  const daysDoneCount = Object.values(habitDaysState[planId][mondayKey]).filter(v => v === true).length;
-  const planWeeks = PLANS[planId].weeks || [];
-  planWeeks.forEach((_, wi) => {
-    const countEl = document.getElementById(`hw-count-${planId}-${wi}`);
-    if (countEl) countEl.textContent = `${daysDoneCount}/7 días`;
-    const rowEl = document.getElementById(`hw-row-${planId}-${wi}`);
-    if (rowEl && rowEl.children[dayIdx]) {
-      const btn = rowEl.children[dayIdx];
-      btn.classList.toggle('done', !currentVal);
-      btn.querySelector('.d-dot').textContent = !currentVal ? '✓' : '·';
-    }
-  });
-}
-
-function requestNotifPermission() {
-  const timeVal = document.getElementById('cfg-reminder-time').value;
-  if (timeVal) localStorage.setItem(KEYS.reminderTime, timeVal);
-  if ('Notification' in window) {
-    Notification.requestPermission().then(perm => {
-      if (perm === 'granted') showToast('🔔 Recordatorio diario activado');
-      else showToast('✓ Hora guardada en la aplicación');
-    });
-  } else {
-    showToast('✓ Hora de recordatorio guardada');
-  }
-}
-
-function initDailyReminderCheck() {
-  setInterval(() => {
-    const targetTime = localStorage.getItem(KEYS.reminderTime);
-    if (!targetTime) return;
-    const now = new Date();
-    const currHM = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    const lastFired = localStorage.getItem('pierovski_last_notif_date');
-    if (currHM === targetTime && lastFired !== todayStr()) {
-      localStorage.setItem('pierovski_last_notif_date', todayStr());
-      playSuccessSound();
-      if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification('⚡ Pierovski: Momento de tu avance diario', {
-          body: 'Abre tu ruta y marca tu hábito del día o una microacción de 2 minutos.',
-          icon: 'icon.jpg'
-        });
-      } else {
-        showToast('🔔 Hora de tu microacción diaria (2 minutos)');
-      }
-    }
-  }, 30000);
-}
-
 function openSettings() {
-  document.getElementById('cfg-start-date').value = cleanDateStr(ls_get(KEYS.startDate, '2026-10-15'));
+  document.getElementById('cfg-start-date').value = String(ls_get(KEYS.startDate, '2026-10-15')).split('T')[0];
   document.getElementById('cfg-reminder-time').value = localStorage.getItem(KEYS.reminderTime) || '19:30';
   const bl = getBaseline();
   document.getElementById('cfg-peso').value = bl.peso;
@@ -1361,17 +1421,11 @@ function openSettings() {
   document.getElementById('cfg-pierna-der').value = bl.piernaDer;
   document.getElementById('settingsOverlay').classList.add('open');
 }
-
 function closeSettings() { document.getElementById('settingsOverlay').classList.remove('open'); }
-
 function saveSettings() {
-  const val = cleanDateStr(document.getElementById('cfg-start-date').value);
-  if (val) localStorage.setItem(KEYS.startDate, JSON.stringify(val));
-
-  const remTime = document.getElementById('cfg-reminder-time').value;
-  if (remTime) localStorage.setItem(KEYS.reminderTime, remTime);
-
-  const newBase = {
+  localStorage.setItem(KEYS.startDate, JSON.stringify(document.getElementById('cfg-start-date').value));
+  localStorage.setItem(KEYS.reminderTime, document.getElementById('cfg-reminder-time').value);
+  ls_set(BASE_KEY, {
     peso: parseFloat(document.getElementById('cfg-peso').value) || 0,
     pecho: parseFloat(document.getElementById('cfg-pecho').value) || 0,
     barriga: parseFloat(document.getElementById('cfg-barriga').value) || 0,
@@ -1379,37 +1433,27 @@ function saveSettings() {
     brazoDer: parseFloat(document.getElementById('cfg-brazo-der').value) || 0,
     piernaIzq: parseFloat(document.getElementById('cfg-pierna-izq').value) || 0,
     piernaDer: parseFloat(document.getElementById('cfg-pierna-der').value) || 0
-  };
-  ls_set(BASE_KEY, newBase);
-  buildAllUI();
+  });
   closeSettings();
-  showToast('✓ Configuración guardada');
+  showToast('Ajustes guardados');
 }
-
+function requestNotifPermission() {
+  localStorage.setItem(KEYS.reminderTime, document.getElementById('cfg-reminder-time').value);
+  if ('Notification' in window) Notification.requestPermission().then(() => showToast('Aviso configurado'));
+}
 function resetCycle() {
-  if (confirm("¿Estás seguro de que deseas reiniciar el progreso de todos los niveles a cero?")) {
-    PLAN_IDS.forEach(p => {
-      localStorage.removeItem(KEYS[p].tasks);
-      taskStates[p] = {};
-    });
-    localStorage.removeItem(KEYS.habitDays);
-    habitDaysState = {};
-    localStorage.removeItem('wam_states_v1');
-    wamStates = { topo: {}, pueblo: {}, fin: {}, gym: {} };
-    localStorage.removeItem(MEDS_KEY);
-    ls_set(KEYS.startDate, todayStr());
-    buildAllUI();
-    closeSettings();
-    showToast("🔥 Progreso reiniciado");
-  }
+  if (!confirm('¿Reiniciar las casillas marcadas de todos los niveles?')) return;
+  PLAN_IDS.forEach(p => { localStorage.removeItem(KEYS[p].tasks); taskStates[p] = {}; });
+  localStorage.removeItem(KEYS.habitDays); habitDaysState = {};
+  triggerPlanSync(); buildAllUI(); closeSettings();
+  showToast('Progreso reiniciado');
 }
 
-/* BITÁCORA POR NIVEL */
 function openWam(p, idx) {
   document.getElementById('wam-week-num').textContent = Number(idx) + 1;
-  document.getElementById('wam-q1').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q1 : '';
-  document.getElementById('wam-q2').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q2 : '';
-  document.getElementById('wam-q3').value = wamStates[p] && wamStates[p][idx] ? wamStates[p][idx].q3 : '9';
+  document.getElementById('wam-q1').value = wamStates[p]?.[idx]?.q1 || '';
+  document.getElementById('wam-q2').value = wamStates[p]?.[idx]?.q2 || '';
+  document.getElementById('wam-q3').value = wamStates[p]?.[idx]?.q3 || '9';
   document.getElementById('wamOverlay').dataset.plan = p;
   document.getElementById('wamOverlay').dataset.idx = idx;
   document.getElementById('wamOverlay').classList.add('open');
@@ -1418,213 +1462,120 @@ function closeWam() { document.getElementById('wamOverlay').classList.remove('op
 function saveWam() {
   const p = document.getElementById('wamOverlay').dataset.plan;
   const idx = document.getElementById('wamOverlay').dataset.idx;
-  const q1 = document.getElementById('wam-q1').value.trim();
-  const q2 = document.getElementById('wam-q2').value.trim();
-  const q3 = document.getElementById('wam-q3').value.trim() || '9';
-
-  if (!q1 && !q2) return showToast('⚠️ Escribe al menos una nota');
-
   if (!wamStates[p]) wamStates[p] = {};
-  wamStates[p][idx] = { q1, q2, q3, date: todayStr() };
+  wamStates[p][idx] = {
+    q1: document.getElementById('wam-q1').value.trim(),
+    q2: document.getElementById('wam-q2').value.trim(),
+    q3: document.getElementById('wam-q3').value.trim() || '9',
+    date: todayStr()
+  };
   ls_set('wam_states_v1', wamStates);
-  closeWam();
-  showToast('✓ Nota guardada en la bitácora');
-  buildAllUI();
+  closeWam(); buildAllUI(); showToast('Bitácora guardada');
 }
-
 function openWamHistory(p) {
-  const container = document.getElementById('wamHistoryContent');
-  container.innerHTML = '';
+  const c = document.getElementById('wamHistoryContent');
   const logs = wamStates[p] || {};
   const keys = Object.keys(logs).sort((a, b) => Number(b) - Number(a));
-
-  if (keys.length === 0) {
-    container.innerHTML = `<div style="text-align:center; color:var(--text-dim); font-style:italic; padding:28px 0;">Aún no tienes notas registradas en ${PLANS[p].label}.</div>`;
-  } else {
-    keys.forEach(k => {
-      const entry = logs[k];
-      if (entry && (entry.q1 || entry.q2)) {
-        const wLabel = isNaN(parseInt(k)) ? "NOTA" : (parseInt(k) + 1);
-        container.innerHTML += `
-          <div class="wh-item">
-            <div class="wh-item-header">📌 NIVEL ${wLabel} — Calificación: ${entry.q3}/10</div>
-            ${entry.q1 ? `<div class="wh-q">Aprendizaje u obstáculo:</div><div class="wh-a">"${entry.q1}"</div>` : ''}
-            ${entry.q2 ? `<div class="wh-q">Prioridad siguiente nivel:</div><div class="wh-a">"${entry.q2}"</div>` : ''}
-          </div>`;
-      }
-    });
-  }
+  c.innerHTML = keys.length === 0
+    ? '<p style="text-align:center; color:var(--text-dim); padding:18px; font-size:0.82rem;">Sin notas aún en esta sección.</p>'
+    : keys.map(k => `<div style="background:var(--surface2); padding:12px; border-radius:11px; margin-bottom:8px; border:1px solid var(--border);"><div style="font-family:'JetBrains Mono',monospace; font-size:0.64rem; color:var(--cyan); font-weight:700;">NIVEL ${Number(k)+1} · ${logs[k].q3}/10</div><div style="font-size:0.82rem; margin-top:4px;">${logs[k].q1 || ''}</div><div style="font-size:0.78rem; color:var(--emerald); margin-top:4px;"><b>Prioridad:</b> ${logs[k].q2 || '—'}</div></div>`).join('');
   document.getElementById('wamHistoryOverlay').classList.add('open');
 }
 function closeWamHistory() { document.getElementById('wamHistoryOverlay').classList.remove('open'); }
 
-/* CRONÓMETRO DELTA-TIME */
-let dwTimerInt = null;
-let dwBaseMinutes = 2;
+function buildMeasurementsPanel() {
+  const bl = getBaseline();
+  const saved = ls_get(MEDS_KEY, {});
+  const cols = ['Mes 1 (Q2)', 'Mes 2 (Q4)', 'Mes 3 (Q6)'];
+  const items = [
+    { z: 'Peso (kg)', k: 'peso', b: bl.peso },
+    { z: 'Pecho', k: 'Pecho', b: bl.pecho },
+    { z: 'Abdomen', k: 'Barriga', b: bl.barriga },
+    { z: 'Brazo Izq', k: 'Brazo Izq', b: bl.brazoIzq },
+    { z: 'Brazo Der', k: 'Brazo Der', b: bl.brazoDer },
+    { z: 'Pierna Izq', k: 'Pierna Izq', b: bl.piernaIzq },
+    { z: 'Pierna Der', k: 'Pierna Der', b: bl.piernaDer }
+  ];
 
+  const rows = items.map(it => {
+    let last = it.b;
+    const tds = cols.map(w => {
+      const d = saved[w];
+      const v = d ? (it.k === 'peso' ? d.peso : (d.medidas || []).find(m => m.zona === it.k)?.valor) : null;
+      if (v !== null && v !== undefined) last = v;
+      return `<td style="padding:6px; text-align:center;">${v ?? '—'}</td>`;
+    }).join('');
+    const diff = (last - it.b).toFixed(1);
+    return `<tr style="border-bottom:1px solid var(--border);"><td style="padding:6px; font-weight:700;">${it.z}</td><td style="padding:6px; text-align:center;">${it.b}</td>${tds}<td style="padding:6px; text-align:center; font-family:'JetBrains Mono',monospace; font-weight:700;">${diff > 0 ? '+'+diff : diff}</td></tr>`;
+  }).join('');
+
+  document.getElementById('measContent').innerHTML = `
+    <button class="modal-close" onclick="closeMeas()">✕</button>
+    <h2 style="font-family:'Outfit',sans-serif; font-size:1.18rem; margin-bottom:10px;">Matriz de Evolución Física</h2>
+    <div style="overflow-x:auto; margin-bottom:14px;">
+      <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+        <thead><tr style="border-bottom:2px solid var(--border);"><th style="text-align:left; padding:6px;">Zona</th><th>Base</th><th>M1</th><th>M2</th><th>M3</th><th>Δ</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <select id="meas-week" class="wam-input" style="margin-bottom:8px;">${cols.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      ${items.map(it => `<div><label class="field-lbl">${it.z}</label><input type="number" step="0.1" id="med-${it.k.replace(' ','-')}" placeholder="${it.b}" class="wam-input"></div>`).join('')}
+    </div>
+    <button class="mbtn-save" onclick="recordMeasurement()">Guardar Control Mensual</button>`;
+  document.getElementById('measOverlay').classList.add('open');
+}
+function closeMeas() { document.getElementById('measOverlay').classList.remove('open'); }
+function recordMeasurement() {
+  const w = document.getElementById('meas-week').value;
+  const peso = parseFloat(document.getElementById('med-peso').value) || null;
+  const keys = ['Pecho', 'Barriga', 'Brazo Izq', 'Brazo Der', 'Pierna Izq', 'Pierna Der'];
+  const medidas = keys.map(zona => ({ zona, valor: parseFloat(document.getElementById('med-' + zona.replace(' ', '-')).value) })).filter(m => !isNaN(m.valor));
+  const all = ls_get(MEDS_KEY, {});
+  all[w] = { peso, medidas, savedAt: todayStr() };
+  ls_set(MEDS_KEY, all);
+  buildMeasurementsPanel();
+  showToast('Control físico guardado');
+}
+
+/* CRONÓMETRO */
+let dwTimerInt = null, dwBaseMinutes = 2;
 function setDwTime(m) {
   if (dwTimerInt) return;
   dwBaseMinutes = m;
   document.querySelectorAll('.dw-btn-small').forEach(b => b.classList.remove('active'));
   document.getElementById(`btnDw${m}`)?.classList.add('active');
-  document.getElementById('dwTimer').textContent = `${String(m).padStart(2, '0')}:00`;
+  document.getElementById('dwTimer').textContent = `${String(m).padStart(2,'0')}:00`;
 }
-
-function openDeepWork(customMin = null) {
-  if (customMin && !dwTimerInt) setDwTime(customMin);
-  document.getElementById('dwOverlay').classList.add('open');
-  if ((parseInt(localStorage.getItem('pierovski_dw_end')) || 0) > Date.now()) {
-    resumeDeepWorkUI();
-  }
-}
-
-function closeDeepWork() {
-  document.getElementById('dwOverlay').classList.remove('open');
-}
-
+function openDeepWork() { document.getElementById('dwOverlay').classList.add('open'); }
+function closeDeepWork() { document.getElementById('dwOverlay').classList.remove('open'); }
 function startDeepWork() {
-  const endTime = Date.now() + dwBaseMinutes * 60 * 1000;
-  localStorage.setItem('pierovski_dw_end', endTime);
-  resumeDeepWorkUI();
-}
-
-function resumeDeepWorkUI() {
+  localStorage.setItem('pierovski_dw_end', Date.now() + dwBaseMinutes * 60 * 1000);
   document.getElementById('btnDwStart').style.display = 'none';
   document.getElementById('dwSelector').style.display = 'none';
-  document.getElementById('btnDwAbort').style.display = 'inline-block';
+  document.getElementById('btnDwAbort').style.display = 'inline-flex';
   tickDeepWork();
   clearInterval(dwTimerInt);
   dwTimerInt = setInterval(tickDeepWork, 1000);
 }
-
 function tickDeepWork() {
-  const endTime = parseInt(localStorage.getItem('pierovski_dw_end')) || 0;
-  const remSeconds = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
-  const m = String(Math.floor(remSeconds / 60)).padStart(2, '0');
-  const s = String(remSeconds % 60).padStart(2, '0');
-  document.getElementById('dwTimer').textContent = `${m}:${s}`;
-
-  if (remSeconds <= 0) {
-    clearInterval(dwTimerInt);
-    dwTimerInt = null;
-    localStorage.removeItem('pierovski_dw_end');
-    playSuccessSound();
-    if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 100]);
-    resetDwUI();
-    showToast("🔥 ¡Tiempo completado! Marca tu avance del día.");
-    closeDeepWork();
-  }
+  const rem = Math.max(0, Math.ceil(((parseInt(localStorage.getItem('pierovski_dw_end')) || 0) - Date.now()) / 1000));
+  document.getElementById('dwTimer').textContent = `${String(Math.floor(rem/60)).padStart(2,'0')}:${String(rem%60).padStart(2,'0')}`;
+  if (rem <= 0) { stopDeepWork(); playSound(820); showToast('Sesión completada'); closeDeepWork(); }
 }
-
 function stopDeepWork() {
-  clearInterval(dwTimerInt);
-  dwTimerInt = null;
+  clearInterval(dwTimerInt); dwTimerInt = null;
   localStorage.removeItem('pierovski_dw_end');
-  resetDwUI();
-}
-
-function resetDwUI() {
-  document.getElementById('dwTimer').textContent = `${String(dwBaseMinutes).padStart(2, '0')}:00`;
-  document.getElementById('btnDwStart').style.display = 'inline-block';
+  document.getElementById('btnDwStart').style.display = 'inline-flex';
   document.getElementById('dwSelector').style.display = 'flex';
   document.getElementById('btnDwAbort').style.display = 'none';
+  setDwTime(dwBaseMinutes);
 }
 
-/* MATRIZ DE MEDICIONES FÍSICAS */
-function buildMeasurementsPanel() {
-  const bl = getBaseline();
-  const medidasArray = [
-    { zona: 'Pecho', key: 'Pecho', valor: bl.pecho },
-    { zona: 'Abdomen', key: 'Barriga', valor: bl.barriga },
-    { zona: 'Brazo izquierdo', key: 'Brazo Izq', valor: bl.brazoIzq },
-    { zona: 'Brazo derecho', key: 'Brazo Der', valor: bl.brazoDer },
-    { zona: 'Pierna izquierda', key: 'Pierna Izq', valor: bl.piernaIzq },
-    { zona: 'Pierna derecha', key: 'Pierna Der', valor: bl.piernaDer }
-  ];
-
-  const saved = ls_get(MEDS_KEY, {});
-  const weeks = ['Base', 'Mes 1 (Q2)', 'Mes 2 (Q4)', 'Mes 3 (Q6)'];
-
-  let headerCols = `<th style="padding:10px 8px;text-align:left; border-bottom: 1px solid var(--border);">Zona</th><th style="padding:10px 8px;text-align:center; border-bottom: 1px solid var(--border); color:var(--amber);">Base</th>`;
-  weeks.slice(1).forEach(w => headerCols += `<th style="padding:10px 8px;text-align:center; border-bottom: 1px solid var(--border);">${w.split(' ')[0]} ${w.split(' ')[1]}</th>`);
-  headerCols += `<th style="padding:10px 8px;text-align:center; border-bottom: 1px solid var(--border);">Δ</th>`;
-
-  let bodyRows = '';
-  const rowsData = [{ zona: 'Peso (kg)', key: 'peso', base: bl.peso }, ...medidasArray.map(m => ({ zona: m.zona, key: m.key, base: m.valor }))];
-
-  rowsData.forEach(item => {
-    let cols = `<td style="padding:8px;font-size:0.78rem;font-weight:700; color:var(--text-muted);">${item.zona}</td><td style="padding:8px;text-align:center;font-weight:700; color:var(--text);">${item.base}</td>`;
-    let lastVal = item.base;
-    weeks.slice(1).forEach(w => {
-      const d = saved[w];
-      const val = d ? (item.key === 'peso' ? d.peso : (d.medidas || []).find(m => m.zona === item.key || m.zona === item.zona)?.valor) : null;
-      if (val !== null && val !== undefined) lastVal = val;
-      cols += `<td style="padding:8px;text-align:center;color:${val ? 'var(--text)' : 'var(--text-dim)'}; font-size:0.85rem; font-weight:600;">${val !== null && val !== undefined ? val : '—'}</td>`;
-    });
-    const diff = lastVal - item.base;
-    const isReductionGoal = (item.key === 'Barriga' || item.key === 'peso');
-    const diffColor = isReductionGoal
-      ? (diff < 0 ? 'var(--green)' : diff > 0 ? 'var(--red)' : 'var(--text-dim)')
-      : (diff > 0 ? 'var(--green)' : diff < 0 ? 'var(--red)' : 'var(--text-dim)');
-    cols += `<td style="padding:8px;text-align:center;font-weight:700;color:${diffColor}; font-size:0.85rem; font-family:'DM Mono', monospace;">${diff === 0 ? '—' : (diff > 0 ? '+' : '') + diff.toFixed(1)}</td>`;
-    bodyRows += `<tr style="border-bottom:1px solid var(--border);">${cols}</tr>`;
-  });
-
-  const medInputs = medidasArray.map(m => `
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px; justify-content:space-between;">
-      <label style="font-size:0.85rem;color:var(--text);font-weight:600;">${m.zona}</label>
-      <div style="display:flex; align-items:center; gap:6px;">
-        <input type="number" step="0.1" id="med-${m.key.replace(' ', '-')}" placeholder="${m.valor}" class="wam-input" style="width:80px; min-height:38px; margin:0; padding:6px 10px; text-align:center;">
-        <span style="font-size:0.75rem; color:var(--text-dim); font-family:'DM Mono', monospace;">cm</span>
-      </div>
-    </div>`).join('');
-
-  document.getElementById('measContent').innerHTML = `
-    <button class="modal-close" onclick="closeMeas()">✕</button>
-    <h2>📏 Evolución Física + Symmetry</h2>
-    <div style="overflow-x:auto; margin-bottom:20px;">
-      <table style="width:100%;border-collapse:collapse; min-width: 310px;">
-        <thead><tr>${headerCols}</tr></thead>
-        <tbody>${bodyRows}</tbody>
-      </table>
-    </div>
-    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:18px;">
-      <h3 style="font-family:'Fraunces',serif;font-size:1.05rem;color:var(--text);margin-bottom:12px;">Registrar Control Mensual</h3>
-      <select id="meas-week" class="wam-input" style="min-height:42px; padding:8px 12px; margin-bottom:14px;">
-        ${weeks.slice(1).map(w => `<option value="${w}">${w}</option>`).join('')}
-      </select>
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px; justify-content:space-between;">
-        <label style="font-size:0.85rem;color:var(--text);font-weight:600;">Peso corporal (kg)</label>
-        <input type="number" step="0.1" id="med-peso" placeholder="${bl.peso}" class="wam-input" style="width:95px; min-height:38px; margin:0; padding:6px 10px; text-align:center;">
-      </div>
-      ${medInputs}
-      <button onclick="recordMeasurement()" class="mbtn-save" style="margin-top:14px;">Guardar Mediciones</button>
-    </div>
-  `;
-  document.getElementById('measOverlay').classList.add('open');
-}
-
-function closeMeas() { document.getElementById('measOverlay').classList.remove('open'); }
-
-function recordMeasurement() {
-  const weekLabel = document.getElementById('meas-week').value;
-  const peso = parseFloat(document.getElementById('med-peso').value) || null;
-  const medidasKeys = ['Pecho', 'Barriga', 'Brazo Izq', 'Brazo Der', 'Pierna Izq', 'Pierna Der'];
-
-  const medidas = medidasKeys.map(zona => {
-    const val = parseFloat(document.getElementById('med-' + zona.replace(' ', '-')).value);
-    return { zona, valor: isNaN(val) ? null : val };
-  }).filter(m => m.valor !== null);
-
-  if (!peso && medidas.length === 0) return showToast('⚠️ Ingresa al menos una medida');
-
-  const all = ls_get(MEDS_KEY, {});
-  all[weekLabel] = { peso, medidas, savedAt: todayStr() };
-  ls_set(MEDS_KEY, all);
-
-  showToast('✓ Mediciones guardadas');
-  setTimeout(() => buildMeasurementsPanel(), 300);
-}
+window.addEventListener('DOMContentLoaded', () => {
+  applyHeaderUI();
+  loadPlansAndStates();
+});
 </script>
 </body>
 </html>
