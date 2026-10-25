@@ -8,296 +8,111 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#080c17">
 <link rel="apple-touch-icon" href="icon.jpg">
-
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
 <style>
 :root {
   color-scheme: light;
   --bg: #f3f5fa;
-  --bg-aurora: 
-    radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.11) 0px, transparent 48%),
-    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.11) 0px, transparent 48%),
-    radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
-  --surface: rgba(255, 255, 255, 0.86);
-  --surface-solid: #ffffff;
-  --surface2: #f8fafc;
-  --surface3: #e2e8f0;
-  --border: rgba(148, 163, 184, 0.22);
-  --border-strong: rgba(100, 116, 139, 0.32);
-  --text: #0f172a;
-  --text-muted: #475569;
-  --text-dim: #64748b;
-
-  /* Paleta Armónica de 4 Pilares */
-  --cyan: #0284c7;
-  --cyan-soft: rgba(2, 132, 199, 0.12);
-  --violet: #7c3aed;
-  --violet-soft: rgba(124, 58, 237, 0.12);
-  --amber: #d97706;
-  --amber-soft: rgba(217, 119, 6, 0.12);
-  --emerald: #059669;
-  --emerald-soft: rgba(5, 150, 105, 0.12);
-  --rose: #e11d48;
-  --rose-soft: rgba(225, 29, 72, 0.12);
-
-  --r-2xl: 24px;
-  --r-xl: 18px;
-  --r-lg: 14px;
-  --shadow-card: 0 10px 30px -8px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.03);
-  --shadow-dock: 0 16px 36px -6px rgba(15, 23, 42, 0.14);
+  --bg-aurora: radial-gradient(at 0% 0%, rgba(14,165,233,0.11) 0px, transparent 48%), radial-gradient(at 100% 0%, rgba(139,92,246,0.11) 0px, transparent 48%), radial-gradient(at 50% 100%, rgba(16,185,129,0.08) 0px, transparent 50%);
+  --surface: rgba(255,255,255,0.86); --surface-solid: #ffffff; --surface2: #f8fafc; --surface3: #e2e8f0;
+  --border: rgba(148,163,184,0.22); --border-strong: rgba(100,116,139,0.32);
+  --text: #0f172a; --text-muted: #475569; --text-dim: #64748b;
+  --cyan: #0284c7; --cyan-soft: rgba(2,132,199,0.12);
+  --violet: #7c3aed; --violet-soft: rgba(124,58,237,0.12);
+  --amber: #d97706; --amber-soft: rgba(217,119,6,0.12);
+  --emerald: #059669; --emerald-soft: rgba(5,150,105,0.12);
+  --rose: #e11d48; --rose-soft: rgba(225,29,72,0.12);
+  --r-2xl: 22px; --r-xl: 16px; --r-lg: 12px;
+  --shadow-card: 0 10px 28px -8px rgba(15,23,42,0.06);
+  --shadow-dock: 0 16px 36px -6px rgba(15,23,42,0.14);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
-
 body.dark-theme {
   color-scheme: dark;
   --bg: #080c17;
-  --bg-aurora: 
-    radial-gradient(at 5% 0%, rgba(14, 165, 233, 0.16) 0px, transparent 45%),
-    radial-gradient(at 95% 5%, rgba(139, 92, 246, 0.16) 0px, transparent 45%),
-    radial-gradient(at 50% 95%, rgba(16, 185, 129, 0.11) 0px, transparent 50%);
-  --surface: rgba(17, 24, 43, 0.78);
-  --surface-solid: #11182b;
-  --surface2: rgba(11, 16, 30, 0.75);
-  --surface3: #1e293b;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --text: #f8fafc;
-  --text-muted: #cbd5e1;
-  --text-dim: #94a3b8;
-
-  --cyan: #38bdf8;
-  --cyan-soft: rgba(56, 189, 248, 0.16);
-  --violet: #a78bfa;
-  --violet-soft: rgba(167, 139, 250, 0.16);
-  --amber: #fbbf24;
-  --amber-soft: rgba(251, 191, 36, 0.16);
-  --emerald: #34d399;
-  --emerald-soft: rgba(52, 211, 153, 0.16);
-  --rose: #fb7185;
-  --rose-soft: rgba(251, 113, 133, 0.16);
-
-  --shadow-card: 0 14px 34px -8px rgba(0, 0, 0, 0.45);
-  --shadow-dock: 0 18px 40px rgba(0, 0, 0, 0.55);
+  --bg-aurora: radial-gradient(at 5% 0%, rgba(14,165,233,0.16) 0px, transparent 45%), radial-gradient(at 95% 5%, rgba(139,92,246,0.16) 0px, transparent 45%), radial-gradient(at 50% 95%, rgba(16,185,129,0.11) 0px, transparent 50%);
+  --surface: rgba(17,24,43,0.78); --surface-solid: #11182b; --surface2: rgba(11,16,30,0.75); --surface3: #1e293b;
+  --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.16);
+  --text: #f8fafc; --text-muted: #cbd5e1; --text-dim: #94a3b8;
+  --cyan: #38bdf8; --cyan-soft: rgba(56,189,248,0.16);
+  --violet: #a78bfa; --violet-soft: rgba(167,139,250,0.16);
+  --amber: #fbbf24; --amber-soft: rgba(251,191,36,0.16);
+  --emerald: #34d399; --emerald-soft: rgba(52,211,153,0.16);
+  --rose: #fb7185; --rose-soft: rgba(251,113,133,0.16);
+  --shadow-card: 0 14px 34px -8px rgba(0,0,0,0.45);
+  --shadow-dock: 0 18px 40px rgba(0,0,0,0.55);
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body {
-  background-color: var(--bg);
-  background-image: var(--bg-aurora);
-  background-attachment: fixed;
-  color: var(--text);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  min-height: 100vh;
-  padding-bottom: 108px;
-  font-variant-numeric: tabular-nums;
-  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
-}
+body { background-color: var(--bg); background-image: var(--bg-aurora); background-attachment: fixed; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; padding-bottom: 105px; font-variant-numeric: tabular-nums; overflow-x: hidden; }
+#offlineBanner { display: none; background: var(--amber); color: #000; text-align: center; padding: 5px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; font-weight: 700; }
 
-#offlineBanner {
-  display: none; background: var(--amber); color: #000; text-align: center;
-  padding: 5px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700;
-}
-
-/* CABECERA MINIMALISTA CON FECHA ELEGANTE */
-header {
-  position: sticky; top: 0; z-index: 100;
-  background: var(--surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border); padding: 0 18px;
-}
-.header-inner {
-  max-width: 780px; margin: 0 auto; height: 60px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
-.date-box { display: flex; align-items: center; gap: 10px; }
-.sync-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong);
-  transition: all 0.3s var(--ease);
-}
+header { position: sticky; top: 0; z-index: 100; background: var(--surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 16px; }
+.header-inner { max-width: 760px; margin: 0 auto; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.date-box { display: flex; align-items: center; gap: 9px; }
+.sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); transition: 0.3s; }
 .sync-dot.online { background: var(--emerald); box-shadow: 0 0 10px var(--emerald); }
 .sync-dot.syncing { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
+.elegant-date { font-family: 'Outfit', sans-serif; font-size: 1.08rem; font-weight: 600; color: var(--text); }
 
-.elegant-date {
-  font-family: 'Outfit', sans-serif; font-size: 1.12rem; font-weight: 600;
-  color: var(--text); letter-spacing: -0.01em;
-}
+.header-tools { display: flex; align-items: center; gap: 7px; }
+.btn-mode-pill { height: 34px; padding: 0 11px; border-radius: 14px; cursor: pointer; border: 1px solid var(--border-strong); background: var(--surface2); color: var(--text-muted); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; transition: 0.2s; }
+.btn-mode-pill.survival { background: var(--violet-soft); color: var(--violet); border-color: var(--violet); }
+.btn-icon-svg { width: 34px; height: 34px; border-radius: 11px; border: 1px solid var(--border-strong); background: var(--surface2); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+.btn-icon-svg.active { background: var(--amber-soft); border-color: var(--amber); color: var(--amber); }
+.btn-icon-svg svg, .btn-mode-pill svg { width: 15px; height: 15px; stroke-width: 2; }
 
-.header-tools { display: flex; align-items: center; gap: 8px; }
-.btn-mode-pill {
-  height: 36px; padding: 0 13px; border-radius: 18px; cursor: pointer;
-  border: 1px solid var(--border-strong); background: var(--surface2);
-  color: var(--text-muted); font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;
-  transition: all 0.22s var(--ease);
-}
-.btn-mode-pill:hover { border-color: var(--cyan); color: var(--text); }
-.btn-mode-pill.survival {
-  background: var(--violet-soft); color: var(--violet); border-color: var(--violet);
-}
-.btn-icon-svg {
-  width: 36px; height: 36px; border-radius: 12px; border: 1px solid var(--border-strong);
-  background: var(--surface2); color: var(--text-muted);
-  display: flex; align-items: center; justify-content: center; cursor: pointer;
-  transition: all 0.22s var(--ease);
-}
-.btn-icon-svg:hover { border-color: var(--cyan); color: var(--text); transform: translateY(-1px); }
-.btn-icon-svg.active {
-  background: var(--amber-soft); border-color: var(--amber); color: var(--amber);
-}
-.btn-icon-svg svg, .btn-mode-pill svg { width: 17px; height: 17px; stroke-width: 2; }
+main { max-width: 760px; margin: 0 auto; padding: 14px 16px 0; }
 
-main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
+.hero-card { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: var(--r-2xl); padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-card); position: relative; overflow: hidden; }
+.hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--violet), var(--emerald)); }
 
-/* TARJETA HERO: FOCO INTELIGENTE CON BORDE DE COLOR DINÁMICO */
-.hero-card {
-  background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border); border-radius: var(--r-2xl);
-  padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow-card);
-  position: relative; overflow: hidden; transition: border-color 0.3s var(--ease);
-}
-.hero-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--cyan), var(--violet), var(--emerald));
-}
+/* 4 PESTAÑAS DE PILARES SIN AUTO */
+.pillar-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-bottom: 14px; }
+.p-tab { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.68rem; font-weight: 700; padding: 7px 4px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface2); color: var(--text-muted); cursor: pointer; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px; transition: 0.2s; overflow: hidden; text-overflow: ellipsis; }
+.p-tab svg { width: 12px; height: 12px; flex-shrink: 0; stroke-width: 2.1; }
+.p-tab.active[data-p="topo"] { background: var(--cyan-soft); color: var(--cyan); border-color: var(--cyan); }
+.p-tab.active[data-p="pueblo"] { background: var(--violet-soft); color: var(--violet); border-color: var(--violet); }
+.p-tab.active[data-p="fin"] { background: var(--amber-soft); color: var(--amber); border-color: var(--amber); }
+.p-tab.active[data-p="gym"] { background: var(--emerald-soft); color: var(--emerald); border-color: var(--emerald); }
 
-.pillar-tabs {
-  display: flex; gap: 6px; margin-bottom: 16px; overflow-x: auto; scrollbar-width: none;
-}
-.pillar-tabs::-webkit-scrollbar { display: none; }
-.p-tab {
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; font-weight: 700;
-  padding: 6px 12px; border-radius: 12px; border: 1px solid var(--border);
-  background: var(--surface2); color: var(--text-muted); cursor: pointer;
-  white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;
-  transition: all 0.2s var(--ease);
-}
-.p-tab svg { width: 14px; height: 14px; }
-.p-tab.active {
-  background: var(--text); color: var(--bg); border-color: var(--text);
-}
+.hero-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.hero-pillar-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 8px; border-radius: 7px; background: var(--cyan-soft); color: var(--cyan); }
+.hero-lvl-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; color: var(--text-dim); }
+.hero-headline { font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 5px; }
+.hero-subtext { font-size: 0.8rem; color: var(--text-muted); line-height: 1.45; margin-bottom: 14px; }
 
-.hero-meta {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 8px;
-}
-.hero-pillar-tag {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 9px;
-  border-radius: 8px; background: var(--cyan-soft); color: var(--cyan);
-}
-.hero-lvl-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700;
-  color: var(--text-dim);
-}
+.hero-actions { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+.btn-done-primary { background: linear-gradient(135deg, var(--emerald), #047857); color: #fff; border: none; height: 38px; padding: 0 15px; border-radius: 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.76rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 5px 14px -4px rgba(5,150,105,0.4); }
+.btn-skip-mission { height: 38px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--border-strong); background: var(--surface2); color: var(--text-muted); font-size: 0.74rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+.btn-timer-chip { margin-left: auto; height: 38px; padding: 0 12px; border-radius: 12px; background: var(--amber-soft); color: var(--amber); border: 1px solid rgba(217,119,6,0.3); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 
-.hero-headline {
-  font-family: 'Outfit', sans-serif; font-size: 1.24rem; font-weight: 700;
-  color: var(--text); line-height: 1.3; margin-bottom: 6px; letter-spacing: -0.01em;
-}
-.hero-subtext {
-  font-size: 0.84rem; color: var(--text-muted); line-height: 1.48; margin-bottom: 18px;
-}
+.credit-pulse-bar { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 12px 15px; margin-bottom: 16px; box-shadow: var(--shadow-card); display: flex; align-items: center; justify-content: space-between; gap: 10px; text-decoration: none; color: inherit; }
+.cp-left { display: flex; align-items: center; gap: 10px; }
+.cp-icon-box { width: 36px; height: 36px; border-radius: 10px; background: var(--cyan-soft); color: var(--cyan); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cp-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); display: block; }
+.cp-main-val { font-family: 'Outfit', sans-serif; font-size: 0.98rem; font-weight: 700; color: var(--text); }
+.cp-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.cp-sbs-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 7px; background: var(--emerald-soft); color: var(--emerald); }
+.cp-best-card { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
 
-.hero-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.btn-done-primary {
-  background: linear-gradient(135deg, var(--emerald), #047857); color: #ffffff;
-  border: none; height: 40px; padding: 0 18px; border-radius: 14px;
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
-  cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
-  box-shadow: 0 6px 16px -4px rgba(5, 150, 105, 0.4); transition: all 0.2s var(--ease);
-}
-.btn-done-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
-.btn-done-primary:active { transform: scale(0.96); }
+.sec-header-row { display: flex; justify-content: space-between; align-items: center; margin: 0 2px 8px; }
+.sec-title { font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--text); }
+.sec-counter { font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; font-weight: 600; color: var(--text-dim); }
 
-.btn-skip-mission {
-  height: 40px; padding: 0 13px; border-radius: 14px; border: 1px solid var(--border-strong);
-  background: var(--surface2); color: var(--text-muted); font-size: 0.76rem; font-weight: 700;
-  cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: 0.2s;
-}
-.btn-skip-mission:hover { border-color: var(--cyan); color: var(--text); }
-
-.btn-timer-chip {
-  margin-left: auto; height: 40px; padding: 0 14px; border-radius: 14px;
-  background: var(--amber-soft); color: var(--amber); border: 1px solid rgba(217, 119, 6, 0.3);
-  font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; font-weight: 700;
-  cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;
-}
-.btn-timer-chip:hover { transform: translateY(-1px); }
-
-/* CINTA DE PULSO CREDITICIO (SIN BÓVEDA) */
-.credit-pulse-bar {
-  background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border); border-radius: var(--r-xl);
-  padding: 14px 18px; margin-bottom: 20px; box-shadow: var(--shadow-card);
-  display: flex; align-items: center; justify-content: space-between; gap: 14px;
-  text-decoration: none; color: inherit; transition: all 0.2s var(--ease);
-}
-.credit-pulse-bar:hover { border-color: var(--cyan); transform: translateY(-1px); }
-.cp-left { display: flex; align-items: center; gap: 12px; }
-.cp-icon-box {
-  width: 40px; height: 40px; border-radius: 12px; background: var(--cyan-soft);
-  color: var(--cyan); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.cp-lbl {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700;
-  text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 2px;
-}
-.cp-main-val {
-  font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text);
-}
-.cp-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
-.cp-sbs-pill {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; font-weight: 700;
-  padding: 3px 9px; border-radius: 8px; background: var(--emerald-soft); color: var(--emerald);
-}
-.cp-best-card { font-size: 0.74rem; font-weight: 600; color: var(--text-muted); }
-
-/* SECCIÓN DE HÁBITOS CON COLOR PROPIO POR PILAR */
-.sec-header-row {
-  display: flex; justify-content: space-between; align-items: center;
-  margin: 0 2px 10px;
-}
-.sec-title {
-  font-family: 'Outfit', sans-serif; font-size: 0.92rem; font-weight: 700;
-  color: var(--text); letter-spacing: -0.01em;
-}
-.sec-counter {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 600;
-  color: var(--text-dim);
-}
-
-.habits-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 22px;
-}
-.habit-card {
-  background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border); border-radius: var(--r-xl); padding: 14px 10px 12px;
-  cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px;
-  box-shadow: var(--shadow-card); transition: all 0.22s var(--ease); user-select: none;
-  position: relative; overflow: hidden;
-}
-.habit-card:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+/* CUADROS DE HÁBITOS MÁS PEQUEÑOS Y 100% SIMÉTRICOS */
+.habits-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; }
+.habit-card { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 14px; height: 80px; padding: 8px 4px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; box-shadow: var(--shadow-card); transition: all 0.2s var(--ease); user-select: none; }
 .habit-card:active { transform: scale(0.95); }
-
-.hc-icon-wrap {
-  width: 38px; height: 38px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s var(--ease);
-}
-.hc-icon-wrap svg { width: 20px; height: 20px; stroke-width: 2; }
-
+.hc-icon-wrap { width: 28px; height: 28px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: 0.2s; }
+.hc-icon-wrap svg { width: 15px; height: 15px; stroke-width: 2.1; }
 .habit-card[data-p="topo"] .hc-icon-wrap { background: var(--cyan-soft); color: var(--cyan); }
 .habit-card[data-p="pueblo"] .hc-icon-wrap { background: var(--violet-soft); color: var(--violet); }
 .habit-card[data-p="fin"] .hc-icon-wrap { background: var(--amber-soft); color: var(--amber); }
 .habit-card[data-p="gym"] .hc-icon-wrap { background: var(--emerald-soft); color: var(--emerald); }
-
-.hc-name { font-size: 0.76rem; font-weight: 700; color: var(--text); }
-.hc-week-dots {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 600;
-  color: var(--text-dim);
-}
+.hc-name { font-size: 0.68rem; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.hc-week-dots { font-family: 'JetBrains Mono', monospace; font-size: 0.54rem; font-weight: 600; color: var(--text-dim); }
 
 .habit-card.done[data-p="topo"] { border-color: var(--cyan); background: var(--cyan-soft); }
 .habit-card.done[data-p="topo"] .hc-icon-wrap { background: var(--cyan); color: #fff; }
@@ -308,79 +123,37 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
 .habit-card.done[data-p="gym"] { border-color: var(--emerald); background: var(--emerald-soft); }
 .habit-card.done[data-p="gym"] .hc-icon-wrap { background: var(--emerald); color: #fff; }
 
-/* CALENDARIO DE 3 SEMANAS (21 DÍAS) + BARRAS DE AVANCE */
-.bento-analytics {
-  background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border); border-radius: var(--r-2xl);
-  padding: 18px 20px; box-shadow: var(--shadow-card);
-}
-.hm-grid-21 {
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; margin-bottom: 18px;
-}
-.hm-cell {
-  aspect-ratio: 1.3; border-radius: 11px; background: var(--surface2);
-  border: 1px solid var(--border); display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 1px; transition: 0.2s;
-}
-.hm-d { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; color: var(--text-dim); font-weight: 700; }
-.hm-n { font-family: 'Outfit', sans-serif; font-size: 0.84rem; font-weight: 700; color: var(--text); }
-.hm-cell.today { border: 2px solid var(--cyan); box-shadow: 0 0 12px var(--cyan-soft); }
-.hm-cell.lvl-1 { background: var(--emerald-soft); border-color: rgba(16, 185, 129, 0.3); }
+/* CALENDARIO 3 SEMANAS COMPACTO (NO SE SALE A LA DERECHA) */
+.bento-analytics { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: var(--r-2xl); padding: 14px; box-shadow: var(--shadow-card); width: 100%; overflow: hidden; }
+.hm-grid-21 { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-bottom: 14px; width: 100%; }
+.hm-cell { min-width: 0; height: 36px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
+.hm-d { font-family: 'JetBrains Mono', monospace; font-size: 0.46rem; color: var(--text-dim); font-weight: 700; line-height: 1; }
+.hm-n { font-family: 'Outfit', sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--text); line-height: 1.1; }
+.hm-cell.today { border: 1.5px solid var(--cyan); box-shadow: 0 0 8px var(--cyan-soft); }
+.hm-cell.lvl-1 { background: var(--emerald-soft); border-color: rgba(16,185,129,0.3); }
 .hm-cell.lvl-1 .hm-n { color: var(--emerald); }
-.hm-cell.lvl-2 { background: rgba(16, 185, 129, 0.38); border-color: var(--emerald); }
+.hm-cell.lvl-2 { background: rgba(16,185,129,0.38); border-color: var(--emerald); }
 .hm-cell.lvl-3 { background: linear-gradient(135deg, var(--emerald), #059669); border-color: var(--emerald); }
-.hm-cell.lvl-3 .hm-d, .hm-cell.lvl-3 .hm-n { color: #ffffff; }
+.hm-cell.lvl-3 .hm-d, .hm-cell.lvl-3 .hm-n { color: #fff; }
 
-.pillars-progress-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
-  padding-top: 14px; border-top: 1px dashed var(--border);
-}
-.pp-item { display: flex; flex-direction: column; gap: 6px; }
-.pp-top {
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.74rem; font-weight: 700; color: var(--text-muted);
-}
-.pp-pct { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; }
-.pp-track { height: 6px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
-.pp-fill { height: 100%; border-radius: 4px; transition: width 0.5s var(--ease); }
+.pillars-progress-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding-top: 12px; border-top: 1px dashed var(--border); }
+.pp-item { display: flex; flex-direction: column; gap: 4px; }
+.pp-top { display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); }
+.pp-pct { font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; }
+.pp-track { height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.pp-fill { height: 100%; border-radius: 3px; transition: width 0.5s var(--ease); }
 
-/* OVERLAY CRONÓMETRO */
-.dw-overlay {
-  position: fixed; inset: 0; background: rgba(8, 12, 23, 0.95); backdrop-filter: blur(20px);
-  z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center;
-}
+.dw-overlay { position: fixed; inset: 0; background: rgba(8,12,23,0.95); backdrop-filter: blur(20px); z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; }
 .dw-overlay.open { display: flex; }
-.dw-timer { font-family: 'Outfit', sans-serif; font-size: 5rem; font-weight: 700; color: #fff; margin: 14px 0 26px; }
-.btn-abort-dw {
-  background: var(--rose); color: #fff; border: none; height: 44px; padding: 0 26px;
-  border-radius: 22px; font-weight: 700; font-size: 0.85rem; cursor: pointer;
-}
+.dw-timer { font-family: 'Outfit', sans-serif; font-size: 4.6rem; font-weight: 700; color: #fff; margin: 14px 0 24px; }
+.btn-abort-dw { background: var(--rose); color: #fff; border: none; height: 42px; padding: 0 24px; border-radius: 20px; font-weight: 700; font-size: 0.82rem; cursor: pointer; }
 
-/* SUBMENÚ DOCK INFERIOR UNIFICADO CON ICONOS SVG */
-.global-dock {
-  position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
-  background: var(--surface); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
-  border: 1px solid var(--border-strong); border-radius: 26px; padding: 6px 8px;
-  display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-dock); z-index: 200;
-}
-.dock-link {
-  display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 20px;
-  font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-decoration: none;
-  transition: all 0.22s var(--ease); white-space: nowrap;
-}
+.global-dock { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); background: var(--surface); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border: 1px solid var(--border-strong); border-radius: 26px; padding: 6px 8px; display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-dock); z-index: 200; }
+.dock-link { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-decoration: none; transition: 0.2s; white-space: nowrap; }
 .dock-link svg { width: 17px; height: 17px; stroke-width: 2.1; }
-.dock-link:hover { color: var(--text); background: var(--surface2); }
-.dock-link.active {
-  background: var(--text); color: var(--bg);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
-}
+.dock-link.active { background: var(--text); color: var(--bg); box-shadow: 0 4px 14px rgba(0,0,0,0.16); }
 
-#toast {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(15px);
-  background: var(--text); color: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.78rem; font-weight: 700; padding: 10px 20px; border-radius: 20px;
-  opacity: 0; pointer-events: none; transition: 0.25s var(--ease); z-index: 400;
-}
+#toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(15px); background: var(--text); color: var(--bg); font-size: 0.76rem; font-weight: 700; padding: 9px 18px; border-radius: 20px; opacity: 0; pointer-events: none; transition: 0.25s; z-index: 400; }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media (max-width: 620px) {
@@ -397,19 +170,18 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
 <header>
   <div class="header-inner">
     <div class="date-box">
-      <span class="sync-dot" id="cloudStatus" title="Estado de sincronización"></span>
+      <span class="sync-dot" id="cloudStatus"></span>
       <span class="elegant-date" id="headerDateTxt">Hoy</span>
     </div>
-
     <div class="header-tools">
-      <button class="btn-mode-pill" id="energyToggleBtn" onclick="toggleSurvivalMode()" title="Cambiar entre Misión Normal y Microacción de 2 minutos">
+      <button class="btn-mode-pill" id="energyToggleBtn" onclick="toggleSurvivalMode()">
         <span id="modeIconWrap"></span>
         <span id="modeTextWrap">Normal</span>
       </button>
-      <button class="btn-icon-svg" id="privacyToggleBtn" onclick="togglePrivacy()" title="Ocultar / Mostrar importes">
+      <button class="btn-icon-svg active" id="privacyToggleBtn" onclick="togglePrivacy()" title="Privacidad activa por defecto">
         <span id="eyeIconWrap"></span>
       </button>
-      <button class="btn-icon-svg" id="themeToggleBtn" onclick="toggleDarkMode()" title="Cambiar tema de color">
+      <button class="btn-icon-svg" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema">
         <span id="themeIconWrap"></span>
       </button>
     </div>
@@ -417,158 +189,113 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
 </header>
 
 <main>
-  <!-- 1. TARJETA DE FOCO DIARIO -->
   <section class="hero-card">
     <div class="pillar-tabs" id="focusPillarTabs">
-      <button class="p-tab active" onclick="selectFocusPillar('auto')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
-        Auto
-      </button>
-      <button class="p-tab" onclick="selectFocusPillar('topo')">
+      <button class="p-tab active" data-p="topo" onclick="selectFocusPillar('topo')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
         Topo + IA
       </button>
-      <button class="p-tab" onclick="selectFocusPillar('pueblo')">
+      <button class="p-tab" data-p="pueblo" onclick="selectFocusPillar('pueblo')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
         Mi Pueblo
       </button>
-      <button class="p-tab" onclick="selectFocusPillar('fin')">
+      <button class="p-tab" data-p="fin" onclick="selectFocusPillar('fin')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         Finanzas
       </button>
-      <button class="p-tab" onclick="selectFocusPillar('gym')">
+      <button class="p-tab" data-p="gym" onclick="selectFocusPillar('gym')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
         Symmetry
       </button>
     </div>
 
     <div class="hero-meta">
-      <span class="hero-pillar-tag" id="naModeTitle">FOCO DE HOY</span>
+      <span class="hero-pillar-tag" id="naModeTitle">ENFOQUE · TOPO + IA</span>
       <span class="hero-lvl-badge" id="naWeekBadge">NIVEL 1</span>
     </div>
 
     <div class="hero-headline" id="naHeadline">Sincronizando tu siguiente paso...</div>
-    <div class="hero-subtext" id="naDetail">Selecciona un pilar o marca tu misión cuando la completes.</div>
+    <div class="hero-subtext" id="naDetail">Completa las misiones del nivel actual para desbloquear el siguiente.</div>
 
     <div class="hero-actions">
       <button class="btn-done-primary" id="btnCompleteHero" onclick="completeHeroMission()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         Completar
       </button>
-      <button class="btn-skip-mission" id="btnRotateMission" onclick="rotateNextMission()" title="Ver otra misión pendiente">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-        Siguiente
+      <button class="btn-skip-mission" id="btnRotateMission" onclick="rotateNextMission()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Siguiente (Mismo Nivel)
       </button>
-      <button class="btn-timer-chip" onclick="launchDeepWork(isSurvivalMode ? 2 : 45)" id="btnQuickTimer">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <button class="btn-timer-chip" onclick="launchDeepWork(isSurvivalMode ? 2 : 45)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <span id="timerChipTxt">45m</span>
       </button>
     </div>
   </section>
 
-  <!-- 2. CINTA DE PULSO DE TARJETAS Y SBS (SIN BÓVEDA) -->
   <a href="tarjetas.html" class="credit-pulse-bar">
     <div class="cp-left">
       <div class="cp-icon-box">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
       </div>
       <div>
         <span class="cp-lbl">Pulso de Tarjetas</span>
-        <span class="cp-main-val" id="cmdDebtVal">S/ 0.00</span>
+        <span class="cp-main-val" id="cmdDebtVal">S/ •••</span>
       </div>
     </div>
     <div class="cp-right">
       <span class="cp-sbs-pill" id="cmdSbsBadge">Uso SBS: 0%</span>
-      <span class="cp-best-card" id="cmdBestCardTxt">Verificando mejor tarjeta...</span>
+      <span class="cp-best-card" id="cmdBestCardTxt">Ver tarjetas →</span>
     </div>
   </a>
 
-  <!-- 3. HÁBITOS DIARIOS CON ICONOS VECTORIALES -->
   <div class="sec-header-row">
     <span class="sec-title">Hábitos de Hoy</span>
-    <span class="sec-counter" id="todayHabitsCount">0 de 4 completados</span>
+    <span class="sec-counter" id="todayHabitsCount">0 de 4 hoy</span>
   </div>
   <div class="habits-grid" id="quickHabitsGrid">
     <div class="habit-card" data-p="topo" onclick="quickToggleTodayHabit('topo')">
-      <div class="hc-icon-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
-      </div>
+      <div class="hc-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>
       <span class="hc-name">Topo + IA</span>
       <span class="hc-week-dots" id="hw-dots-topo">0/7 sem</span>
     </div>
-
     <div class="habit-card" data-p="pueblo" onclick="quickToggleTodayHabit('pueblo')">
-      <div class="hc-icon-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
-      </div>
+      <div class="hc-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></div>
       <span class="hc-name">Mi Pueblo</span>
       <span class="hc-week-dots" id="hw-dots-pueblo">0/7 sem</span>
     </div>
-
     <div class="habit-card" data-p="fin" onclick="quickToggleTodayHabit('fin')">
-      <div class="hc-icon-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      </div>
+      <div class="hc-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
       <span class="hc-name">Finanzas</span>
       <span class="hc-week-dots" id="hw-dots-fin">0/7 sem</span>
     </div>
-
     <div class="habit-card" data-p="gym" onclick="quickToggleTodayHabit('gym')">
-      <div class="hc-icon-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
-      </div>
+      <div class="hc-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg></div>
       <span class="hc-name">Symmetry</span>
       <span class="hc-week-dots" id="hw-dots-gym">0/7 sem</span>
     </div>
   </div>
 
-  <!-- 4. PANORAMA DE 3 SEMANAS (21 DÍAS) -->
   <div class="sec-header-row">
     <span class="sec-title">Actividad (Últimas 3 Semanas)</span>
     <span class="sec-counter" id="activeDaysCount">0/21 días activos</span>
   </div>
   <section class="bento-analytics">
     <div class="hm-grid-21" id="heatmapGrid"></div>
-
     <div class="pillars-progress-grid">
-      <div class="pp-item">
-        <div class="pp-top"><span style="color:var(--cyan);">Topografía + IA</span><span class="pp-pct" id="lb-val-topo">0%</span></div>
-        <div class="pp-track"><div class="pp-fill" id="lb-fill-topo" style="background:var(--cyan); width:0%;"></div></div>
-      </div>
-      <div class="pp-item">
-        <div class="pp-top"><span style="color:var(--violet);">Mi Pueblo</span><span class="pp-pct" id="lb-val-pueblo">0%</span></div>
-        <div class="pp-track"><div class="pp-fill" id="lb-fill-pueblo" style="background:var(--violet); width:0%;"></div></div>
-      </div>
-      <div class="pp-item">
-        <div class="pp-top"><span style="color:var(--amber);">Finanzas</span><span class="pp-pct" id="lb-val-fin">0%</span></div>
-        <div class="pp-track"><div class="pp-fill" id="lb-fill-fin" style="background:var(--amber); width:0%;"></div></div>
-      </div>
-      <div class="pp-item">
-        <div class="pp-top"><span style="color:var(--emerald);">Symmetry</span><span class="pp-pct" id="lb-val-gym">0%</span></div>
-        <div class="pp-track"><div class="pp-fill" id="lb-fill-gym" style="background:var(--emerald); width:0%;"></div></div>
-      </div>
+      <div class="pp-item"><div class="pp-top"><span style="color:var(--cyan);">Topografía + IA</span><span class="pp-pct" id="lb-val-topo">0%</span></div><div class="pp-track"><div class="pp-fill" id="lb-fill-topo" style="background:var(--cyan); width:0%;"></div></div></div>
+      <div class="pp-item"><div class="pp-top"><span style="color:var(--violet);">Mi Pueblo</span><span class="pp-pct" id="lb-val-pueblo">0%</span></div><div class="pp-track"><div class="pp-fill" id="lb-fill-pueblo" style="background:var(--violet); width:0%;"></div></div></div>
+      <div class="pp-item"><div class="pp-top"><span style="color:var(--amber);">Finanzas</span><span class="pp-pct" id="lb-val-fin">0%</span></div><div class="pp-track"><div class="pp-fill" id="lb-fill-fin" style="background:var(--amber); width:0%;"></div></div></div>
+      <div class="pp-item"><div class="pp-top"><span style="color:var(--emerald);">Symmetry</span><span class="pp-pct" id="lb-val-gym">0%</span></div><div class="pp-track"><div class="pp-fill" id="lb-fill-gym" style="background:var(--emerald); width:0%;"></div></div></div>
     </div>
   </section>
 </main>
 
-<!-- SUBMENÚ INFERIOR UNIFICADO CON ICONOS SVG -->
 <nav class="global-dock" aria-label="Navegación Principal">
-  <a href="index.html" class="dock-link active">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
-    <span class="dl-txt">Inicio</span>
-  </a>
-  <a href="compras.html" class="dock-link">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-    <span class="dl-txt">Compras</span>
-  </a>
-  <a href="tarjetas.html" class="dock-link">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-    <span class="dl-txt">Tarjetas</span>
-  </a>
-  <a href="plan.html" class="dock-link">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-    <span class="dl-txt">Maestría</span>
-  </a>
+  <a href="index.html" class="dock-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg><span class="dl-txt">Inicio</span></a>
+  <a href="compras.html" class="dock-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span class="dl-txt">Compras</span></a>
+  <a href="tarjetas.html" class="dock-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg><span class="dl-txt">Tarjetas</span></a>
+  <a href="plan.html" class="dock-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg><span class="dl-txt">Maestría</span></a>
 </nav>
 
 <div class="dw-overlay" id="dwOverlay">
@@ -576,27 +303,18 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
   <div class="dw-timer" id="dwTimer">45:00</div>
   <button class="btn-abort-dw" onclick="abortDW()">Finalizar Sesión</button>
 </div>
-
 <div id="toast">Notificación</div>
 
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-}
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
-  authDomain: "pierovski-center.firebaseapp.com",
-  databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com",
-  projectId: "pierovski-center"
-};
+const firebaseConfig = { apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g", authDomain: "pierovski-center.firebaseapp.com", databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com", projectId: "pierovski-center" };
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 const PLAN_IDS = ['topo', 'pueblo', 'fin', 'gym'];
 const PLAN_NAMES = { topo: 'Topo + IA', pueblo: 'Mi Pueblo', fin: 'Finanzas', gym: 'Symmetry' };
 
-/* ICONOS SVG PERSONALIZADOS PARA CONTROLES SUPERIORES */
 const SVG_ICONS = {
   bolt: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
   sprout: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>`,
@@ -606,9 +324,12 @@ const SVG_ICONS = {
   moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`
 };
 
-let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
+/* OJO SIEMPRE ACTIVADO POR DEFECTO AL ENTRAR */
+let isPrivacyMode = true;
+localStorage.setItem('pierovski_privacy', 'true');
+
 let isSurvivalMode = JSON.parse(localStorage.getItem('survival_mode_v1') || 'false');
-let selectedFocusPillar = 'auto';
+let selectedFocusPillar = 'topo';
 let missionSkipOffset = 0;
 let currentHeroRef = null;
 
@@ -620,30 +341,23 @@ function playFeedback(freq = 580) {
     const o = audioCtx.createOscillator(), g = audioCtx.createGain();
     o.connect(g); g.connect(audioCtx.destination);
     o.frequency.setValueAtTime(freq, audioCtx.currentTime);
-    g.gain.setValueAtTime(0.11, audioCtx.currentTime);
+    g.gain.setValueAtTime(0.1, audioCtx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
     o.start(); o.stop(audioCtx.currentTime + 0.08);
   }
-  if (navigator.vibrate) navigator.vibrate(18);
+  if (navigator.vibrate) navigator.vibrate(15);
 }
 
-function ls_get(k, def) {
-  try { const v = JSON.parse(localStorage.getItem(k)); return v !== null && v !== undefined ? v : def; } catch (e) { return def; }
-}
-function todayStr() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
+function ls_get(k, def) { try { const v = JSON.parse(localStorage.getItem(k)); return v !== null && v !== undefined ? v : def; } catch (e) { return def; } }
+function todayStr() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function renderElegantDate() {
   const d = new Date();
   const dias = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
   const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-  const el = document.getElementById('headerDateTxt');
-  if (el) el.textContent = `${dias[d.getDay()]}, ${d.getDate()} ${meses[d.getMonth()]}`;
+  document.getElementById('headerDateTxt').textContent = `${dias[d.getDay()]}, ${d.getDate()} ${meses[d.getMonth()]}`;
 }
 function getCurrentWeekMondayKey() {
-  const d = new Date();
-  const day = d.getDay() || 7;
+  const d = new Date(); const day = d.getDay() || 7;
   d.setDate(d.getDate() - day + 1);
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
@@ -660,8 +374,7 @@ function showToast(msg) {
 function toggleSurvivalMode() {
   isSurvivalMode = !isSurvivalMode;
   localStorage.setItem('survival_mode_v1', JSON.stringify(isSurvivalMode));
-  applyTopBarState();
-  processCommandData();
+  applyTopBarState(); processCommandData();
   showToast(isSurvivalMode ? 'Modo 2 minutos activo' : 'Modo normal activo');
 }
 function toggleDarkMode() {
@@ -672,42 +385,30 @@ function toggleDarkMode() {
 function togglePrivacy() {
   isPrivacyMode = !isPrivacyMode;
   localStorage.setItem('pierovski_privacy', isPrivacyMode);
-  applyTopBarState();
-  processCommandData();
+  applyTopBarState(); processCommandData();
 }
-
 function applyTopBarState() {
   const isDark = localStorage.getItem('compras_theme') === 'dark';
   document.body.classList.toggle('dark-theme', isDark);
-
   const eBtn = document.getElementById('energyToggleBtn');
   if (eBtn) {
     eBtn.classList.toggle('survival', isSurvivalMode);
     document.getElementById('modeIconWrap').innerHTML = isSurvivalMode ? SVG_ICONS.sprout : SVG_ICONS.bolt;
     document.getElementById('modeTextWrap').textContent = isSurvivalMode ? '2 min' : 'Normal';
   }
-
   const pBtn = document.getElementById('privacyToggleBtn');
   if (pBtn) {
     pBtn.classList.toggle('active', isPrivacyMode);
     document.getElementById('eyeIconWrap').innerHTML = isPrivacyMode ? SVG_ICONS.eyeClosed : SVG_ICONS.eyeOpen;
   }
-
-  const tWrap = document.getElementById('themeIconWrap');
-  if (tWrap) {
-    tWrap.innerHTML = isDark ? SVG_ICONS.sun : SVG_ICONS.moon;
-  }
-
-  const tChip = document.getElementById('timerChipTxt');
-  if (tChip) tChip.textContent = isSurvivalMode ? '2m' : '45m';
+  document.getElementById('themeIconWrap').innerHTML = isDark ? SVG_ICONS.sun : SVG_ICONS.moon;
+  document.getElementById('timerChipTxt').textContent = isSurvivalMode ? '2m' : '45m';
 }
 
 function selectFocusPillar(p) {
   selectedFocusPillar = p;
   missionSkipOffset = 0;
-  const tabs = document.getElementById('focusPillarTabs').children;
-  const order = ['auto', 'topo', 'pueblo', 'fin', 'gym'];
-  order.forEach((k, idx) => tabs[idx]?.classList.toggle('active', k === p));
+  document.querySelectorAll('#focusPillarTabs .p-tab').forEach(b => b.classList.toggle('active', b.dataset.p === p));
   processCommandData();
 }
 
@@ -721,57 +422,51 @@ function isHabitTask(tStr) {
   const l = String(tStr || '').toLowerCase();
   return l.includes('[diario]') || l.includes('hábito');
 }
-
 function parseMissionText(rawTask) {
   const clean = String(rawTask || '').replace(/\[.*?\]/g, '').trim();
   const parts = clean.includes('||') ? clean.split('||') : [clean, clean];
   const macroFull = parts[0].trim();
   const microFull = (parts[1] || parts[0]).replace(/^.*?Microacción\s*\(2\s*min\)\s*:\s*/i, '').trim();
-
-  let headline = macroFull;
-  let detail = macroFull;
+  let headline = macroFull, detail = macroFull;
   const colonIdx = macroFull.indexOf(':');
   if (colonIdx > 0 && colonIdx < 65) {
     headline = macroFull.slice(0, colonIdx).trim();
     detail = macroFull.slice(colonIdx + 1).trim();
   }
-  return {
-    headline,
-    detail: isSurvivalMode ? microFull : detail
-  };
+  return { headline, detail: isSurvivalMode ? microFull : detail };
 }
 
+/* BLOQUEO ESTRICTO DE NIVEL: SOLO MUESTRA MISIONES DEL NIVEL ACTUAL SIN COMPLETAR */
 function processCommandData() {
   const radar = { topo: 0, pueblo: 0, fin: 0, gym: 0 };
-  const pendingPool = [];
+  const activeLevelMissionsByPillar = { topo: [], pueblo: [], fin: [], gym: [] };
 
   PLAN_IDS.forEach(p => {
     const plan = ls_get(`cache_${p}`, null);
     const states = ls_get(`${p}_tasks_v1`, {});
     if (plan && plan.weeks) {
-      let mTot = 0, mDone = 0;
+      let mTot = 0, mDone = 0, unlockedLevelFound = false;
       plan.weeks.forEach((w, wi) => {
+        const levelPending = [];
         (w.tasks || []).forEach((t, ti) => {
           if (isHabitTask(t)) return;
           mTot++;
           if (states[`${wi}-${ti}`] === true) {
             mDone++;
           } else {
-            pendingPool.push({ pillar: p, wi, ti, level: wi + 1, raw: t });
+            levelPending.push({ pillar: p, wi, ti, level: wi + 1, raw: t });
           }
         });
+        if (!unlockedLevelFound && levelPending.length > 0) {
+          unlockedLevelFound = true;
+          activeLevelMissionsByPillar[p] = levelPending;
+        }
       });
       radar[p] = mTot > 0 ? Math.min(mDone / mTot, 1) : 0;
     }
   });
 
-  let candidates = pendingPool;
-  if (selectedFocusPillar !== 'auto') {
-    candidates = pendingPool.filter(x => x.pillar === selectedFocusPillar);
-  } else {
-    candidates.sort((a, b) => radar[a.pillar] - radar[b.pillar] || a.level - b.level);
-  }
-
+  const candidates = activeLevelMissionsByPillar[selectedFocusPillar] || [];
   const chosen = candidates.length > 0 ? candidates[missionSkipOffset % candidates.length] : null;
   currentHeroRef = chosen;
 
@@ -795,21 +490,21 @@ function processCommandData() {
     naTitle.textContent = `${isSurvivalMode ? 'MICROACCIÓN 2M' : 'ENFOQUE'} · ${PLAN_NAMES[chosen.pillar]}`;
     naTitle.style.background = st.bg;
     naTitle.style.color = st.col;
-    naBadge.textContent = `NIVEL ${chosen.level}`;
+    naBadge.textContent = `NIVEL ${chosen.level} (${candidates.length} pend.)`;
     naHeadline.textContent = parsed.headline;
     naDetail.textContent = parsed.detail;
     btnComp.style.display = 'inline-flex';
     btnRot.style.display = candidates.length > 1 ? 'inline-flex' : 'none';
   } else {
-    naTitle.textContent = 'OBJETIVOS AL DÍA';
+    naTitle.textContent = `${PLAN_NAMES[selectedFocusPillar]} · COMPLETADO`;
     naBadge.textContent = '100%';
-    naHeadline.textContent = 'Todas las misiones de esta vista están completadas';
-    naDetail.textContent = 'Puedes agregar nuevas misiones o niveles desde Maestría.';
+    naHeadline.textContent = 'Todos los niveles de esta sección están completados';
+    naDetail.textContent = 'Selecciona otra pestaña arriba o agrega un nivel en Maestría.';
     btnComp.style.display = 'none';
     btnRot.style.display = 'none';
   }
 
-  // Pulso de Tarjetas y SBS
+  // Pulso Tarjetas
   const cards = ls_get('tarjetasPremiumV3', []);
   let totalDebt = 0, totalLimit = 0, bestCard = null, maxFree = -1;
   cards.forEach(c => {
@@ -820,31 +515,18 @@ function processCommandData() {
   });
   const sbsRatio = totalLimit > 0 ? Math.round((totalDebt / totalLimit) * 100) : 0;
   document.getElementById('cmdDebtVal').textContent = formatMoney(totalDebt);
-
   const sbsBadge = document.getElementById('cmdSbsBadge');
   sbsBadge.textContent = `Uso SBS: ${sbsRatio}%`;
-  if (sbsRatio <= 25) {
-    sbsBadge.style.background = 'var(--emerald-soft)';
-    sbsBadge.style.color = 'var(--emerald)';
-  } else if (sbsRatio <= 50) {
-    sbsBadge.style.background = 'var(--amber-soft)';
-    sbsBadge.style.color = 'var(--amber)';
-  } else {
-    sbsBadge.style.background = 'var(--rose-soft)';
-    sbsBadge.style.color = 'var(--rose)';
-  }
+  sbsBadge.style.background = sbsRatio <= 25 ? 'var(--emerald-soft)' : (sbsRatio <= 50 ? 'var(--amber-soft)' : 'var(--rose-soft)');
+  sbsBadge.style.color = sbsRatio <= 25 ? 'var(--emerald)' : (sbsRatio <= 50 ? 'var(--amber)' : 'var(--rose)');
+  document.getElementById('cmdBestCardTxt').textContent = bestCard ? `Mejor hoy: ${bestCard.name} (${maxFree}d)` : 'Configurar tarjetas →';
 
-  document.getElementById('cmdBestCardTxt').textContent = bestCard
-    ? `Mejor hoy: ${bestCard.name} (${maxFree}d libres)`
-    : 'Configurar tarjetas →';
-
-  // Hábitos de hoy y conteo semanal
+  // Hábitos
   const mondayKey = getCurrentWeekMondayKey();
   const todayIdx = (new Date().getDay() || 7) - 1;
   const habitDays = ls_get('pierovski_habit_days_v1', {});
   let doneToday = 0;
   const tiles = document.getElementById('quickHabitsGrid').children;
-
   PLAN_IDS.forEach((pid, idx) => {
     const weekObj = (habitDays[pid] && habitDays[pid][mondayKey]) || {};
     const isDone = weekObj[todayIdx] === true;
@@ -852,7 +534,7 @@ function processCommandData() {
     if (isDone) doneToday++;
     if (tiles[idx]) tiles[idx].classList.toggle('done', isDone);
     const dotsEl = document.getElementById(`hw-dots-${pid}`);
-    if (dotsEl) dotsEl.textContent = isDone ? `Listo · ${weekCount}/7 sem` : `${weekCount}/7 sem`;
+    if (dotsEl) dotsEl.textContent = isDone ? `Listo · ${weekCount}/7` : `${weekCount}/7 sem`;
   });
   document.getElementById('todayHabitsCount').textContent = `${doneToday} de 4 hoy`;
 
@@ -862,9 +544,12 @@ function processCommandData() {
     dailyLog[tKey] = Math.max(dailyLog[tKey] || 0, doneToday);
     localStorage.setItem('pierovski_daily_log', JSON.stringify(dailyLog));
   }
-
   render21DayHeatmap(dailyLog);
-  renderPillarBars(radar);
+  PLAN_IDS.forEach(p => {
+    const pct = Math.round((radar[p] || 0) * 100);
+    document.getElementById(`lb-val-${p}`).textContent = `${pct}%`;
+    document.getElementById(`lb-fill-${p}`).style.width = `${pct}%`;
+  });
 }
 
 function completeHeroMission() {
@@ -874,6 +559,7 @@ function completeHeroMission() {
   const states = ls_get(key, {});
   states[`${wi}-${ti}`] = true;
   localStorage.setItem(key, JSON.stringify(states));
+  missionSkipOffset = 0;
 
   const dailyLog = ls_get('pierovski_daily_log', {});
   const tKey = todayStr();
@@ -883,11 +569,7 @@ function completeHeroMission() {
   const ts = Date.now();
   localStorage.setItem('plan_last_update', ts);
   if (navigator.onLine && db) {
-    db.ref('pierovski/plan').update({
-      lastUpdated: ts,
-      [`tasks/${pillar}/${wi}-${ti}`]: true,
-      [`dailyLog/${tKey}`]: dailyLog[tKey]
-    }).catch(() => {});
+    db.ref('pierovski/plan').update({ lastUpdated: ts, [`tasks/${pillar}/${wi}-${ti}`]: true, [`dailyLog/${tKey}`]: dailyLog[tKey] }).catch(() => {});
   }
   playFeedback(700);
   showToast('Misión completada');
@@ -900,7 +582,6 @@ function quickToggleTodayHabit(planId) {
   const habitDays = ls_get('pierovski_habit_days_v1', {});
   if (!habitDays[planId]) habitDays[planId] = {};
   if (!habitDays[planId][mondayKey]) habitDays[planId][mondayKey] = {};
-
   const nextBool = !habitDays[planId][mondayKey][todayIdx];
   habitDays[planId][mondayKey][todayIdx] = nextBool;
   localStorage.setItem('pierovski_habit_days_v1', JSON.stringify(habitDays));
@@ -914,19 +595,14 @@ function quickToggleTodayHabit(planId) {
   const ts = Date.now();
   localStorage.setItem('plan_last_update', ts);
   if (navigator.onLine && db) {
-    db.ref('pierovski/plan').update({
-      lastUpdated: ts,
-      [`habitDays/${planId}/${mondayKey}/${todayIdx}`]: nextBool,
-      [`dailyLog/${tKey}`]: nextVal > 0 ? nextVal : null
-    }).catch(() => {});
+    db.ref('pierovski/plan').update({ lastUpdated: ts, [`habitDays/${planId}/${mondayKey}/${todayIdx}`]: nextBool, [`dailyLog/${tKey}`]: nextVal > 0 ? nextVal : null }).catch(() => {});
   }
   playFeedback(nextBool ? 640 : 420);
   processCommandData();
 }
 
 function calcFreeDays(closingDay, paymentDay) {
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const now = new Date(); const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const cDay = parseInt(closingDay) || 1, pDay = parseInt(paymentDay) || 1;
   let cycleClose = new Date(today.getFullYear(), today.getMonth(), cDay);
   if (today.getDate() > cDay) cycleClose = new Date(today.getFullYear(), today.getMonth() + 1, cDay);
@@ -935,39 +611,23 @@ function calcFreeDays(closingDay, paymentDay) {
   return Math.max(0, Math.round((cyclePay.getTime() - today.getTime()) / 86400000));
 }
 
-/* CALENDARIO DE 3 SEMANAS EXACTAS (21 DÍAS) */
 function render21DayHeatmap(dailyLog) {
   const grid = document.getElementById('heatmapGrid');
   const daysArr = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
   const today = new Date();
   let html = '', active21 = 0;
-
   for (let i = 20; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(today.getDate() - i);
+    const d = new Date(today); d.setDate(today.getDate() - i);
     const k = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     const c = dailyLog[k] || 0;
     if (c > 0) active21++;
     const lvl = c >= 3 ? 3 : (c === 2 ? 2 : (c === 1 ? 1 : 0));
-    html += `
-      <div class="hm-cell lvl-${lvl} ${i === 0 ? 'today' : ''}">
-        <span class="hm-d">${daysArr[d.getDay()]}</span>
-        <span class="hm-n">${d.getDate()}</span>
-      </div>`;
+    html += `<div class="hm-cell lvl-${lvl} ${i === 0 ? 'today' : ''}"><span class="hm-d">${daysArr[d.getDay()]}</span><span class="hm-n">${d.getDate()}</span></div>`;
   }
   grid.innerHTML = html;
   document.getElementById('activeDaysCount').textContent = `${active21}/21 días activos`;
 }
 
-function renderPillarBars(radar) {
-  PLAN_IDS.forEach(p => {
-    const pct = Math.round((radar[p] || 0) * 100);
-    document.getElementById(`lb-val-${p}`).textContent = `${pct}%`;
-    document.getElementById(`lb-fill-${p}`).style.width = `${pct}%`;
-  });
-}
-
-/* SINCRONIZACIÓN CON FIREBASE */
 async function syncFromCloud() {
   const planFiles = { topo: 'plan_topografia.json', pueblo: 'plan_pueblo.json', fin: 'plan_finanzas.json', gym: 'plan_gimnasio.json' };
   for (const [pid, file] of Object.entries(planFiles)) {
@@ -976,13 +636,11 @@ async function syncFromCloud() {
     }
   }
   processCommandData();
-
   if (!navigator.onLine || !db) return;
   try {
     document.getElementById('cloudStatus').className = 'sync-dot syncing';
     const [pSnap, cSnap] = await Promise.all([db.ref('pierovski').once('value'), db.ref('compras').once('value')]);
     document.getElementById('cloudStatus').className = 'sync-dot online';
-
     if (pSnap.exists()) {
       const pData = pSnap.val();
       if ((pData.tarjetasLastUpdated || 0) >= (parseInt(localStorage.getItem('t_last_update')) || 0)) {
@@ -1007,18 +665,12 @@ async function syncFromCloud() {
   } catch (e) {}
 }
 
-/* CRONÓMETRO DE INMERSIÓN */
 let dwInt = null;
 function launchDeepWork(minutes = 45) {
   let endTime = parseInt(localStorage.getItem('pierovski_dw_end')) || 0;
-  if (endTime <= Date.now()) {
-    endTime = Date.now() + minutes * 60 * 1000;
-    localStorage.setItem('pierovski_dw_end', endTime);
-  }
+  if (endTime <= Date.now()) { endTime = Date.now() + minutes * 60 * 1000; localStorage.setItem('pierovski_dw_end', endTime); }
   document.getElementById('dwOverlay').classList.add('open');
-  tickDW();
-  clearInterval(dwInt);
-  dwInt = setInterval(tickDW, 1000);
+  tickDW(); clearInterval(dwInt); dwInt = setInterval(tickDW, 1000);
 }
 function tickDW() {
   const end = parseInt(localStorage.getItem('pierovski_dw_end')) || 0;
@@ -1026,18 +678,11 @@ function tickDW() {
   document.getElementById('dwTimer').textContent = `${String(Math.floor(rem/60)).padStart(2,'0')}:${String(rem%60).padStart(2,'0')}`;
   if (rem <= 0) { abortDW(); playFeedback(800); showToast('Sesión de enfoque completada'); }
 }
-function abortDW() {
-  clearInterval(dwInt); dwInt = null;
-  localStorage.removeItem('pierovski_dw_end');
-  document.getElementById('dwOverlay').classList.remove('open');
-}
+function abortDW() { clearInterval(dwInt); dwInt = null; localStorage.removeItem('pierovski_dw_end'); document.getElementById('dwOverlay').classList.remove('open'); }
 
 window.addEventListener('storage', processCommandData);
 window.addEventListener('DOMContentLoaded', () => {
-  renderElegantDate();
-  applyTopBarState();
-  processCommandData();
-  syncFromCloud();
+  renderElegantDate(); applyTopBarState(); processCommandData(); syncFromCloud();
   if ((parseInt(localStorage.getItem('pierovski_dw_end')) || 0) > Date.now()) launchDeepWork();
 });
 </script>

@@ -42,9 +42,9 @@
   --rose: #e11d48;
   --rose-soft: rgba(225, 29, 72, 0.12);
 
-  --r-2xl: 24px;
-  --r-xl: 18px;
-  --r-lg: 14px;
+  --r-2xl: 22px;
+  --r-xl: 16px;
+  --r-lg: 12px;
   --shadow-card: 0 10px 30px -8px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.03);
   --shadow-dock: 0 16px 36px -6px rgba(15, 23, 42, 0.14);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -97,20 +97,20 @@ body {
 
 #offlineBanner {
   display: none; background: var(--amber); color: #000; text-align: center;
-  padding: 5px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700;
+  padding: 4px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700;
 }
 
-/* ENCABEZADO LIMPIO SIN FECHA */
+/* ENCABEZADO LIMPIO */
 header {
   position: sticky; top: 0; z-index: 100;
   background: var(--surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border); padding: 0 18px;
+  border-bottom: 1px solid var(--border); padding: 0 16px;
 }
 .header-inner {
-  max-width: 780px; margin: 0 auto; height: 60px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  max-width: 780px; margin: 0 auto; height: 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
 }
-.brand-box { display: flex; align-items: center; gap: 10px; }
+.brand-box { display: flex; align-items: center; gap: 9px; }
 .sync-dot {
   width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong);
   transition: all 0.3s var(--ease);
@@ -119,120 +119,133 @@ header {
 .sync-dot.syncing { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
 
 .header-title {
-  font-family: 'Outfit', sans-serif; font-size: 1.18rem; font-weight: 700;
+  font-family: 'Outfit', sans-serif; font-size: 1.14rem; font-weight: 700;
   color: var(--text); letter-spacing: -0.01em;
 }
 
-.header-tools { display: flex; align-items: center; gap: 8px; }
+.header-tools { display: flex; align-items: center; gap: 6px; }
 .btn-icon-svg {
-  width: 36px; height: 36px; border-radius: 12px; border: 1px solid var(--border-strong);
+  width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border-strong);
   background: var(--surface2); color: var(--text-muted);
   display: flex; align-items: center; justify-content: center; cursor: pointer;
   transition: all 0.2s var(--ease);
 }
-.btn-icon-svg:hover { border-color: var(--cyan); color: var(--text); transform: translateY(-1px); }
+.btn-icon-svg:hover { border-color: var(--cyan); color: var(--text); }
 .btn-icon-svg.active { background: var(--amber-soft); border-color: var(--amber); color: var(--amber); }
-.btn-icon-svg svg { width: 17px; height: 17px; stroke-width: 2; }
+.btn-icon-svg.unlocked { background: var(--emerald-soft); border-color: var(--emerald); color: var(--emerald); }
+.btn-icon-svg svg { width: 15px; height: 15px; stroke-width: 2; }
 
 .btn-add-primary {
   background: linear-gradient(135deg, var(--cyan), #0369a1); color: #ffffff;
-  border: none; border-radius: 12px; height: 36px; padding: 0 14px;
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.78rem; font-weight: 700;
+  border: none; border-radius: 10px; height: 34px; padding: 0 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 700;
   cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); transition: all 0.2s var(--ease);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.28); transition: all 0.2s var(--ease);
 }
-.btn-add-primary:hover { transform: translateY(-1px); filter: brightness(1.06); }
 
-main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
+main { max-width: 780px; margin: 0 auto; padding: 14px 16px 0; }
 
-/* ALERTAS ESTRATÉGICAS */
+/* ALERTAS COMPACTAS Y PEQUEÑAS */
 .alert-banner {
-  display: none; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 12px 16px; border-radius: var(--r-xl); margin-bottom: 14px;
-  font-size: 0.8rem; font-weight: 600; backdrop-filter: blur(12px);
+  display: none; align-items: center; gap: 8px;
+  padding: 7px 12px; border-radius: 10px; margin-bottom: 10px;
+  font-size: 0.72rem; font-weight: 600; line-height: 1.3;
 }
 .alert-banner.show { display: flex; }
-.alert-banner.sbs { background: var(--amber-soft); border: 1px solid rgba(217,119,6,0.35); color: var(--text); }
-.alert-banner.anniv { background: var(--rose-soft); border: 1px solid rgba(225,29,72,0.35); color: var(--text); }
+.alert-banner svg { width: 14px; height: 14px; flex-shrink: 0; }
+.alert-banner.sbs { background: var(--amber-soft); border: 1px solid rgba(217,119,6,0.3); color: var(--amber); }
+.alert-banner.anniv { background: var(--rose-soft); border: 1px solid rgba(225,29,72,0.3); color: var(--rose); }
 
-/* TARJETA SUPERIOR: MEJOR TARJETA HOY + REGLA 25% SBS */
-.strategy-hero {
-  background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border); border-radius: var(--r-2xl);
-  padding: 16px 20px; margin-bottom: 16px; box-shadow: var(--shadow-card);
-  display: grid; grid-template-columns: 1.15fr 1fr; gap: 16px; align-items: center;
-  position: relative; overflow: hidden;
-}
-.strategy-hero::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--emerald), var(--cyan), var(--violet));
-}
-.sh-block { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.sh-divider { border-left: 1px dashed var(--border-strong); padding-left: 16px; }
-.sh-lbl {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); display: block; margin-bottom: 3px;
-}
-.sh-val { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); }
-.sh-pill {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; font-weight: 700;
-  padding: 5px 10px; border-radius: 10px; background: var(--emerald-soft); color: var(--emerald); white-space: nowrap;
-}
-
-/* 4 KPIS CON BORDE SUPERIOR DE COLOR */
-.kpi-ribbon { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
-.kpi-item {
+/* RESUMEN SUPERIOR DESPLEGABLE (PARA VER MÁS LAS TARJETAS) */
+.top-summary-accordion {
   background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border); border-radius: var(--r-xl);
-  padding: 13px 14px; box-shadow: var(--shadow-card); position: relative; overflow: hidden;
+  margin-bottom: 14px; box-shadow: var(--shadow-card); overflow: hidden;
 }
-.kpi-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.tsa-trigger {
+  width: 100%; padding: 11px 16px; background: transparent; border: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  cursor: pointer; color: var(--text); text-align: left;
+}
+.tsa-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.tsa-title {
+  font-family: 'Outfit', sans-serif; font-size: 0.86rem; font-weight: 700;
+  display: flex; align-items: center; gap: 6px;
+}
+.tsa-quick-pill {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; font-weight: 700;
+  padding: 3px 8px; border-radius: 8px; background: var(--emerald-soft); color: var(--emerald);
+}
+.tsa-chevron {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-dim);
+  transition: transform 0.25s var(--ease);
+}
+.top-summary-accordion.open .tsa-chevron { transform: rotate(180deg); }
+
+.tsa-body {
+  display: none; padding: 12px 16px 16px; border-top: 1px dashed var(--border);
+}
+.top-summary-accordion.open .tsa-body { display: block; animation: fadeUp 0.2s var(--ease); }
+
+.strategy-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;
+}
+.strat-mini-card {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+}
+.sm-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); display: block; }
+.sm-val { font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text); }
+
+.kpi-ribbon { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.kpi-item {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 10px 12px; position: relative; overflow: hidden;
+}
+.kpi-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2.5px; }
 #kpi-mes::before { background: var(--amber); }
 #kpi-sbs::before { background: var(--cyan); }
 #kpi-abonado::before { background: var(--emerald); }
 #kpi-fuga::before { background: var(--rose); }
-
-.kpi-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
-.kpi-val { font-family: 'Outfit', sans-serif; font-size: 1.22rem; font-weight: 700; color: var(--text); line-height: 1.1; }
-.kpi-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--text-muted); margin-top: 5px; font-weight: 600; }
+.kpi-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.54rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; margin-bottom: 3px; }
+.kpi-val { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.1; }
+.kpi-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; color: var(--text-muted); margin-top: 3px; }
 
 /* LISTA DE TARJETAS BANCARIAS */
-.list-container { display: flex; flex-direction: column; gap: 14px; }
+.list-container { display: flex; flex-direction: column; gap: 12px; }
 .card-item {
   background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border); border-radius: var(--r-2xl);
   overflow: hidden; box-shadow: var(--shadow-card); transition: all 0.22s var(--ease);
 }
-.card-item:hover { transform: translateY(-2px); border-color: var(--border-strong); }
-
 .card-header {
-  padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between;
-  cursor: pointer; user-select: none; min-height: 136px; position: relative; gap: 14px; color: #fff;
+  padding: 16px 20px; display: flex; flex-direction: column; justify-content: space-between;
+  cursor: pointer; user-select: none; min-height: 118px; position: relative; gap: 12px; color: #fff;
 }
 .card-header::after {
-  content: ''; position: absolute; right: -20px; top: -20px; width: 120px; height: 120px;
+  content: ''; position: absolute; right: -20px; top: -20px; width: 110px; height: 110px;
   background: radial-gradient(circle, rgba(255,255,255,0.14) 0%, transparent 70%);
   border-radius: 50%; pointer-events: none;
 }
 .ch-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; z-index: 2; }
 .card-name {
-  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.14rem;
-  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.08rem;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
 }
 .tea-pill {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
-  background: rgba(0,0,0,0.38); color: #fde68a; padding: 2px 7px; border-radius: 6px; font-weight: 700;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.56rem;
+  background: rgba(0,0,0,0.38); color: #fde68a; padding: 2px 6px; border-radius: 5px; font-weight: 700;
 }
 .tier-pill {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
-  background: rgba(255,255,255,0.2); color: #fff; padding: 2px 7px; border-radius: 6px; font-weight: 700;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.56rem;
+  background: rgba(255,255,255,0.2); color: #fff; padding: 2px 6px; border-radius: 5px; font-weight: 700;
 }
 .card-sub-balances {
-  display: flex; gap: 12px; margin-top: 6px; font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem; color: rgba(255,255,255,0.92); flex-wrap: wrap;
+  display: flex; gap: 10px; margin-top: 5px; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem; color: rgba(255,255,255,0.92); flex-wrap: wrap;
 }
 .card-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 5px 10px; border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; padding: 4px 9px; border-radius: 10px;
   font-weight: 700; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.28); white-space: nowrap;
 }
 .badge-red { background: rgba(225, 29, 72, 0.92); }
@@ -240,7 +253,7 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
 .badge-green { background: rgba(5, 150, 105, 0.92); }
 .ch-bottom {
   display: flex; justify-content: space-between; align-items: center;
-  font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; color: rgba(255,255,255,0.88); z-index: 2;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: rgba(255,255,255,0.88); z-index: 2;
 }
 
 /* COLORES DE BANCOS */
@@ -254,49 +267,57 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
 .bg-cmr, .color-verde, .color-cmr { background: linear-gradient(135deg, #059669 0%, #064e3b 100%); }
 .bg-default, .color-default { background: linear-gradient(135deg, #334155 0%, #0f172a 100%); }
 
-/* DETALLE DESPLEGABLE Y MEDIDOR SBS CLARO */
-.card-details { display: none; padding: 18px 22px; background: var(--surface); border-top: 1px solid var(--border); }
+/* INTERIOR DE TARJETA ORDENADO EN 3 BLOQUES LIMPIOS */
+.card-details { display: none; padding: 16px 18px; background: var(--surface); border-top: 1px solid var(--border); }
 .card-details.open { display: block; animation: fadeUp 0.2s var(--ease); }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-.da-box {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: var(--r-xl); padding: 15px; margin-bottom: 14px;
+/* BLOQUE 1: SALDOS PRINCIPALES */
+.cd-metrics-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px;
 }
-.da-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
-.da-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 2px; }
-.da-val { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); }
+.cd-metric-box {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 10px 12px;
+}
+.cd-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 2px; }
+.cd-val { font-family: 'Outfit', sans-serif; font-size: 0.96rem; font-weight: 700; color: var(--text); }
 
+/* BLOQUE 2: SECCIÓN DE LÍNEA DE CRÉDITO PROTEGIDA CON PIN */
+.cd-line-box {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 11px 13px; margin-bottom: 12px;
+}
+.cd-line-header {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+}
+.btn-pin-lock {
+  background: var(--surface); border: 1px solid var(--border-strong); color: var(--text-muted);
+  border-radius: 8px; padding: 4px 10px; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+}
+.btn-pin-lock:hover { border-color: var(--cyan); color: var(--text); }
 .da-bar-wrap {
-  position: relative; width: 100%; height: 8px; background: var(--surface3);
-  border-radius: 4px; overflow: hidden; margin-bottom: 8px;
+  width: 100%; height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; margin: 8px 0 6px;
 }
-.da-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s var(--ease); }
+.da-bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s var(--ease); }
 
-.sbs-explain-box {
-  background: var(--surface); border: 1px solid var(--border-strong);
-  border-left: 3px solid var(--cyan); border-radius: 11px;
-  padding: 10px 13px; font-size: 0.78rem; color: var(--text-muted);
-  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
-}
-.btn-set-limit {
-  background: var(--cyan-soft); color: var(--cyan); border: 1px solid rgba(2,132,199,0.3);
-  border-radius: 9px; padding: 5px 10px; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.72rem; font-weight: 700; cursor: pointer;
-}
-
-.history-list { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 14px; max-height: 150px; overflow-y: auto; }
+/* BLOQUE 3: HISTORIAL Y ACCIONES */
+.history-list { display: flex; flex-direction: column; gap: 5px; margin: 6px 0 12px; max-height: 130px; overflow-y: auto; }
 .history-item {
   display: flex; justify-content: space-between; align-items: center;
-  background: var(--surface2); padding: 8px 12px; border-radius: 10px;
-  font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; border: 1px solid var(--border);
+  background: var(--surface2); padding: 7px 11px; border-radius: 9px;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; border: 1px solid var(--border);
 }
 
-.card-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+.card-actions {
+  display: flex; gap: 7px; justify-content: space-between; align-items: center;
+  padding-top: 10px; border-top: 1px dashed var(--border); flex-wrap: wrap;
+}
 .card-btn {
-  padding: 8px 14px; border-radius: 12px; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.76rem; font-weight: 700; border: 1px solid transparent; cursor: pointer;
-  display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;
+  padding: 7px 13px; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.74rem; font-weight: 700; border: 1px solid transparent; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 5px; transition: 0.2s;
 }
 .card-btn.pay { background: var(--text); color: var(--bg); }
 .card-btn.edit { background: var(--surface2); color: var(--text); border-color: var(--border-strong); }
@@ -309,32 +330,32 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
 }
 .modal {
   background: var(--surface-solid); border: 1px solid var(--border-strong); border-radius: var(--r-2xl);
-  padding: 22px; width: 92%; max-width: 470px; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-dock);
+  padding: 20px; width: 92%; max-width: 450px; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-dock);
 }
-.modal h3 { font-family: 'Outfit', sans-serif; font-size: 1.22rem; margin-bottom: 4px; }
-.modal .desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.45; }
-.field { margin-bottom: 10px; }
-.field label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; font-weight: 700; }
+.modal h3 { font-family: 'Outfit', sans-serif; font-size: 1.16rem; margin-bottom: 4px; }
+.modal .desc { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.45; }
+.field { margin-bottom: 9px; }
+.field label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; font-weight: 700; }
 .field input, .field select {
-  width: 100%; height: 40px; background: var(--surface2); border: 1px solid var(--border-strong);
-  border-radius: 12px; color: var(--text); padding: 0 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.86rem; outline: none;
+  width: 100%; height: 38px; background: var(--surface2); border: 1px solid var(--border-strong);
+  border-radius: 10px; color: var(--text); padding: 0 11px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.84rem; outline: none;
 }
 .field input:focus, .field select:focus { border-color: var(--cyan); }
 
-.sbs-preset-pills { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 12px; }
+.sbs-preset-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
 .sbs-preset-btn {
-  flex: 1; min-width: 110px; padding: 8px 10px; border-radius: 11px; border: 1px solid var(--border-strong);
-  background: var(--surface2); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 0.64rem;
-  font-weight: 700; cursor: pointer; text-align: center; transition: 0.2s;
+  flex: 1; min-width: 105px; padding: 7px 9px; border-radius: 10px; border: 1px solid var(--border-strong);
+  background: var(--surface2); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  font-weight: 700; cursor: pointer; text-align: center;
 }
 .sbs-preset-btn:hover { border-color: var(--cyan); background: var(--cyan-soft); color: var(--cyan); }
 
 .check-row {
-  display: flex; align-items: center; gap: 8px; background: var(--surface2); padding: 10px 12px;
-  border-radius: 11px; border: 1px solid var(--border); font-size: 0.78rem; font-weight: 600; margin-top: 8px; cursor: pointer;
+  display: flex; align-items: center; gap: 8px; background: var(--surface2); padding: 9px 11px;
+  border-radius: 10px; border: 1px solid var(--border); font-size: 0.76rem; font-weight: 600; margin-top: 8px; cursor: pointer;
 }
-.modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
-.mbtn { height: 40px; padding: 0 16px; border-radius: 12px; border: none; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
+.modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.mbtn { height: 38px; padding: 0 15px; border-radius: 10px; border: none; font-weight: 700; font-size: 0.78rem; cursor: pointer; }
 .mbtn-cancel { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border-strong); }
 .mbtn-primary { background: var(--text); color: var(--bg); }
 .mbtn-danger { background: var(--rose-soft); color: var(--rose); border: 1px solid rgba(225,29,72,0.3); }
@@ -361,15 +382,14 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
 #toast {
   position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(15px);
   background: var(--text); color: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.78rem; font-weight: 700; padding: 10px 20px; border-radius: 20px;
+  font-size: 0.76rem; font-weight: 700; padding: 9px 18px; border-radius: 20px;
   opacity: 0; pointer-events: none; transition: 0.25s var(--ease); z-index: 400;
 }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media (max-width: 640px) {
-  .kpi-ribbon, .da-grid { grid-template-columns: repeat(2, 1fr); }
-  .strategy-hero { grid-template-columns: 1fr; }
-  .sh-divider { border-left: none; border-top: 1px dashed var(--border-strong); padding-left: 0; padding-top: 12px; }
+  .kpi-ribbon { grid-template-columns: repeat(2, 1fr); }
+  .strategy-row, .cd-metrics-row { grid-template-columns: 1fr; }
   .dock-link span.dl-txt { display: none; }
   .dock-link.active span.dl-txt { display: inline; }
 }
@@ -387,17 +407,20 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
     </div>
 
     <div class="header-tools">
-      <button class="btn-icon-svg" id="privacyToggleBtn" onclick="togglePrivacy()" title="Privacidad">
+      <button class="btn-icon-svg" id="pinLockBtn" onclick="toggleLineLock()" title="Desbloquear / Bloquear Límites de Línea con Contraseña">
+        <span id="lockIconWrap"></span>
+      </button>
+      <button class="btn-icon-svg active" id="privacyToggleBtn" onclick="togglePrivacy()" title="Privacidad Activa">
         <span id="eyeIconWrap"></span>
       </button>
       <button class="btn-icon-svg" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema">
         <span id="themeIconWrap"></span>
       </button>
-      <button class="btn-icon-svg" onclick="openBackupModal()" title="Gestión, Respaldo y Reiniciar Pagos">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+      <button class="btn-icon-svg" onclick="openBackupModal()" title="Ajustes, Contraseña y Reinicio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
       </button>
       <button class="btn-add-primary" onclick="openCardModal()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Tarjeta
       </button>
     </div>
@@ -405,60 +428,78 @@ main { max-width: 780px; margin: 0 auto; padding: 18px 18px 0; }
 </header>
 
 <main>
+  <!-- ALERTAS PEQUEÑAS Y COMPACTAS -->
   <div class="alert-banner anniv" id="globalAnnivAlert">
-    <span>Tienes tarjetas en su mes de aniversario. Verifica el consumo mínimo para exonerar membresía.</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>Tarjeta en mes de aniversario: verifica exoneración de membresía.</span>
   </div>
   <div class="alert-banner sbs" id="globalClosingAlert">
-    <span id="closingAlertTxt">Cierre próximo: Abona antes del cierre para reportar menos del 25% a la SBS.</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span id="closingAlertTxt">Cierre próximo: abona antes del cierre para reportar ≤ 25% SBS.</span>
   </div>
 
-  <!-- PANEL SUPERIOR: MEJOR TARJETA HOY + REGLA 25% SBS (SIN BÓVEDA) -->
-  <section class="strategy-hero">
-    <div class="sh-block">
-      <div>
-        <span class="sh-lbl" style="color:var(--emerald);">Mejor tarjeta para comprar hoy</span>
-        <span class="sh-val" id="bestCardName">Agrega una tarjeta</span>
+  <!-- RESUMEN GENERAL DESPLEGABLE (OCULTO POR DEFECTO PARA VER MÁS LAS TARJETAS) -->
+  <section class="top-summary-accordion" id="topSummaryAccordion">
+    <button class="tsa-trigger" onclick="document.getElementById('topSummaryAccordion').classList.toggle('open')">
+      <div class="tsa-left">
+        <span class="tsa-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+          Resumen y Mejor Tarjeta Hoy
+        </span>
+        <span class="tsa-quick-pill" id="compactBestCardPill">Calculando...</span>
       </div>
-      <span class="sh-pill" id="bestCardDays">0 d libres</span>
-    </div>
+      <span class="tsa-chevron">▼</span>
+    </button>
 
-    <div class="sh-block sh-divider">
-      <div>
-        <span class="sh-lbl" style="color:var(--cyan);">Salud SBS (Línea Utilizada)</span>
-        <span class="sh-val" id="sbsHeroSummary">Configura tu línea de crédito</span>
+    <div class="tsa-body">
+      <div class="strategy-row">
+        <div class="strat-mini-card">
+          <div>
+            <span class="sm-lbl" style="color:var(--emerald);">Mejor tarjeta para comprar hoy</span>
+            <span class="sm-val" id="bestCardName">Agrega una tarjeta</span>
+          </div>
+          <span class="tsa-quick-pill" id="bestCardDays">0 d libres</span>
+        </div>
+
+        <div class="strat-mini-card">
+          <div>
+            <span class="sm-lbl" style="color:var(--cyan);">Salud SBS Global</span>
+            <span class="sm-val" id="sbsHeroSummary">Línea protegida</span>
+          </div>
+          <span class="tsa-quick-pill" id="sbsHeroPill" style="background:var(--cyan-soft); color:var(--cyan);">Meta ≤ 25%</span>
+        </div>
       </div>
-      <span class="sh-pill" id="sbsHeroPill" style="background:var(--cyan-soft); color:var(--cyan);">Meta ≤ 25%</span>
+
+      <div class="kpi-ribbon">
+        <div class="kpi-item" id="kpi-mes">
+          <div class="kpi-lbl">Por Pagar (Mes)</div>
+          <div class="kpi-val" id="val-pago-mes">S/ •••</div>
+          <div class="kpi-sub" id="sub-pendientes">0 pendientes</div>
+        </div>
+        <div class="kpi-item" id="kpi-sbs">
+          <div class="kpi-lbl">Deuda Total</div>
+          <div class="kpi-val" id="val-deuda-total">S/ •••</div>
+          <div class="kpi-sub" id="sub-uso-linea">Línea protegida</div>
+        </div>
+        <div class="kpi-item" id="kpi-abonado">
+          <div class="kpi-lbl">Abonado (Mes)</div>
+          <div class="kpi-val" id="val-total-mes">S/ •••</div>
+          <div class="kpi-sub">Pagos del mes</div>
+        </div>
+        <div class="kpi-item" id="kpi-fuga">
+          <div class="kpi-lbl">Desgravamen Año</div>
+          <div class="kpi-val" id="val-total-desg" style="color:var(--rose);">S/ •••</div>
+          <div class="kpi-sub">Acumulado anual</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 4 KPIS -->
-  <section class="kpi-ribbon">
-    <div class="kpi-item" id="kpi-mes">
-      <div class="kpi-lbl">Por Pagar (Mes)</div>
-      <div class="kpi-val" id="val-pago-mes">S/ 0.00</div>
-      <div class="kpi-sub" id="sub-pendientes">0 pendientes</div>
-    </div>
-    <div class="kpi-item" id="kpi-sbs">
-      <div class="kpi-lbl">Deuda Total</div>
-      <div class="kpi-val" id="val-deuda-total">S/ 0.00</div>
-      <div class="kpi-sub" id="sub-uso-linea">Línea total: S/ 0</div>
-    </div>
-    <div class="kpi-item" id="kpi-abonado">
-      <div class="kpi-lbl">Abonado (Mes)</div>
-      <div class="kpi-val" id="val-total-mes">S/ 0.00</div>
-      <div class="kpi-sub">Pagos del mes</div>
-    </div>
-    <div class="kpi-item" id="kpi-fuga">
-      <div class="kpi-lbl">Desgravamen Año</div>
-      <div class="kpi-val" id="val-total-desg" style="color:var(--rose);">S/ 0.00</div>
-      <div class="kpi-sub">Acumulado anual</div>
-    </div>
-  </section>
-
+  <!-- LISTA DE TARJETAS -->
   <div class="list-container" id="cardsContainer" onclick="handleCardClick(event)"></div>
 </main>
 
-<!-- SUBMENÚ INFERIOR DOCK UNIFICADO CON ICONOS SVG -->
+<!-- SUBMENÚ INFERIOR DOCK UNIFICADO -->
 <nav class="global-dock" aria-label="Navegación Principal">
   <a href="index.html" class="dock-link">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
@@ -493,28 +534,92 @@ const db = firebase.database();
 
 const SK_CARDS = 'tarjetasPremiumV3';
 const SK_PAGOS = 'pagosTarjetasV1';
+const PIN_KEY = 'pierovski_cards_pin';
 
 const SVG_ICONS = {
   eyeOpen: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`,
   eyeClosed: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>`,
   sun: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`,
-  moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`
+  moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`,
+  lockClosed: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+  lockOpen: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`
 };
 
 let tarjetas = [];
 let pagos = [];
-let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
+/* 1. EL OJO SIEMPRE INICIA ACTIVO POR DEFECTO EN TARJETAS */
+let isPrivacyMode = true;
+let isLineUnlocked = false;
 
 function applyHeaderIcons() {
   const isDark = localStorage.getItem('compras_theme') === 'dark';
   document.body.classList.toggle('dark-theme', isDark);
+
   const pBtn = document.getElementById('privacyToggleBtn');
   if (pBtn) {
     pBtn.classList.toggle('active', isPrivacyMode);
     document.getElementById('eyeIconWrap').innerHTML = isPrivacyMode ? SVG_ICONS.eyeClosed : SVG_ICONS.eyeOpen;
   }
+
+  const lBtn = document.getElementById('pinLockBtn');
+  if (lBtn) {
+    lBtn.classList.toggle('unlocked', isLineUnlocked);
+    document.getElementById('lockIconWrap').innerHTML = isLineUnlocked ? SVG_ICONS.lockOpen : SVG_ICONS.lockClosed;
+  }
+
   const tWrap = document.getElementById('themeIconWrap');
   if (tWrap) tWrap.innerHTML = isDark ? SVG_ICONS.sun : SVG_ICONS.moon;
+}
+
+/* 4. CONTRASEÑA / PIN PARA VER Y EDITAR LÍMITES DE LÍNEA DE CRÉDITO */
+function toggleLineLock() {
+  if (isLineUnlocked) {
+    isLineUnlocked = false;
+    applyHeaderIcons();
+    renderAll();
+    toast('Límites de línea bloqueados');
+    return;
+  }
+  const savedPin = localStorage.getItem(PIN_KEY);
+  if (!savedPin) {
+    const newPin = prompt('Crea una contraseña o PIN para proteger los límites de línea de tus tarjetas:');
+    if (newPin && newPin.trim().length >= 3) {
+      localStorage.setItem(PIN_KEY, newPin.trim());
+      isLineUnlocked = true;
+      applyHeaderIcons();
+      renderAll();
+      toast('Contraseña creada y líneas desbloqueadas');
+    } else if (newPin !== null) {
+      toast('La contraseña debe tener al menos 3 caracteres');
+    }
+  } else {
+    const input = prompt('Ingresa tu contraseña para ver los límites de línea de crédito:');
+    if (input === null) return;
+    if (input.trim() === savedPin) {
+      isLineUnlocked = true;
+      applyHeaderIcons();
+      renderAll();
+      toast('Límites de línea desbloqueados');
+    } else {
+      toast('Contraseña incorrecta');
+    }
+  }
+}
+
+function changeLinePin() {
+  const savedPin = localStorage.getItem(PIN_KEY);
+  if (savedPin) {
+    const cur = prompt('Ingresa tu contraseña actual:');
+    if (cur === null) return;
+    if (cur.trim() !== savedPin) return toast('Contraseña actual incorrecta');
+  }
+  const next = prompt('Ingresa tu nueva contraseña para los límites de línea:');
+  if (next && next.trim().length >= 3) {
+    localStorage.setItem(PIN_KEY, next.trim());
+    toast('Contraseña actualizada');
+  } else if (next !== null) {
+    toast('Mínimo 3 caracteres');
+  }
 }
 
 function loadLocalData() {
@@ -529,10 +634,14 @@ function todayStr() {
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  setTimeout(() => t.classList.remove('show'), 2400);
 }
 function formatMoney(num) {
   if (isPrivacyMode) return 'S/ •••';
+  return 'S/ ' + (Number(num) || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function formatLineMoney(num) {
+  if (!isLineUnlocked) return '🔒 Protegido';
   return 'S/ ' + (Number(num) || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
@@ -710,17 +819,16 @@ function clearSingleCardPayments(cardId) {
   triggerSync(); renderAll(); toast(`Pagos de ${t.name} borrados`);
 }
 
-/* OPCIONES PARA BORRAR TODOS LOS PAGOS Y EMPEZAR DESDE CERO */
 function clearAllPaymentsHistoryOnly() {
   if (!confirm('¿Borrar TODOS los pagos registrados en todas tus tarjetas para empezar el historial desde cero?')) return;
   pagos = [];
   tarjetas.forEach(t => { t.paid = false; delete t.lastPaymentDate; });
   triggerSync(); closeModal(); renderAll();
-  toast('Historial de pagos borrado por completo');
+  toast('Historial de pagos borrado');
 }
 
 function resetAllCardsAndPaymentsZero() {
-  if (!confirm('¿Empezar 100% desde cero? Se borrarán todos los pagos y las deudas/cuotas de todas tus tarjetas quedarán en S/ 0.00 (conservando tus tarjetas y sus líneas de crédito).')) return;
+  if (!confirm('¿Empezar 100% desde cero? Se borrarán todos los pagos y las deudas/cuotas de todas tus tarjetas quedarán en S/ 0.00.')) return;
   pagos = [];
   tarjetas.forEach(t => {
     t.debtTotal = 0;
@@ -731,43 +839,50 @@ function resetAllCardsAndPaymentsZero() {
     delete t.lastPaymentDate;
   });
   triggerSync(); closeModal(); renderAll();
-  toast('Sistema de tarjetas reiniciado a S/ 0.00');
+  toast('Sistema reiniciado a S/ 0.00');
 }
 
-/* MODAL CREAR / EDITAR TARJETA CON EXPLICACIÓN CLARA DE LÍNEA DE CRÉDITO SBS */
 function openCardModal(id = null) {
   let t = id ? tarjetas.find(x => String(x.id) === String(id)) : null;
+  if (id && !isLineUnlocked && localStorage.getItem(PIN_KEY)) {
+    const pin = prompt('Ingresa tu contraseña para editar los datos y línea de la tarjeta:');
+    if (pin === null) return;
+    if (pin.trim() !== localStorage.getItem(PIN_KEY)) return toast('Contraseña incorrecta');
+    isLineUnlocked = true;
+    applyHeaderIcons();
+  }
+
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal">
         <h3>${t ? 'Editar Tarjeta' : 'Nueva Tarjeta'}</h3>
-        <p class="desc">Ingresa la <b>Línea de Crédito Total</b> aprobada por tu banco para calcular automáticamente tu tope saludable del 25% ante la SBS.</p>
-        <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:10px;">
+        <p class="desc">Configura tus fechas, deuda actual y línea de crédito.</p>
+        <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:8px;">
           <div class="field"><label>Banco y Tarjeta</label><input type="text" id="cardName" value="${t?.name || ''}" placeholder="Ej. BBVA Visa"></div>
           <div class="field"><label>Categoría / Meta</label><input type="text" id="cardCat" value="${t?.category || 'Oro → Signature'}"></div>
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-          <div class="field"><label>Día Cierre</label><input type="number" id="cardClose" min="1" max="31" value="${t?.closing || ''}" placeholder="Ej. 10"></div>
-          <div class="field"><label>Día Pago</label><input type="number" id="cardPay" min="1" max="31" value="${t?.payment || ''}" placeholder="Ej. 5"></div>
-          <div class="field"><label>TEA (%)</label><input type="number" step="0.01" id="cardTea" value="${t?.tea || ''}" placeholder="Opcional"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+          <div class="field"><label>Día Cierre</label><input type="number" id="cardClose" min="1" max="31" value="${t?.closing || ''}"></div>
+          <div class="field"><label>Día Pago</label><input type="number" id="cardPay" min="1" max="31" value="${t?.payment || ''}"></div>
+          <div class="field"><label>TEA (%)</label><input type="number" step="0.01" id="cardTea" value="${t?.tea || ''}"></div>
         </div>
 
-        <div style="background:var(--surface2); border:1px solid var(--border-strong); border-radius:14px; padding:12px; margin-bottom:10px;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:var(--cyan); font-weight:700; text-transform:uppercase; margin-bottom:8px;">Datos para el Cálculo SBS (25%) y Cuota del Mes</div>
+        <div style="background:var(--surface2); border:1px solid var(--border-strong); border-radius:12px; padding:10px; margin-bottom:9px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.58rem; color:var(--cyan); font-weight:700; text-transform:uppercase; margin-bottom:6px;">Línea de Crédito (Protegida) y Saldos</div>
           <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
-            <div class="field" style="margin:0;"><label>Línea de Crédito (S/)</label><input type="number" step="0.01" id="cardLimit" value="${t?.creditLimit ?? ''}" placeholder="Ej. 5000"></div>
-            <div class="field" style="margin:0;"><label>Deuda Total Hoy (S/)</label><input type="number" step="0.01" id="cardDebt" value="${t?.debtTotal ?? ''}" placeholder="0.00"></div>
-            <div class="field" style="margin:0;"><label>Pago del Mes (S/)</label><input type="number" step="0.01" id="cardMonthBill" value="${t?.monthBill ?? ''}" placeholder="0.00"></div>
+            <div class="field" style="margin:0;"><label>Línea Total (S/)</label><input type="number" step="0.01" id="cardLimit" value="${t?.creditLimit ?? ''}" placeholder="5000"></div>
+            <div class="field" style="margin:0;"><label>Deuda Hoy (S/)</label><input type="number" step="0.01" id="cardDebt" value="${t?.debtTotal ?? ''}" placeholder="0.00"></div>
+            <div class="field" style="margin:0;"><label>Pago Mes (S/)</label><input type="number" step="0.01" id="cardMonthBill" value="${t?.monthBill ?? ''}" placeholder="0.00"></div>
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
           <div class="field"><label>Cuotas Pagadas</label><input type="number" id="cardInstPaid" value="${t?.installmentsPaid || 0}"></div>
           <div class="field"><label>Total Cuotas</label><input type="number" id="cardInstTotal" value="${t?.installmentsTotal || 0}"></div>
-          <div class="field"><label>Aniversario</label><input type="text" id="cardAnn" value="${t?.anniversary || ''}" placeholder="Ej. OCT"></div>
+          <div class="field"><label>Aniversario</label><input type="text" id="cardAnn" value="${t?.anniversary || ''}" placeholder="OCT"></div>
         </div>
         <div class="field">
-          <label>Diseño de Tarjeta</label>
+          <label>Color de Tarjeta</label>
           <select id="cardCol">
             <option value="bg-bbva" ${t?.color==='bg-bbva'?'selected':''}>Azul BBVA</option>
             <option value="bg-bcp" ${t?.color==='bg-bcp'?'selected':''}>Naranja BCP</option>
@@ -782,7 +897,7 @@ function openCardModal(id = null) {
         </div>
         <div class="modal-btns">
           <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
-          <button class="mbtn mbtn-primary" onclick="saveCard(${id ? `'${id}'` : 'null'})">Guardar Tarjeta</button>
+          <button class="mbtn mbtn-primary" onclick="saveCard(${id ? `'${id}'` : 'null'})">Guardar</button>
         </div>
       </div>
     </div>`;
@@ -792,7 +907,7 @@ function saveCard(id) {
   const name = document.getElementById('cardName').value.trim();
   const closing = parseInt(document.getElementById('cardClose').value);
   const payment = parseInt(document.getElementById('cardPay').value);
-  if (!name || isNaN(closing) || isNaN(payment)) return toast('Completa nombre, día de cierre y día de pago');
+  if (!name || isNaN(closing) || isNaN(payment)) return toast('Completa nombre, cierre y pago');
 
   const payload = {
     name,
@@ -817,7 +932,6 @@ function saveCard(id) {
   triggerSync(); renderAll(); closeModal(); toast('Tarjeta guardada');
 }
 
-/* MODAL DE PAGO LIMPIO (SIN BÓVEDA) */
 function openPayModal(cardId) {
   const t = tarjetas.find(x => String(x.id) === String(cardId));
   if (!t) return;
@@ -833,22 +947,22 @@ function openPayModal(cardId) {
         <h3>Registrar Abono · ${t.name}</h3>
         <p class="desc">Selecciona un importe rápido o escribe el monto abonado:</p>
         <div class="sbs-preset-pills">
-          ${dueMonth > 0 ? `<button type="button" class="sbs-preset-btn" onclick="document.getElementById('payAmount').value='${dueMonth.toFixed(2)}'">Pago del Mes<br>S/ ${dueMonth.toFixed(2)}</button>` : ''}
-          ${excessSBS > 0 ? `<button type="button" class="sbs-preset-btn" onclick="document.getElementById('payAmount').value='${excessSBS.toFixed(2)}'">Bajar al 25% SBS<br>S/ ${excessSBS.toFixed(2)}</button>` : ''}
+          ${dueMonth > 0 ? `<button type="button" class="sbs-preset-btn" onclick="document.getElementById('payAmount').value='${dueMonth.toFixed(2)}'">Pago Mes<br>S/ ${dueMonth.toFixed(2)}</button>` : ''}
+          ${excessSBS > 0 && isLineUnlocked ? `<button type="button" class="sbs-preset-btn" onclick="document.getElementById('payAmount').value='${excessSBS.toFixed(2)}'">Bajar 25% SBS<br>S/ ${excessSBS.toFixed(2)}</button>` : ''}
           ${debt > 0 ? `<button type="button" class="sbs-preset-btn" onclick="document.getElementById('payAmount').value='${debt.toFixed(2)}'">Deuda Total<br>S/ ${debt.toFixed(2)}</button>` : ''}
         </div>
-        <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:10px;">
+        <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:8px;">
           <div class="field"><label>Monto Pagado (S/)</label><input type="number" step="0.01" id="payAmount" value="${(dueMonth || debt || 0).toFixed(2)}"></div>
-          <div class="field"><label>Seguro Desgravamen (S/)</label><input type="number" step="0.01" id="payDesg" value="0.00"></div>
+          <div class="field"><label>Desgravamen (S/)</label><input type="number" step="0.01" id="payDesg" value="0.00"></div>
         </div>
         <div class="field"><label>Fecha de Pago</label><input type="date" id="payDate" value="${todayStr()}"></div>
         <label class="check-row">
           <input type="checkbox" id="payAmortize" checked>
-          <span>Descontar este abono de la Deuda Total y del Pago del Mes</span>
+          <span>Descontar de la Deuda Total y del Pago del Mes</span>
         </label>
         <div class="modal-btns">
           <button class="mbtn mbtn-cancel" onclick="closeModal()">Cancelar</button>
-          <button class="mbtn mbtn-primary" onclick="executePayment('${cardId}')">Confirmar Abono</button>
+          <button class="mbtn mbtn-primary" onclick="executePayment('${cardId}')">Confirmar</button>
         </div>
       </div>
     </div>`;
@@ -889,42 +1003,35 @@ function executePayment(cardId) {
   toast('Abono registrado');
 }
 
-/* MODAL DE GESTIÓN, REINICIO DESDE CERO Y RESPALDO */
 function openBackupModal() {
   document.getElementById('modalContainer').innerHTML = `
     <div class="backdrop" onclick="if(event.target===this) closeModal()">
       <div class="modal">
-        <h3>Gestión y Reinicio de Tarjetas</h3>
-        <p class="desc">Puedes empezar tus registros desde cero o exportar una copia de seguridad.</p>
+        <h3>Ajustes, Contraseña y Reinicio</h3>
+        <p class="desc">Gestiona la contraseña de tus líneas de crédito o reinicia tus registros desde cero.</p>
 
-        <div style="background:var(--surface2); border:1px solid var(--border-strong); border-radius:14px; padding:14px; margin-bottom:14px;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:var(--rose); font-weight:700; text-transform:uppercase; margin-bottom:8px;">Empezar desde Cero</div>
-          <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="background:var(--surface2); border:1px solid var(--border-strong); border-radius:12px; padding:12px; margin-bottom:12px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:var(--cyan); font-weight:700; text-transform:uppercase; margin-bottom:6px;">Seguridad de Líneas de Crédito</div>
+          <button class="mbtn mbtn-cancel" style="width:100%;" onclick="changeLinePin()">Configurar / Cambiar Contraseña de Líneas</button>
+        </div>
+
+        <div style="background:var(--surface2); border:1px solid var(--border-strong); border-radius:12px; padding:12px; margin-bottom:12px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:var(--rose); font-weight:700; text-transform:uppercase; margin-bottom:6px;">Empezar desde Cero</div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
             <button class="mbtn mbtn-danger" style="width:100%;" onclick="clearAllPaymentsHistoryOnly()">Borrar Todos los Pagos Registrados</button>
             <button class="mbtn mbtn-danger" style="width:100%;" onclick="resetAllCardsAndPaymentsZero()">Dejar Deudas y Pagos en S/ 0.00 (Cero Total)</button>
           </div>
         </div>
 
-        <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:var(--text-dim); font-weight:700; text-transform:uppercase; margin-bottom:8px;">Exportar y Respaldar</div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <button class="mbtn" style="background:var(--emerald-soft); color:var(--emerald);" onclick="exportCardsCSV()">Descargar Reporte en Excel (.CSV)</button>
-          <div style="display:flex; gap:8px;">
-            <input type="file" id="impF" accept=".json" style="display:none" onchange="importCardsJSON(event)">
-            <button class="mbtn mbtn-cancel" style="flex:1;" onclick="document.getElementById('impF').click()">Importar JSON</button>
-            <button class="mbtn mbtn-primary" style="flex:1;" onclick="exportCardsJSON()">Exportar JSON</button>
-          </div>
+        <div style="display:flex; gap:8px;">
+          <input type="file" id="impF" accept=".json" style="display:none" onchange="importCardsJSON(event)">
+          <button class="mbtn mbtn-cancel" style="flex:1;" onclick="document.getElementById('impF').click()">Importar JSON</button>
+          <button class="mbtn mbtn-primary" style="flex:1;" onclick="exportCardsJSON()">Exportar JSON</button>
         </div>
       </div>
     </div>`;
 }
 
-function exportCardsCSV() {
-  const headers = ["Tarjeta","Categoria","Cierre","Pago","TEA","Deuda Total","Pago Mes","Linea Credito","Estado"];
-  const rows = tarjetas.map(t => `"${t.name}","${t.category}",${t.closing},${t.payment},${t.tea||0},${(t.debtTotal||0).toFixed(2)},${getCardMonthlyDue(t).toFixed(2)},${(t.creditLimit||0).toFixed(2)},${t.paid?"AL DIA":"PENDIENTE"}`);
-  const blob = new Blob(["\uFEFF" + [headers.join(','), ...rows].join('\n')], { type: "text/csv;charset=utf-8;" });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Tarjetas_SBS_${todayStr()}.csv`; a.click();
-  closeModal();
-}
 function exportCardsJSON() {
   const blob = new Blob([JSON.stringify({ tarjetas, pagos }, null, 2)], { type: "application/json" });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Backup_Tarjetas_${todayStr()}.json`; a.click();
@@ -939,7 +1046,7 @@ function importCardsJSON(ev) {
       if (d.tarjetas) tarjetas = d.tarjetas;
       if (d.pagos) pagos = d.pagos;
       triggerSync(); renderAll(); closeModal(); toast('Datos restaurados');
-    } catch (err) { toast('Archivo JSON inválido'); }
+    } catch (err) { toast('JSON inválido'); }
   };
   r.readAsText(f);
 }
@@ -971,6 +1078,9 @@ function renderAll() {
     }
   });
 
+  document.getElementById('compactBestCardPill').textContent = bestCard
+    ? `${bestCard.name} (${maxGrace}d libres)`
+    : 'Sin tarjetas';
   document.getElementById('bestCardName').textContent = bestCard ? `${bestCard.name} (Cierra día ${bestCard.closing})` : 'Agrega una tarjeta';
   document.getElementById('bestCardDays').textContent = `${Math.max(0, maxGrace)} d libres`;
 
@@ -979,31 +1089,29 @@ function renderAll() {
   const sbsPillEl = document.getElementById('sbsHeroPill');
 
   if (tLinea > 0) {
-    sbsSummaryEl.textContent = `Usas ${sbsGlobal}% de ${formatMoney(tLinea)}`;
+    sbsSummaryEl.textContent = isLineUnlocked ? `${sbsGlobal}% de ${formatLineMoney(tLinea)}` : `Uso SBS: ${sbsGlobal}% (🔒 Línea oculta)`;
     sbsPillEl.textContent = sbsGlobal <= 25 ? 'Óptimo ≤ 25%' : `Bajar ${sbsGlobal - 25}%`;
-    sbsPillEl.style.background = sbsGlobal <= 25 ? 'var(--emerald-soft)' : 'var(--amber-soft)';
-    sbsPillEl.style.color = sbsGlobal <= 25 ? 'var(--emerald)' : 'var(--amber)';
   } else {
-    sbsSummaryEl.textContent = 'Edita tus tarjetas y pon su Línea Total';
+    sbsSummaryEl.textContent = 'Agrega tu línea de crédito';
     sbsPillEl.textContent = 'Sin línea';
   }
 
   const closeAlert = document.getElementById('globalClosingAlert');
   if (closingSoon) {
     closeAlert.classList.add('show');
-    document.getElementById('closingAlertTxt').innerHTML = `<b>Escudo SBS:</b> Tu tarjeta <b>${closingSoon.name}</b> cierra en ${closingSoon.days}d. Abona <b>${formatMoney(closingSoon.excess)}</b> antes del cierre para reportar ≤ 25%.`;
+    document.getElementById('closingAlertTxt').innerHTML = `<b>${closingSoon.name}</b> cierra en ${closingSoon.days}d · Abona <b>${formatMoney(closingSoon.excess)}</b> para ≤ 25% SBS.`;
   } else closeAlert.classList.remove('show');
 
   document.getElementById('val-pago-mes').textContent = formatMoney(tPagoMes);
   document.getElementById('val-deuda-total').textContent = formatMoney(tDeudaSBS);
-  document.getElementById('sub-uso-linea').textContent = tLinea > 0 ? `Línea total: ${formatMoney(tLinea)}` : 'Agrega tu línea de crédito';
+  document.getElementById('sub-uso-linea').textContent = isLineUnlocked ? `Línea: ${formatLineMoney(tLinea)}` : '🔒 Línea con clave';
   document.getElementById('val-total-mes').textContent = formatMoney(tAbonadoMes);
   document.getElementById('val-total-desg').textContent = formatMoney(tDesgAno);
 
   const sorted = [...tarjetas].sort((a, b) => (a.paid !== b.paid ? (a.paid ? 1 : -1) : getDaysUntilTargetDay(a.payment) - getDaysUntilTargetDay(b.payment)));
 
   if (sorted.length === 0) {
-    container.innerHTML = `<div style="text-align:center; padding:42px; background:var(--surface); border-radius:var(--r-2xl); border:1.5px dashed var(--border-strong); color:var(--text-dim);">No tienes tarjetas registradas. Toca <b>+ Tarjeta</b> arriba para empezar.</div>`;
+    container.innerHTML = `<div style="text-align:center; padding:38px; background:var(--surface); border-radius:var(--r-2xl); border:1.5px dashed var(--border-strong); color:var(--text-dim);">No tienes tarjetas registradas. Toca <b>+ Tarjeta</b> arriba.</div>`;
   } else {
     container.innerHTML = sorted.map(t => {
       if (t.paid) cPagadas++; else cPend++;
@@ -1018,10 +1126,11 @@ function renderAll() {
       const usoPct = limit > 0 ? Math.min(100, Math.round((debt / limit) * 100)) : 0;
       const barCol = usoPct > 50 ? 'var(--rose)' : (usoPct > 25 ? 'var(--amber)' : 'var(--emerald)');
       const badgeCls = t.paid ? 'badge-green' : (faltaPago <= 5 ? 'badge-red' : (faltaCierre <= 3 ? 'badge-amber' : ''));
-      const badgeTxt = t.paid ? 'AL DÍA ESTE CICLO' : `PAGO EN ${faltaPago}D · CIERRE EN ${faltaCierre}D`;
+      const badgeTxt = t.paid ? 'AL DÍA' : `PAGO ${faltaPago}D · CIERRE ${faltaCierre}D`;
+      const freeDaysToday = getFreeCreditDays(t.closing, t.payment);
 
       const cardPagos = pagos.filter(p => String(p.cardId) === String(t.id)).sort((a, b) => new Date(b.date) - new Date(a.date));
-      const histHTML = cardPagos.slice(0, 6).map(p => `
+      const histHTML = cardPagos.slice(0, 5).map(p => `
         <div class="history-item">
           <span>${p.date}</span>
           <span>
@@ -1029,7 +1138,7 @@ function renderAll() {
             ${p.desgravamen > 0 ? `<small style="color:var(--rose);">(-${formatMoney(p.desgravamen)})</small>` : ''}
             <button class="hi-del-btn" data-payid="${p.id}" style="background:none;border:none;color:var(--text-dim);cursor:pointer;margin-left:6px;">✕</button>
           </span>
-        </div>`).join('') || '<div style="font-size:0.75rem; color:var(--text-dim); text-align:center; padding:8px;">Sin pagos registrados en esta tarjeta.</div>';
+        </div>`).join('') || '<div style="font-size:0.72rem; color:var(--text-dim); text-align:center; padding:6px;">Sin pagos registrados.</div>';
 
       return `
         <div class="card-item">
@@ -1044,50 +1153,71 @@ function renderAll() {
                 <div class="card-sub-balances">
                   <span>Pago Mes: <b>${formatMoney(dueMonth)}</b></span>
                   <span>·</span>
-                  <span>Deuda Total: <b>${formatMoney(debt)}</b> ${limit > 0 ? `(${usoPct}% SBS)` : ''}</span>
+                  <span>Deuda: <b>${formatMoney(debt)}</b></span>
                 </div>
               </div>
               <div class="card-badge ${badgeCls}">${badgeTxt}</div>
             </div>
             <div class="ch-bottom">
-              <span>${t.anniversary ? `ANIVERSARIO: ${t.anniversary}` : `DÍAS LIBRES HOY: ${getFreeCreditDays(t.closing, t.payment)} DÍAS`}</span>
-              <span>Cierre día ${t.closing} · Pago día ${t.payment}</span>
+              <span>${t.anniversary ? `ANIV: ${t.anniversary}` : `OXÍGENO HOY: ${freeDaysToday} DÍAS`}</span>
+              <span>Cierre ${t.closing} · Pago ${t.payment} ▼</span>
             </div>
           </div>
 
           <div class="card-details" id="details-${t.id}">
-            <div class="da-box">
-              <div class="da-grid">
-                <div><span class="da-lbl">Pago del Mes</span><span class="da-val" style="color:var(--amber);">${formatMoney(dueMonth)}</span></div>
-                <div><span class="da-lbl">Deuda Ocupada</span><span class="da-val">${formatMoney(debt)}</span></div>
-                <div><span class="da-lbl">Tope 25% SBS</span><span class="da-val" style="color:var(--emerald);">${limit > 0 ? formatMoney(tope25) : 'Falta línea'}</span></div>
-                <div><span class="da-lbl">Línea de Crédito</span><span class="da-val">${limit > 0 ? formatMoney(limit) : 'No registrada'}</span></div>
+            <!-- BLOQUE 1: SALDOS PRINCIPALES ORDENADOS -->
+            <div class="cd-metrics-row">
+              <div class="cd-metric-box">
+                <span class="cd-lbl">Pago del Mes</span>
+                <span class="cd-val" style="color:var(--amber);">${formatMoney(dueMonth)}</span>
               </div>
-              <div class="da-bar-wrap"><div class="da-bar-fill" style="width:${usoPct}%; background:${barCol};"></div></div>
-              ${limit > 0 ? `
-                <div class="sbs-explain-box">
-                  <span>${debt > tope25
-                    ? `Excedes el 25% ideal por <b>${formatMoney(debt - tope25)}</b>. Abona ese monto antes del día ${t.closing}.`
-                    : `<b>Salud SBS óptima (${usoPct}%):</b> Debes menos del tope de ${formatMoney(tope25)}.`}</span>
-                  <span style="font-family:'JetBrains Mono',monospace; font-size:0.66rem;">Libre: ${formatMoney(Math.max(0, limit - debt))}</span>
-                </div>` : `
-                <div class="sbs-explain-box">
-                  <span>Para calcular el 25% SBS necesitas ingresar la <b>Línea de Crédito Total</b> de esta tarjeta.</span>
-                  <button class="btn-set-limit btn-edit-action" data-id="${t.id}">+ Agregar Línea de Crédito</button>
-                </div>`}
+              <div class="cd-metric-box">
+                <span class="cd-lbl">Deuda Ocupada</span>
+                <span class="cd-val">${formatMoney(debt)}</span>
+              </div>
+              <div class="cd-metric-box">
+                <span class="cd-lbl">Días Libres Hoy</span>
+                <span class="cd-val" style="color:var(--emerald);">${freeDaysToday} días</span>
+              </div>
             </div>
 
+            <!-- BLOQUE 2: LÍNEA DE CRÉDITO PROTEGIDA CON CONTRASEÑA -->
+            <div class="cd-line-box">
+              <div class="cd-line-header">
+                <div>
+                  <span class="cd-lbl">Línea Total y Tope 25% SBS</span>
+                  <div style="font-size:0.82rem; font-weight:700; color:var(--text);">
+                    ${isLineUnlocked
+                      ? (limit > 0 ? `Línea: ${formatLineMoney(limit)} · Tope 25%: <span style="color:var(--emerald);">${formatLineMoney(tope25)}</span>` : 'Sin línea configurada')
+                      : '🔒 Límites protegidos con contraseña'}
+                  </div>
+                </div>
+                <button class="btn-pin-lock" onclick="toggleLineLock()">
+                  ${isLineUnlocked ? '🔓 Ocultar' : '🔒 Ver Línea'}
+                </button>
+              </div>
+              ${isLineUnlocked && limit > 0 ? `
+                <div class="da-bar-wrap"><div class="da-bar-fill" style="width:${usoPct}%; background:${barCol};"></div></div>
+                <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:0.64rem; color:var(--text-muted);">
+                  <span>Uso actual: ${usoPct}% ${usoPct <= 25 ? '✓ Óptimo SBS' : `· Exceso: ${formatMoney(debt - tope25)}`}</span>
+                  <span>Disponible: ${formatLineMoney(Math.max(0, limit - debt))}</span>
+                </div>` : ''}
+            </div>
+
+            <!-- BLOQUE 3: HISTORIAL Y ACCIONES -->
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:var(--text-dim); text-transform:uppercase; font-weight:700;">Historial de Pagos (${cardPagos.length})</span>
-              ${cardPagos.length > 0 ? `<button class="btn-clear-card-pays" data-id="${t.id}" style="background:none;border:none;color:var(--rose);font-size:0.7rem;font-weight:700;cursor:pointer;">Vaciar pagos de esta tarjeta</button>` : ''}
+              <span style="font-family:'JetBrains Mono',monospace; font-size:0.58rem; color:var(--text-dim); text-transform:uppercase; font-weight:700;">Abonos Recientes (${cardPagos.length})</span>
+              ${cardPagos.length > 0 ? `<button class="btn-clear-card-pays" data-id="${t.id}" style="background:none;border:none;color:var(--rose);font-size:0.68rem;font-weight:700;cursor:pointer;">Vaciar historial</button>` : ''}
             </div>
             <div class="history-list">${histHTML}</div>
 
             <div class="card-actions">
-              ${!t.paid
-                ? `<button class="card-btn pay btn-pay-action" data-id="${t.id}">Registrar Pago</button>`
-                : `<button class="card-btn edit btn-undo-paid" data-id="${t.id}">Marcar Pendiente</button>`}
-              <button class="card-btn edit btn-edit-action" data-id="${t.id}">Editar / Línea</button>
+              <div style="display:flex; gap:6px;">
+                ${!t.paid
+                  ? `<button class="card-btn pay btn-pay-action" data-id="${t.id}">Registrar Pago</button>`
+                  : `<button class="card-btn edit btn-undo-paid" data-id="${t.id}">Marcar Pendiente</button>`}
+                <button class="card-btn edit btn-edit-action" data-id="${t.id}">Editar</button>
+              </div>
               <button class="card-btn del btn-del-action" data-id="${t.id}">Eliminar</button>
             </div>
           </div>
@@ -1101,6 +1231,9 @@ function renderAll() {
 
 window.addEventListener('storage', () => { loadLocalData(); renderAll(); });
 window.addEventListener('DOMContentLoaded', () => {
+  /* Fuerza el modo privacidad activo al abrir Tarjetas */
+  isPrivacyMode = true;
+  localStorage.setItem('pierovski_privacy', 'true');
   applyHeaderIcons();
   loadLocalData();
   autoResetCards();
