@@ -45,7 +45,7 @@ body.dark-theme {
   --shadow-dock: 0 18px 40px rgba(0,0,0,0.55);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { background-color: var(--bg); background-image: var(--bg-aurora); background-attachment: fixed; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; padding-bottom: 105px; font-variant-numeric: tabular-nums; overflow-x: hidden; }
+body { background-color: var(--bg); background-image: var(--bg-aurora); background-attachment: fixed; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; padding-bottom: 105px; font-variant-numeric: tabular-nums; overflow-x: hidden; transition: background-color 0.3s var(--ease), color 0.3s var(--ease); }
 #offlineBanner { display: none; background: var(--amber); color: #000; text-align: center; padding: 5px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; font-weight: 700; }
 
 header { position: sticky; top: 0; z-index: 100; background: var(--surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 16px; }
@@ -68,7 +68,7 @@ main { max-width: 760px; margin: 0 auto; padding: 14px 16px 0; }
 .hero-card { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: var(--r-2xl); padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-card); position: relative; overflow: hidden; }
 .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--violet), var(--emerald)); }
 
-/* 4 PESTAÑAS DE PILARES SIN AUTO */
+/* 4 PESTAÑAS DE PILARES */
 .pillar-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-bottom: 14px; }
 .p-tab { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.68rem; font-weight: 700; padding: 7px 4px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface2); color: var(--text-muted); cursor: pointer; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px; transition: 0.2s; overflow: hidden; text-overflow: ellipsis; }
 .p-tab svg { width: 12px; height: 12px; flex-shrink: 0; stroke-width: 2.1; }
@@ -88,20 +88,24 @@ main { max-width: 760px; margin: 0 auto; padding: 14px 16px 0; }
 .btn-skip-mission { height: 38px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--border-strong); background: var(--surface2); color: var(--text-muted); font-size: 0.74rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 .btn-timer-chip { margin-left: auto; height: 38px; padding: 0 12px; border-radius: 12px; background: var(--amber-soft); color: var(--amber); border: 1px solid rgba(217,119,6,0.3); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 
-.credit-pulse-bar { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 12px 15px; margin-bottom: 16px; box-shadow: var(--shadow-card); display: flex; align-items: center; justify-content: space-between; gap: 10px; text-decoration: none; color: inherit; }
-.cp-left { display: flex; align-items: center; gap: 10px; }
-.cp-icon-box { width: 36px; height: 36px; border-radius: 10px; background: var(--cyan-soft); color: var(--cyan); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.cp-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); display: block; }
-.cp-main-val { font-family: 'Outfit', sans-serif; font-size: 0.98rem; font-weight: 700; color: var(--text); }
-.cp-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
-.cp-sbs-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 7px; background: var(--emerald-soft); color: var(--emerald); }
-.cp-best-card { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
+/* PULSO FINANCIERO DUAL: TARJETAS + BÓVEDA QUINCENAL */
+.fin-pulse-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 10px; margin-bottom: 16px; }
+.credit-pulse-bar { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 12px 14px; box-shadow: var(--shadow-card); display: flex; align-items: center; justify-content: space-between; gap: 8px; text-decoration: none; color: inherit; cursor: pointer; transition: border-color 0.2s var(--ease); }
+.credit-pulse-bar:hover { border-color: var(--border-strong); }
+.cp-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.cp-icon-box { width: 35px; height: 35px; border-radius: 10px; background: var(--cyan-soft); color: var(--cyan); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cp-icon-box.vault { background: var(--emerald-soft); color: var(--emerald); }
+.cp-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); display: block; }
+.cp-main-val { font-family: 'Outfit', sans-serif; font-size: 0.96rem; font-weight: 700; color: var(--text); white-space: nowrap; }
+.cp-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
+.cp-sbs-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 700; padding: 2px 7px; border-radius: 7px; background: var(--emerald-soft); color: var(--emerald); }
+.cp-best-card { font-size: 0.68rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
 
 .sec-header-row { display: flex; justify-content: space-between; align-items: center; margin: 0 2px 8px; }
 .sec-title { font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--text); }
 .sec-counter { font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; font-weight: 600; color: var(--text-dim); }
 
-/* CUADROS DE HÁBITOS MÁS PEQUEÑOS Y 100% SIMÉTRICOS */
+/* CUADROS DE HÁBITOS SIMÉTRICOS */
 .habits-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; }
 .habit-card { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 14px; height: 80px; padding: 8px 4px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; box-shadow: var(--shadow-card); transition: all 0.2s var(--ease); user-select: none; }
 .habit-card:active { transform: scale(0.95); }
@@ -123,7 +127,7 @@ main { max-width: 760px; margin: 0 auto; padding: 14px 16px 0; }
 .habit-card.done[data-p="gym"] { border-color: var(--emerald); background: var(--emerald-soft); }
 .habit-card.done[data-p="gym"] .hc-icon-wrap { background: var(--emerald); color: #fff; }
 
-/* CALENDARIO 3 SEMANAS COMPACTO (NO SE SALE A LA DERECHA) */
+/* CALENDARIO 3 SEMANAS COMPACTO */
 .bento-analytics { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: var(--r-2xl); padding: 14px; box-shadow: var(--shadow-card); width: 100%; overflow: hidden; }
 .hm-grid-21 { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-bottom: 14px; width: 100%; }
 .hm-cell { min-width: 0; height: 36px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
@@ -157,6 +161,7 @@ main { max-width: 760px; margin: 0 auto; padding: 14px 16px 0; }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media (max-width: 620px) {
+  .fin-pulse-grid { grid-template-columns: 1fr; }
   .pillars-progress-grid { grid-template-columns: 1fr; }
   .dock-link span.dl-txt { display: none; }
   .dock-link.active span.dl-txt { display: inline; }
@@ -178,7 +183,7 @@ main { max-width: 760px; margin: 0 auto; padding: 14px 16px 0; }
         <span id="modeIconWrap"></span>
         <span id="modeTextWrap">Normal</span>
       </button>
-      <button class="btn-icon-svg active" id="privacyToggleBtn" onclick="togglePrivacy()" title="Privacidad activa por defecto">
+      <button class="btn-icon-svg" id="privacyToggleBtn" onclick="togglePrivacy()" title="Privacidad">
         <span id="eyeIconWrap"></span>
       </button>
       <button class="btn-icon-svg" id="themeToggleBtn" onclick="toggleDarkMode()" title="Tema">
@@ -233,21 +238,40 @@ main { max-width: 760px; margin: 0 auto; padding: 14px 16px 0; }
     </div>
   </section>
 
-  <a href="tarjetas.html" class="credit-pulse-bar">
-    <div class="cp-left">
-      <div class="cp-icon-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+  <!-- PULSO FINANCIERO DUAL: TARJETAS + BÓVEDA DE LIQUIDEZ -->
+  <div class="fin-pulse-grid">
+    <a href="tarjetas.html" class="credit-pulse-bar">
+      <div class="cp-left">
+        <div class="cp-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        </div>
+        <div>
+          <span class="cp-lbl">Pulso Tarjetas</span>
+          <span class="cp-main-val" id="cmdDebtVal">S/ •••</span>
+        </div>
       </div>
-      <div>
-        <span class="cp-lbl">Pulso de Tarjetas</span>
-        <span class="cp-main-val" id="cmdDebtVal">S/ •••</span>
+      <div class="cp-right">
+        <span class="cp-sbs-pill" id="cmdSbsBadge">Uso SBS: 0%</span>
+        <span class="cp-best-card" id="cmdBestCardTxt">Ver tarjetas →</span>
+      </div>
+    </a>
+
+    <div class="credit-pulse-bar" onclick="updateBovedaPrompt()" title="Toca para actualizar tu Bóveda de Ahorro (Meta S/ 1,800)">
+      <div class="cp-left">
+        <div class="cp-icon-box vault">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M7 8h.01M17 8h.01M7 16h.01M17 16h.01"/></svg>
+        </div>
+        <div>
+          <span class="cp-lbl">Bóveda Liquidez</span>
+          <span class="cp-main-val" id="cmdVaultVal">S/ •••</span>
+        </div>
+      </div>
+      <div class="cp-right">
+        <span class="cp-sbs-pill" id="cmdVaultPct">0% de S/ 1.8k</span>
+        <span class="cp-best-card">+ Abonar S/ 300</span>
       </div>
     </div>
-    <div class="cp-right">
-      <span class="cp-sbs-pill" id="cmdSbsBadge">Uso SBS: 0%</span>
-      <span class="cp-best-card" id="cmdBestCardTxt">Ver tarjetas →</span>
-    </div>
-  </a>
+  </div>
 
   <div class="sec-header-row">
     <span class="sec-title">Hábitos de Hoy</span>
@@ -308,12 +332,19 @@ main { max-width: 760px; margin: 0 auto; padding: 14px 16px 0; }
 <script>
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 
-const firebaseConfig = { apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g", authDomain: "pierovski-center.firebaseapp.com", databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com", projectId: "pierovski-center" };
+const firebaseConfig = {
+  apiKey: "AIzaSyAyHBUWX-bs89MAUR8F_C92MGsqB85et1g",
+  authDomain: "pierovski-center.firebaseapp.com",
+  databaseURL: "https://pierovski-center-default-rtdb.firebaseio.com",
+  projectId: "pierovski-center"
+};
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 const PLAN_IDS = ['topo', 'pueblo', 'fin', 'gym'];
 const PLAN_NAMES = { topo: 'Topo + IA', pueblo: 'Mi Pueblo', fin: 'Finanzas', gym: 'Symmetry' };
+const VAULT_KEY = 'pierovski_boveda_v1';
+const VAULT_GOAL = 1800;
 
 const SVG_ICONS = {
   bolt: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
@@ -324,9 +355,11 @@ const SVG_ICONS = {
   moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`
 };
 
-/* OJO SIEMPRE ACTIVADO POR DEFECTO AL ENTRAR */
-let isPrivacyMode = true;
-localStorage.setItem('pierovski_privacy', 'true');
+/* Respeta el estado de privacidad elegido por el usuario (activo por defecto en la primera visita) */
+if (localStorage.getItem('pierovski_privacy') === null) {
+  localStorage.setItem('pierovski_privacy', 'true');
+}
+let isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
 
 let isSurvivalMode = JSON.parse(localStorage.getItem('survival_mode_v1') || 'false');
 let selectedFocusPillar = 'topo';
@@ -371,6 +404,17 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
+function updateNetworkStatus() {
+  const banner = document.getElementById('offlineBanner');
+  const dot = document.getElementById('cloudStatus');
+  if (!navigator.onLine) {
+    if (banner) banner.style.display = 'block';
+    if (dot) dot.className = 'sync-dot';
+  } else {
+    if (banner) banner.style.display = 'none';
+  }
+}
+
 function toggleSurvivalMode() {
   isSurvivalMode = !isSurvivalMode;
   localStorage.setItem('survival_mode_v1', JSON.stringify(isSurvivalMode));
@@ -384,7 +428,7 @@ function toggleDarkMode() {
 }
 function togglePrivacy() {
   isPrivacyMode = !isPrivacyMode;
-  localStorage.setItem('pierovski_privacy', isPrivacyMode);
+  localStorage.setItem('pierovski_privacy', String(isPrivacyMode));
   applyTopBarState(); processCommandData();
 }
 function applyTopBarState() {
@@ -403,6 +447,27 @@ function applyTopBarState() {
   }
   document.getElementById('themeIconWrap').innerHTML = isDark ? SVG_ICONS.sun : SVG_ICONS.moon;
   document.getElementById('timerChipTxt').textContent = isSurvivalMode ? '2m' : '45m';
+}
+
+function updateBovedaPrompt() {
+  const currentVault = parseFloat(localStorage.getItem(VAULT_KEY)) || 0;
+  const nextVal = prompt(
+    `Bóveda de Liquidez (Meta trimestral: S/ ${VAULT_GOAL})\nSaldo actual: S/ ${currentVault.toFixed(2)}\n\nIngresa el nuevo saldo total ahorrado en tu Bóveda (S/):`,
+    (currentVault + 300).toFixed(2)
+  );
+  if (nextVal === null) return;
+  const parsed = parseFloat(nextVal);
+  if (isNaN(parsed) || parsed < 0) return showToast('Monto inválido');
+
+  localStorage.setItem(VAULT_KEY, String(parsed));
+  const ts = Date.now();
+  localStorage.setItem('plan_last_update', ts);
+  if (navigator.onLine && db) {
+    db.ref('pierovski/plan').update({ lastUpdated: ts, boveda: parsed }).catch(() => {});
+  }
+  playFeedback(660);
+  processCommandData();
+  showToast('Bóveda actualizada');
 }
 
 function selectFocusPillar(p) {
@@ -436,7 +501,6 @@ function parseMissionText(rawTask) {
   return { headline, detail: isSurvivalMode ? microFull : detail };
 }
 
-/* BLOQUEO ESTRICTO DE NIVEL: SOLO MUESTRA MISIONES DEL NIVEL ACTUAL SIN COMPLETAR */
 function processCommandData() {
   const radar = { topo: 0, pueblo: 0, fin: 0, gym: 0 };
   const activeLevelMissionsByPillar = { topo: [], pueblo: [], fin: [], gym: [] };
@@ -519,7 +583,13 @@ function processCommandData() {
   sbsBadge.textContent = `Uso SBS: ${sbsRatio}%`;
   sbsBadge.style.background = sbsRatio <= 25 ? 'var(--emerald-soft)' : (sbsRatio <= 50 ? 'var(--amber-soft)' : 'var(--rose-soft)');
   sbsBadge.style.color = sbsRatio <= 25 ? 'var(--emerald)' : (sbsRatio <= 50 ? 'var(--amber)' : 'var(--rose)');
-  document.getElementById('cmdBestCardTxt').textContent = bestCard ? `Mejor hoy: ${bestCard.name} (${maxFree}d)` : 'Configurar tarjetas →';
+  document.getElementById('cmdBestCardTxt').textContent = bestCard ? `Mejor hoy: ${bestCard.name} (${maxFree}d)` : 'Configurar →';
+
+  // Pulso Bóveda Quincenal
+  const vaultSaved = parseFloat(localStorage.getItem(VAULT_KEY)) || 0;
+  const vaultPct = Math.min(100, Math.round((vaultSaved / VAULT_GOAL) * 100));
+  document.getElementById('cmdVaultVal').textContent = formatMoney(vaultSaved);
+  document.getElementById('cmdVaultPct').textContent = `${vaultPct}% de S/ 1.8k`;
 
   // Hábitos
   const mondayKey = getCurrentWeekMondayKey();
@@ -539,11 +609,6 @@ function processCommandData() {
   document.getElementById('todayHabitsCount').textContent = `${doneToday} de 4 hoy`;
 
   const dailyLog = ls_get('pierovski_daily_log', {});
-  const tKey = todayStr();
-  if (doneToday > 0) {
-    dailyLog[tKey] = Math.max(dailyLog[tKey] || 0, doneToday);
-    localStorage.setItem('pierovski_daily_log', JSON.stringify(dailyLog));
-  }
   render21DayHeatmap(dailyLog);
   PLAN_IDS.forEach(p => {
     const pct = Math.round((radar[p] || 0) * 100);
@@ -569,7 +634,11 @@ function completeHeroMission() {
   const ts = Date.now();
   localStorage.setItem('plan_last_update', ts);
   if (navigator.onLine && db) {
-    db.ref('pierovski/plan').update({ lastUpdated: ts, [`tasks/${pillar}/${wi}-${ti}`]: true, [`dailyLog/${tKey}`]: dailyLog[tKey] }).catch(() => {});
+    db.ref('pierovski/plan').update({
+      lastUpdated: ts,
+      [`tasks/${pillar}/${wi}-${ti}`]: true,
+      [`dailyLog/${tKey}`]: dailyLog[tKey]
+    }).catch(() => {});
   }
   playFeedback(700);
   showToast('Misión completada');
@@ -595,7 +664,11 @@ function quickToggleTodayHabit(planId) {
   const ts = Date.now();
   localStorage.setItem('plan_last_update', ts);
   if (navigator.onLine && db) {
-    db.ref('pierovski/plan').update({ lastUpdated: ts, [`habitDays/${planId}/${mondayKey}/${todayIdx}`]: nextBool, [`dailyLog/${tKey}`]: nextVal > 0 ? nextVal : null }).catch(() => {});
+    db.ref('pierovski/plan').update({
+      lastUpdated: ts,
+      [`habitDays/${planId}/${mondayKey}/${todayIdx}`]: nextBool,
+      [`dailyLog/${tKey}`]: nextVal > 0 ? nextVal : null
+    }).catch(() => {});
   }
   playFeedback(nextBool ? 640 : 420);
   processCommandData();
@@ -629,6 +702,7 @@ function render21DayHeatmap(dailyLog) {
 }
 
 async function syncFromCloud() {
+  updateNetworkStatus();
   const planFiles = { topo: 'plan_topografia.json', pueblo: 'plan_pueblo.json', fin: 'plan_finanzas.json', gym: 'plan_gimnasio.json' };
   for (const [pid, file] of Object.entries(planFiles)) {
     if (!localStorage.getItem(`cache_${pid}`)) {
@@ -643,15 +717,36 @@ async function syncFromCloud() {
     document.getElementById('cloudStatus').className = 'sync-dot online';
     if (pSnap.exists()) {
       const pData = pSnap.val();
-      if ((pData.tarjetasLastUpdated || 0) >= (parseInt(localStorage.getItem('t_last_update')) || 0)) {
+      const cloudCardTs = pData.tarjetasLastUpdated || 0;
+      const localCardTs = parseInt(localStorage.getItem('t_last_update')) || 0;
+      if (cloudCardTs >= localCardTs) {
         if (pData.tarjetasPremiumV3) localStorage.setItem('tarjetasPremiumV3', JSON.stringify(pData.tarjetasPremiumV3));
         if (pData.pagosTarjetasV1) localStorage.setItem('pagosTarjetasV1', JSON.stringify(pData.pagosTarjetasV1));
+        localStorage.setItem('t_last_update', cloudCardTs);
       }
-      if (pData.plan && (pData.plan.lastUpdated || 0) >= (parseInt(localStorage.getItem('plan_last_update')) || 0)) {
-        if (pData.plan.tasks) PLAN_IDS.forEach(k => { if (pData.plan.tasks[k]) localStorage.setItem(`${k}_tasks_v1`, JSON.stringify(pData.plan.tasks[k])); });
-        if (pData.plan.customPlans) PLAN_IDS.forEach(k => { if (pData.plan.customPlans[k]) localStorage.setItem(`cache_${k}`, JSON.stringify(pData.plan.customPlans[k])); });
-        if (pData.plan.habitDays) localStorage.setItem('pierovski_habit_days_v1', JSON.stringify(pData.plan.habitDays));
-        if (pData.plan.dailyLog) localStorage.setItem('pierovski_daily_log', JSON.stringify(pData.plan.dailyLog));
+
+      if (pData.plan) {
+        const cloudPlanTs = pData.plan.lastUpdated || 0;
+        const localPlanTs = parseInt(localStorage.getItem('plan_last_update')) || 0;
+        if (cloudPlanTs >= localPlanTs) {
+          if (pData.plan.tasks) PLAN_IDS.forEach(k => { if (pData.plan.tasks[k]) localStorage.setItem(`${k}_tasks_v1`, JSON.stringify(pData.plan.tasks[k])); });
+          if (pData.plan.customPlans) PLAN_IDS.forEach(k => { if (pData.plan.customPlans[k]) localStorage.setItem(`cache_${k}`, JSON.stringify(pData.plan.customPlans[k])); });
+          if (pData.plan.habitDays) localStorage.setItem('pierovski_habit_days_v1', JSON.stringify(pData.plan.habitDays));
+          if (pData.plan.dailyLog) localStorage.setItem('pierovski_daily_log', JSON.stringify(pData.plan.dailyLog));
+          if (pData.plan.boveda !== undefined) localStorage.setItem(VAULT_KEY, String(pData.plan.boveda));
+          localStorage.setItem('plan_last_update', cloudPlanTs);
+        } else {
+          // Si el progreso local es más reciente que la nube, sube los cambios locales
+          const tasksPayload = {};
+          PLAN_IDS.forEach(k => { tasksPayload[k] = ls_get(`${k}_tasks_v1`, {}); });
+          db.ref('pierovski/plan').update({
+            lastUpdated: localPlanTs,
+            tasks: tasksPayload,
+            habitDays: ls_get('pierovski_habit_days_v1', {}),
+            dailyLog: ls_get('pierovski_daily_log', {}),
+            boveda: parseFloat(localStorage.getItem(VAULT_KEY)) || 0
+          }).catch(() => {});
+        }
       }
     }
     if (cSnap.exists()) {
@@ -680,7 +775,16 @@ function tickDW() {
 }
 function abortDW() { clearInterval(dwInt); dwInt = null; localStorage.removeItem('pierovski_dw_end'); document.getElementById('dwOverlay').classList.remove('open'); }
 
-window.addEventListener('storage', processCommandData);
+window.addEventListener('storage', (e) => {
+  if (e.key === 'pierovski_privacy') {
+    isPrivacyMode = localStorage.getItem('pierovski_privacy') === 'true';
+    applyTopBarState();
+  }
+  processCommandData();
+});
+window.addEventListener('online', syncFromCloud);
+window.addEventListener('offline', updateNetworkStatus);
+
 window.addEventListener('DOMContentLoaded', () => {
   renderElegantDate(); applyTopBarState(); processCommandData(); syncFromCloud();
   if ((parseInt(localStorage.getItem('pierovski_dw_end')) || 0) > Date.now()) launchDeepWork();

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pierovski-os-v14';
+const CACHE_NAME = 'pierovski-os-v15.1';
 
 const ASSETS = [
   './',
@@ -7,11 +7,7 @@ const ASSETS = [
   'plan.html',
   'tarjetas.html',
   'manifest.json',
-  'icon.jpg',
-  'plan_finanzas.json',
-  'plan_gimnasio.json',
-  'plan_topografia.json',
-  'plan_pueblo.json'
+  'icon.jpg'
 ];
 
 self.addEventListener('install', (e) => {
@@ -35,16 +31,30 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
+  if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
-  if (url.origin !== location.origin) return;
 
-  e.respondWith(
-    fetch(e.request)
-      .then((res) => {
-        const clone = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
-        return res;
+  // Ignorar llamadas en vivo a Firebase para no interferir con la base de datos
+  if (url.hostname.includes('firebaseio.com') || url.hostname.includes('googleapis.com/identitytoolkit')) {
+    return;
+  }
+
+  // Estrategia Stale-While-Revalidate para archivos locales y fuentes
+  if (url.origin === location.origin || url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com')) {
+    e.respondWith(
+      caches.open(CACHE_NAME).then(async (cache) => {
+        const cachedResponse = await cache.match(e.request);
+        const networkFetch = fetch(e.request)
+          .then((res) => {
+            if (res && res.status === 200) {
+              cache.put(e.request, res.clone());
+            }
+            return res;
+          })
+          .catch(() => cachedResponse);
+
+        return cachedResponse || networkFetch;
       })
-      .catch(() => caches.match(e.request))
-  );
+    );
+  }
 });
